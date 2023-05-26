@@ -30,6 +30,8 @@ dependencies {
 	implementation group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.1'
 	// https://mvnrepository.com/artifact/org.apache.tiles/tiles-core
 	implementation group: 'org.apache.tiles', name: 'tiles-core', version: '3.0.1'
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
 }
 
 tasks.named('test') {
