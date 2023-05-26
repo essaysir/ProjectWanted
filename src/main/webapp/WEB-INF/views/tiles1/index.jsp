@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<script src="OwlCarousel/js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="/OwlCarousel/js/owl.carousel.min.js" type="text/javascript"></script>
 
 
 <!-- owl carousel -->
-<link rel="stylesheet" href="OwlCarousel/css/owl.carousel.min.css" type="text/css"/>
-<link rel="stylesheet" href="OwlCarousel/css/owl.theme.default.min.css" type="text/css"/>
+<link rel="stylesheet" href="/OwlCarousel/css/owl.carousel.min.css" type="text/css"/>
+<link rel="stylesheet" href="/OwlCarousel/css/owl.theme.default.min.css" type="text/css"/>
 
 
 <!-- slick 이용하기 위한 링크 -->
@@ -530,13 +530,13 @@ function gominFunction() {
 		<div class="my-1">
 		    <div class="owl-carousel owl-theme">
 		        <div class="item">
-		        	<img src="images/main_image/계약서.jpg">
+		        	<img src="/images/main_image/계약서.jpg">
 		        </div>
 		        <div class="item">
-		        	<img src="images/main_image/월급복권.jpg">
+		        	<img src="/images/main_image/월급복권.jpg">
 		        </div>
 		        <div class="item">
-		        	<img src="images/main_image/휴대폰결제.jpg">
+		        	<img src="/images/main_image/휴대폰결제.jpg">
 		        </div>
 		    </div>
 		</div>
@@ -546,24 +546,24 @@ function gominFunction() {
 			<div class="main_button_text"><i class="fas fa-search"></i>채용 중인 포지션 보러가기</div>
 		</div>
 	</div>
-	<div class="mid_recommend" style="background-image: url(images/main_image/optimize.png);">
+	<div class="mid_recommend" style="background-image: url(/images/main_image/optimize.png);">
 		<div class="mr-t">
-			<img src="images/main_image/다운로드.png" style="width:80px; height: 80px;">
-			<img src="images/main_image/logo-wantedai.png" style="width:170px; height: 27.5px;">
+			<img src="/images/main_image/다운로드.png" style="width:80px; height: 80px;">
+			<img src="/images/main_image/logo-wantedai.png" style="width:170px; height: 27.5px;">
 		</div>
 		<div class="mr-m">
-			<h2 class="mr-h2"><img src="images/main_image/logo-wantedai.png" style="width:114px; height: 18.5px;">가 제안하는 합격률 높은 포지션</h2>
+			<h2 class="mr-h2"><img src="/images/main_image/logo-wantedai.png" style="width:114px; height: 18.5px;">가 제안하는 합격률 높은 포지션</h2>
 		</div>
 		<div class="mr-b">
 			<h3 class="mr-h3">회원가입하면 포지션을 추천해드려요.</h3>
 			<button type="button">지금 시작하기</button>
 		</div>
 	</div>
-	<div class="main_gomin" style="background-image: url('images/main_image/banner-back-pc-jobsfeed.png'); background-size: cover;"
+	<div class="main_gomin" style="background-image: url('/images/main_image/banner-back-pc-jobsfeed.png'); background-size: cover;"
 			onclick="gominFunction()">
 		<div class="gomin_content">
 		<p class="gomin_p">내 연차에 이 연봉 괜찮은가? 궁금할 땐</p>
-		<img class="gomin" src="images/main_image/gomin.png">
+		<img class="gomin" src="/images/main_image/gomin.png">
 		<strong class="gomin_st">커리어 중간점검</strong>		
 		</div>
 	</div>
@@ -592,37 +592,37 @@ function gominFunction() {
 			<div class="company_content">
 				<div class="cards">
 					<div class="cards-head">
-						<img src="images/main_image/card1.png">
+						<img src="/images/main_image/card1.png">
 					</div>
 					<div class="cards-body ">
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 						<p class="company-name">천세산업</p><p class="company-job">제조</p>
 					</div>
 				</div>
 				<div class="cards">
 					<div class="cards-head">
-						<img src="images/main_image/card2.png">
+						<img src="/images/main_image/card2.png">
 					</div>
 					<div class="cards-body ">
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 						<p class="company-name">천세산업</p><p class="company-job">제조</p>
 					</div>
 				</div>
 				<div class="cards">
 					<div class="cards-head">
-						<img src="images/main_image/card3.png">
+						<img src="/images/main_image/card3.png">
 					</div>
 					<div class="cards-body ">
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 						<p class="company-name">천세산업</p><p class="company-job">제조</p>
 					</div>
 				</div>
 				<div class="cards">
 					<div class="cards-head">
-						<img src="images/main_image/card4.png">
+						<img src="/images/main_image/card4.png">
 					</div>
 					<div class="cards-body ">
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 						<p class="company-name">천세산업</p><p class="company-job">제조</p>
 					</div>
 				</div>
@@ -650,37 +650,37 @@ function gominFunction() {
 			<div class="company_content2">
 				<div class="cards">
 					<div class="cards-head">
-						<img src="images/main_image/card1.png">
+						<img src="/images/main_image/card1.png">
 					</div>
 					<div class="cards-body ">
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 						<p class="company-name">천세산업</p><p class="company-job">제조</p>
 					</div>
 				</div>
 				<div class="cards">
 					<div class="cards-head">
-						<img src="images/main_image/card2.png">
+						<img src="/images/main_image/card2.png">
 					</div>
 					<div class="cards-body ">
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 						<p class="company-name">천세산업</p><p class="company-job">제조</p>
 					</div>
 				</div>
 				<div class="cards">
 					<div class="cards-head">
-						<img src="images/main_image/card3.png">
+						<img src="/images/main_image/card3.png">
 					</div>
 					<div class="cards-body ">
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 						<p class="company-name">천세산업</p><p class="company-job">제조</p>
 					</div>
 				</div>
 				<div class="cards">
 					<div class="cards-head">
-						<img src="images/main_image/card4.png">
+						<img src="/images/main_image/card4.png">
 					</div>
 					<div class="cards-body ">
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 						<p class="company-name">천세산업</p><p class="company-job">제조</p>
 					</div>
 				</div>
@@ -700,35 +700,35 @@ function gominFunction() {
 			<div class="tema_content">
 				<div class="tcards col-md-4">
 					<div class="tcards-head">
-						<img src="<%=request.getContextPath()%>/resources/images/main_image/tema1.png">
+						<img src="/images/main_image/tema1.png">
 					</div>
 					<div class="tcards-body ">
 						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 					</div>
 				</div><div class="tcards col-md-4">
 					<div class="tcards-head">
-						<img src="images/main_image/tema2.png">
+						<img src="/images/main_image/tema2.png">
 					</div>
 					<div class="tcards-body ">
 						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 					</div>
 				</div><div class="tcards col-md-4">
 					<div class="tcards-head">
-						<img src="images/main_image/tema3.png">
+						<img src="/images/main_image/tema3.png">
 					</div>
 					<div class="tcards-body ">
 						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 					</div>
 				</div><div class="tcards col-md-4">
 					<div class="tcards-head">
-						<img src="images/main_image/tema4.png">
+						<img src="/images/main_image/tema4.png">
 					</div>
 					<div class="tcards-body ">
 						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
-						<img src="images/main_image/기업마크.jpg">
+						<img src="/images/main_image/기업마크.jpg">
 					</div>
 				</div>
 			</div>		
@@ -741,7 +741,7 @@ function gominFunction() {
 			<div class="bcard_list">
 				<div class="bcard col-md-4">
 					<div class="bcard_head">
-						<img src="images/main_image/bc1.png">
+						<img src="/images/main_image/bc1.png">
 					</div>
 					<div class="bcard-body">
 						<div class="bcard-title">[SINPLE] 슈즈 분야 SNS 및 컨텐츠 마케터</div>
@@ -752,7 +752,7 @@ function gominFunction() {
 				</div>
 				<div class="bcard col-md-4">
 					<div class="bcard_head">
-						<img src="images/main_image/bc2.png">
+						<img src="/images/main_image/bc2.png">
 					</div>
 					<div class="bcard-body">
 						<div class="bcard-title">[SINPLE] 슈즈 분야 SNS 및 컨텐츠 마케터</div>
@@ -763,7 +763,7 @@ function gominFunction() {
 				</div>
 				<div class="bcard col-md-4">
 					<div class="bcard_head">
-						<img src="images/main_image/bc3.png">
+						<img src="/images/main_image/bc3.png">
 					</div>
 					<div class="bcard-body">
 						<div class="bcard-title">[SINPLE] 슈즈 분야 SNS 및 컨텐츠 마케터</div>
@@ -774,7 +774,7 @@ function gominFunction() {
 				</div>
 				<div class="bcard col-md-4">
 					<div class="bcard_head">
-						<img src="images/main_image/bc4.png">
+						<img src="/images/main_image/bc4.png">
 					</div>
 					<div class="bcard-body">
 						<div class="bcard-title">[SINPLE] 슈즈 분야 SNS 및 컨텐츠 마케터</div>
