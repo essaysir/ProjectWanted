@@ -1,50 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style type="text/css">
-	h2.mypage-name{
-	    font-size: 20px;
-   		 font-weight: 700;
-    	color: #333;
-    	padding: 50px 0 20px;
-	}
-	ul.sidebarList{
-		list-style-type: none ;
-		padding : 0 ; 
-		text-align: center ;
-		padding : 42px 20px 30px 20px ;
-	}
-	
-	div.mypage-profile{
-		display: inline-block;
-	    position: relative;
-	    width: 77px;
-	    height: 77px;
-	    border-radius: 50%;
-	    background-size: cover;
-	    background-position: 50%;
-	    background-color : black ; 
-	}
-	a.profile-name{
-	  font-size: 18px; 
-	  line-height: 19px;
-      font-weight: 700;
-      color: black;
-	}
-	a.profile-email{
-	    font-size: 14px;
-   		 line-height: 16px;
-		color: #767676;
-	}
-	div.resume-status {
-	    background: #fff;
-	    border: 1px solid #e1e2e3;
-    	border-radius: 5px;
-    	margin: 0 0 20px;
-    	padding: 26px 0 34px;
-		height : 120px ;
-		display: block ; 
-	}
-	
+				h2.mypage-name{
+				    font-size: 20px;
+			   		 font-weight: 700;
+			    	color: #333;
+			    	padding: 50px 0 20px;
+				}
+				ul.sidebarList{
+					list-style-type: none ;
+					padding : 0px ; 
+					text-align: center ;
+				}
+				
+				div.mypage-profile{
+					display: inline-block;
+				    position: relative;
+				    width: 77px;
+				    height: 77px;
+				    border-radius: 50%;
+				    background-size: cover;
+				    background-position: 50%;
+				    background-color : black ; 
+				    margin-top: 45px; 
+				}
+				a.profile-name{
+				  font-size: 18px; 
+				  line-height: 19px;
+			      font-weight: 700;
+			      color: black;
+				}
+				a.profile-email{
+				    font-size: 14px;
+			   		 line-height: 16px;
+					color: #767676;
+				}
+				div.resume-status {
+				    background: #fff;
+				    border: 1px solid #e1e2e3;
+			    	border-radius: 5px;
+			    	margin: 0 0 20px;
+			    	padding: 26px 0 34px;
+					height : 120px ;
+					display: block ; 
+				}
+				
 </style>    
 
 <script type="text/javascript">
@@ -67,11 +67,12 @@
 						</ul>
 				</li>
 				
-				<li class="border-top" style="height: 80px;">
-					지원현황<span class="badge bg-primary rounded-pill">14</span>
+				<li class="border-top" style="height: 80px; line-height: 5;">
+					지원현황<span class="badge bg-primary rounded-pill" style="margin-left:10px;">14</span>
+					
 				</li>
 				
-				<li class="border-top" style="height: 80px;">
+				<li class="border-top" style="height: 80px; line-height: 5;" >
 				계정설정
 				</li>
 			
