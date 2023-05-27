@@ -9,7 +9,10 @@
 	<select id="test_select" resultType="String">
 		select tag_name from tbl_tag where tag_code = 1 
 	</select>
-
+	
+	<select id="getJob" resultType="String">
+		select job_name from tbl_job		
+	</select>
 
 
 

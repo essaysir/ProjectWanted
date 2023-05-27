@@ -6,6 +6,59 @@
 		
 		setHeaderEvent();
 		
+		$.ajax({
+			url:"/getDuty",
+				type:"get",
+			dataType: "json" ,
+			success: function(json){
+					<%--  === #112. 검색어 입력시 자동글 완성하기 7  === --%>
+					console.log(JSON.stringify(json)); 
+/* 					<li>
+			        <a id="Instant" class="dropdown-item" href="#">
+			        	개발
+			        </a>
+			        <div class="header-list" style="border: solid 2px white;" id="show2">
+			        <ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 100%; z-index: 2; width: 160px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
+		     			   	<li><a href="#"><span class="li-category">프론트엔드 개발자</span></a></li>
+		    				<li><a href="#"><span class="li-category">C개발자</span></a></li>
+		    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
+		    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
+		    				<li><a href="#"><span class="li-category">분식</span></a></li>
+		    				<li><a href="#"><span class="li-category">치킨</span></a></li>
+		    				<li><a href="#"><span class="li-category">피자</span></a></li>
+		    				<li><a href="#"><span class="li-category">전체</span></a></li>
+		    				<li><a href="#"><span class="li-category">브리또</span></a></li>
+		    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
+		    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
+		    				<li><a href="#"><span class="li-category">분식</span></a></li>
+		    				<li><a href="#"><span class="li-category">치킨</span></a></li>
+					</ul>
+					<ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 200%; z-index: 2; width: 160px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
+		     			   	<li><a href="#"><span class="li-category">프론트엔드 개발자</span></a></li>
+		    				<li><a href="#"><span class="li-category">C개발자</span></a></li>
+		    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
+		    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
+		    				<li><a href="#"><span class="li-category">분식</span></a></li>
+		    				<li><a href="#"><span class="li-category">치킨</span></a></li>
+		    				<li><a href="#"><span class="li-category">피자</span></a></li>
+		    				<li><a href="#"><span class="li-category">전체</span></a></li>
+		    				<li><a href="#"><span class="li-category">브리또</span></a></li>
+		    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
+		    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
+					</ul>
+					</div>	 */
+					
+			},
+			error: function(request, status, error){
+                  alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+             }
+			
+			
+			
+			
+			
+		})
+		
 		
 		
 	}); // END OF $(DOCUMENT).READY(FUNCTION(){
@@ -154,8 +207,7 @@
 						        </a>
 						        
 				        	</li>
-				        	
-				        	<li>
+				        		<li>
 						        <a id="Instant" class="dropdown-item" href="#">
 						        	개발
 						        </a>
@@ -189,6 +241,7 @@
 					    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
     							</ul>
     							</div>
+				        
 
     							
     											
