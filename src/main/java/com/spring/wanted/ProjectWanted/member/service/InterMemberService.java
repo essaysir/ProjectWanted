@@ -1,8 +1,9 @@
 package com.spring.wanted.ProjectWanted.member.service;
 
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 
-@Mapper
-public class InterMemberService {
-	
+public interface InterMemberService {
+
+	List<String> getJob(); // TBL_DUTY 에서 셀렉트 해오기 
+
 }
