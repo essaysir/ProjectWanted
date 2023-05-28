@@ -242,7 +242,7 @@ $(document).ready(function() {
 				<label class="con_title">직군선택</label><br>
 				<select class="job_select">
 				    <c:forEach var="map" items="${requestScope.JobList}">
-				    	<option value="${map.jobCode}">${map.jobName}</option>
+				    	<option value="${map.job_code}">${map.job_name}</option>
 				    </c:forEach>
 				    <%-- <option value="1">웹개발자</option>--%>
 				</select>
