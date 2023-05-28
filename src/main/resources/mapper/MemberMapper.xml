@@ -15,7 +15,7 @@
 	</select>
 
 	<select id="getDuty" resultType="String">
-		select duty_name from tbl_durwerwerwe
+		select duty_name from tbl_duty 
 	</select>
 
 
