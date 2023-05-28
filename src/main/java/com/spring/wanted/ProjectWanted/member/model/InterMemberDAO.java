@@ -6,4 +6,5 @@ public interface InterMemberDAO {
 
 	List<String> getJob();
 
+    List<String> getDuty();
 }

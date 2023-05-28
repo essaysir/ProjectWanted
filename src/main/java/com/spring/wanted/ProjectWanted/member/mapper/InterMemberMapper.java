@@ -10,6 +10,6 @@ public interface InterMemberMapper {
 	String test_select();
 
 	List<String> getJob();
-	 
-	
+
+    List<String> getDuty();
 }
