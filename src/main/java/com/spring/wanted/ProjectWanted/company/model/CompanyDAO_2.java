@@ -1,6 +1,7 @@
 package com.spring.wanted.ProjectWanted.company.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,9 +17,9 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 	private InterCompanyMapper_2 mapper;
 	
 	@Override
-	public List<String> getJobList() {
+	public List<Map<String, Object>> getJobList() {
 		
-		List<String> JobList = mapper.getJobList();
+		List<Map<String, Object>> JobList = mapper.getJobList();
 		
 		return JobList;
 	}

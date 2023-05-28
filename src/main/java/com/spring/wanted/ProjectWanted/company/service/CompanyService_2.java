@@ -1,6 +1,7 @@
 package com.spring.wanted.ProjectWanted.company.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,9 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	private InterCompanyDAO_2 cdao;
 	
 	@Override
-	public List<String> getJobList() {
+	public List<Map<String, Object>> getJobList() {
 
-		List<String> JobList = cdao.getJobList();
+		List<Map<String, Object>> JobList = cdao.getJobList();
 		
 		return JobList;
 	}
