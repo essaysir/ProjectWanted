@@ -11,13 +11,17 @@ import com.spring.wanted.ProjectWanted.company.model.InterCompanyDAO_2;
 @Service
 public class CompanyService_2 implements InterCompanyService_2 {
 	
+	private final InterCompanyDAO_2 cdao;
+	
 	@Autowired
-	private InterCompanyDAO_2 cdao;
+	private CompanyService_2(InterCompanyDAO_2 cdao) {
+		this.cdao = cdao;
+	}
 	
 	@Override
-	public List<Map<String, Object>> getJobList() {
+	public List<Map<String, String>> getJobList() {
 
-		List<Map<String, Object>> JobList = cdao.getJobList();
+		List<Map<String, String>> JobList = cdao.getJobList();
 		
 		return JobList;
 	}

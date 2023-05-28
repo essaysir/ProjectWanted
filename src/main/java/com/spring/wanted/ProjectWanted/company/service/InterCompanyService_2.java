@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface InterCompanyService_2 {
 
-	List<Map<String, Object>> getJobList();
+	List<Map<String, String>> getJobList();
 
 }
