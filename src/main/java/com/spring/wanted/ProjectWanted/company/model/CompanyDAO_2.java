@@ -16,7 +16,7 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 	private final InterCompanyMapper_2 mapper;
 	
 	@Autowired
-	private CompanyDAO_2(InterCompanyMapper_2 mapper) {
+	public CompanyDAO_2(InterCompanyMapper_2 mapper) {
 		this.mapper = mapper;
 	}
 	
