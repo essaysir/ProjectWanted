@@ -8,6 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface InterCompanyMapper_2 {
 
-	List<Map<String, Object>> getJobList();
+	List<Map<String, String>> getJobList();
 
 }

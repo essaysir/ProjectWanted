@@ -5,9 +5,13 @@
 <!-- ==== #29. 루트 엘리먼트 & 네임스페이스 설정(프로젝트 전체내에서 유일해야 한다.) ==== -->
 <!--  mapper 의 namespace(네임스페이스)가 중복되면, 작동하지 않는다. -->
 <mapper namespace="com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_2">
-
-	<select id="getJobList" resultType="String">
-		select job_code AS jobCode, job_name AS jobName
+	
+	<resultMap type="HashMap" id="getJobList_Map">
+		<result property="job_code" 	column="job_code" javaType="String" />
+		<result property="job_name" 	column="job_name" javaType="String" />
+	</resultMap>
+	<select id="getJobList" resultMap="getJobList_Map">
+		select job_code, job_name 
 		from tbl_job
 	</select>
 	
