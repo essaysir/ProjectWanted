@@ -14,7 +14,7 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	private final InterCompanyDAO_2 cdao;
 	
 	@Autowired
-	private CompanyService_2(InterCompanyDAO_2 cdao) {
+	public CompanyService_2(InterCompanyDAO_2 cdao) {
 		this.cdao = cdao;
 	}
 	
