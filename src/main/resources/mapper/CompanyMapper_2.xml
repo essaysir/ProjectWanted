@@ -7,7 +7,7 @@
 <mapper namespace="com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_2">
 
 	<select id="getJobList" resultType="String">
-		select job_code, job_name
+		select job_code AS jobCode, job_name AS jobName
 		from tbl_job
 	</select>
 	

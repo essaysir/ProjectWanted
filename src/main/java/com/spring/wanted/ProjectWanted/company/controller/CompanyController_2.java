@@ -1,6 +1,7 @@
 package com.spring.wanted.ProjectWanted.company.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +20,7 @@ public class CompanyController_2 {
 	@GetMapping(value="/wanted/recruit", produces = "text/plain;charset=UTF-8")
 	public String recruit(HttpServletRequest request){
 		
-		List<String> JobList = service.getJobList();
+		List<Map<String, Object>> JobList = service.getJobList();
 		
 		request.setAttribute("JobList", JobList);
 		
