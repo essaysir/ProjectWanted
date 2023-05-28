@@ -10,9 +10,14 @@ import com.spring.wanted.ProjectWanted.member.model.InterMemberDAO;
 @Service
 public class MemberService implements InterMemberService{
 
+
+	private final InterMemberDAO mdao ;
+
 	@Autowired
-	private InterMemberDAO mdao ; 
-	
+	public MemberService(InterMemberDAO mdao) {
+		this.mdao = mdao;
+	}
+
 	@Override
 	public List<String> getJob() {
 		List<String> JobList = mdao.getJob();
@@ -20,5 +25,11 @@ public class MemberService implements InterMemberService{
 		return JobList;
 	}
 
-	
+	@Override
+	public List<String> getDuty() {
+		List<String> dutyList = mdao.getDuty();
+		return dutyList ;
+	}
+
+
 }

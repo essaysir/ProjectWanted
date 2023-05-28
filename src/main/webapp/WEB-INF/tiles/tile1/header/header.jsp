@@ -3,61 +3,11 @@
  <% String ctxPath = request.getContextPath(); %>   
 <script type="text/javascript">
 	$(document).ready(function(){
-		
+
+		setMenuList();
 		setHeaderEvent();
 		
-		$.ajax({
-			url:"/getDuty",
-				type:"get",
-			dataType: "json" ,
-			success: function(json){
-					<%--  === #112. 검색어 입력시 자동글 완성하기 7  === --%>
-					console.log(JSON.stringify(json)); 
-/* 					<li>
-			        <a id="Instant" class="dropdown-item" href="#">
-			        	개발
-			        </a>
-			        <div class="header-list" style="border: solid 2px white;" id="show2">
-			        <ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 100%; z-index: 2; width: 160px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
-		     			   	<li><a href="#"><span class="li-category">프론트엔드 개발자</span></a></li>
-		    				<li><a href="#"><span class="li-category">C개발자</span></a></li>
-		    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
-		    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-		    				<li><a href="#"><span class="li-category">분식</span></a></li>
-		    				<li><a href="#"><span class="li-category">치킨</span></a></li>
-		    				<li><a href="#"><span class="li-category">피자</span></a></li>
-		    				<li><a href="#"><span class="li-category">전체</span></a></li>
-		    				<li><a href="#"><span class="li-category">브리또</span></a></li>
-		    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
-		    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-		    				<li><a href="#"><span class="li-category">분식</span></a></li>
-		    				<li><a href="#"><span class="li-category">치킨</span></a></li>
-					</ul>
-					<ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 200%; z-index: 2; width: 160px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
-		     			   	<li><a href="#"><span class="li-category">프론트엔드 개발자</span></a></li>
-		    				<li><a href="#"><span class="li-category">C개발자</span></a></li>
-		    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
-		    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-		    				<li><a href="#"><span class="li-category">분식</span></a></li>
-		    				<li><a href="#"><span class="li-category">치킨</span></a></li>
-		    				<li><a href="#"><span class="li-category">피자</span></a></li>
-		    				<li><a href="#"><span class="li-category">전체</span></a></li>
-		    				<li><a href="#"><span class="li-category">브리또</span></a></li>
-		    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
-		    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-					</ul>
-					</div>	 */
-					
-			},
-			error: function(request, status, error){
-                  alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-             }
-			
-			
-			
-			
-			
-		})
+
 		
 		
 		
@@ -81,9 +31,92 @@
 	} // END OF FUNCTION SETHEADEREVENT(){
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	 
-	
-	
+
+	function setMenuList() {
+		$.ajax({
+			url: "/getHeader",
+			type: "get",
+			dataType: "json",
+			success: function (json) {
+				<%--  === #112. 검색어 입력시 자동글 완성하기 7  === --%>
+				console.log(JSON.stringify(json));
+				let html;
+				html += " <ul style='padding: 0; list-style:none; '> "
+						+ "<li>"
+						+ "<a class='dropdown-item' href=''> "
+						+ " 직군전체 "
+						+ "</a>"
+						+ "</li>";
+
+				for (let x = 0; x < json.JobList.length; x++) {
+					// console.log(json.JobList[x]);
+					html += "<li>" +
+							"<a class='dropdown-item' href='#'>" +
+							json.JobList[x] +
+							"</a>" ;
+					for (let y = 0; y < json.dutyList.length; y++) {
+
+
+					}
+
+
+				}
+				/*				<ul style="padding: 0; list-style: none;">
+									<li>
+										<a id="ChickenBreast" class="dropdown-item" href="#">
+											직군전체
+										</a>
+									</li>
+
+									<li>
+										<a id="Instant" class="dropdown-item" href="#">
+											개발
+										</a>
+										<div class="header-list" style="border: solid 2px white;" id="show2">
+											<ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 100%; z-index: 2; width: 160px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
+												<li><a href="#"><span class="li-category">프론트엔드 개발자</span></a></li>
+												<li><a href="#"><span class="li-category">C개발자</span></a></li>
+												<li><a href="#"><span class="li-category">핫도그</span></a></li>
+												<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
+												<li><a href="#"><span class="li-category">분식</span></a></li>
+												<li><a href="#"><span class="li-category">치킨</span></a></li>
+												<li><a href="#"><span class="li-category">피자</span></a></li>
+												<li><a href="#"><span class="li-category">전체</span></a></li>
+												<li><a href="#"><span class="li-category">브리또</span></a></li>
+												<li><a href="#"><span class="li-category">핫도그</span></a></li>
+												<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
+												<li><a href="#"><span class="li-category">분식</span></a></li>
+												<li><a href="#"><span class="li-category">치킨</span></a></li>
+											</ul>
+											<ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 200%; z-index: 2; width: 160px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
+												<li><a href="#"><span class="li-category">프론트엔드 개발자</span></a></li>
+												<li><a href="#"><span class="li-category">C개발자</span></a></li>
+												<li><a href="#"><span class="li-category">핫도그</span></a></li>
+												<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
+												<li><a href="#"><span class="li-category">분식</span></a></li>
+												<li><a href="#"><span class="li-category">치킨</span></a></li>
+												<li><a href="#"><span class="li-category">피자</span></a></li>
+												<li><a href="#"><span class="li-category">전체</span></a></li>
+												<li><a href="#"><span class="li-category">브리또</span></a></li>
+												<li><a href="#"><span class="li-category">핫도그</span></a></li>
+												<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
+											</ul>
+										</div>
+
+
+
+
+									</li>*/
+
+
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+
+
+		});
+	}
 	
 	
 	
@@ -198,15 +231,14 @@
 				       		 <img  src="/resources/images/원티드로고.png" class="position-relative" style="width: 80px; margin-left:10px; top:-3px;"/>
 				      	</a>
 				      
-				      <div class="dropdown-menu" aria-labelledby="navbardrop">
+				      <div id="menu-list"class="dropdown-menu" aria-labelledby="navbardrop">
 				        <ul style="padding: 0; list-style: none;">
-				        	
 				        	<li>
 						        <a id="ChickenBreast" class="dropdown-item" href="#">
 						        	직군전체
 						        </a>
-						        
 				        	</li>
+				        		
 				        		<li>
 						        <a id="Instant" class="dropdown-item" href="#">
 						        	개발

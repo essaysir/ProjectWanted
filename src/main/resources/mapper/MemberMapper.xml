@@ -14,6 +14,10 @@
 		select job_name from tbl_job		
 	</select>
 
+	<select id="getDuty" resultType="String">
+		select duty_name from tbl_durwerwerwe
+	</select>
+
 
 
 
