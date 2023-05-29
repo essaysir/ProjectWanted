@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<% String ctxPath = request.getContextPath(); %>     
+    pageEncoding="UTF-8"%>  
     
 <style type="text/css">
 	
 	body{
 		margin: 0px;
+	}
+	
+	.main1 .container {
+	  display: grid;
+	  grid-template-columns: repeat(2, 1fr);
+	  grid-gap: 15px;
 	}
 	
 	.main2 {
@@ -72,7 +76,7 @@
 
 
 	<section class="topBanner" style="height: 430px;">
-		<img src="<%= ctxPath%>/resources/images/resume_list/resumeHome2.png" width="100%" height="430" style="position:absolute;" alt="배너이미지" />
+		<img src="/images/resume_list/resumeHome2.png" width="100%" height="430" style="position:absolute;" alt="배너이미지" />
 		<h1 id="info" style="font-size: 35pt; padding: 100px 0 20px 0;">합격을 부르는 이력서</h1>
 		<h2 id="info" style="font-size: 15pt;">
 		원티드 이력서로 지원 시 <br> 일반 이력서보다 서류 합격률이 2배 높아집니다.</h2>
@@ -85,16 +89,16 @@
 	<section class="main1" style="height:1250px;">
 		<h1 class="title" style="padding: 80px 0 30px 0; font-size: 28pt;">원티드 이력서는 이런 점이 좋아요!</h1>
 		<div class="container" style="width: 1050px; margin: 0 auto;">
-			<img src="<%= ctxPath%>/resources/images/resume_list/info1.png" width="520" height="480" style="margin-bottom: 15px;" alt="소개이미지1" />
-			<img src="<%= ctxPath%>/resources/images/resume_list/info2.png" width="520" height="480" style="margin-bottom: 15px;" alt="소개이미지2" />
-			<img src="<%= ctxPath%>/resources/images/resume_list/info3.png" width="520" height="480" style="margin-bottom: 15px;" alt="소개이미지3" />
-			<img src="<%= ctxPath%>/resources/images/resume_list/info4.png" width="520" height="480" style="margin-bottom: 15px;" alt="소개이미지4" />
+			<img src="/images/resume_list/info1.png" width="520" height="480" style="margin-bottom: 15px;" alt="소개이미지1" />
+			<img src="/images/resume_list/info2.png" width="520" height="480" style="margin-bottom: 15px;" alt="소개이미지2" />
+			<img src="/images/resume_list/info3.png" width="520" height="480" style="margin-bottom: 15px;" alt="소개이미지3" />
+			<img src="/images/resume_list/info4.png" width="520" height="480" style="margin-bottom: 15px;" alt="소개이미지4" />
 		</div>
 	</section>
 	
 	<section class="main2">
 		<h1 class="title" style="padding: 80px 0 30px 0; font-size: 28pt;">쓰는 사람도 보는 사람도 편하게</h1>
-		<img class="resume" src="<%= ctxPath%>/resources/images/resume_list/resume.png" style="margin: 0; width: 1100px;" alt="이력서예시" />
+		<img class="resume" src="/images/resume_list/resume.png" style="margin: 0; width: 1100px;" alt="이력서예시" />
 		<button class="resumeHome2_button2" type="button" style="background-color: #3366FF; color: #FFF; display: block; margin: 20px auto;"><span>새 이력서 작성</span></button>
 	</section>
 	
@@ -102,12 +106,12 @@
 	<div style="width: 1100px; height: 400px; margin: 0 auto;">
 		<div id="bottom">
 			<div>
-			<p style="font-size: 25pt; font-weight: bold;">이력서 완성하면<br><img src="<%= ctxPath%>/resources/images/resume_list/resume_ai_logo.png" width="200" height="35" alt="AIlogo" />가 포지션 추천까지</p>
+			<p style="font-size: 25pt; font-weight: bold;">이력서 완성하면<br><img src="/images/resume_list/resume_ai_logo.png" width="200" height="35" alt="AIlogo" />가 포지션 추천까지</p>
 			</div>
 			<p>이력서를 분석하여 딱 맞는 포지션을 찾아드려요.<br>원티드AI가 추천한 포지션은 서류합격률이 일반 지원 대비 2배 높습니다.</p>
 			<button class="resumeHome2_button2" type="button" style="background-color: #3366FF; color: #FFF; width: 170px !important;"><span>지금 시작하기</span></button>
 		</div>
-		<img src="<%= ctxPath%>/resources/images/resume_list/resume_ai_sample.png" width="500" height="350" style="margin-top: 50px; float: right;" alt="AI" />
+		<img src="/images/resume_list/resume_ai_sample.png" width="500" height="350" style="margin-top: 50px; float: right;" alt="AI" />
 	</div>	
 	</section>
 	
