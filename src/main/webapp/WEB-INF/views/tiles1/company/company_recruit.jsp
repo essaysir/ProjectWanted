@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style type="text/css">
 
@@ -236,13 +239,16 @@ $(document).ready(function() {
 		</div>
 		<div class="content_body">
 			<div class="category">
-				<label class="con_title">직군선택</label>
+				<label class="con_title">직군선택</label><br>
 				<select class="job_select">
-				    <option value="1">개발</option>
+				    <c:forEach var="map" items="${requestScope.JobList}">
+				    	<option value="${map.job_code}">${map.job_name}</option>
+				    </c:forEach>
+				    <%-- <option value="1">웹개발자</option>--%>
 				</select>
 			</div>
 			<div class="dcategory">
-				<label class="con_title">직군선택</label>
+				<label class="con_title">직무선택</label><br>
 				<select class="duty_select">
 				    <option value="1">웹개발자</option>
 				</select>

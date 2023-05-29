@@ -29,7 +29,7 @@ public class CompanyController_2 {
 		
 		request.setAttribute("JobList", JobList);
 		
-		return "company/company_recruit.tiles2";
+		return "/company/company_recruit.tiles1";
 	}
 	
 
