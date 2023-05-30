@@ -6,6 +6,7 @@
 <!--  mapper 의 namespace(네임스페이스)가 중복되면, 작동하지 않는다. -->
 <mapper namespace="com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_2">
 	
+	<!-- job_select에필요한 값 가져오기	 -->
 	<resultMap type="HashMap" id="getJobList_Map">
 		<result property="job_code" 	column="job_code" javaType="String" />
 		<result property="job_name" 	column="job_name" javaType="String" />
@@ -15,9 +16,15 @@
 		from tbl_job
 	</select>
 	
-
-
-
-
+	<!-- job_select에 따라 해당되는 duty_select 가져오기 -->
+	<resultMap type="HashMap" id="getDutyList_Map">
+		<result property="duty_code" 	column="duty_code" javaType="String" />
+		<result property="duty_name" 	column="duty_name" javaType="String" />
+	</resultMap>
+	<select id="getDutyList" parameterType="String" resultMap="getDutyList_Map">
+		select duty_code, duty_name
+		from tbl_duty
+		where fk_job_code = ${jobCode}
+	</select>
 
 </mapper>

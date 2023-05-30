@@ -18,12 +18,22 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		this.cdao = cdao;
 	}
 	
+	// job_select에필요한 값 가져오기	
 	@Override
 	public List<Map<String, String>> getJobList() {
 
 		List<Map<String, String>> JobList = cdao.getJobList();
 		
 		return JobList;
+	}
+	
+	// job_select에 따라 해당되는 duty_select 가져오기
+	@Override
+	public List<Map<String, String>> getDutyList(String jobCode) {
+
+		List<Map<String, String>> dutyList = cdao.getDutyList(jobCode);
+		
+		return dutyList;
 	}
 
 }
