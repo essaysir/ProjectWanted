@@ -20,12 +20,20 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 		this.mapper = mapper;
 	}
 	
+	// job_select에필요한 값 가져오기	
 	@Override
 	public List<Map<String, String>> getJobList() {
 		
 		List<Map<String, String>> JobList = mapper.getJobList();
 		
 		return JobList;
+	}
+	
+	// job_select에 따라 해당되는 duty_select 가져오기
+	@Override
+	public List<Map<String, String>> getDutyList(String jobCode) {
+		List<Map<String, String>> dutyList = mapper.getDutyList(jobCode);
+		return dutyList;
 	}
 
 }

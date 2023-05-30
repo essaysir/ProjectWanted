@@ -34,7 +34,7 @@
 
 	function setMenuList() {
 		$.ajax({
-			url: "/getHeader",
+			url: "/getHeaderList",
 			type: "get",
 			dataType: "json",
 			success: function (json) {
@@ -48,18 +48,15 @@
 						+ "</a>"
 						+ "</li>";
 
-				for (let x = 0; x < json.JobList.length; x++) {
-					console.log(json.JobList[x]);
+				for (let x = 0; x < json.jobList.length; x++) {
+					console.log(json.jobList[x]);
 					html += "<li>" +
 							"<a class='dropdown-item' href='#'>" +
-							json.JobList[x] +
-							"</a>" ;
-					const dutyList = getDutyList(json.JobList[x]);
-					for ( let y = 0 ; y<dutyList.length ; y++){
-						html+= ""
-						
-					}
-
+							json.jobList[x] +
+							"</a>" +
+							""
+							;
+					
 				}
 				/*				<ul style="padding: 0; list-style: none;">
 									<li>
@@ -118,11 +115,11 @@
 		});
 	}
 	
-	function getDutyList( jobname ){
+	function getDutyList( jobCode ){
 		$.ajax({
-			url: "/getHeaderList",
+			url: "/wanted/getDuty",
 			type: "get",
-			data: {"jobname": jobname},
+			data: {"jobCode": jobCode},
 			dataType: "json",
 			success: function (json) {
 				// console.log(JSON.stringify(json));
