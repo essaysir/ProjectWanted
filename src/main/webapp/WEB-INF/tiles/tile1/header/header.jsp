@@ -49,14 +49,16 @@
 						+ "</li>";
 
 				for (let x = 0; x < json.jobList.length; x++) {
-					console.log(json.jobList[x].job_name);
-					console.log(json.jobList[x].job_code);
+					// console.log(json.jobList[x].job_name);
+					// console.log(json.jobList[x].job_code);
 					
 					html += "<li>" +
 							"<a class='dropdown-item' href='#'>" +
 							json.jobList[x].job_name +
 							"</a>" ;
-					const dutyList = getDutyList(json.jobList[x].job_code)
+					const dutyList = getDutyList(json.jobList[x].job_code);
+					for ( let y=0 ; y< dutyList)
+					console.log(dutyList)
 							
 				}
 				/*				<ul style="padding: 0; list-style: none;">
@@ -124,7 +126,7 @@
 			dataType: "json",
 			success: function (json) {
 				// console.log(JSON.stringify(json));
-				return json.dutyList
+				return json.DutyList
 			},
 			error: function (request, status, error) {
 				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
