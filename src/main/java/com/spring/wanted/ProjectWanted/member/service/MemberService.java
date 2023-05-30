@@ -26,8 +26,8 @@ public class MemberService implements InterMemberService{
 	}
 
 	@Override
-	public List<String> getDuty() {
-		List<String> dutyList = mdao.getDuty();
+	public List<String> getDuty(String jobname) {
+		List<String> dutyList = mdao.getDuty(jobname);
 		return dutyList ;
 	}
 

@@ -5,12 +5,15 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.gson.JsonObject;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_2;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CompanyController_2 {
@@ -31,6 +34,6 @@ public class CompanyController_2 {
 		
 		return "company/company_recruit.tiles2";
 	}
-	
+
 
 }

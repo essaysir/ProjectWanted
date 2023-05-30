@@ -23,8 +23,8 @@ public class MemberDAO implements InterMemberDAO {
 	}
 
 	@Override
-	public List<String> getDuty() {
-		List<String> dutyList = mapper.getDuty();
+	public List<String> getDuty(String jobname) {
+		List<String> dutyList = mapper.getDuty(jobname);
 		return dutyList;
 	}
 

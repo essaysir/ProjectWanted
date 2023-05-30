@@ -39,7 +39,7 @@
 			dataType: "json",
 			success: function (json) {
 				<%--  === #112. 검색어 입력시 자동글 완성하기 7  === --%>
-				console.log(JSON.stringify(json));
+				// console.log(JSON.stringify(json));
 				let html;
 				html += " <ul style='padding: 0; list-style:none; '> "
 						+ "<li>"
@@ -49,16 +49,16 @@
 						+ "</li>";
 
 				for (let x = 0; x < json.JobList.length; x++) {
-					// console.log(json.JobList[x]);
+					console.log(json.JobList[x]);
 					html += "<li>" +
 							"<a class='dropdown-item' href='#'>" +
 							json.JobList[x] +
 							"</a>" ;
-					for (let y = 0; y < json.dutyList.length; y++) {
-
-
+					const dutyList = getDutyList(json.JobList[x]);
+					for ( let y = 0 ; y<dutyList.length ; y++){
+						html+= ""
+						
 					}
-
 
 				}
 				/*				<ul style="padding: 0; list-style: none;">
@@ -118,7 +118,23 @@
 		});
 	}
 	
-	
+	function getDutyList( jobname ){
+		$.ajax({
+			url: "/getHeaderList",
+			type: "get",
+			data: {"jobname": jobname},
+			dataType: "json",
+			success: function (json) {
+				// console.log(JSON.stringify(json));
+				return json.dutyList
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+		});
+
+
+	}
 	
 </script>
 

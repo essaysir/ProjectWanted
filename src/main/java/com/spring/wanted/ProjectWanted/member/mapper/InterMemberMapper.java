@@ -11,5 +11,5 @@ public interface InterMemberMapper {
 
 	List<String> getJob();
 
-    List<String> getDuty();
+    List<String> getDuty(String jobname);
 }
