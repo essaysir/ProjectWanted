@@ -49,14 +49,15 @@
 						+ "</li>";
 
 				for (let x = 0; x < json.jobList.length; x++) {
-					console.log(json.jobList[x]);
+					console.log(json.jobList[x].job_name);
+					console.log(json.jobList[x].job_code);
+					
 					html += "<li>" +
 							"<a class='dropdown-item' href='#'>" +
-							json.jobList[x] +
-							"</a>" +
-							""
-							;
-					
+							json.jobList[x].job_name +
+							"</a>" ;
+					const dutyList = getDutyList(json.jobList[x].job_code)
+							
 				}
 				/*				<ul style="padding: 0; list-style: none;">
 									<li>
