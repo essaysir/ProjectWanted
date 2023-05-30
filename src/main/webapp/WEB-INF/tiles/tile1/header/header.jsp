@@ -18,15 +18,15 @@
 	function setHeaderEvent(){
 		// 헤더 카테고리 
 	    // 2차 카테고리 열리게
+		$(document).on('mouseover' , ".dropdown-menu li" , function(){
+			$(this).find('.header-list').show();
+		});
 		
-	    $('.dropdown-menu li').mouseover(function(){
-	        $(this).find('.header-list').show();
+	    $(document).on('mouseleave' , '.dropdown-menu li' , function(){
+	    	$(this).find('.header-list').hide();
 	    });
-
-	    // 2차 카테고리 닫히게
-	    $('.dropdown-menu li').mouseleave(function(){
-	        $(this).find('.header-list').hide();
-	    });
+	    
+	
 		
 	} // END OF FUNCTION SETHEADEREVENT(){
 	
@@ -40,7 +40,7 @@
 			success: function (json) {
 				<%--  === #112. 검색어 입력시 자동글 완성하기 7  === --%>
 				// console.log(JSON.stringify(json));
-				let html;
+				let html ="";
 				html += " <ul style='padding: 0; list-style:none; '> "
 						+ "<li>"
 						+ "<a class='dropdown-item' href=''> "
@@ -49,62 +49,33 @@
 						+ "</li>";
 
 				for (let x = 0; x < json.jobList.length; x++) {
-					console.log(json.jobList[x].job_name);
-					console.log(json.jobList[x].job_code);
+					// console.log(json.jobList[x].job_name);
+					// console.log(json.jobList[x].job_code);
 					
 					html += "<li>" +
 							"<a class='dropdown-item' href='#'>" +
 							json.jobList[x].job_name +
 							"</a>" ;
-					const dutyList = getDutyList(json.jobList[x].job_code)
-							
+					const dutyList = getDutyList(json.jobList[x].job_code);
+					
+					for ( let y=0 ; y< dutyList.length ; y++ ){
+						 // console.log(dutyList) ;
+						 if ( y == 0 ){
+							 html += '<div class="header-list" style="border: solid 2px white;" id="show2">' +
+						 	  '<ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 100%; z-index: 2; width: 250px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">' ;
+						 }
+							 
+						html += '<li><a href="#"><span class="li-category">'+dutyList[y].duty_name+'</span></a></li>' ;
+						
+						if ( y == dutyList.length -1 ){
+							html += '</ul></div></li>'
+						}
+						$("div#menu-list").html(html);
+					}
+					
+					
+					
 				}
-				/*				<ul style="padding: 0; list-style: none;">
-									<li>
-										<a id="ChickenBreast" class="dropdown-item" href="#">
-											직군전체
-										</a>
-									</li>
-
-									<li>
-										<a id="Instant" class="dropdown-item" href="#">
-											개발
-										</a>
-										<div class="header-list" style="border: solid 2px white;" id="show2">
-											<ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 100%; z-index: 2; width: 160px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
-												<li><a href="#"><span class="li-category">프론트엔드 개발자</span></a></li>
-												<li><a href="#"><span class="li-category">C개발자</span></a></li>
-												<li><a href="#"><span class="li-category">핫도그</span></a></li>
-												<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-												<li><a href="#"><span class="li-category">분식</span></a></li>
-												<li><a href="#"><span class="li-category">치킨</span></a></li>
-												<li><a href="#"><span class="li-category">피자</span></a></li>
-												<li><a href="#"><span class="li-category">전체</span></a></li>
-												<li><a href="#"><span class="li-category">브리또</span></a></li>
-												<li><a href="#"><span class="li-category">핫도그</span></a></li>
-												<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-												<li><a href="#"><span class="li-category">분식</span></a></li>
-												<li><a href="#"><span class="li-category">치킨</span></a></li>
-											</ul>
-											<ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 200%; z-index: 2; width: 160px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
-												<li><a href="#"><span class="li-category">프론트엔드 개발자</span></a></li>
-												<li><a href="#"><span class="li-category">C개발자</span></a></li>
-												<li><a href="#"><span class="li-category">핫도그</span></a></li>
-												<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-												<li><a href="#"><span class="li-category">분식</span></a></li>
-												<li><a href="#"><span class="li-category">치킨</span></a></li>
-												<li><a href="#"><span class="li-category">피자</span></a></li>
-												<li><a href="#"><span class="li-category">전체</span></a></li>
-												<li><a href="#"><span class="li-category">브리또</span></a></li>
-												<li><a href="#"><span class="li-category">핫도그</span></a></li>
-												<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-											</ul>
-										</div>
-
-
-
-
-									</li>*/
 
 
 			},
@@ -117,21 +88,24 @@
 	}
 	
 	function getDutyList( jobCode ){
+		var duties;
+		
 		$.ajax({
 			url: "/wanted/getDuty",
 			type: "get",
 			data: {"jobCode": jobCode},
 			dataType: "json",
+			async: false,
 			success: function (json) {
-				// console.log(JSON.stringify(json));
-				return json.dutyList
+				 //console.log(JSON.stringify(json));
+				duties = json.dutyList ;
 			},
 			error: function (request, status, error) {
 				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 			}
 		});
 
-
+		return duties ;
 	}
 	
 </script>
@@ -246,136 +220,9 @@
 				      	</a>
 				      
 				      <div id="menu-list"class="dropdown-menu" aria-labelledby="navbardrop">
-				        <ul style="padding: 0; list-style: none;">
-				        	<li>
-						        <a id="ChickenBreast" class="dropdown-item" href="#">
-						        	직군전체
-						        </a>
-				        	</li>
-				        		
-				        		<li>
-						        <a id="Instant" class="dropdown-item" href="#">
-						        	개발
-						        </a>
-						        <div class="header-list" style="border: solid 2px white;" id="show2">
-						        <ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 100%; z-index: 2; width: 160px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
-					     			   	<li><a href="#"><span class="li-category">프론트엔드 개발자</span></a></li>
-					    				<li><a href="#"><span class="li-category">C개발자</span></a></li>
-					    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
-					    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-					    				<li><a href="#"><span class="li-category">분식</span></a></li>
-					    				<li><a href="#"><span class="li-category">치킨</span></a></li>
-					    				<li><a href="#"><span class="li-category">피자</span></a></li>
-					    				<li><a href="#"><span class="li-category">전체</span></a></li>
-					    				<li><a href="#"><span class="li-category">브리또</span></a></li>
-					    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
-					    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-					    				<li><a href="#"><span class="li-category">분식</span></a></li>
-					    				<li><a href="#"><span class="li-category">치킨</span></a></li>
-    							</ul>
-    							<ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 200%; z-index: 2; width: 160px; height: 100%; background: rgb(247,259,250); border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
-					     			   	<li><a href="#"><span class="li-category">프론트엔드 개발자</span></a></li>
-					    				<li><a href="#"><span class="li-category">C개발자</span></a></li>
-					    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
-					    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-					    				<li><a href="#"><span class="li-category">분식</span></a></li>
-					    				<li><a href="#"><span class="li-category">치킨</span></a></li>
-					    				<li><a href="#"><span class="li-category">피자</span></a></li>
-					    				<li><a href="#"><span class="li-category">전체</span></a></li>
-					    				<li><a href="#"><span class="li-category">브리또</span></a></li>
-					    				<li><a href="#"><span class="li-category">핫도그</span></a></li>
-					    				<li><a href="#"><span class="li-category">만두-딤섬</span></a></li>
-    							</ul>
-    							</div>
-				        
-
-    							
-    											
-				        	</li>
-				        	
-				        	<li>
-						        <a id="BoxLunch" class="dropdown-item" href="#">
-						        	<i class="fa-solid fa-bowl-food" style="margin-right:10px;"></i>
-						        	도시락, 볶음밥
-						        </a>
-						        <div class="header-list" style="border: solid 2px white;" id="show3">
-						        	<ul  style="list-style: none; overflow-y: auto; overflow-x: hidden; position: absolute; top: 0; left: 100%; z-index: 2; width: 160px; height: 100%; background: #f4f4f4; border: 1px solid #ccc; border-top: 0; border-left: 0; padding-top: 5px;">
-					     			   	<li><a href="#"><span class="li-category">전체</span></a></li>
-					    				<li><a href="#"><span class="li-category">다이어트 도시락</span></a></li>
-					    				<li><a href="#"><span class="li-category">더담은 도시락</span></a></li>
-					    				<li><a href="#"><span class="li-category">간편 도시락</span></a></li>
-					    				<li><a href="#"><span class="li-category">볶음밥</span></a></li>
-					    				<li><a href="#"><span class="li-category">덮밥-컵밥</span></a></li>
-					    			</ul>
-					    		</div>					
-				        	</li>	
-				        	
-				        	<li style="list-style: none;">
-						        <a id="Beef" class="dropdown-item" href="#">
-						        	소고기
-						        </a>
-						        <div style="border: solid 2px white;" id="show4"></div>					
-				        	</li>
-				        	
-				        	<li style="list-style: none;">
-						        <a id="Pig" class="dropdown-item" href="#">
-						        	돼지, 오리고기
-						        </a>
-						        <div style="border: solid 2px white;" id="show5"></div>					
-				        	</li>	
-				        	
-				        	<li style="list-style: none;">
-						        <a id="ChickenTenderloin" class="dropdown-item" href="#">
-						        	닭안심살
-						        </a>
-						        <div style="border: solid 2px white;" id="show6"></div>					
-				        	</li>	
-				        	
-				        	<li style="list-style: none;">
-						        <a id="Salad" class="dropdown-item" href="#">
-						        	샐러드, 과일
-						        </a>
-						        <div style="border: solid 2px white;" id="show7"></div>					
-				        	</li>				        
-				        	
-				        	<li style="list-style: none;">
-						        <a id="Cheese" class="dropdown-item" href="#">
-						        	배이커리, 치즈
-						        </a>
-						        <div style="border: solid 2px white;" id="show8"></div>					
-				        	</li>	
-				        	
-				        	<li style="list-style: none;">
-						        <a id="Snacks" class="dropdown-item" href="#">
-						        	과자, 간식, 떡
-						        </a>
-						        <div style="border: solid 2px white;" id="show9"></div>					
-				        	</li>	
-				        	
-				        	<li style="list-style: none;">
-						        <a id="Beverage" class="dropdown-item" href="#">
-						        	음료, 차, 프로틴
-						        </a>
-						        <div style="border: solid 2px white;" id="show10"></div>					
-				        	</li>	
-				        	
-				        	<li style="list-style: none;">
-						        <a id="HealthyFood" class="dropdown-item" href="#">
-						        	건강식품
-						        </a>
-						        <div style="border: solid 2px white;" id="show11"></div>					
-				        	</li>	
-				        	
-				        	<li style="list-style: none;">
-						        <a id="sportingGoods" class="dropdown-item" href="#">
-						        	운동생활용품
-						        </a>
-						        <div style="border: solid 2px white;" id="show12"></div>					
-				        	</li>	
-				        </ul>
-				      </div>
-				    </li>
-				 
+				     
+				 		</div>
+				 		
 				    <li style="margin: 10px 0px 10px 10px;">
 				      <a class="header-category" href="#" style="color: black;">채용</a>
 				    </li>
