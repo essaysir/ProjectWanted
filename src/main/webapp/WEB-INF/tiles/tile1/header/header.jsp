@@ -34,12 +34,12 @@
 
 	function setMenuList() {
 		$.ajax({
-			url: "/getHeader",
+			url: "/getHeaderList",
 			type: "get",
 			dataType: "json",
 			success: function (json) {
 				<%--  === #112. 검색어 입력시 자동글 완성하기 7  === --%>
-				console.log(JSON.stringify(json));
+				// console.log(JSON.stringify(json));
 				let html;
 				html += " <ul style='padding: 0; list-style:none; '> "
 						+ "<li>"
@@ -48,18 +48,15 @@
 						+ "</a>"
 						+ "</li>";
 
-				for (let x = 0; x < json.JobList.length; x++) {
-					// console.log(json.JobList[x]);
+				for (let x = 0; x < json.jobList.length; x++) {
+					console.log(json.jobList[x]);
 					html += "<li>" +
 							"<a class='dropdown-item' href='#'>" +
-							json.JobList[x] +
-							"</a>" ;
-					for (let y = 0; y < json.dutyList.length; y++) {
-
-
-					}
-
-
+							json.jobList[x] +
+							"</a>" +
+							""
+							;
+					
 				}
 				/*				<ul style="padding: 0; list-style: none;">
 									<li>
@@ -118,7 +115,23 @@
 		});
 	}
 	
-	
+	function getDutyList( jobCode ){
+		$.ajax({
+			url: "/wanted/getDuty",
+			type: "get",
+			data: {"jobCode": jobCode},
+			dataType: "json",
+			success: function (json) {
+				// console.log(JSON.stringify(json));
+				return json.dutyList
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+		});
+
+
+	}
 	
 </script>
 

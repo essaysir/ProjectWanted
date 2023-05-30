@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.gson.JsonObject;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_2;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CompanyController_2 {
@@ -56,8 +58,19 @@ public class CompanyController_2 {
 	@RequestMapping(value="/wanted/insert_post", produces = "text/plain;charset=UTF-8", method= {RequestMethod.POST})
 	public ModelAndView pointPlus_addEnd(Map<String, String> paraMap, ModelAndView mav, PostVO postvo, MultipartHttpServletRequest mrequest) {
 		
-	}
+	
 	*/
+	@ResponseBody
+	@GetMapping(value="/getHeaderList" , produces = "text/plain;charset=UTF-8" )
+	public String getHeaderList() {
+		List<Map<String,String>> jobList = service.getJobList();
+		
+		JSONObject jsonobj = new JSONObject();
+		
+		jsonobj.put("jobList", jobList);
+		
+		return jsonobj.toString();
+	}
 	
 
 }

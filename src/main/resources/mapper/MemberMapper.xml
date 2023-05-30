@@ -14,8 +14,12 @@
 		select job_name from tbl_job		
 	</select>
 
-	<select id="getDuty" resultType="String">
-		select duty_name from tbl_duty 
+
+	<select id="getDuty" parameterType="String" resultType="String">
+		select  DUTY_NAME
+		from TBL_DUTY D JOIN
+			 TBL_JOB J ON D.FK_JOB_CODE = J.JOB_CODE
+		WHERE JOB_NAME = #{jobname}
 	</select>
 
 
