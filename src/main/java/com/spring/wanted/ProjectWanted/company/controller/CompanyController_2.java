@@ -49,7 +49,7 @@ public class CompanyController_2 {
 		List<Map<String, String>> dutyList = service.getDutyList(jobCode);
 		
 		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("DutyList", dutyList);
+		jsonObj.put("dutyList", dutyList);
 		
 		return jsonObj.toString();
 	}
