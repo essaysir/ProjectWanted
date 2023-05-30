@@ -6,7 +6,7 @@ import java.util.Map;
 public interface InterCompanyService_1 {
 
 	// 회사 지원자List 불러오기
-	List<Map<String, String>> candidateList(Map<String, Object> paraMap);
+	List<Map<String, String>> candidateList(Map<String, String> paraMap);
 
 	
 	

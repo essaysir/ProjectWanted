@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_1;
 
+@RequestMapping("/wanted")
 @Controller
 public class CompanyController_1 {
 
@@ -37,21 +39,29 @@ public class CompanyController_1 {
 	
 
 	
+	@GetMapping("/company")
+	public String viewCandidateList() {
+		return "company/company_candidateList.tiles2";
+	}
+	
+	
 	// 회사 지원자List 불러오기
-	@ResponseBody
-	@GetMapping(value = "/wanted/company_candidateList", produces = "text/plain;charset=UTF-8")
-	public ModelAndView candidateList(HttpServletRequest request, ModelAndView mav){
+	//@ResponseBody 
+	@GetMapping(value = "/getCandidateList", produces = "text/plain;charset=UTF-8")
+	public String candidateList(HttpServletRequest request){
+		//String viewName="company/company_candidateList.tiles2";
 		
-		String viewName="company/company_candidateList.tiles2";
+		Map<String, String> paraMap = new HashMap<>();
+		String status = request.getParameter("status");
+		paraMap.put("status", status);
 		
-		Map<String, Object> paraMap = new HashMap<>();
-
 		List<Map<String,String>> candidateList = service.candidateList(paraMap);
+//		ModelAndView mav = new ModelAndView("tiles2/company/content/company_candidateList_detail");
+//		mav.addObject("candidateList", candidateList);
 		
-		mav.addObject("candidateList", candidateList);
-		mav.setViewName(viewName);
+		request.setAttribute("candidateList", candidateList);
 		
-		return mav;
+		return "tiles2/company/content/company_candidateList_detail";
 	}
 
 	
