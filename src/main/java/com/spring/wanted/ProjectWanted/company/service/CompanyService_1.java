@@ -23,8 +23,8 @@ public class CompanyService_1 implements InterCompanyService_1 {
 	
 	// 회사 지원자List 불러오기
 	@Override
-	public List<Map<String, String>> candidateList(Map<String, Object> paraMap) {
-		List<Map<String, String>> candidateList = cdao.getcandidateList();
+	public List<Map<String, String>> candidateList(Map<String, String> paraMap) {
+		List<Map<String, String>> candidateList = cdao.getcandidateList(paraMap);
 		return candidateList;
 	}
 

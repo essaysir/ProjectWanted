@@ -6,17 +6,23 @@
 <!--  mapper 의 namespace(네임스페이스)가 중복되면, 작동하지 않는다. -->
 <mapper namespace="com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_1">
 
-	<resultMap type="HashMap" id="employeeCntByGender_Map">
+	<resultMap type="HashMap" id="company_candidateList_Map">
+		<result property="post_subject" 	column="post_subject" 	javaType="String" />
 		<result property="name" 			column="name" 			javaType="String" />
-		<result property="subject" 			column="subject" 		javaType="String" />
+		<result property="resume_subject" 	column="resume_subject" javaType="String" />
 		<result property="applydate" 		column="applydate" 		javaType="String" />
 		<result property="status" 			column="status" 		javaType="String" />
 	</resultMap>
-	<select id="getcandidateList" resultType="String" resultMap="employeeCntByGender_Map">
-		select c.name, p.subject, a.applydate, a.status
-		from tbl_company c
-		inner join tbl_post p on c.company_id = p.fk_company_id
-		inner join tbl_apply a on p.post_code = a.fk_post_code
+	<select id="getcandidateList" resultType="String" resultMap="company_candidateList_Map">
+		select P.subject AS post_subject, M.name AS name, R.subject AS resume_subject, A.applydate
+			 , case when a.status = '1' then '합격' 
+			 		when a.status = '2' then '불합격' end AS status
+		from tbl_member M
+		    join tbl_resume R on M.userid = R.fk_userid
+		    join tbl_apply A on R.resume_code = A.fk_resume_code
+		    join tbl_post P on A.fk_post_code = P.post_code
+		where 1=1
+		<if test="status != 0">and status = #{status}</if>
 	</select>
 
 

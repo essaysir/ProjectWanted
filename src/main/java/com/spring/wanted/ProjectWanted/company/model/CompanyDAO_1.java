@@ -24,8 +24,8 @@ public class CompanyDAO_1 implements InterCompanyDAO_1 {
 	
 	// 회사 지원자List 불러오기
 	@Override
-	public List<Map<String, String>> getcandidateList() {
-		List<Map<String, String>> candidateList = mapper.getcandidateList();
+	public List<Map<String, String>> getcandidateList(Map<String, String> paraMap) {
+		List<Map<String, String>> candidateList = mapper.getcandidateList(paraMap);
 		return candidateList;
 	}
 
