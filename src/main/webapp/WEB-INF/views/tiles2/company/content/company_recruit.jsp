@@ -255,7 +255,7 @@
 							var defaultOption = '<option value="0">:::직무를 선택하세요:::</option>';
 							$('.duty_select').append(defaultOption);  
 				          
-							$.each(json.DutyList, function(index, item) {
+							$.each(json.dutyList, function(index, item) {
 								var option = '<option value="' + item.duty_code + '">' + item.duty_name + '</option>';
 								$('.duty_select').append(option); // duty_select에 option 태그 추가
 							});
