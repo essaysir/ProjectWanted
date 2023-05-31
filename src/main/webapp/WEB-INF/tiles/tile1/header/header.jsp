@@ -34,7 +34,7 @@
 
 	function setMenuList() {
 		$.ajax({
-			url: "/getHeaderList",
+			url: "/wanted/getHeaderList",
 			type: "get",
 			dataType: "json",
 			success: function (json) {
