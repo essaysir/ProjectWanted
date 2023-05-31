@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.wanted.ProjectWanted.company.model.InterCompanyDAO_2;
+import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 @Service
 public class CompanyService_2 implements InterCompanyService_2 {
@@ -34,6 +35,13 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		List<Map<String, String>> dutyList = cdao.getDutyList(jobCode);
 		
 		return dutyList;
+	}
+	
+	// TBL_POST에 등록하기
+	@Override
+	public void insertRecruit(PostVO postvo) {
+		cdao.insertRecruit(postvo);
+		
 	}
 
 }
