@@ -305,14 +305,16 @@
 		} // end of function checkEmail()
 		
 		function checkUserid(){
+		console.log($('input#email_input').val()) ;
 			$.ajax({
 				url: "/wanted/checkUserid",
 				type: "post",
 				async:"false", 
 				data: {"userid": $('input#email_input').val()} ,
 				success: function (result) {
-					$("body").empty();
-					$("body").html(result);
+					console.log(result);
+					$("div#login_mainfrm").empty();
+					$("div#login_mainfrm").html(result);
 				},
 				error: function (request, status, error) {
 					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);

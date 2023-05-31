@@ -18,18 +18,19 @@ public class MemberService implements InterMemberService{
 		this.mdao = mdao;
 	}
 
-	@Override
-	public List<String> getJob() {
-		List<String> JobList = mdao.getJob();
-		
-		return JobList;
-	}
 
 	@Override
-	public List<String> getDuty(String jobname) {
-		List<String> dutyList = mdao.getDuty(jobname);
-		return dutyList ;
+	public String checkUserid(String userid) {
+		int n = mdao.checkUserid(userid);
+		if ( n == 1 ) {
+			return  "tiles1/member/loginpassword" ;
+		}
+		else {
+			return "tiles1/member/signup"; 
+		}
 	}
+
+
 
 
 }

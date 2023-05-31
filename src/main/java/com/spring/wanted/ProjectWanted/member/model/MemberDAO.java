@@ -12,20 +12,18 @@ import com.spring.wanted.ProjectWanted.member.mapper.InterMemberMapper;
 @Repository
 public class MemberDAO implements InterMemberDAO {
 
-	@Autowired
-	private InterMemberMapper mapper ;
+	private final InterMemberMapper mapper ;
 	
-	@Override
-	public List<String> getJob() {
-		List<String> JobList = mapper.getJob();
-		
-		return JobList ;
+	@Autowired
+	public MemberDAO (InterMemberMapper mapper) {
+		this.mapper = mapper ;
 	}
 
 	@Override
-	public List<String> getDuty(String jobname) {
-		List<String> dutyList = mapper.getDuty(jobname);
-		return dutyList;
+	public int checkUserid(String userid) {
+		int n = mapper.checkUserid(userid);
+		
+		return n ;
 	}
 
 

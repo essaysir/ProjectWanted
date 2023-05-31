@@ -39,6 +39,17 @@ public class MemberController {
 			
 			return "";
 		}
+		@PostMapping(value="/checkUserid")
+		public String checkUserid(@RequestParam String userid ) {
+			String view = service.checkUserid(userid);
+			return view ;
+		}
+		@GetMapping(value="/register")
+		public String test() {
+			
+			return "tiles1/member/signup";
+		}
+		
 
 	
 	

@@ -69,7 +69,7 @@
 		background-color: #fff;
 		border: solid 1px #e1e2e3;
 		border-radius: 5px;
-		width: 28%;
+		width: 35%;
 	    height: 98%;
 	    margin: 0 auto;
 	    display: flex;
@@ -215,7 +215,7 @@
     
     
 	
-	div#email_box, div#username_box, div#pwd_box, div#certification_box > label {
+	div#email_box, div#username_box, div#pwd_box, div.certification_box > label {
 		font-size: 14px;
 		font-weight: 600;
 		color: #888888;
@@ -232,10 +232,10 @@
 	    margin: 10px 0px 10px;
 	}
 	
-	div.is_agree_box.checked::before { <%-- 체크박스 역할을 해주는 div --%> 
-	    content: '\2713'; 
-	    color: green; 
-	    margin-right: 5px; 
+	div.is_agree_check.checked::before { <%-- 체크박스 역할을 해주는 div --%> 
+	    content: '\2713' !important; 
+	    color: green  !important; 
+	    margin-right: 5px !important; 
 	}
 	
 	div.is_agree_all_mini {
@@ -262,10 +262,16 @@
 	
 	}
 	
-	
     
 </style>
 
+<script type="text/javascript">	
+			 $(document).ready(function() {
+				  $(".is_agree_check").click(function() {
+				    $(this).toggleClass("checked");
+		  });
+		});
+</script>
 
 
 </head>
@@ -303,25 +309,25 @@
 						</div>
 						<div id="username_box">
 							<label>이름</label>
-							<input type="text" id="name_input" placeholder="이름을 입력해주세요." name="username" />
+							<input type="text" id="name_input" placeholder="이름을 입력해주세요." name="username" required />
 						</div>	
-						<div id="certification_box"><label>휴대폰인증</label></div>
-						<div id="certification_box">
+						<div class="certification_box"><label>휴대폰인증</label></div>
+						<div class="certification_box">
 							<input type="text" id="what_input" placeholder="(예시)01012345678" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" />
 							<button type="submit" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 90px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
 						</div>
-						<div id="certification_box"><label>이메일 인증</label></div>
-						<div id="certification_box">	
+						<div class="certification_box"><label>이메일 인증</label></div>
+						<div class="certification_box">	
 							<input type="text" id="what2_input" placeholder="자바스크립트로 로그인창에서 받아온 입력값 가져오기" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" />
 							<button type="submit" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 90px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
 						</div>
-						<div id="certification_check">
+						<div class="certification_check">
 							<input type="text" id="certification_input" placeholder="인증번호를 입력해주세요." style="background-color: #f2f4f7;" />
 						</div>
 						<div id="pwd_box">
 							<label>비밀번호</label>
-							<input type="text" id="pwd_input" placeholder="비밀번호를 입력해주세요." name="pwd" />
-							<input type="password" id="pwd2_input" placeholder="비밀번호를 다시 한번 입력해주세요." name="pwd" />
+							<input type="text" id="pwd_input" placeholder="비밀번호를 입력해주세요." name="pwd" required />
+							<input type="password" id="pwd2_input" placeholder="비밀번호를 다시 한번 입력해주세요." name="pwd" required />
 							<p style="color: #888888; font-weight: 400; text-align: left; font-size: 12px; margin: 0 10px 0 0;">영문 대소문자, 숫자, 특수문자, 3가지 이상으로 조합해 8자 이상 16자 이하로 입력해주세요.</p>
 						</div>		
 						<div id="is_agree_all_box" class="is_agree_box">
@@ -332,28 +338,28 @@
 							</div>
 						</div>
 						<hr style="border-top: none; border-right: none; border-left: none; border-bottom: 1px solid #e1e2e3; border-image: initial; width: 100%;">						
-						<div id="is_agree_box_first" class="is_agree_box">
+						<div class="is_agree_box">
 							<div id="is_agree_mini_first" class="is_agree_all_mini"></div>
 							<input type="checkbox" id="is_agree_first" class="is_agree_check" />
 							<div>
 								<span style="display: inline; color: #888888; text-align: left; letter-spacing: 0.0096m; font-size: 15px; line-height: 22px; margin: 0px 1px 1px 1px; ">만 14세 이상입니다. (필수)</span>
 							</div>
 						</div>
-						<div id="is_agree_box_secound" class="is_agree_box">
+						<div class="is_agree_box">
 							<div id="is_agree_mini_secound" class="is_agree_all_mini"></div>
 							<input type="checkbox" id="is_agree_secound" class="is_agree_check" />
 							<div>
 								<span style="display: inline; color: #888888; text-align: left; letter-spacing: 0.0096m; font-size: 15px; line-height: 22px; margin: 0px 1px 1px 1px; ">원티드 이용약관 동의. (필수)</span>
 							</div>
-							<a href="https://id.wanted.jobs/terms/ko" style="color: #888888; line-height: 22px; text-align: right; padding-left: 243px;">자세히</a>
+							<a href="https://id.wanted.jobs/terms/ko" style="color: #888888; line-height: 22px; text-align: right; padding-left: 350px;">자세히</a>
 						</div>
-						<div id="is_agree_box_third" class="is_agree_box">
+						<div class="is_agree_box">
 							<div id="is_agree_mini_third" class="is_agree_all_mini"></div>
 							<input type="checkbox" id="is_agree_third" class="is_agree_check" />
 							<div>
 								<span style="display: inline; color: #888888; text-align: left; letter-spacing: 0.0096m; font-size: 15px; line-height: 22px; margin: 0px 1px 1px 1px; ">원티드 개인정보 수집 및 이용 동의 (필수)</span>
 							</div>
-							<a href="https://id.wanted.jobs/privacy/ko" style="color: #888888; line-height: 22px; text-align: right; padding-left: 165px;">자세히</a>
+							<a href="https://id.wanted.jobs/privacy/ko" style="color: #888888; line-height: 22px; text-align: right; padding-left: 271.3px;">자세히</a>
 						</div>
 						<div>
 							<button style="background-color: #f2f4f7; border: none; cursor: pointer; color: #ccc; width: 100%; height: 50px; min-height: 50px; border-radius: 25px; font-size: 16px; margin-bottom: 10px; margin-top: 30px;">가입하기</button>
