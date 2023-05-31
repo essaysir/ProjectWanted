@@ -51,47 +51,59 @@
 	
 	/* 표 상단 tab */
 	.tab {
-	  overflow: hidden;
-	  border: solid 2px #ddd;
-	  background-color: #fff;
-	  width: 1500px;
-	  margin: 0 auto;
-	  border-top-left-radius: 10px;
-	  border-top-right-radius: 10px; 
+	    overflow: hidden;
+	    border: solid 2px #ddd;
+	    background-color: #fff;
+	    width: 1500px;
+	    margin: 0 auto;
+	    border-top-left-radius: 10px;
+	    border-top-right-radius: 10px; 
 	}
 	
-	.tab button {
-	  background-color: inherit;
-	  float: left;
-	  border: none;
-	  border-left: solid 2px #ddd;
-	  outline: none;
-	  cursor: pointer;
-	  padding: 14px 16px;
-	  transition: 0.3s;
-	  font-size: 20px;
-	  width: 499px;
+	button.tablinks {
+	    background-color: inherit;
+	    float: left;
+	    border: none;
+	    border-left: solid 2px #ddd;
+	    outline: none;
+	    cursor: pointer;
+	    padding: 14px 16px;
+	    transition: 0.3s;
+	    font-size: 20px;
+	    width: 499px;
 	}
 	
-	.tab button:hover {
-	  background-color: #F5F9FD;
-	  color: #184CED;
-	  font-weight: bold;
+	button.tablinks:hover {
+	    background-color: #F5F9FD;
+	    color: #184CED;
+	    font-weight: bold;
 	}
 	
-	.tab button.active {
-	  border-top: solid 2px #184CED;
-	  color: #184CED;
-	  font-weight: bold;
+	button.tablinks.active {
+	    border-top: solid 2px #184CED;
+	    color: #184CED;
+	    font-weight: bold;
 	}
 	
 	.tabcontent {
-	  display: none;
-	  padding: 6px 12px;
-	  border-top: none;
+	    display: none;
+	    padding: 6px 12px;
+	    border-top: none;
 	}
 	
+	/* 검색 Frm */
+	button#search {
+		margin: 0 10px; 
+		width: 60px; 
+		font-size: 13pt;"
+	}
 	
+	select#searchType {
+		height: 35px; 
+		margin: 0 10px;"
+	}
+	
+
 
 </style>
  
@@ -122,15 +134,15 @@
 	        tabButtons[i].addEventListener("click", function() {
 	            for (var j = 0; j < tabButtons.length; j++) {
 	                tabButtons[j].classList.remove("active");
-	            }
+	            } 
 	            this.classList.add("active");
 	        });
 	    }
 	});
-	<%-- 표 상단 tab action 끝--%>
+	<%-- 표 상단 tab action 끝 --%>
 
 	
-	<%-- 지원자List 불러오기 시작--%>
+	<%-- 지원자List 불러오기 시작 --%>
 	function getCandidateList(status){
     
 	    $.ajax({
@@ -147,7 +159,7 @@
 	        }
    		 }); // end of $.ajax ----
 	}; 
-	<%-- 지원자List 불러오기 끝--%>
+	<%-- 지원자List 불러오기 끝 --%>
 	
 </script>
 
@@ -166,7 +178,28 @@
 		<table class="containerTitle">
 
 		<thead>
-			<tr style="height: 50px;"></tr>
+			<tr style="height: 60px;">
+				<th>
+					<%-- 정렬 시작 --%>
+					<select name="Type" id="searchType">
+				         <option value="subject">공고명</option>
+				         <option value="name">지원자명</option>
+				    </select>
+				    <%-- 정렬 끝 --%>
+					<%-- 검색 Frm 시작 --%>
+					<form name="searchFrm" style="display: flex; font-size: 13pt; border: solid 1px gray;">
+				      <select name="searchType" id="searchType">
+				         <option value="subject">공고명</option>
+				         <option value="name">지원자명</option>
+				      </select>
+				      <input type="text" name="searchWord" id="searchWord" size="30" autocomplete="off" style="height: 35px;" /> 
+				      <input type="text" style="display: none;"/>
+				      <button type="button" id="search" class="btn btn-secondary btn-sm" onclick="goSearch()">검색</button>
+				   </form>
+				   <%-- 검색 Frm 끝 --%>
+				</th>
+			</tr>
+			
 			<tr>
 				<th class="formTitle" style="width: 28%;">공고명</th>
 				<th class="formTitle" style="width: 10%;">지원자명</th>
