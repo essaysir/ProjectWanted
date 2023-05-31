@@ -52,10 +52,10 @@
 	/* 표 상단 tab */
 	.tab {
 	    overflow: hidden;
-	    border-top: solid 2px #ddd;
-	    border-right: solid 2px #ddd;
+	    border: solid 2px #ddd;
 	    background-color: #fff;
 	    width: 1500px;
+	    margin: 0 auto;
 	    border-top-left-radius: 10px;
 	    border-top-right-radius: 10px; 
 	}
@@ -70,7 +70,7 @@
 	    padding: 14px 16px;
 	    transition: 0.3s;
 	    font-size: 20px;
-	    width: 498.2px;
+	    width: 499px;
 	}
 	
 	button.tablinks:hover {
@@ -103,7 +103,7 @@
 		margin: 0 10px;"
 	}
 	
-	
+
 
 </style>
  
@@ -178,10 +178,10 @@
 		<table class="containerTitle">
 
 		<thead>
-			<tr class="container" style="height: 60px;">
+			<tr style="height: 60px;">
 				<th>
 					<%-- 정렬 시작 --%>
-					<select name="selectType" id="searchType" style="position: absolute;">
+					<select name="Type" id="searchType">
 				         <option value="subject">공고명</option>
 				         <option value="name">지원자명</option>
 				    </select>
