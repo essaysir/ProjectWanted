@@ -9,7 +9,11 @@
 <script type="text/javascript" src="/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
 
 <style type="text/css">
-
+	
+	.row{
+	background-color: #f7f7f7;
+	}
+	
 	.main_frame{
 		border: solid 0px black;
 		width:100%;
@@ -255,7 +259,7 @@
 							var defaultOption = '<option value="0">:::직무를 선택하세요:::</option>';
 							$('.duty_select').append(defaultOption);  
 				          
-							$.each(json.DutyList, function(index, item) {
+							$.each(json.dutyList, function(index, item) {
 								var option = '<option value="' + item.duty_code + '">' + item.duty_name + '</option>';
 								$('.duty_select').append(option); // duty_select에 option 태그 추가
 							});
@@ -416,14 +420,19 @@
 					<input class="subject_input" id="subject_input"></input>
 				</div>
 				<div class="career">
-					<label class="con_title">경력선택</label>&nbsp;&nbsp;<span class="error">경력선택은 필수선택 사항입니다.</span><br>
+					<label class="con_title">최소경력선택</label>&nbsp;&nbsp;<span class="error">경력선택은 필수선택 사항입니다.</span><br>
 					<select class="career_select" id="career_select">
 						<option value="0">:::선택하세요:::</option>
 					    <option value="1">1년차</option>
 					    <option value="2">2년차</option>
 					    <option value="3">3년차</option>
-					    <option value="4">5년차</option>
-					    <option value="5">10년차</option>
+					    <option value="4">4년차</option>
+					    <option value="5">5년차</option>
+					    <option value="6">6년차</option>
+					    <option value="7">7년차</option>
+					    <option value="8">8년차</option>
+					    <option value="9">9년차</option>
+					    <option value="10">10년차</option>
 					</select>
 				</div>
 				<div class="info">

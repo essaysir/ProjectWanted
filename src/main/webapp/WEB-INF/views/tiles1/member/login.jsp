@@ -18,9 +18,6 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/bootstrap-4.6.0-dist/css/bootstrap.min.css" > 
 
-<!-- 직접 만든 CSS -->
-<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/style.css" />
-
 <!-- Optional JavaScript -->
 <script type="text/javascript" src="<%= ctxPath%>/js/jquery-3.6.4.min.js"></script>
 <script type="text/javascript" src="<%= ctxPath%>/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js" ></script>
@@ -248,10 +245,53 @@
 		justify-content: center;
 		align-items: center;
 	}
+	span#warning-email{
+		color: #fe415c ;
+		text-align: left ; 
+		font-size: 13px; 
+		font-weight: 400 ; 
+		margin-top: 0px; 
+	}
+	input.warning-email:focus{
+		border: 1px solid #fe415c !important ;
+	 
 	
+	}
+	button.possibeEnter{
+		background-color: #36f  !important ;
+		
+	}
 	
 </style>
+<script type="text/javascript">
+		$(document).ready(function(){
+			$("span#warning-email").hide();
+			$("input#email_input").on('input' , checkEmail );
+			
+			
+		}); // END OF $(DOCUMENT).READY(FUNCTION()
+		
+		function checkEmail(){
+			const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+			const bool = regExp.test( $(this).val() );
+			
+			if ( !bool ){
+				$("span#warning-email").show();
+				$('input#email_input').addClass('warning-email');
+				$("button#go_email").removeClass("possibeEnter");
+				$("span#span_email").css('color' , ' ' )  ;
+			}
+			else{
+				$("span#warning-email").hide();
+				$('input#email_input').removeClass('warning-email');
+				$("button#go_email").addClass("possibeEnter");
+				$("span#span_email").css('color' , '#fff' )  ;
+			}
+			
+			
+		} // end of function checkEmail()
 
+</script>
 
 
 </head>
@@ -282,10 +322,11 @@
 							<div id="email_box">
 								<label>이메일</label>
 							</div>
-							<input type="email" id="email_input" placeholder="이메일을 입력해주세요." />
+							<input type="email" id="email_input" placeholder="이메일을 입력해주세요."  style="margin-bottom: 0px;"/>
+							<span id="warning-email">올바른 이메일을 입력해주세요!</span>
 						</div>
 						<button type="submit" id="go_email">
-							<span>이메일로 계속하기</span>
+							<span id="span_email">이메일로 계속하기</span>
 						</button>
 						<p style="color: #939393; font-size: 11px; font-weight: bold; text-align: center; margin: 5px 0 15px 0;">또는</p>
 						<div id="login_method">

@@ -14,6 +14,13 @@
 		margin: 50px auto;
 	}
 	
+	button#btnExcel {
+		float: right;
+		margin: 50px 60px 0 0;
+		height: 40px;
+		font-size: 12pt;
+	}
+	
 	div.listForm {
 		margin-top: 50px;
 	}
@@ -69,9 +76,9 @@
 	.tab button:hover {
 	  background-color: #F5F9FD;
 	  color: #184CED;
+	  font-weight: bold;
 	}
 	
-	/* Create an active/current tablink class */
 	.tab button.active {
 	  border-top: solid 2px #184CED;
 	  color: #184CED;
@@ -87,63 +94,94 @@
 	
 
 </style>
+ 
+<script>
+
+	<%-- 표 상단 tab action 시작 --%>
+	var tabButtons = document.getElementsByClassName("tablinks");
+	
+	function openList(evt, tabName) {
+	    var i, tabcontent;
+	    tabcontent = document.getElementsByClassName("tabcontent");
+	    for (i = 0; i < tabcontent.length; i++) {
+	        tabcontent[i].style.display = "none";
+	    }
+	    for (i = 0; i < tabButtons.length; i++) {
+	        tabButtons[i].classList.remove("active");
+	    }
+	    document.getElementById(tabName).style.display = "block";
+	    evt.currentTarget.classList.add("active");
+	}
+	
+	<%-- 페이지 로드 후 기본 탭 선택 --%>
+	document.addEventListener("DOMContentLoaded", function() {
+	    var defaultOpenBtn = document.getElementById("defaultOpen");
+	    defaultOpenBtn.click();
+	    defaultOpenBtn.classList.add("active");
+	    for (var i = 0; i < tabButtons.length; i++) {
+	        tabButtons[i].addEventListener("click", function() {
+	            for (var j = 0; j < tabButtons.length; j++) {
+	                tabButtons[j].classList.remove("active");
+	            }
+	            this.classList.add("active");
+	        });
+	    }
+	});
+	<%-- 표 상단 tab action 끝--%>
+
+	
+	<%-- 지원자List 불러오기 시작--%>
+	function getCandidateList(status){
+    
+	    $.ajax({
+	       url:"/wanted/getCandidateList",
+	       data:{status: status },
+	       type:"get",
+	       success:function(result) {
+	    	   
+	          $("#candidateList").html(result);
+
+	       },
+	       error: function(request, status, error){
+	           alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+	        }
+   		 }); // end of $.ajax ----
+	}; 
+	<%-- 지원자List 불러오기 끝--%>
+	
+</script>
 
 <body>
+
+	<button type="button" class="btn btn-success btn-sm" id="btnExcel">Excel파일로저장</button>
 	
 	<div class="listForm">
 	<h3>전체 지원자 목록</h3>
-	
+
 	<div class="tab">
-			  <button class="tablinks" onclick="candidates(event, 'List')" id="defaultOpen">지원서 접수</button>
-			  <button class="tablinks" onclick="candidates(event, 'Pass')">합격</button>
-			  <button class="tablinks" onclick="candidates(event, 'Fail')">불합격</button>
+		  <button class="tablinks" id="defaultOpen" onclick="getCandidateList('0')">지원서 접수</button>
+		  <button class="tablinks" onclick="getCandidateList('1')">합격</button>
+		  <button class="tablinks" onclick="getCandidateList('2')">불합격</button>
 	
 		<table class="containerTitle">
 
+		<thead>
 			<tr style="height: 50px;"></tr>
 			<tr>
-				<th class="formTitle">지원자명</th>
-				<th class="formTitle">공고명</th>
-				<th class="formTitle">지원일자</th>
-				<th class="formTitle">현재상태</th>
+				<th class="formTitle" style="width: 28%;">공고명</th>
+				<th class="formTitle" style="width: 10%;">지원자명</th>
+				<th class="formTitle" style="width: 27%;">이력서</th>
+				<th class="formTitle" style="width: 10%;">지원일자</th>
+				<th class="formTitle" style="width: 15%;">현재상태</th>
 			</tr>
-
-			<tr>
-				<td id="List" class="tabcontent" colspan="4">지원자 목록이 없습니다.</td>
-			</tr>
+		</thead>
+		<tbody id="candidateList" style="font-size: 13pt;">
 			
-			<tr>
-				<td id="Pass" class="tabcontent" colspan="4">합격한 지원자 목록이 없습니다.</td>
-			</tr>
-			
-			<tr>
-				<td id="Fail" class="tabcontent" colspan="4">불합격한 지원자 목록이 없습니다.</td>
-			</tr>
-			
+		</tbody>
 		</table>
 	</div>
 	</div>
-
-<script>
-
-	<%-- 표 상단 tab --%>
-	function candidates(evt, tabName) {
-	  var i, tabcontent, tablinks;
-	  tabcontent = document.getElementsByClassName("tabcontent");
-	  for (i = 0; i < tabcontent.length; i++) {
-	    tabcontent[i].style.display = "none";
-	  }
-	  tablinks = document.getElementsByClassName("tablinks");
-	  for (i = 0; i < tablinks.length; i++) {
-	    tablinks[i].className = tablinks[i].className.replace(" active", "");
-	  }
-	  document.getElementById(tabName).style.display = "block";
-	  evt.currentTarget.className += " active";
-	}
 	
-	document.getElementById("defaultOpen").click();
-
-</script>
 
 
 </body>
