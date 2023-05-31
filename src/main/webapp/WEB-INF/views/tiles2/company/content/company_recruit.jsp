@@ -4,10 +4,6 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!-- jQueryUI CSS 및 JS -->
-<link rel="stylesheet" type="text/css" href="/jquery-ui-1.13.1.custom/jquery-ui.min.css" />
-<script type="text/javascript" src="/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
-
 <style type="text/css">
 	
 	.row{
@@ -380,7 +376,7 @@
 			}
 			
 			const frm = document.recruitFrm;
-			frm.action = "insert_recruit";
+			frm.action = "company_recruit";
 			frm.method = "post";
 			frm.submit();
 			
@@ -411,17 +407,17 @@
 				</div>
 				<div class="dcategory">
 					<label class="con_title">직무선택</label>&nbsp;&nbsp;<span class="error">직무선택은 필수선택 사항입니다.</span><br>
-					<select class="duty_select" id="duty_select">
+					<select class="duty_select" id="duty_select" name="fk_duty_code">
 						<option value="0">:::직군을 선택하세요:::</option>
 					</select>
 				</div>
 				<div class="subject">
 					<label class="con_title">공고 제목</label>&nbsp;&nbsp;<span class="error">공고 제목 입력은 필수입력 사항입니다.</span>
-					<input class="subject_input" id="subject_input"></input>
+					<input class="subject_input" id="subject_input" name="subject"></input>
 				</div>
 				<div class="career">
 					<label class="con_title">최소경력선택</label>&nbsp;&nbsp;<span class="error">경력선택은 필수선택 사항입니다.</span><br>
-					<select class="career_select" id="career_select">
+					<select class="career_select" id="career_select" name="career">
 						<option value="0">:::선택하세요:::</option>
 					    <option value="1">1년차</option>
 					    <option value="2">2년차</option>
@@ -437,31 +433,31 @@
 				</div>
 				<div class="info">
 					<label class="con_title">공고 내용</label>&nbsp;&nbsp;<span class="error">공고 내용 입력은 필수입력 사항입니다.</span>
-					<textarea class="info_textarea" id="info_textarea"></textarea>
+					<textarea class="info_textarea" id="info_textarea" name="info"></textarea>
 				</div>
 				<div class="duty">
 					<label class="con_title">주요 업무</label>&nbsp;&nbsp;<span class="error">주요 업무 입력은 필수입력 사항입니다.</span>
-					<textarea class="duty_textarea" id="duty_textarea"></textarea>
+					<textarea class="duty_textarea" id="duty_textarea" name="mainduty"></textarea>
 				</div>
 				<div class="duty">
 					<label class="con_title">필요 역량</label>&nbsp;&nbsp;<span class="error">필요 역량 입력은 필수입력 사항입니다.</span>
-					<textarea class="quality_textarea" id="quality_textarea"></textarea>
+					<textarea class="quality_textarea" id="quality_textarea" name="quality"></textarea>
 				</div>
 				<div class="file">
 					<label class="con_title">구직상세이미지</label><br>
-					<input type="file" name="attach" id="attach"/>
+					<input type="file" name="attach" id="attach" name="image"/>
 				</div>
 				<div class="quality">
 					<label class="con_title">연   봉</label>&nbsp;&nbsp;<span class="error">연봉 입력은 필수입력 사항입니다.</span><span class="error2">연봉 입력은 숫자만 가능합니다.</span><br>
-					<input class="sal_input" id="sal_input"></input><span>&nbsp;만 원</span>
+					<input class="sal_input" id="sal_input" name="salary"></input><span>&nbsp;만 원</span>
 				</div>
 				<div class="create">
 					<label class="con_title">등 록 일</label><br>
-					<input  type="text" id="create_input" name="create_input" class="create_input"></input>
+					<input  type="text" id="create_input" name="createday" class="create_input"></input>
 				</div>
 				<div class="deadline">
 					<label class="con_title">마 감 일</label><br>
-					<input type="text" id="deadline_input" name="deadline_input" class="deadline_input" ></input>
+					<input type="text" id="deadline_input" name="deadline" class="deadline_input" ></input>
 				</div>
 			</form>
 		</div>
