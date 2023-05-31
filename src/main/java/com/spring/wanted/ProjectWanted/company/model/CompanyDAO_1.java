@@ -13,7 +13,6 @@ import com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_1;
 @Repository
 public class CompanyDAO_1 implements InterCompanyDAO_1 {
 	
-	@Autowired
 	private final InterCompanyMapper_1 mapper;
 	
 	@Autowired

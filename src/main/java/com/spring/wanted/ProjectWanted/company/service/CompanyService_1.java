@@ -12,7 +12,6 @@ import com.spring.wanted.ProjectWanted.company.model.InterCompanyDAO_2;
 @Service
 public class CompanyService_1 implements InterCompanyService_1 {
 	
-	@Autowired
 	private final InterCompanyDAO_1 cdao;
 	
 	@Autowired
