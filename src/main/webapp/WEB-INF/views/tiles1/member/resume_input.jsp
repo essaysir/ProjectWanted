@@ -123,31 +123,118 @@
 	    background-color: #fff;
     	border-top: 1px solid #e0e0e0;
 	}
+	
+	div.input-group5 {
+		align-items: center;
+	}
+	
+	span.error_comment {
+		color: #8958FA;
+		font-size: 11px;
+		font-weight: bold;
+	}
 </style>
 
 <script type="text/javascript">
 
+
 		$(document).ready(function(){
-			checkResume();
-			$("textarea.resume_text").on('input' , checkResume ) ;
+	
+			$("span.error_comment").hide(); // 유효성검사가 실행되기 전이라면 에러메시지를 숨긴다.
+			$("input[name='subject']").focus(); // 이력서 제목에 포커스 주기
+			
+			checkResume(); // 글자수 게이지바 함수 실행
+			$("textarea.resume_text").on('input' , checkResume ); // 글자수 올라감.
+			
+			
+			
+				
+
+		        
+		        
+	        	
+	        	
+	        	
+				
+				
+			
+			
+
+		}); // END OF 	$(DOCUMENT).READY(FUNCTION()-----------------------------
+
+				
+				
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-
-		}); // END OF 	$(DOCUMENT).READY(FUNCTION()
-
 		
 		function autoResize(textarea){
 			textarea.style.height = "auto";
-			 textarea.style.height = textarea.scrollHeight + "px";
-		}; // END OF FUNCTION AUTORESIZE 
+			textarea.style.height = textarea.scrollHeight + "px";
+		}; // END OF FUNCTION AUTORESIZE -----------------------------------
 		
-		function checkResume(){
+		function checkResume(){ // 게이지바 함수
 			// console.log ( $("textarea.resume_text").val().length );
 			const totalLength = $("textarea.resume_text").val().length ;	
 			$("span#totalLength").text(totalLength);
 			const percent = totalLength / 13  ;
 			$('div.progress').css('width' , percent+"%");
-		}// END OF FUNCTION CHECKRESUME 
+		}; // END OF FUNCTION CHECKRESUME ---------------------------------------
 
+		
+		<%-- 작성 완료 버튼 클릭시 필수입력항목 유효성검사 함수 --%>
+		function insertResume() {
+			
+			const subject = $("input[name='subject']").val(); // 이력서 제목
+			const name = $("input[name='name']").val(); 	  // 이름
+			const email = $("input[name='email']").val();	  // 이메일
+			const contact = $("input[name='contact']").val(); // 연락처
+			
+			if (subject.trim() === "") {
+			    alert("이력서 제목을 작성해주세요.");
+			    $("span.error_comment").show();
+			    return false;
+			} else if (name.trim() === "") {
+			    alert("이름을 작성해주세요.");
+			    $("span.error_comment").show();
+			    return false;
+			} else if (email.trim() === "") {
+			    alert("이메일을 작성해주세요.");
+			    $("span.error_comment").show();
+			    return false;
+			} else if (contact.trim() === "") {
+			    alert("연락처를 작성해주세요.");
+			    $("span.error_comment").show();
+			    return false;
+			}
+		    
+			// 이력서 글자수 및 공백 유효성 검사
+	        const totalLength = $("textarea.resume_text").val().length;
+			const resume_text = $("textarea.resume_text").val().trim().length;
+			const requiredLength = 400; // 최소 글자 수
+			
+			if (totalLength < requiredLength) {
+			    alert("최소 " + requiredLength + "자를 입력하셔야 이력서 등록이 가능합니다.");
+			    $("textarea.resume_text").focus(); // 포커스 이동
+			    return false;
+			}
+			else if(resume_text.length === 0) {
+				alert("공백만 입력하는 것은 불가능합니다.");
+				$("textarea.resume_text").focus(); // 포커스 이동
+		           return false;
+			}
+			else {
+			    $("span.error_comment").hide();
+			}
+			
+		    
+		 // 유효성 검사 후 최종 전송 확정
+			const frm = document.resumeFrm;
+			frm.action = "myresume";
+			frm.method = "post";
+			frm.submit();
+		    
+		}
+		
 </script>
 
 <form name="resumeFrm">
@@ -160,23 +247,27 @@
 		
 		<div class="container my-5">
 				<div class="input-group input-group-lg input-div">
-				  <input type="text" name="subject" class="form-control  resume-subject" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" 
+				  <input type="text" name="subject" class="form-control resume-subject" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" 
 				  placeholder="이력서 제목(필수)" >
+				  <span class="error_comment" style="margin-top: 35px;">"이력서 제목" 은 필수입력사항 입니다.</span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" name="name" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  <input type="text" name="name" class="form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
 				  placeholder="이름(필수)" >
+				  <span class="error_comment">"이름" 은 필수입력사항 입니다.</span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-				  placeholder="이메일(필수)" >
+				  <input type="text" name="email" class="form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  placeholder="이메일(필수) EX) wanted@wanted.com" >
+				  <span class="error_comment">"이메일" 은 필수입력사항 입니다.</span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" class="form-control noborder" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-				  placeholder="연락처(필수) EX) 000-0000-000" style="color: #3b3d40; font-size : 14px; " >
+				  <input type="text" name="contact" class="form-control noborder" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  placeholder="연락처(필수) EX) 01012345678" style="color: #3b3d40; font-size : 14px; " >
+				  <span class="error_comment">"연락처" 는 필수입력사항 입니다.</span>
 				</div>
 				
 				<div class="resume-header" style="margin-top:60px;">
@@ -224,28 +315,28 @@
 								
 								<ul>
 									<li>
-										<input type="text" placeholder="주요성과" style="width:80%;  font-size:16px;"/>
+										<input type="text" autocomplete="off" placeholder="주요성과" style="width:80%;  font-size:16px;"/>
 										<button class="btn-delete-detail"type="button" style="width:17%;">X</button>
-										<input type="text" placeholder="YYYY" maxlength="4" style="width:36px; font-size:14px;"/>
+										<input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px; font-size:14px;"/>
 										.
-										<input type="text" placeholder="MM" maxlength="2" style="width:30px;font-size:14px;"/>
+										<input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;font-size:14px;"/>
 										&nbsp;- &nbsp;
-										<input type="text" placeholder="YYYY" maxlength="4" style="width:36px;font-size:14px;"/>
+										<input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px;font-size:14px;"/>
 										.
-										<input type="text" placeholder="MM" maxlength="2" style="width:30px;font-size:14px;"/>
+										<input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;font-size:14px;"/>
 										<textarea class="resume_text" oninput="autoResize(this)" placeholder="상세 업무 내용과 성과를 기입해주세요" style="font-size:14px;"></textarea>
 									</li>
 									
 									<li>
-										<input type="text" placeholder="주요성과" style="width:80%;  font-size:16px;"/>
+										<input type="text" autocomplete="off" placeholder="주요성과" style="width:80%;  font-size:16px;"/>
 										<button class="btn-delete-detail"type="button" style="width:17%;">X</button>
-										<input type="text" placeholder="YYYY" maxlength="4" style="width:36px; font-size:14px;"/>
+										<input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px; font-size:14px;"/>
 										.
-										<input type="text" placeholder="MM" maxlength="2" style="width:30px;font-size:14px;"/>
+										<input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;font-size:14px;"/>
 										&nbsp;- &nbsp;
-										<input type="text" placeholder="YYYY" maxlength="4" style="width:36px;font-size:14px;"/>
+										<input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px;font-size:14px;"/>
 										.
-										<input type="text" placeholder="MM" maxlength="2" style="width:30px;font-size:14px;"/>
+										<input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;font-size:14px;"/>
 										<textarea class="resume_text" oninput="autoResize(this)" placeholder="상세 업무 내용과 성과를 기입해주세요" style="font-size:14px;"></textarea>
 									</li>
 								</ul>
@@ -263,41 +354,41 @@
 					
 					<div style="display:flex;  flex-direction: row">
 							<div class="my-3"style="display:block; width:30%; margin-right : 10px;">
-								<input type="text" placeholder="YYYY" maxlength="4" style="width:36px;"/>
+								<input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px;"/>
 								.
-								<input type="text" placeholder="MM" maxlength="2"style="width:30px;"/>
+								<input type="text" autocomplete="off" placeholder="MM" maxlength="2"style="width:30px;"/>
 								&nbsp;- &nbsp;
-								<input type="text" placeholder="YYYY" maxlength="4" style="width:36px;"/>
+								<input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px;"/>
 								.
-								<input type="text" placeholder="MM"  maxlength="2"style="width:30px;"/>
+								<input type="text" autocomplete="off" placeholder="MM"  maxlength="2"style="width:30px;"/>
 								<span style="color:#ff425f;">*</span>
 							</div>
 							
 							<div class="my-3" style="display:block; width : 60%">
-								<input type="text" placeholder="학교명" style="width:80%;  font-size:2opx;"/>
+								<input type="text" autocomplete="off" placeholder="학교명" style="width:80%;  font-size:2opx;"/>
 								<button class="btn-delete"type="button" style="width:17%;">X</button>
-								<input type="text" placeholder="전공 및 학위 (ex: 경영학과 학사)" maxlength="255" style="width:100%;  font-size:2opx;"/>
-								<input type="text" placeholder="이수과목 또는 연구내용" maxlength="255" style="width:100%;  font-size:14px;"/>
+								<input type="text" autocomplete="off" placeholder="전공 및 학위 (ex: 경영학과 학사)" maxlength="255" style="width:100%;  font-size:2opx;"/>
+								<input type="text" autocomplete="off" placeholder="이수과목 또는 연구내용" maxlength="255" style="width:100%;  font-size:14px;"/>
 							</div>
 					</div>	
 							
 					<div style="display:flex;  flex-direction: row">
 							<div class="my-3"style="display:block; width:30%; margin-right : 10px;">
-								<input type="text" placeholder="YYYY" maxlength="4" style="width:36px;"/>
+								<input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px;"/>
 								.
-								<input type="text" placeholder="MM" maxlength="2"style="width:30px;"/>
+								<input type="text" autocomplete="off" placeholder="MM" maxlength="2"style="width:30px;"/>
 								&nbsp;- &nbsp;
-								<input type="text" placeholder="YYYY" maxlength="4" style="width:36px;"/>
+								<input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px;"/>
 								.
-								<input type="text" placeholder="MM"  maxlength="2"style="width:30px;"/>
+								<input type="text" autocomplete="off" placeholder="MM"  maxlength="2"style="width:30px;"/>
 								<span style="color:#ff425f;">*</span>
 							</div>
 							
 							<div class="my-3" style="display:block; width : 60%">
-								<input type="text" placeholder="학교명" style="width:80%;  font-size:2opx;"/>
+								<input type="text" autocomplete="off" placeholder="학교명" style="width:80%;  font-size:2opx;"/>
 								<button class="btn-delete"type="button" style="width:17%;">X</button>
-								<input type="text" placeholder="전공 및 학위 (ex: 경영학과 학사)" maxlength="255" style="width:100%;  font-size:2opx;"/>
-								<input type="text" placeholder="이수과목 또는 연구내용" maxlength="255" style="width:100%;  font-size:14px;"/>
+								<input type="text" autocomplete="off" placeholder="전공 및 학위 (ex: 경영학과 학사)" maxlength="255" style="width:100%;  font-size:2opx;"/>
+								<input type="text" autocomplete="off" placeholder="이수과목 또는 연구내용" maxlength="255" style="width:100%;  font-size:14px;"/>
 							</div>
 					</div>	
 					<!--  학력 끝 -->
@@ -326,15 +417,15 @@
 					
 					<div style="display:flex;  flex-direction: row">
 							<div class="my-3"style="display:block; width:30%; margin-right : 10px;">
-								<input type="text" placeholder="YYYY" maxlength="4" style="width:36px;"/>
+								<input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px;"/>
 								.
-								<input type="text" placeholder="MM" maxlength="2"style="width:30px;"/>
+								<input type="text" autocomplete="off" placeholder="MM" maxlength="2"style="width:30px;"/>
 							</div>
 							
 							<div class="my-3" style="display:block; width : 60%">
-								<input type="text" placeholder="활동명" style="width:80%;  font-size:2opx;"/>
+								<input type="text" autocomplete="off" placeholder="활동명" style="width:80%;  font-size:2opx;"/>
 								<button class="btn-delete"type="button" style="width:17%;">X</button>
-								<input type="text" placeholder="세부사항" maxlength="255" style="width:100%;  font-size:2opx;"/>
+								<input type="text" autocomplete="off" placeholder="세부사항" maxlength="255" style="width:100%;  font-size:2opx;"/>
 							</div>
 					</div>	
 					<!--  수상 및 기타 끝 -->
@@ -351,15 +442,15 @@
 					
 					<div style="display:flex;  flex-direction: row">
 							<div class="my-3"style="display:block; width:30%; margin-right : 10px;">
-								<input type="text" placeholder="YYYY" maxlength="4" style="width:36px;"/>
+								<input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px;"/>
 								.
-								<input type="text" placeholder="MM" maxlength="2"style="width:30px;"/>
+								<input type="text" autocomplete="off" placeholder="MM" maxlength="2"style="width:30px;"/>
 							</div>
 							
 							<div class="my-3" style="display:block; width : 60%">
-								<input type="text" placeholder="활동명" style="width:80%;  font-size:2opx;"/>
+								<input type="text" autocomplete="off" placeholder="활동명" style="width:80%;  font-size:2opx;"/>
 								<button class="btn-delete"type="button" style="width:17%;">X</button>
-								<input type="text" placeholder="세부사항" maxlength="255" style="width:100%;  font-size:2opx;"/>
+								<input type="text" autocomplete="off" placeholder="세부사항" maxlength="255" style="width:100%;  font-size:2opx;"/>
 							</div>
 					</div>	
 					<!--  외국어 끝  -->
@@ -389,7 +480,7 @@
 				<p style="margin: 20px 20px  20px 5px; "><span id="totalLength"></span>/1300</p>
 				<p style="margin: 20px 20px  20px 10px; ">😊개발 직군, 신입 지원자들은 평균 1300자 정도 작성했어요</p>
 				<button type="button" class="btn-blue save-temporary">임시 저장</button>
-				<button type="button" class="btn-blue save" >작성 완료</button>
+				<button type="button" id="btn_resumeOk" class="btn-blue save" onclick="insertResume()" >작성 완료</button>
 			</div>
 		</div>
 
