@@ -106,7 +106,7 @@
 				<tiles:insertAttribute name="side" />
 			</div>
 
-			<div class="col m-4 pl-0 pr-4" id="myContent">
+			<div class="col m-4 pl-3 pr-3" id="myContent">
 				<tiles:insertAttribute name="content" />
 			</div>
 		</div>

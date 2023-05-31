@@ -66,7 +66,7 @@ public class CompanyController_1 {
 
 	
 	// 회사 지원통계(차트) 페이지
-	@GetMapping(value = "/wanted/company_chart")
+	@GetMapping(value = "/company_chart")
 	public ModelAndView company_statistics(ModelAndView mav){
 		
 		mav.setViewName("company/company_chart.tiles2");
@@ -75,5 +75,9 @@ public class CompanyController_1 {
 	}
 
 	
+	@GetMapping(value = "/signup")
+	   public String signup() {
+	      return "/tiles1/member/signup" ;
+	   }
 	
 }
