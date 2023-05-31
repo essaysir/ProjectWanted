@@ -128,25 +128,72 @@
 <script type="text/javascript">
 
 		$(document).ready(function(){
+			
 			checkResume();
 			$("textarea.resume_text").on('input' , checkResume ) ;
 		
+			<%-- 작성 완료 버튼 클릭 시작 --%>
+			$("button#btn_resumeOk").click(function(){
+				
+				// 이력서 글자 수 유효성 검사
+		        const totalLength = $("textarea.resume_text").val().length;
+		        const percent = totalLength / 13;
+		        if (percent < 100) {
+		            // 글자 수가 유효하지 않을 경우 경고 메시지 표시
+		            alert("최소 1300자를 입력하셔야 이력서 등록이 가능합니다.");
+		            return;
+		        }
+		        // 이력서 글자 공백 유효성 검사
+		        const resume_text = $("textarea#resume_text").text().trim();
+	        	if(resume_text == "") {
+		           alert("공백만 입력하는 것은 불가능합니다.");
+		           return;
+		        }
+	        	
+	        	// 제목, 이름, 이메일, 연락처 필수입력사항 유효성 검사
+	        	if(!inupt_required()) {
+	        		alert("필수 입력사항을 작성해주세요.");
+	        	}
+	        	
+				
+				// 유효성 검사 후 최종 전송 확정
+				const frm = document.resumeFrm;
+				frm.action = "myresume";
+				frm.method = "post";
+				frm.submit();
+				
+			}); // end of $("button#btn_resumeOk").click(function()------------------------		
+			
+			
 
-		}); // END OF 	$(DOCUMENT).READY(FUNCTION()
-
+		}); // END OF 	$(DOCUMENT).READY(FUNCTION()-----------------------------
+				
+		<%-- 필수입력항목 유효성검사 함수 --%>		
+		function inupt_required() {
+			const subject = $("input[name='subject']").val();
+			const name = $("input[name='name']").val();
+			const email = $("input[name='email']").val();
+			const contact = $("input[name='contact']").val();
+			
+			if (subject.trim() === "" || name.trim() === "" || email.trim() === "" || contact.trim() === "") {
+		        return false;
+		    }
+		    return true;
+		    
+		}; // end of function inupt_required()-----------------------------------
 		
 		function autoResize(textarea){
 			textarea.style.height = "auto";
-			 textarea.style.height = textarea.scrollHeight + "px";
-		}; // END OF FUNCTION AUTORESIZE 
+			textarea.style.height = textarea.scrollHeight + "px";
+		}; // END OF FUNCTION AUTORESIZE -----------------------------------
 		
-		function checkResume(){
+		function checkResume(){ // 게이지바 함수
 			// console.log ( $("textarea.resume_text").val().length );
 			const totalLength = $("textarea.resume_text").val().length ;	
 			$("span#totalLength").text(totalLength);
 			const percent = totalLength / 13  ;
 			$('div.progress').css('width' , percent+"%");
-		}// END OF FUNCTION CHECKRESUME 
+		}; // END OF FUNCTION CHECKRESUME ---------------------------------------
 
 </script>
 
@@ -160,22 +207,22 @@
 		
 		<div class="container my-5">
 				<div class="input-group input-group-lg input-div">
-				  <input type="text" name="subject" class="form-control  resume-subject" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" 
+				  <input type="text" name="subject" class="form-control resume-subject" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" 
 				  placeholder="이력서 제목(필수)" >
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" name="name" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  <input type="text" name="name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
 				  placeholder="이름(필수)" >
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  <input type="text" name="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
 				  placeholder="이메일(필수)" >
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" class="form-control noborder" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  <input type="text" name="contact" class="form-control noborder" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
 				  placeholder="연락처(필수) EX) 000-0000-000" style="color: #3b3d40; font-size : 14px; " >
 				</div>
 				
@@ -389,7 +436,7 @@
 				<p style="margin: 20px 20px  20px 5px; "><span id="totalLength"></span>/1300</p>
 				<p style="margin: 20px 20px  20px 10px; ">😊개발 직군, 신입 지원자들은 평균 1300자 정도 작성했어요</p>
 				<button type="button" class="btn-blue save-temporary">임시 저장</button>
-				<button type="button" class="btn-blue save" >작성 완료</button>
+				<button type="button" id="btn_resumeOk" class="btn-blue save" >작성 완료</button>
 			</div>
 		</div>
 
