@@ -44,6 +44,7 @@ public class MemberController {
 			String view = service.checkUserid(userid);
 			return view ;
 		}
+		
 		@GetMapping(value="/register")
 		public String test() {
 			
