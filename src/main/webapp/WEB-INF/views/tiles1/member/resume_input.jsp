@@ -168,12 +168,12 @@
 			
 <%-- --%>			
 			// 이벤트 위임으로 클릭 이벤트를 처리.
-			$(document).on('click', '#achievements_btn', addAchievements); // 주요 성과 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
+			// $(document).on('click', '#achievements_btn', addAchievements); // 주요 성과 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
 <%-- --%>			
 			
 		}); // END OF $(DOCUMENT).READY(FUNCTION()-----------------------------
 
-				
+		let career_count = 0 ; 
 				
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -311,7 +311,7 @@
 		
 		// 경력의 추가버튼 클릭시 입력란 동적 생성해주는 함수
 		function addCareer() {
-			
+			career_count ++ ;
 			    var html = '<li>\n' +
 			               '  <div style="display:flex; flex-direction: row">\n' +
 			               '    <div style="width: 20%; display: flex; flex-direction: row;">\n' +
@@ -330,8 +330,8 @@
 			               '      <input type="text" placeholder="회사명" style="width:80%; font-size:2opx;" />\n' +
 			               '      <button class="btn-delete" type="button" style="width:17%;">X</button>\n' +
 			               '      <input type="text" placeholder="부서명/직책" maxlength="255" style="width:100%; font-size:2opx;" />\n' +
-			               '      <button type="button" class="plushtml" style="border-bottom:0px;" id="achievements_btn">+주요 성과 추가</button>\n' +
-			               '	  <ul id="addAchievements"></ul>\n' +	
+			               '      <button type="button" class="plushtml" style="border-bottom:0px;" onclick="addAchievements('+career_count+')" id="achievements_btn'+career_count+'">+주요 성과 추가</button>\n' +
+			               '	  <ul id="addAchievements'+career_count+'"></ul>\n' +	
 			               '    </div>\n' +
 			               '  </div>\n' +
 			               '</li>';
@@ -343,7 +343,7 @@
 		
 		
 		// 주요 성과 추가 추가버튼 클릭시 입력란 동적 생성해주는 함수(이벤트 위임 받아서 생성)
-		function addAchievements() {
+		function addAchievements(count) {
 
 		  var html = '<li>\n' +
 		    '  <input type="text" autocomplete="off" placeholder="주요성과" style="width:80%; font-size:16px;"/>\n' +
@@ -359,7 +359,7 @@
 		    '</li>';
 
 		  // HTML 코드를 <ul> 태그에 추가합니다.
-		  $('ul#addAchievements').append(html);
+		  $('ul#addAchievements'+count).append(html);
 
 		}; // end of function addAchievements()-----------------------------------
 		

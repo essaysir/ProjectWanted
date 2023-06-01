@@ -4,7 +4,5 @@ import java.util.List;
 
 public interface InterMemberDAO {
 
-	List<String> getJob();
-
-    List<String> getDuty(String jobname);
+	int checkUserid(String userid); // 
 }
