@@ -38,5 +38,29 @@
 		values(SEQ_POST.nextval, 'test_wanted', #{fk_duty_code}, #{career}, #{subject}, #{info}, #{image}, #{createday}, #{salary}, #{mainduty}, #{quality}, #{deadline}, default, 0)
 		</if>
 	</insert>
+	
+	<select id="getTotalPost" parameterType="String" resultType="int">
+		select count(*)
+		from tbl_post
+		where fk_company_id = #{id}
+	</select>
+	
+	<resultMap type="HashMap" id="getPost_Map">
+		<result property="post_code" 	column="post_code" 	javaType="String" />
+		<result property="subject" 		column="subject" 	javaType="String" />
+		<result property="createday" 	column="createday" 	javaType="String" />
+		<result property="deadline" 	column="deadline" 	javaType="String" />
+		<result property="pay_status" 	column="pay_status" javaType="String" />
+	</resultMap>
+	<select id="getPost" parameterType="String" resultMap="getPost_Map">
+		select post_code, subject, createday, deadline, pay_status
+		from
+		(
+		    select row_number() over(order by post_code desc) AS RNO, post_code, subject, createday, deadline, pay_status
+		    from tbl_post
+		    where fk_company_id = #{fk_company_id}
+		) V
+		where RNO between #{start} and #{len}
+	</select>
 
 </mapper>
