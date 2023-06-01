@@ -30,7 +30,7 @@ public class MemberController {
 		//  회원 가입 페이지
 		@GetMapping(value="/login")
 		public String login() {
-			return "tiles1/member/login";
+			return "tiles1/member/resume_input";
 		}
 		
 		//  회원 가입 로그인 시도시 페이지
@@ -39,6 +39,18 @@ public class MemberController {
 			
 			return "";
 		}
+		@PostMapping(value="/checkUserid")
+		public String checkUserid(@RequestParam String userid ) {
+			String view = service.checkUserid(userid);
+			return view ;
+		}
+		
+		@GetMapping(value="/register")
+		public String test() {
+			
+			return "tiles1/member/signup";
+		}
+		
 
 	
 	

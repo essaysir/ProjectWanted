@@ -4,7 +4,5 @@ import java.util.List;
 
 public interface InterMemberService {
 
-	List<String> getJob(); // TBL_JOB 에서 셀렉트 해오기
-
-    List<String> getDuty(String jobname); // TBL_DUTY 에서 전체 SELECT 해오기
+	String checkUserid(String userid); // Login 화면에서 아이디를 체크해주는 것
 }

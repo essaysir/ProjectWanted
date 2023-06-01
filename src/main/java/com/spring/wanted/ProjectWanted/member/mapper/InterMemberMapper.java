@@ -6,10 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface InterMemberMapper {
-	 
-	String test_select();
 
-	List<String> getJob();
-
-    List<String> getDuty(String jobname);
+	int checkUserid(String userid); // 동일한 아이디가 존재하는지 알아오는 메소드
 }

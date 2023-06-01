@@ -81,7 +81,9 @@ public class CompanyController_2 {
 				
 		String json = service.getPost(paraMap);
 		
+
 		return json;
+
 	}
 	
 	//===============================SJS시작==================================
