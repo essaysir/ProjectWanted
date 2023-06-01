@@ -118,12 +118,12 @@
 		text-align: center;
 	}
 
-	div#login_wanted > div#title_name {
+	div#login_wanted > div#title_name2 {
 	
 		display: block;
 	    margin: 0 auto;
     	margin-bottom: 30px;
-    	padding-top: 56px;
+    	padding-top: 0px;
 		
 	}
 	
@@ -261,65 +261,18 @@
 		background-color: #36f  !important ;
 		
 	}
-	
+	p#logintoemail{
+		font-size: 18px !important ;
+	}
 </style>
 <script type="text/javascript">
 		$(document).ready(function(){
-			setdocument() ; //  document 초기 로딩시 필요한 것들 
 			
 			
 			
 		}); // END OF $(DOCUMENT).READY(FUNCTION()
-		function setdocument(){
-			$("span#warning-email").hide();
-			$("input#email_input").on('input' , checkEmail );
-			$("input#email_input").on('keyup', function(e){
-				if ( $(e.keyCode) == 13 ){
-					checkUserid() ;
-				}
-			}); 
-			$("button#go_email").click( checkUserid ); 
-		}// end of function setdocument
 		
-		function checkEmail(){
-			const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-			const bool = regExp.test( $(this).val() );
-			
-			if ( !bool ){
-				$("span#warning-email").show();
-				$('input#email_input').addClass('warning-email');
-				$("button#go_email").removeClass("possibeEnter");
-				$("span#span_email").css('color' , ' ' )  ;
-				$("button#go_email").prop("disabled", true);
-
-			}
-			else{
-				$("span#warning-email").hide();
-				$('input#email_input').removeClass('warning-email');
-				$("button#go_email").addClass("possibeEnter");
-				$("button#go_email").prop("disabled", false);
-				$("span#span_email").css('color' , '#fff' )  ;
-			}
-			
-			
-		} // end of function checkEmail()
-		
-		function checkUserid(){
-		console.log($('input#email_input').val()) ;
-			$.ajax({
-				url: "/wanted/checkUserid",
-				type: "post",
-				async:"false", 
-				data: {"userid": $('input#email_input').val()} ,
-				success: function (result) {
-					console.log(result);
-					$("div#login_mainfrm").empty();
-					$("div#login_mainfrm").html(result);
-				},
-				error: function (request, status, error) {
-					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-				}
-			});
+	
 
 
 				
@@ -341,11 +294,11 @@
 			<!-- 세 번째 중간 틀(로그인폼 전체틀) -->
 			<div id="login_mainfrm">
 				<!-- 네 번째 중간 틀(로그인폼 안에 두 번쨰 틀) -->
-				<div id="login_title">
+				<div id="login_title" style="height: 98%;">
 					<!-- 다섯 번째 중간 틀(wanted 제목이 있는 틀) -->
 					<div id="login_wanted">
 						<div id="title_name">
-							<p>wanted</p>
+							<p id="logintoemail">이메일로 로그인</p>
 						</div>
 					</div >		
 					<!-- 다섯 번째 중간 틀 끝(wanted 제목이 있는 틀) -->
