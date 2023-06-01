@@ -25,14 +25,14 @@ public class CompanyController_1 {
 	
 	
 	// 이력서소개 페이지
-	@GetMapping(value = "/wanted/resume_info")
+	@GetMapping(value = "/resume_info")
 	public String resume_info() {
 		return "resume/resume_info.tiles1" ;
 	}
 	
 	
 	// 이력서List 페이지
-	@GetMapping(value = "/wanted/resume_list")
+	@GetMapping(value = "/resume_list")
 	public String resume_list() {
 		return "resume/resume_list.tiles1" ;
 	}
@@ -66,7 +66,7 @@ public class CompanyController_1 {
 
 	
 	// 회사 지원통계(차트) 페이지
-	@GetMapping(value = "/wanted/company_chart")
+	@GetMapping(value = "/company_chart")
 	public ModelAndView company_statistics(ModelAndView mav){
 		
 		mav.setViewName("company/company_chart.tiles2");

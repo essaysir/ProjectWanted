@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_2;
+import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 @Component
 @Repository
@@ -34,6 +35,13 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 	public List<Map<String, String>> getDutyList(String jobCode) {
 		List<Map<String, String>> dutyList = mapper.getDutyList(jobCode);
 		return dutyList;
+	}
+	
+	// TBL_POST에 등록하기
+	@Override
+	public void insertRecruit(PostVO postvo) {
+		mapper.insertRecruit(postvo);
+		
 	}
 
 }
