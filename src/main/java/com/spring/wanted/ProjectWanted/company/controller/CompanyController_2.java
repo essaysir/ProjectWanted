@@ -11,11 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_2;
@@ -64,6 +61,39 @@ public class CompanyController_2 {
 		return jsonObj.toString();
 	}
 	
+	// 채용공고관리페이지 띄우기
+	@GetMapping(value="/company_jobPost")
+	public String jobPost(HttpServletRequest request) {
+		
+		String id = "test_wanted";
+		
+		int totalPost = service.getTotalPost(id);
+		
+		request.setAttribute("totalPost", totalPost);
+		
+		System.out.println(totalPost);
+		
+		return "company/company_jobPost.tiles2";
+	}
+	
+	//ajax로 Post호출하기
+	@ResponseBody
+	@PostMapping(value="/getPost", produces = "text/plain;charset=UTF-8")
+	public String getPost(HttpServletRequest request, @RequestParam Map<String, String> paraMap){
+		
+		System.out.println(paraMap);
+		
+		List<Map<String, String>> PostList = service.getPost(paraMap);
+		
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("PostList", PostList);
+		
+		System.out.println(PostList);
+		
+		return jsonObj.toString();
+	}
+	
+	//===============================SJS시작==================================
 	@ResponseBody
 	@GetMapping(value="/getHeaderList" , produces = "text/plain;charset=UTF-8" )
 	public String getHeaderList() {
@@ -75,6 +105,6 @@ public class CompanyController_2 {
 		
 		return jsonobj.toString();
 	}
-	
+	//===============================SJS끝==================================
 
 }

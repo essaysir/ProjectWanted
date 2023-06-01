@@ -6,15 +6,14 @@
 
 <style type="text/css">
 	
-	.row{
-	background-color: #f7f7f7;
+	body{
+		background-color: #F2F4F7;
 	}
 	
 	.main_frame{
 		border: solid 0px black;
 		width:100%;
 		height:100%;
-		background-color: #f7f7f7;
 		padding: 100px 0;
 	}
 	
@@ -386,83 +385,83 @@
 	
 	
 </script>
-
-<div class="main_frame">
-	<div class="main_content">
-		<div class="content_header">
-			<div class="cancel"><p>취소</p></div>
-			<div class="content_title"><p>공고 등록</p></div>
-			<div class="submit" id="submit"><p>등록</p></div>
-		</div>
-		<div class="content_body">
-			<form name="recruitFrm">
-				<div class="category">
-					<label class="con_title">직군선택</label>&nbsp;&nbsp;<span class="error">직군선택은 필수선택 사항입니다.</span><br>
-					<select class="job_select" id="job_select">
-						<option value="0">:::선택하세요:::</option>
-					    <c:forEach var="map" items="${requestScope.JobList}">
-					    	<option value="${map.job_code}">${map.job_name}</option>
-					    </c:forEach>
-					</select>
-				</div>
-				<div class="dcategory">
-					<label class="con_title">직무선택</label>&nbsp;&nbsp;<span class="error">직무선택은 필수선택 사항입니다.</span><br>
-					<select class="duty_select" id="duty_select" name="fk_duty_code">
-						<option value="0">:::직군을 선택하세요:::</option>
-					</select>
-				</div>
-				<div class="subject">
-					<label class="con_title">공고 제목</label>&nbsp;&nbsp;<span class="error">공고 제목 입력은 필수입력 사항입니다.</span>
-					<input class="subject_input" id="subject_input" name="subject"></input>
-				</div>
-				<div class="career">
-					<label class="con_title">최소경력선택</label>&nbsp;&nbsp;<span class="error">경력선택은 필수선택 사항입니다.</span><br>
-					<select class="career_select" id="career_select" name="career">
-						<option value="0">:::선택하세요:::</option>
-					    <option value="1">1년차</option>
-					    <option value="2">2년차</option>
-					    <option value="3">3년차</option>
-					    <option value="4">4년차</option>
-					    <option value="5">5년차</option>
-					    <option value="6">6년차</option>
-					    <option value="7">7년차</option>
-					    <option value="8">8년차</option>
-					    <option value="9">9년차</option>
-					    <option value="10">10년차</option>
-					</select>
-				</div>
-				<div class="info">
-					<label class="con_title">공고 내용</label>&nbsp;&nbsp;<span class="error">공고 내용 입력은 필수입력 사항입니다.</span>
-					<textarea class="info_textarea" id="info_textarea" name="info"></textarea>
-				</div>
-				<div class="duty">
-					<label class="con_title">주요 업무</label>&nbsp;&nbsp;<span class="error">주요 업무 입력은 필수입력 사항입니다.</span>
-					<textarea class="duty_textarea" id="duty_textarea" name="mainduty"></textarea>
-				</div>
-				<div class="duty">
-					<label class="con_title">필요 역량</label>&nbsp;&nbsp;<span class="error">필요 역량 입력은 필수입력 사항입니다.</span>
-					<textarea class="quality_textarea" id="quality_textarea" name="quality"></textarea>
-				</div>
-				<div class="file">
-					<label class="con_title">구직상세이미지</label><br>
-					<input type="file" name="attach" id="attach" name="image"/>
-				</div>
-				<div class="quality">
-					<label class="con_title">연   봉</label>&nbsp;&nbsp;<span class="error">연봉 입력은 필수입력 사항입니다.</span><span class="error2">연봉 입력은 숫자만 가능합니다.</span><br>
-					<input class="sal_input" id="sal_input" name="salary"></input><span>&nbsp;만 원</span>
-				</div>
-				<div class="create">
-					<label class="con_title">등 록 일</label><br>
-					<input  type="text" id="create_input" name="createday" class="create_input"></input>
-				</div>
-				<div class="deadline">
-					<label class="con_title">마 감 일</label><br>
-					<input type="text" id="deadline_input" name="deadline" class="deadline_input" ></input>
-				</div>
-			</form>
+<body>
+	<div class="main_frame">
+		<div class="main_content">
+			<div class="content_header">
+				<div class="cancel"><p>취소</p></div>
+				<div class="content_title"><p>공고 등록</p></div>
+				<div class="submit" id="submit"><p>등록</p></div>
+			</div>
+			<div class="content_body">
+				<form name="recruitFrm">
+					<div class="category">
+						<label class="con_title">직군선택</label>&nbsp;&nbsp;<span class="error">직군선택은 필수선택 사항입니다.</span><br>
+						<select class="job_select" id="job_select">
+							<option value="0">:::선택하세요:::</option>
+						    <c:forEach var="map" items="${requestScope.JobList}">
+						    	<option value="${map.job_code}">${map.job_name}</option>
+						    </c:forEach>
+						</select>
+					</div>
+					<div class="dcategory">
+						<label class="con_title">직무선택</label>&nbsp;&nbsp;<span class="error">직무선택은 필수선택 사항입니다.</span><br>
+						<select class="duty_select" id="duty_select" name="fk_duty_code">
+							<option value="0">:::직군을 선택하세요:::</option>
+						</select>
+					</div>
+					<div class="subject">
+						<label class="con_title">공고 제목</label>&nbsp;&nbsp;<span class="error">공고 제목 입력은 필수입력 사항입니다.</span>
+						<input class="subject_input" id="subject_input" name="subject"></input>
+					</div>
+					<div class="career">
+						<label class="con_title">최소경력선택</label>&nbsp;&nbsp;<span class="error">경력선택은 필수선택 사항입니다.</span><br>
+						<select class="career_select" id="career_select" name="career">
+							<option value="0">:::선택하세요:::</option>
+						    <option value="1">1년차</option>
+						    <option value="2">2년차</option>
+						    <option value="3">3년차</option>
+						    <option value="4">4년차</option>
+						    <option value="5">5년차</option>
+						    <option value="6">6년차</option>
+						    <option value="7">7년차</option>
+						    <option value="8">8년차</option>
+						    <option value="9">9년차</option>
+						    <option value="10">10년차</option>
+						</select>
+					</div>
+					<div class="info">
+						<label class="con_title">공고 내용</label>&nbsp;&nbsp;<span class="error">공고 내용 입력은 필수입력 사항입니다.</span>
+						<textarea class="info_textarea" id="info_textarea" name="info"></textarea>
+					</div>
+					<div class="duty">
+						<label class="con_title">주요 업무</label>&nbsp;&nbsp;<span class="error">주요 업무 입력은 필수입력 사항입니다.</span>
+						<textarea class="duty_textarea" id="duty_textarea" name="mainduty"></textarea>
+					</div>
+					<div class="duty">
+						<label class="con_title">필요 역량</label>&nbsp;&nbsp;<span class="error">필요 역량 입력은 필수입력 사항입니다.</span>
+						<textarea class="quality_textarea" id="quality_textarea" name="quality"></textarea>
+					</div>
+					<div class="file">
+						<label class="con_title">구직상세이미지</label><br>
+						<input type="file" name="attach" id="attach" name="image"/>
+					</div>
+					<div class="quality">
+						<label class="con_title">연   봉</label>&nbsp;&nbsp;<span class="error">연봉 입력은 필수입력 사항입니다.</span><span class="error2">연봉 입력은 숫자만 가능합니다.</span><br>
+						<input class="sal_input" id="sal_input" name="salary"></input><span>&nbsp;만 원</span>
+					</div>
+					<div class="create">
+						<label class="con_title">등 록 일</label><br>
+						<input  type="text" id="create_input" name="createday" class="create_input"></input>
+					</div>
+					<div class="deadline">
+						<label class="con_title">마 감 일</label><br>
+						<input type="text" id="deadline_input" name="deadline" class="deadline_input" ></input>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
-</div>
-
+</body>
 
 

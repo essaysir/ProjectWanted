@@ -18,5 +18,11 @@ public interface InterCompanyMapper_2 {
 	
 	// TBL_POST에 등록하기
 	void insertRecruit(PostVO postvo);
+	
+	// 채용공고관리페이지 띄우기
+	int getTotalPost(String id);
+	
+	//ajax로 Post호출하기
+	List<Map<String, String>> getPost(Map<String, String> paraMap);
 
 }
