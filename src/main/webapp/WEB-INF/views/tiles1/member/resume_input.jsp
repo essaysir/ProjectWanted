@@ -166,6 +166,11 @@
 			addCareer(); // 경력 추가 버튼 클릭시 동적으로 html을 추가해주는 함수 호출
 			$('button#career_btn').on('click', addCareer); // 경력 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
 			
+<%-- --%>			
+			// 이벤트 위임으로 클릭 이벤트를 처리.
+			$(document).on('click', '#achievements_btn', addAchievements); // 주요 성과 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
+<%-- --%>			
+			
 		}); // END OF $(DOCUMENT).READY(FUNCTION()-----------------------------
 
 				
@@ -326,7 +331,7 @@
 			               '      <button class="btn-delete" type="button" style="width:17%;">X</button>\n' +
 			               '      <input type="text" placeholder="부서명/직책" maxlength="255" style="width:100%; font-size:2opx;" />\n' +
 			               '      <button type="button" class="plushtml" style="border-bottom:0px;" id="achievements_btn">+주요 성과 추가</button>\n' +
-			               '      <ul></ul>\n' +
+			               '	  <ul id="addAchievements"></ul>\n' +	
 			               '    </div>\n' +
 			               '  </div>\n' +
 			               '</li>';
@@ -337,7 +342,29 @@
 		}; // end of function addCareer()------------------------------------
 		
 		
-		<%-- 작성 완료 버튼 클릭시 필수입력항목 유효성검사(공백 및 미작성만) 함수 --%>
+		// 주요 성과 추가 추가버튼 클릭시 입력란 동적 생성해주는 함수(이벤트 위임 받아서 생성)
+		function addAchievements() {
+
+		  var html = '<li>\n' +
+		    '  <input type="text" autocomplete="off" placeholder="주요성과" style="width:80%; font-size:16px;"/>\n' +
+		    '  <button class="btn-delete-detail" type="button" style="width:17%;">X</button>\n' +
+		    '  <input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px; font-size:14px;"/>\n' +
+		    '  .\n' +
+		    '  <input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px; font-size:14px;"/>\n' +
+		    '  &nbsp;- &nbsp;\n' +
+		    '  <input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:36px; font-size:14px;"/>\n' +
+		    '  .\n' +
+		    '  <input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px; font-size:14px;"/>\n' +
+		    '  <div style="display:flex;"><textarea placeholder="상세 업무 내용과 성과를 기입해주세요." style="border:none; flex-grow:1;"></textarea></div>\n' +
+		    '</li>';
+
+		  // HTML 코드를 <ul> 태그에 추가합니다.
+		  $('ul#addAchievements').append(html);
+
+		}; // end of function addAchievements()-----------------------------------
+		
+		
+		// 작성 완료 버튼 클릭시 필수입력항목 유효성검사(공백 및 미작성만) 함수 
 		function insertResume() {
 
 			// 필수입력사항이 모두 입력 됐는지 검사
@@ -434,25 +461,13 @@
 					 </p>
 				</div>						
 					<button type="button" class="plushtml" id="career_btn">+추가</button>
-					
-					
-					
-					
 					<!-- 경력 추가 시작 -->
-				<ul id="addCarrer">
+				<ul id="addCarrer"></ul>
+					<!--  경력 끝 -->	
+					
+					<!-- samaple -->	
 				
-					
-					
-					
-					
-				</ul>
-					
-					
-					
-						
-					<!--  경력 끝 -->			
-					
-					
+					<!-- samaple -->	
 					
 										
 					<!--   학력 시작 -->
