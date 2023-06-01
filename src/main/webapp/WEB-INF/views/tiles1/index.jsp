@@ -706,7 +706,8 @@ function gominFunction() {
 						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
 						<img src="/images/main_image/기업마크.jpg">
 					</div>
-				</div><div class="tcards col-md-4">
+				</div>
+				<div class="tcards col-md-4">
 					<div class="tcards-head">
 						<img src="/images/main_image/tema2.png">
 					</div>
@@ -714,7 +715,8 @@ function gominFunction() {
 						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
 						<img src="/images/main_image/기업마크.jpg">
 					</div>
-				</div><div class="tcards col-md-4">
+				</div>
+				<div class="tcards col-md-4">
 					<div class="tcards-head">
 						<img src="/images/main_image/tema3.png">
 					</div>
@@ -722,7 +724,8 @@ function gominFunction() {
 						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
 						<img src="/images/main_image/기업마크.jpg">
 					</div>
-				</div><div class="tcards col-md-4">
+				</div>
+				<div class="tcards col-md-4">
 					<div class="tcards-head">
 						<img src="/images/main_image/tema4.png">
 					</div>

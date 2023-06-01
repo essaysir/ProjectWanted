@@ -43,5 +43,21 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		cdao.insertRecruit(postvo);
 		
 	}
+	
+	// 채용공고관리페이지 띄우기
+	@Override
+	public int getTotalPost(String id) {
+		int totalPost = cdao.getTotalPost(id);
+		
+		return totalPost;
+	}
+	
+	//ajax로 Post호출하기
+	@Override
+	public List<Map<String, String>> getPost(Map<String, String> paraMap) {
+		List<Map<String, String>> postList = cdao.getPost(paraMap);
+		
+		return postList;
+	}
 
 }

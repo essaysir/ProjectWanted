@@ -43,5 +43,20 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 		mapper.insertRecruit(postvo);
 		
 	}
+	
+	// 채용공고관리페이지 띄우기
+	@Override
+	public int getTotalPost(String id) {
+		int totalPost = mapper.getTotalPost(id);
+		
+		return totalPost;
+	}
+	
+	//ajax로 Post호출하기
+	@Override
+	public List<Map<String, String>> getPost(Map<String, String> paraMap) {
+		List<Map<String, String>> postList = mapper.getPost(paraMap);
+		return postList;
+	}
 
 }
