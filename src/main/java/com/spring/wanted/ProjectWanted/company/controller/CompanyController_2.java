@@ -84,7 +84,6 @@ public class CompanyController_2 {
 		System.out.println(paraMap);
 		
 		List<Map<String, String>> PostList = service.getPost(paraMap);
-		
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("PostList", PostList);
 		
