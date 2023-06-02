@@ -20,6 +20,6 @@ public interface InterCompanyService_2 {
 	int getTotalPost(String id);
 	
 	//ajax로 Post호출하기
-	List<Map<String, String>> getPost(Map<String, String> paraMap);
+	String getPost(Map<String, String> paraMap);
 
 }

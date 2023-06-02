@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.spring.wanted.ProjectWanted.company.model.InterCompanyDAO_2;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
@@ -54,10 +55,13 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	
 	//ajax로 Post호출하기
 	@Override
-	public List<Map<String, String>> getPost(Map<String, String> paraMap) {
+	public String getPost(Map<String, String> paraMap) {
 		List<Map<String, String>> postList = cdao.getPost(paraMap);
 		
-		return postList;
+		Gson gson = new Gson();
+		String result = gson.toJson(postList);
+		
+		return result;
 	}
 
 }
