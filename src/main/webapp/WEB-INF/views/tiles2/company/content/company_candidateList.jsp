@@ -178,9 +178,9 @@
 	<h3>전체 지원자 목록</h3>
 
 	<div class="tab">
-		  <button class="tablinks" id="defaultOpen" onclick="getCandidateList('0')">지원서 접수<span class="badge">4</span></button>
-		  <button class="tablinks" onclick="getCandidateList('1')">합격<span class="badge">2</span></button>
-		  <button class="tablinks" onclick="getCandidateList('2')">불합격<span class="badge">2</span></button>
+		  <button class="tablinks" id="defaultOpen" onclick="getCandidateList('0')">지원서 접수</button>
+		  <button class="tablinks" onclick="getCandidateList('1')">합격</button>
+		  <button class="tablinks" onclick="getCandidateList('2')">불합격</button>
 	
 		<table class="containerTitle">
 
