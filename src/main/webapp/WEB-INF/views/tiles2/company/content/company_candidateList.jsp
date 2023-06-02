@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+
     
 <style type="text/css">
 
@@ -16,7 +17,7 @@
 	
 	button#btnExcel {
 		float: right;
-		margin: 50px 60px 0 0;
+		margin: 60px 50px 0 0;
 		height: 40px;
 		font-size: 12pt;
 	}
@@ -70,7 +71,7 @@
 	    padding: 14px 16px;
 	    transition: 0.3s;
 	    font-size: 20px;
-	    width: 499px;
+	    width: 498.2px;
 	}
 	
 	button.tablinks:hover {
@@ -90,6 +91,11 @@
 	    padding: 6px 12px;
 	    border-top: none;
 	}
+	
+	.badge {
+		margin-left: 10px;
+	}
+	
 	
 	/* 검색 Frm */
 	button#search {
@@ -124,6 +130,7 @@
 	    document.getElementById(tabName).style.display = "block";
 	    evt.currentTarget.classList.add("active");
 	}
+
 	
 	<%-- 페이지 로드 후 기본 탭 선택 --%>
 	document.addEventListener("DOMContentLoaded", function() {
@@ -171,23 +178,27 @@
 	<h3>전체 지원자 목록</h3>
 
 	<div class="tab">
-		  <button class="tablinks" id="defaultOpen" onclick="getCandidateList('0')">지원서 접수</button>
-		  <button class="tablinks" onclick="getCandidateList('1')">합격</button>
-		  <button class="tablinks" onclick="getCandidateList('2')">불합격</button>
+		  <button class="tablinks" id="defaultOpen" onclick="getCandidateList('0')">지원서 접수<span class="badge">4</span></button>
+		  <button class="tablinks" onclick="getCandidateList('1')">합격<span class="badge">2</span></button>
+		  <button class="tablinks" onclick="getCandidateList('2')">불합격<span class="badge">2</span></button>
 	
 		<table class="containerTitle">
 
 		<thead>
-			<tr style="height: 60px;">
-				<th>
+			<tr>
+				<th style="display: flex; padding: 10px;">
 					<%-- 정렬 시작 --%>
-					<select name="Type" id="searchType">
-				         <option value="subject">공고명</option>
-				         <option value="name">지원자명</option>
-				    </select>
+					<div class="col-auto">
+					     <a class="btn btn-primary" 
+					        th:href="@{/community/post/{category_name}(category_name=${category_name}, orderby=viewCount)}">조회수 순</a>
+					     <a class="btn btn-primary" 
+					        th:href="@{/community/post/{category_name}(category_name=${category_name}, orderby=likeCount)}">최신 순</a>
+					     <a class="btn btn-primary" 
+					        th:href="@{/community/post/{category_name}(category_name=${category_name}, orderby=id)}">오래된 순</a>
+					</div>
 				    <%-- 정렬 끝 --%>
 					<%-- 검색 Frm 시작 --%>
-					<form name="searchFrm" style="display: flex; font-size: 13pt; border: solid 1px gray;">
+					<form name="searchFrm" style="display: flex; font-size: 13pt;">
 				      <select name="searchType" id="searchType">
 				         <option value="subject">공고명</option>
 				         <option value="name">지원자명</option>
@@ -197,7 +208,7 @@
 				      <button type="button" id="search" class="btn btn-secondary btn-sm" onclick="goSearch()">검색</button>
 				   </form>
 				   <%-- 검색 Frm 끝 --%>
-				</th>
+				</th>	
 			</tr>
 			
 			<tr>

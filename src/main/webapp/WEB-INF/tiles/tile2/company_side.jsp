@@ -108,7 +108,7 @@
             <ul>
                 <li>
                     <a class="menu" href="/wanted/company">전체지원자관리</a>
-                    <a class="menu" href="#">채용공고관리</a>
+                    <a class="menu" href="/wanted/company_jobPost">채용공고관리</a>
                     <a class="menu" href="#">회사정보</a>
                     <a class="menu" href="#">계정관리</a>
                     <a class="menu" href="/wanted/company_chart">지원통계</a>

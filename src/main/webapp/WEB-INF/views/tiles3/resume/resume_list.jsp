@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  
 <style type="text/css">
 
 	body {
@@ -37,7 +42,7 @@
 		margin: 10px auto;
 	}
 	
-	div#resume {
+	div#resumeBox {
 		border: solid 1px #ddd;
 		background-color: #FFF;
 		width: 250px;
@@ -47,7 +52,7 @@
 		padding: auto 0;
 	}
 	
-	#resume:hover {
+	#resumeBox:hover {
 		cursor: pointer;
 	}
 	
@@ -59,8 +64,13 @@
 		width: 77px; 
 		height: 77px; 
 		border-radius: 50px; 
-		margin: 0 auto !important; 
+		margin: 20px auto !important; 
 		position: relative;
+	}
+	
+	h5 {
+		margin-top: 20px;
+		font-weight: bold;
 	}
 	
 	.tooltip {
@@ -204,32 +214,32 @@
 <div id="resumeList">
 	<div id="resumeTop">
 		<div class="resumeBanner">
-			<span><a href="#"><img src="/images/resume_list/trio.png" style="width: 1063px; height: 103px;" alt="배너이미지" /></a></span>
+			<span><a href="#"><img src="/images/resume_list/trio.png" style="width: 1060px; height: 105px;" alt="배너이미지" /></a></span>
 		</div>
 	</div>
 	
 	<div id="resumeAdd">
 	
 		<div id="resumeListHeader">
-			<h4 style="margin: 0; padding: 10px 0; text-align: center;">최근문서</h4>
+			<h6 style="margin: 0; padding: 10px 0; text-align: center; font-weight: bold;">최근문서</h6>
 			<a style="padding: 10px 0; text-decoration: none; color: #3366FF; font-weight: bold;" href="/wanted/resume_info">
 				<span>원티드 이력서 소개</span><i class="fa-solid fa-circle-info" style="margin: 5px;"></i>
 			</a>
 		</div>
 		
 	<div class="title">
-		<div class="tooltip" id="resume">
+	
+		<div class="container mt-3" id="resumeBox">
 			<div style="height: 77px; margin-top: 35px;">
-				<div id="circle" style="background-color: #3366FF;">
-					<div class="ResumeList_ResumeList_addItem_icon__yfHFj"><svg style="position:relative; padding: 26px; color: #FFF;" viewBox="0 0 16 16" fill="none" xmlns="https://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.25 0H0.75C0.335786 0 0 0.335786 0 0.75V12.25C0 12.6642 0.335786 13 0.75 13H3V15.25L3.00685 15.3518C3.05651 15.7178 3.3703 16 3.75 16H15.25L15.3518 15.9932C15.7178 15.9435 16 15.6297 16 15.25V3.75L15.9932 3.64823C15.9435 3.28215 15.6297 3 15.25 3L15.1482 3.00685C14.7822 3.05651 14.5 3.3703 14.5 3.75L14.499 14.499H4.499L4.49975 13H12.25C12.6642 13 13 12.6642 13 12.25V0.75C13 0.335786 12.6642 0 12.25 0ZM11.499 1.5V11.5H1.499V1.5H11.499Z" fill="#fff"></path></svg></div>
-					<span class="tooltiptext">원티드 이력서로 지원 시 일반 이력서보다<br>서류 합격률이 2배 높아집니다.</span>
-					</div>
-				
+				<div class="container mt-3" id="circle" style="background-color: #3366FF;">
+					  <a href="#" data-toggle="tooltip" title="원티드 이력서로 지원 시 일반 이력서보다<br>서류 합격률이 2배 높아집니다."><div class="ResumeList_ResumeList_addItem_icon__yfHFj"><svg style="position:relative; padding: 26px; color: #FFF;" viewBox="0 0 16 16" fill="none" xmlns="https://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.25 0H0.75C0.335786 0 0 0.335786 0 0.75V12.25C0 12.6642 0.335786 13 0.75 13H3V15.25L3.00685 15.3518C3.05651 15.7178 3.3703 16 3.75 16H15.25L15.3518 15.9932C15.7178 15.9435 16 15.6297 16 15.25V3.75L15.9932 3.64823C15.9435 3.28215 15.6297 3 15.25 3L15.1482 3.00685C14.7822 3.05651 14.5 3.3703 14.5 3.75L14.499 14.499H4.499L4.49975 13H12.25C12.6642 13 13 12.6642 13 12.25V0.75C13 0.335786 12.6642 0 12.25 0ZM11.499 1.5V11.5H1.499V1.5H11.499Z" fill="#fff"></path></svg></div></a>
+			
+				</div>
 				<p style="text-align: center; font-weight: bold;">새 이력서 작성</p>
 			</div>	
 		</div>
 		
-		<div id="resume">
+		<div id="resumeBox">
 			<div style="height: 77px; margin-top: 35px;">
 				<div id="circle" style="background-color: #E1E2E4;">
 					<div class="ResumeList_ResumeList_upload_icon__3SGaN"><svg style="position:relative; padding: 26px;" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 32 34"><g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><g stroke="#666" stroke-width="3"><g><g><path d="M25.6 20.117L25.6 28.579 0 28.617 0 20.154M12.8.708L12.8 21.108" transform="translate(-543 -398) translate(543 398) translate(3.2 2.55)"></path><path d="M18.8 0L12.8 7.083 6.8 0" transform="translate(-543 -398) translate(543 398) translate(3.2 2.55) rotate(-180 12.8 3.542)"></path></g></g></g></g></svg></div>
@@ -238,9 +248,9 @@
 			</div>	
 		</div>
 		
-		<div id="resume" style="color: #999999;">
+		<div id="resumeBox" style="color: #999999;">
 			<div style="margin: 0 20px;">
-				<h3>박은서 2</h3>
+				<h5>박은서 2</h5>
 				<p style="font-weight: bold;">2023.05.18</p>
 			</div>	
 			<div id="status">
@@ -256,9 +266,9 @@
 			</div>
 		</div>
 		
-		<div id="resume" style="color: #999999;">
+		<div id="resumeBox" style="color: #999999;">
 			<div style="margin: 0 20px;">
-				<h3>박은서 2</h3>
+				<h5>박은서 1</h5>
 				<p style="font-weight: bold;">2023.05.18</p>
 			</div>	
 			<div id="status">
@@ -280,5 +290,9 @@
 	</div>
 </div>
 
-
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 

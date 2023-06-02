@@ -44,6 +44,23 @@
       <put-attribute name="content" value="/WEB-INF/views/content/{1}/content/{2}/{3}/{4}.jsp"/>
    </definition>
    
+   
+   <!-- === 이력서List 페이지 tiles 레이아웃3 : 헤더 + 바디 === -->   
+   <definition name="layout-tiles3"  template="/WEB-INF/tiles/layout/layout-tiles3.jsp"> 
+      <put-attribute name="header"  value="/WEB-INF/tiles/tile1/header/header.jsp" />
+      <put-attribute name="content" value="" />
+   </definition>
+   
+   <definition name="*.tiles3" extends="layout-tiles3">
+      <put-attribute name="content" value="/WEB-INF/views/tiles3/{1}.jsp"/>
+   </definition>
+   <definition name="*/*.tiles3" extends="layout-tiles3">
+      <put-attribute name="content" value="/WEB-INF/views/tiles3/{1}/{2}.jsp"/>
+   </definition>
+   <definition name="*/*/*.tiles3" extends="layout-tiles3">
+      <put-attribute name="content" value="/WEB-INF/views/tiles3/{1}/{2}/{3}.jsp"/>
+   </definition>
+   
      
 </tiles-definitions>
 
