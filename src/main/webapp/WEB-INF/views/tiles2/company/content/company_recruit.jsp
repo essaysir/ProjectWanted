@@ -208,27 +208,48 @@
 	             dayNamesMin: ['일','월','화','수','목','금','토'],
 	             dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일']
 	        });
-	
-	      //input을 datepicker로 선언
-	        $("input#create_input").datepicker();                    
-	        $("input#deadline_input").datepicker();
-	        //From의 초기값을 오늘 날짜로 설정
-	        $('input#create_input').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
-	        
-	        //To의 초기값을 3일후로 설정
-	        $('input#deadline_input').datepicker('setDate', '+30D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
+			
+	        var today = new Date(); // 오늘 날짜
+	        var maxCreate = new Date();
+	        var maxDeadline = new Date();
+	        maxCreate.setDate(today.getDate() + 30); // 오늘 날짜에서 30일 후
+	        maxDeadline.setDate(maxCreate.getDate()+30); // create 선택된 날짜에서 60일 후
+
+	        $("input#create_input").datepicker({
+	            minDate: today,
+	            maxDate: maxCreate,
+	            onSelect: function(selectedDate) {
+	                // create 선택된 날짜 변경 시 deadline 날짜 업데이트
+	                var selected = new Date(selectedDate);
+	                var newMaxCreate = new Date(selected);
+	                var newMaxDeadline = new Date(selected);
+	                newMaxCreate.setDate(selected.getDate() + 30);
+	                newMaxDeadline.setDate(newMaxCreate.getDate()+30);
+	                $("input#create_input").datepicker("option", "maxDate", newMaxCreate);
+	                $("input#deadline_input").datepicker("option", "minDate", newMaxCreate);
+	                $("input#deadline_input").datepicker("option", "maxDate", newMaxDeadline);
+	                $("input#deadline_input").datepicker("setDate", newMaxCreate);
+	            }
+	        });
+
+	        $("input#deadline_input").datepicker({
+	            minDate: maxCreate,
+	            maxDate: maxDeadline
+	        });
+
+	        $('input#create_input').datepicker('setDate', 'today');
+	        $('input#deadline_input').datepicker('setDate', '+30D');
+	    
 	    });
 		
 		$("input:text[id='create_input']").keyup(function(){
-			//alert(`우편번호 입력은 "우편번호찾기" 를 클릭으로만 됩니다.`);
-			//또는
+			
 			alert("등록일은 마우스클릭으로만 지정할수 있습니다.");
 			$(this).val("");
 		});
 		
 		$("input:text[id='deadline_input']").keyup(function(){
-			//alert(`우편번호 입력은 "우편번호찾기" 를 클릭으로만 됩니다.`);
-			//또는
+			
 			alert("마감일은 마우스클릭으로만 지정할수 있습니다.");
 			$(this).val("");
 		});
@@ -246,12 +267,12 @@
 				success:function(json){
 					$('.duty_select').empty(); // 기존의 내용을 모두 제거
 	
-					if (selectedJob == "0") {
-				        var option = '<option value="0">:::직군을 선택하세요:::</option>';
+					if (selectedJob == "999") {
+				        var option = '<option value="999">:::직군을 선택하세요:::</option>';
 				        $('.duty_select').append(option); // duty_select에 선택 옵션 추가
 				    } 
 					else {
-							var defaultOption = '<option value="0">:::직무를 선택하세요:::</option>';
+							var defaultOption = '<option value="999">:::직무를 선택하세요:::</option>';
 							$('.duty_select').append(defaultOption);  
 				          
 							$.each(json.dutyList, function(index, item) {
@@ -270,7 +291,7 @@
 				
 		$("div#submit").click(function(){
 			const job_select = $("select#job_select").val();
-			if (job_select == 0) {
+			if (job_select == 999) {
 				$("#job_select").parent().find(".error").show();
   				alert("제출에 실패했습니다.");
   				return;
@@ -279,7 +300,7 @@
 			}
 			
 			const duty_select = $("select#duty_select").val();
-			if (duty_select == 0) {
+			if (duty_select == 999) {
 				$("#duty_select").parent().find(".error").show();
 			    alert("제출에 실패했습니다.");
 				return;
@@ -297,7 +318,7 @@
 			}
 			
 			var career_select = $("select#career_select").val();
-			if (career_select == 0) {
+			if (career_select == 999) {
 			    $("#career_select").parent().find(".error").show();
 			    alert("제출에 실패했습니다.");
 			    return;
@@ -398,7 +419,7 @@
 					<div class="category">
 						<label class="con_title">직군선택</label>&nbsp;&nbsp;<span class="error">직군선택은 필수선택 사항입니다.</span><br>
 						<select class="job_select" id="job_select">
-							<option value="0">:::선택하세요:::</option>
+							<option value="999">:::선택하세요:::</option>
 						    <c:forEach var="map" items="${requestScope.JobList}">
 						    	<option value="${map.job_code}">${map.job_name}</option>
 						    </c:forEach>
@@ -407,7 +428,7 @@
 					<div class="dcategory">
 						<label class="con_title">직무선택</label>&nbsp;&nbsp;<span class="error">직무선택은 필수선택 사항입니다.</span><br>
 						<select class="duty_select" id="duty_select" name="fk_duty_code">
-							<option value="0">:::직군을 선택하세요:::</option>
+							<option value="999">:::직군을 선택하세요:::</option>
 						</select>
 					</div>
 					<div class="subject">
@@ -417,7 +438,8 @@
 					<div class="career">
 						<label class="con_title">최소경력선택</label>&nbsp;&nbsp;<span class="error">경력선택은 필수선택 사항입니다.</span><br>
 						<select class="career_select" id="career_select" name="career">
-							<option value="0">:::선택하세요:::</option>
+							<option value="999">:::선택하세요:::</option>
+							<option value="0">신입</option>
 						    <option value="1">1년차</option>
 						    <option value="2">2년차</option>
 						    <option value="3">3년차</option>

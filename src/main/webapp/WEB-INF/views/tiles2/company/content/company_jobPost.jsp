@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+    
 <style type="text/css">
 	
 	body{
@@ -175,8 +179,6 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
-		$("span#totalPost").hide();
-		$("span#countPost").hide();
 		
 		displayPost("1");
 		
@@ -220,7 +222,7 @@
 								 	+ "<div class='jcard_topL'>"
 								 		+ "<h5>"+item.subject+"</h5>"
 								 		+ "<p>신규지원서 0건<span style='color: gray;'>/전체 0건</span></p>"
-								 		+ "<p style='color: gray;'>#마케팅</p>"
+								 		+ "<p style='color: gray;'>#"+item.job_name+"</p>"
 								 		+ "<p>결제 상태&nbsp;&nbsp;";
 							if(item.pay_status == "0"){
 								html += "<span style='color: orange;'>결제 대기</span></p>";
@@ -323,7 +325,7 @@
 	</div>
 	<div class="jp_content" id="jp_content">
 	</div>
-	<button class="btnPost" id="btnPost">더보기</button>
+	<button class="btnPost" id="btnPost" type="button">더보기</button>
 	<span id="totalPost">${requestScope.totalPost}</span>
 	<span id="countPost">0</span>
 </div>
