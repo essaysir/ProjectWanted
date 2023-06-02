@@ -56,7 +56,20 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	//ajax로 Post호출하기
 	@Override
 	public String getPost(Map<String, String> paraMap) {
+		
+		String fk_company_id = paraMap.get("fk_company_id");
+		String start = paraMap.get("start");
+		String len = paraMap.get("len");
+		
+		String end = String.valueOf(Integer.parseInt(start)+ Integer.parseInt(len)-1);
+		
+		paraMap.put("fk_company_id", fk_company_id);
+		paraMap.put("start", start);
+		paraMap.put("end", end);
+		
+		
 		List<Map<String, String>> postList = cdao.getPost(paraMap);
+		
 		
 		Gson gson = new Gson();
 		String result = gson.toJson(postList);
