@@ -19,9 +19,6 @@
   <!-- Font Awesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- 직접 만든 CSS -->
-  
-
   <!-- Optional JavaScript -->
   <script type="text/javascript" src="/js/jquery-3.6.4.min.js"></script>
   <script type="text/javascript" src="/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js" ></script>
