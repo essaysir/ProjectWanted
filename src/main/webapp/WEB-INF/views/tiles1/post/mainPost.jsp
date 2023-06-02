@@ -13,7 +13,7 @@
     .JobList_cn__t_THp {
     background: #fff;
     min-height: calc(100vh - 50px);
-    margin: 0px 0 0 25%;
+    margin: 0px 0 0 23%;
 	}
 
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
@@ -1563,7 +1563,7 @@ sup {
     right: 0;
     bottom: 0;
     top: 40px;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
     max-width: 220px;
     height: 70vh;
     background-color: #fff;
@@ -1985,6 +1985,9 @@ ol, ul {
 <script type="text/javascript">
     $(document).ready(function(){
        
+    	// Joblist 불러오기
+    	getJobList();
+    	
     	// 슬릭 시작
     	$('.slick-track').slick({
         	variableWidth: true,
@@ -2077,6 +2080,7 @@ ol, ul {
     // 드랍다운
     function dropdownfunc() {
   	  document.getElementById("myDropdown").classList.toggle("show");
+  	  
   	}
     
     function dropdownfunc2() {
@@ -2087,6 +2091,42 @@ ol, ul {
         }
     	
     }
+    
+    function getJobList() {
+		$.ajax({
+			url: "/wanted/getJobList",
+			type: "get",
+			dataType: "json",
+			success: function (json) {
+				<%--  === #112. 검색어 입력시 자동글 완성하기 7  === --%>
+				// console.log(JSON.stringify(json));
+				let html = "" //"<section role='navigation' id='myDropdown' class='dropdown-content JobGroupOverlay_JobGroupOverlay__ZEs7N isKR'>";
+				 html += " <ul> "
+						+ "<li><a href='#' class='JobGroupOverlay_JobGroupOverlay__all__1x5HT'>전체</a></li>";
+						
+						
+				for (let i = 0; i < json.JobList.length; i++) {
+					 console.log(json.JobList[i].job_name);
+					 console.log(json.JobList[i].job_code);
+					
+					html += "<li>" +
+							"<a href='#' class='JobGroupItem_JobGroupItem__xXzAi'>" +
+							json.JobList[i].job_name +
+							"</a></li>" ;
+				}
+				html += "</ul>"
+				
+				$("section#myDropdown").html(html);
+
+
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+
+
+		});
+	}
     
 	
 </script>
@@ -2100,11 +2140,11 @@ ol, ul {
     <article role="navigation" class="CategoryNavbar_Container__MvZaR">
         <div class="CategoryNavbar_Body__1rM4_">
             <div class="dropdown">
-            	<button class="JobGroup_JobGroup__H1m1m"  onclick="dropdownfunc()" type="button" aria-label="popup navigation button"><span class="JobGroup_JobGroup__title__nZmec">개발</span><span class="MoreButton_MoreButton__2UmZ8" role="button" aria-label="popup navigation button"><svg xmlns="https://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" class="MoreButton_MoreButton__icon__L_DpL">
+            	<button class="JobGroup_JobGroup__H1m1m"  onclick="dropdownfunc()" type="button" aria-label="popup navigation button"><span class="JobGroup_JobGroup__title__nZmec">전체</span><span class="MoreButton_MoreButton__2UmZ8" role="button" aria-label="popup navigation button"><svg xmlns="https://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" class="MoreButton_MoreButton__icon__L_DpL">
                             <path fill="#767676" fill-rule="nonzero" d="M2.28 3.22a.75.75 0 0 0-1.06 1.06l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L6 6.94 2.28 3.22z"></path>
                         </svg></span></button>
-            	<section role="navigation" id="myDropdown" class="dropdown-content JobGroupOverlay_JobGroupOverlay__ZEs7N isKR">
-            		<ul>
+            	 <section role="navigation" id="myDropdown" class="dropdown-content JobGroupOverlay_JobGroupOverlay__ZEs7N isKR">
+            	<!--	<ul>
 				     	<li><a href="/wdlist" class="JobGroupOverlay_JobGroupOverlay__all__1x5HT" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="all" data-job-category="all">전체</a></li>
 				        <li><a href="/wdlist/518" class="JobGroupItem_JobGroupItem__xXzAi active" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="518" data-job-category="IT">개발</a></li>
 				        <li><a href="/wdlist/507" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="507" data-job-category="Management &amp; Business">경영·비즈니스</a></li>
@@ -2125,8 +2165,8 @@ ol, ul {
 				        <li><a href="/wdlist/509" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="509" data-job-category="Construction">건설·시설</a></li>
 				        <li><a href="/wdlist/10057" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="10057" data-job-category="F&amp;B">식·음료</a></li>
 				        <li><a href="/wdlist/514" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="514" data-job-category="Public·Social Work">공공·복지</a></li>
-				    </ul>
-				</section>
+				    </ul>-->
+				</section> 
             </div>            
                         
             <div class="JobCategory_JobCategory__uTt2E">

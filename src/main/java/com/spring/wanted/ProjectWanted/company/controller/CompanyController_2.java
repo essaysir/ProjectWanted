@@ -70,9 +70,7 @@ public class CompanyController_2 {
 		int totalPost = service.getTotalPost(id);
 		
 		request.setAttribute("totalPost", totalPost);
-		
-		System.out.println(totalPost);
-		
+				
 		return "company/company_jobPost.tiles2";
 	}
 	
@@ -80,16 +78,12 @@ public class CompanyController_2 {
 	@ResponseBody
 	@PostMapping(value="/getPost", produces = "text/plain;charset=UTF-8")
 	public String getPost(HttpServletRequest request, @RequestParam Map<String, String> paraMap){
+				
+		String json = service.getPost(paraMap);
 		
-		System.out.println(paraMap);
-		
-		List<Map<String, String>> PostList = service.getPost(paraMap);
-		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("PostList", PostList);
-		
-		System.out.println(PostList);
-		
-		return jsonObj.toString();
+
+		return json;
+
 	}
 	
 	//===============================SJS시작==================================

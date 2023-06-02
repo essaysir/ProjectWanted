@@ -34,11 +34,11 @@ public class CompanyController_1 {
 	// 이력서List 페이지
 	@GetMapping(value = "/resume_list")
 	public String resume_list() {
-		return "resume/resume_list.tiles1" ;
+		return "resume/resume_list.tiles3" ;
 	}
 	
 
-	
+	// 회사 지원자List 페이지
 	@GetMapping("/company")
 	public String viewCandidateList() {
 		return "company/company_candidateList.tiles2";

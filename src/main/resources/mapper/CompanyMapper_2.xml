@@ -51,12 +51,14 @@
 		<result property="createday" 	column="createday" 	javaType="String" />
 		<result property="deadline" 	column="deadline" 	javaType="String" />
 		<result property="pay_status" 	column="pay_status" javaType="String" />
+		<result property="dateDiff" 	column="dateDiff" 	javaType="String" />
 	</resultMap>
 	<select id="getPost" parameterType="String" resultMap="getPost_Map">
-		select post_code, subject, createday, deadline, pay_status
+		select post_code, subject, createday, deadline, pay_status, dateDiff
 		from
 		(
-		    select row_number() over(order by post_code desc) AS RNO, post_code, subject, createday, deadline, pay_status
+		    select row_number() over(order by post_code desc) AS RNO, post_code, subject, to_char(createday,'yy/mm/dd') AS createday, to_char(deadline,'yy/mm/dd') AS deadline, pay_status
+		            ,TRUNC(TO_DATE(deadline, 'YY/MM/DD')-SYSDATE + 1 ) AS dateDiff
 		    from tbl_post
 		    where fk_company_id = #{fk_company_id}
 		) V

@@ -206,57 +206,16 @@
 				let html = "";
 				
 				// 처음부터 데이터가 존재하지 않는 경우
-				if(start == "1" && json.PostList.length == 0){
+				if(start == "1" && json.length == 0){
 					html += "공고를 등록하세요";
 					
 					// 공고출력하기
 					$("div#jp_content").html(html);
 				}
-				else if(json.PostList.length > 0){
+				else if(json.length > 0){
 										
-					$.each(json.PostList, function(index, item){
-						
-						console.log(item);
-						
-						var deadlineString = item.deadline;
-						var date = new Date(deadlineString);
-						var year = date.getFullYear().toString().substr(-2);
-						var month = (date.getMonth() + 1).toString().padStart(2, '0');
-						var day = date.getDate().toString().padStart(2, '0');
-
-						var formattedDate = year + '/' + month + '/' + day;
-						
-						// 현재 날짜 객체 생성
-						var currentDate = new Date();
-
-						// 데이터베이스에서 가져온 데드라인 날짜 문자열
-						var deadlineString = item.deadline;
-						
-						var date = new Date(deadlineString);
-						var year = date.getFullYear().toString().substr(-2);
-						var month = (date.getMonth() + 1).toString().padStart(2, '0');
-						var day = date.getDate().toString().padStart(2, '0');
-
-						var formattedDate = year + '/' + month + '/' + day;
-						
-						var createdayString = item.createday;
-						
-						var date1 = new Date(createdayString);
-						var year1 = date1.getFullYear().toString().substr(-2);
-						var month1 = (date1.getMonth() + 1).toString().padStart(2, '0');
-						var day1 = date1.getDate().toString().padStart(2, '0');
-
-						var formattedDate1 = year1 + '/' + month1 + '/' + day1;
+					$.each(json, function(index, item){
 												
-						// 변환된 문자열을 기반으로 날짜 객체 생성
-						var deadlineDate = new Date(deadlineString);
-
-						// 두 날짜의 차이 계산 (밀리초 단위)
-						var timeDiff = deadlineDate.getTime() - currentDate.getTime();
-						
-						// 차이를 일 단위로 변환
-						var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-						
 						    html += "<div class='jcard'>"
 								 	+ "<div class='jcard_topL'>"
 								 		+ "<h5>"+item.subject+"</h5>"
@@ -273,25 +232,27 @@
 								 	
 					 		if(item.pay_status == "0"){
 					 			html += "<button type='button' class='jpPay' onclick='test()'><span>결제 하기</span></button>";
-					 		}else if(item.pay_status == "1" && daysDiff > 0){
+					 		}else if(item.pay_status == "1" && item.dateDiff < 0){
+					 			html += "<button type='button' class='jpFin' disabled onclick=''><span>공고 마감</span></button>";
+					 		}else if(item.pay_status == "1" && item.dateDiff < 5){
+					 			html += "<button type='button' class='jpAnd' onclick='test3()'><span>공고 연장</span></button>";
+					 		}else if(item.pay_status == "1" && item.dateDiff > 0){
 					 			html += "<button type='button' class='jpEnd' onclick='test2()'><span>공고 중단</span></button>";
-					 		}else if(item.pay_status == "1" && daysDiff < 5 && daysDiff > 0){
-					 			html += "<button type='button' class='jpAnd' onclick='test3()''><span>공고 연장</span></button>";
 					 		}
 					 			html += "<br><br><br>"
-					 					+"<p>공고시작일 : "+formattedDate1+"<br>공고마감일 : "+formattedDate+"</p>"
+					 					+"<p>공고시작일 : "+item.createday+"<br>공고마감일 : "+item.deadline+"</p>"
 					 					+"<div class='dropdown'>"
 								 			+"<button onclick='myFunction("+item.post_code+")' class='dropbtn'><i class='fa-solid fa-gear'></i></button>"
 								 			+"<div id='"+item.post_code+"' class='dropdown-content'>";
-								 				if(daysDiff < 0){
+								 				if(item.dateDiff < 0){
 								 					html += "<a href=''>삭제하기</a>";
 								 				} else {
 								 					html += "<a href=''>수정하기</a>";
 								 				}
-								 			+"</div>"
+								 	html +="</div>"
 								 		+"</div>"
 								 	+"</div>"
-								 +"</div>"
+								 +"</div>";
 					}); // end of $.each(json, function(index, item)
 							
 					// Post출력하기
@@ -301,7 +262,7 @@
 					$("button#btnPost").val( Number(start)+lenPost );
 					
 					// span#countPost 에 지금까지 출력된 상품의 개수를 누적해서 기록한다.
-					$("span#countPost").text(Number($("span#countPost").text())+json.PostList.length );
+					$("span#countPost").text(Number($("span#countPost").text())+json.length );
 					
 					// 더보기... 버튼을 계속해서 클릭하여 countHIT 값과 totalHITCount 값이 일치하는 경우 
 					if( $("span#totalPost").text() == $("span#countPost").text() ){
@@ -324,7 +285,7 @@
 	}
 	
 	function test2(){
-		alert("공고연장버튼");
+		alert("공고중단버튼");
 	}
 	
 	function test3(){
