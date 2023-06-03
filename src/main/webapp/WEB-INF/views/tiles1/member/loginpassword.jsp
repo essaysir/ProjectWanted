@@ -273,13 +273,31 @@
 		}); // END OF $(DOCUMENT).READY(FUNCTION()
 		
 		function setdocument(){
-			
-			
-			
+			$("input#password_input").on('input', checkPwd);
+			$("input#username_input").val('${userid}');
+			$("button#go_email").on('click',login);
 			
 		}// END OF FUNCTION SETDOCUMENT
-	
-
+		
+		function checkPwd(){ // input 에 비밀번호를 입력하면 CSS 를 바꿔주는 함수이다. 
+			if ( $(this).val().trim() == ""){
+				$("button#go_email").css('background-color' , '');
+				$("span#span_email").css('color', '');
+			}
+			else{
+				$("button#go_email").css('background-color' , '#36f');
+				$("span#span_email").css('color', '#ffffff !important');
+			}
+			
+		}// END OF FUNCTION function checkPwd()
+		
+		function login(){
+			const frm = document.login_input ;
+			frm.method = "post" ;
+			frm.action ="/wanted/login";
+			
+			
+		}
 
 				
 			
@@ -313,14 +331,15 @@
 							<div id="email_box">
 								<label>비밀번호</label>
 							</div>
-							<input type="password" id="password_input" placeholder="비밀번호를 입력해주세요."  style="margin-bottom: 0px;"/>
+							<input name="password" type="password" id="password_input" placeholder="비밀번호를 입력해주세요."  style="margin-bottom: 0px;"/>
+							<input name="username" type="hidden" id="username_input" />
 						</div>
 						<button type="button" id="go_email" >
 							<span id="span_email">다음</span>
 						</button>
 						
 						<button type="button" id="forgot_id">
-							<p>비밀번호 초기화/변경</p>
+							<p style="color:#36f;">비밀번호 초기화/변경</p>
 						</button>
 					</form>
 				</div>

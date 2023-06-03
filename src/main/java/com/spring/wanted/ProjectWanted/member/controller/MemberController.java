@@ -30,18 +30,29 @@ public class MemberController {
 		//  회원 가입 페이지
 		@GetMapping(value="/login")
 		public String login() {
-			return "tiles1/member/loginpassword";
+			return "tiles1/member/login";
 		}
 		
+		@GetMapping(value="/login2")
+		public String login2() {
+			return "/post/mainPost2.tiles1";
+		}
+		@GetMapping(value="/index")
+		public String index() {
+			return "/tiles1/post/test";
+		}
+			
 		//  회원 가입 로그인 시도시 페이지
 		@PostMapping(value="/login")
 		public String login(@RequestParam String userid) {
 			
 			return "";
 		}
+		// 이메일 입력시 
 		@PostMapping(value="/checkUserid")
-		public String checkUserid(@RequestParam String userid ) {
+		public String checkUserid(@RequestParam String userid , HttpServletRequest request ) {
 			String view = service.checkUserid(userid);
+			request.setAttribute("userid", userid);
 			return view ;
 		}
 		
