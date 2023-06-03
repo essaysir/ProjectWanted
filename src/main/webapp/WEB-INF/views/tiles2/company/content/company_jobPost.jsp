@@ -247,9 +247,12 @@
 								 			+"<button onclick='myFunction("+item.post_code+")' class='dropbtn'><i class='fa-solid fa-gear'></i></button>"
 								 			+"<div id='"+item.post_code+"' class='dropdown-content'>";
 								 				if(item.dateDiff < 0){
-								 					html += "<a href=''>삭제하기</a>";
+								 					html += "<a onclick='delete('"+item.post_code+"')'>삭제하기</a>";
+								 				} else if(item.dateDiff > 0 && item.pay_status == "0") {
+								 					html += "<a onclick='p_edit('"+item.post_code+"'>수정하기</a>"
+								 					     +"<a onclick='delete('"+item.post_code+"')'>삭제하기</a>";
 								 				} else {
-								 					html += "<a href=''>수정하기</a>";
+								 					html += "<a onclick='p_edit('"+item.post_code+"'>수정하기</a>";
 								 				}
 								 	html +="</div>"
 								 		+"</div>"
@@ -292,6 +295,26 @@
 	
 	function test3(){
 		alert("공고연장버튼");
+	}
+	
+	function p_edit(post_code){
+		$.ajax({
+		       url:"/wanted/editRecruit",
+		       data:{post_code : post_code },
+		       type:"get",
+		       success:function(result) {
+		    	   $("#jp_content").empty();
+		          $("#jp_content").html(result);
+
+		       },
+		       error: function(request, status, error){
+		           alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		        }
+	   		 }); // end of $.ajax ----
+	}
+	
+	function p_delete(){
+		alert("delete");
 	}
 	
 	function myFunction(dropdownId) {
