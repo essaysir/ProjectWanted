@@ -24,5 +24,8 @@ public interface InterCompanyDAO_2 {
 	
 	//ajax로 수정페이지 띄우기
 	List<Map<String, String>> getEditRecruit(String post_code);
+	
+	// 수정한거 등록하기
+	void updateRecruit(PostVO postvo);
 
 }

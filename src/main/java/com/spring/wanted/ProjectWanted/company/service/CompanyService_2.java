@@ -85,5 +85,11 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		
 		return editRecruit;
 	}
+	
+	// 수정한거 등록하기
+	@Override
+	public void updateRecruit(PostVO postvo) {
+		cdao.updateRecruit(postvo);
+	}
 
 }
