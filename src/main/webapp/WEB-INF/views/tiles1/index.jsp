@@ -530,13 +530,13 @@ function gominFunction() {
 		<div class="my-1">
 		    <div class="owl-carousel owl-theme">
 		        <div class="item">
-		        	<img src="/static/images/main_image/계약서.jpg">
+		        	<img src="/images/main_image/계약서.jpg">
 		        </div>
 		        <div class="item">
-		        	<img src="/static/images/main_image/월급복권.jpg">
+		        	<img src="/images/main_image/월급복권.jpg">
 		        </div>
 		        <div class="item">
-		        	<img src="/static/images/main_image/휴대폰결제.jpg">
+		        	<img src="/images/main_image/휴대폰결제.jpg">
 		        </div>
 		    </div>
 		</div>

@@ -292,10 +292,11 @@
 		}// END OF FUNCTION function checkPwd()
 		
 		function login(){
-			const frm = document.login_input ;
+			const frm = document.login ;
+			console.log(frm); 
 			frm.method = "post" ;
 			frm.action ="/wanted/login";
-			
+			frm.submit();
 			
 		}
 
@@ -326,13 +327,14 @@
 						</div>
 					</div >		
 					<!-- 다섯 번째 중간 틀 끝(wanted 제목이 있는 틀) -->
-					<form id="login_input">
+					<form name="login" id="login_input">
 						<div>
 							<div id="email_box">
 								<label>비밀번호</label>
 							</div>
 							<input name="password" type="password" id="password_input" placeholder="비밀번호를 입력해주세요."  style="margin-bottom: 0px;"/>
 							<input name="username" type="hidden" id="username_input" />
+							 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</div>
 						<button type="button" id="go_email" >
 							<span id="span_email">다음</span>

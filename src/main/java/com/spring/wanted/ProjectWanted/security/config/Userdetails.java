@@ -18,7 +18,7 @@ public class Userdetails implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberVO mvo = mdao.login(username) ;
-	
+		System.out.println(mvo);
 		   return 
 				   org.springframework.security.core.userdetails.User.builder()
 	                .username(mvo.getUserid())

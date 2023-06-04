@@ -32,6 +32,7 @@ public class MemberController {
 		public String login() {
 			return "tiles1/member/login";
 		}
+
 		
 		@GetMapping(value="/login2")
 		public String login2() {
@@ -42,12 +43,7 @@ public class MemberController {
 			return "/tiles1/post/test";
 		}
 			
-		//  회원 가입 로그인 시도시 페이지
-		@PostMapping(value="/login")
-		public String login(@RequestParam String userid) {
-			
-			return "";
-		}
+		
 		// 이메일 입력시 
 		@PostMapping(value="/checkUserid")
 		public String checkUserid(@RequestParam String userid , HttpServletRequest request ) {
