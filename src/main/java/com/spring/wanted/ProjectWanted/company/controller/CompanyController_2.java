@@ -45,7 +45,7 @@ public class CompanyController_2 {
 	public String recruit(PostVO postvo){
 		service.insertRecruit(postvo);
 		
-		return "";
+		return "tiles2/company/content/company_jobPost";
 				
 	}
 	
@@ -84,6 +84,18 @@ public class CompanyController_2 {
 
 		return json;
 
+	}
+	
+	//ajax로 수정페이지 띄우기
+	@ResponseBody
+	@GetMapping(value="/getEditRecruit", produces = "text/plain;charset=UTF-8")
+	public String getRecruit(HttpServletRequest request, @RequestParam("post_code") String post_code) {
+		
+		List<Map<String,String>> editRecruit = service.getEditRecruit(post_code);
+		
+		request.setAttribute("editRecruit", editRecruit);
+		
+		return "tiles2/company/content/editRecruit";
 	}
 	
 	//===============================SJS시작==================================
