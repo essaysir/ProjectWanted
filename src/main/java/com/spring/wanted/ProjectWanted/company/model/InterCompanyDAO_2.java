@@ -27,5 +27,11 @@ public interface InterCompanyDAO_2 {
 	
 	// 수정한거 등록하기
 	void updateRecruit(PostVO postvo);
+	
+	// 기간만료 공고 삭제하기 
+	int deleteRecruit(String post_code);
+	
+	// 공고 중단하기
+	int stopRecruit(String post_code);
 
 }
