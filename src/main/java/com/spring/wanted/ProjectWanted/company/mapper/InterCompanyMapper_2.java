@@ -24,5 +24,8 @@ public interface InterCompanyMapper_2 {
 	
 	//ajax로 Post호출하기
 	List<Map<String, String>> getPost(Map<String, String> paraMap);
+	
+	//ajax로 수정페이지 띄우기
+	List<Map<String, String>> getEditRecruit(String post_code);
 
 }

@@ -299,8 +299,8 @@
 	
 	function p_edit(post_code){
 		$.ajax({
-		       url:"/wanted/editRecruit",
-		       data:{post_code : post_code },
+		       url:"getEditRecruit",
+		       data:{post_code : post_code},
 		       type:"get",
 		       success:function(result) {
 		    	   $("#jp_content").empty();
@@ -314,7 +314,7 @@
 	}
 	
 	function p_delete(){
-		alert("delete");
+		$("div#jp_content").empty();
 	}
 	
 	function myFunction(dropdownId) {

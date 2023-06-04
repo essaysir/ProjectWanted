@@ -68,5 +68,28 @@
 		) V
 		where RNO between #{start} and #{end}
 	</select>
+	
+	<resultMap type="HashMap" id="getEditRecruit_Map">
+		<result property="job_code" 	column="job_code" 	javaType="String" />
+		<result property="job_name" 	column="job_name" 	javaType="String" />
+		<result property="duty_code" 	column="duty_code" 	javaType="String" />
+		<result property="duty_name" 	column="duty_name" 	javaType="String" />
+		<result property="subject" 		column="subject" 	javaType="String" />
+		<result property="info" 		column="info" 		javaType="String" />
+		<result property="mainduty" 	column="mainduty" 	javaType="String" />
+		<result property="quality" 		column="quality" 	javaType="String" />
+		<result property="salary" 		column="salary" 	javaType="String" />
+		<result property="createday" 	column="createday" 	javaType="String" />
+		<result property="deadline" 	column="deadline" 	javaType="String" />
+	</resultMap>
+	<select id="getEditRecruit" resultMap="getEditRecruit_Map">
+		select job_code, job_name, duty_code, duty_name, subject, info, mainduty, quality, salary, createday, deadline
+		from tbl_post P
+		JOIN tbl_duty D
+		on p.fk_duty_code = D.duty_code
+		JOIN tbl_job J
+		on D.fk_job_code = J.job_code
+		where post_code = #{post_code}	
+	</select>
 
 </mapper>

@@ -58,5 +58,14 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 		List<Map<String, String>> postList = mapper.getPost(paraMap);
 		return postList;
 	}
+	
+	//ajax로 수정페이지 띄우기
+	@Override
+	public List<Map<String, String>> getEditRecruit(String post_code) {
+		
+		List<Map<String, String>> editRecruit = mapper.getEditRecruit(post_code);
+		
+		return editRecruit;
+	}
 
 }

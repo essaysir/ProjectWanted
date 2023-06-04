@@ -76,5 +76,14 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		
 		return result;
 	}
+	
+	//ajax로 수정페이지 띄우기
+	@Override
+	public List<Map<String, String>> getEditRecruit(String post_code) {
+		
+		List<Map<String, String>> editRecruit = cdao.getEditRecruit(post_code);
+		
+		return editRecruit;
+	}
 
 }
