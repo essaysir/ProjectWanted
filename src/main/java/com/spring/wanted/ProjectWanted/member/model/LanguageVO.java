@@ -3,7 +3,7 @@ package com.spring.wanted.ProjectWanted.member.model;
 import lombok.Data;
 
 @Data
-public class LanguageVO {
+public class LanguageVO { 
 	
     private int language_Code;
     private int fk_Resume_Code;

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ResumeVO {
-    
+     
 	private int resume_Code;
     private String fk_User_Id;
     private int isComplete;

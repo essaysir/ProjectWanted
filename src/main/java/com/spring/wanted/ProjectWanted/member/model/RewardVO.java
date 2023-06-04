@@ -3,7 +3,7 @@ package com.spring.wanted.ProjectWanted.member.model;
 import lombok.Data;
 
 @Data
-public class RewardVO {
+public class RewardVO { 
 	
     private int reward_Code;
     private int fk_Resume_Code;
