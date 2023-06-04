@@ -12,4 +12,5 @@ public class MemberVO {
     private String mobile;
     private String profile_Image;
     private int resume_Count;
+    
 }
