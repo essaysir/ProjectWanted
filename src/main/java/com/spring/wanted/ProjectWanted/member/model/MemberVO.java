@@ -10,8 +10,8 @@ public class MemberVO {
     private String name;
     private String nickname;
     private String mobile;
-    private String profileImage;
-    private int resumeCount;
+    private String profile_Image;
+    private int resume_Count;
     
     
     
