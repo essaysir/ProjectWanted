@@ -217,7 +217,9 @@
 				else if(json.length > 0){
 										
 					$.each(json, function(index, item){
-												
+							
+							var post_code = item.post_code;
+						
 						    html += "<div class='jcard'>"
 								 	+ "<div class='jcard_topL'>"
 								 		+ "<h5>"+item.subject+"</h5>"
@@ -247,12 +249,12 @@
 								 			+"<button onclick='myFunction("+item.post_code+")' class='dropbtn'><i class='fa-solid fa-gear'></i></button>"
 								 			+"<div id='"+item.post_code+"' class='dropdown-content'>";
 								 				if(item.dateDiff < 0){
-								 					html += "<a onclick='delete('"+item.post_code+"')'>삭제하기</a>";
+								 					html += "<a onclick='delete("+item.post_code+")'>삭제하기</a>";
 								 				} else if(item.dateDiff > 0 && item.pay_status == "0") {
-								 					html += "<a onclick='p_edit('"+item.post_code+"'>수정하기</a>"
-								 					     +"<a onclick='delete('"+item.post_code+"')'>삭제하기</a>";
+								 					html += "<a onclick='p_edit("+item.post_code+")'>수정하기</a>";
+								 					 +"<a onclick='p_delete("+item.post_code+")'>삭제하기</a>";
 								 				} else {
-								 					html += "<a onclick='p_edit('"+item.post_code+"'>수정하기</a>";
+								 					html += "<a onclick='p_edit("+item.post_code+")'>수정하기</a>";
 								 				}
 								 	html +="</div>"
 								 		+"</div>"
@@ -300,11 +302,11 @@
 	function p_edit(post_code){
 		$.ajax({
 		       url:"getEditRecruit",
-		       data:{post_code : post_code},
+		       data:{"post_code": post_code},
 		       type:"get",
 		       success:function(result) {
-		    	   $("#jp_content").empty();
-		          $("#jp_content").html(result);
+		    	  
+		          $("#jpMain_frame").html(result);
 
 		       },
 		       error: function(request, status, error){
@@ -314,7 +316,7 @@
 	}
 	
 	function p_delete(){
-		$("div#jp_content").empty();
+		$("div#jpMain_frame").empty();
 	}
 	
 	function myFunction(dropdownId) {
@@ -342,7 +344,7 @@
 </script>
 <body>
 
-<div class="jpMain_frame">
+<div class="jpMain_frame" id="jpMain_frame">
 	<div class="jptop_content">
 		<button class="plus" type="button" onclick="location.href='/wanted/company_recruit'"><span><i class="fa-regular fa-square-plus"></i>&nbsp;&nbsp;채용공고 등록</span></button>
 	</div>

@@ -362,7 +362,7 @@
 			}
 			
 			const frm = document.editRecruitFrm;
-			frm.action = "editRecruitEnd";
+			frm.action = "getEditRecruit";
 			frm.method = "post";
 			frm.submit();
 			
@@ -382,7 +382,7 @@
 			</div>
 			<div class="content_body">
 				<form name="editRecruitFrm">
-				<c:forEach items="${editRecruit}"  var="map">
+				<c:forEach  var="map" items="${requestScope.editRecruit}">
 					<div class="category">
 						<label class="con_title">직군선택</label>&nbsp;&nbsp;<span class="error3">수정이 불가한 사항입니다.</span><br>
 						<select class="job_select" id="job_select">
@@ -433,13 +433,14 @@
 						<input class="sal_input" id="sal_input" name="salary" value="${map.salary}"></input><span>&nbsp;만 원</span>
 					</div>
 					<div class="create">
-						<label class="con_title">등 록 일</label><br>
+						<label class="con_title">등 록 일</label><span class="error3">공고시작일을 확인해주세요</span><br>
 						<input  type="text" id="create_input" name="createday" class="create_input"></input>
 					</div>
 					<div class="deadline">
-						<label class="con_title">마 감 일</label><br>
+						<label class="con_title">마 감 일</label><span class="error3">공고마감일을 확인해주세요</span><br>
 						<input type="text" id="deadline_input" name="deadline" class="deadline_input" ></input>
 					</div>
+					<input type="hidden" name="post_code" value="${map.post_code}" readonly></input>
 				</c:forEach>	
 				</form>
 			</div>
