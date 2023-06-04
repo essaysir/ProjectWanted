@@ -74,5 +74,19 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 		mapper.updateRecruit(postvo);
 		
 	}
+	
+	// 기간만료 공고 삭제하기 
+	@Override
+	public int deleteRecruit(String post_code) {
+		int n = mapper.deleteRecruit(post_code);
+		return n;
+	}
+	
+	// 공고 중단하기
+	@Override
+	public int stopRecruit(String post_code) {
+		int n = mapper.stopRecruit(post_code);
+		return n;
+	}
 
 }

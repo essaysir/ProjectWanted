@@ -59,7 +59,7 @@
 		from
 		(
 		    select row_number() over(order by post_code desc) AS RNO, post_code, subject, to_char(createday,'yy/mm/dd') AS createday, to_char(deadline,'yy/mm/dd') AS deadline, pay_status
-		            ,TRUNC(TO_DATE(deadline, 'YY/MM/DD')-SYSDATE + 1 ) AS DateDiff, job_name
+		            ,TRUNC(TO_DATE(deadline, 'YY/MM/DD')-TRUNC(SYSDATE)) AS DateDiff, job_name
 		    from tbl_post P
 		    JOIN tbl_duty D
 		    on p.fk_duty_code = D.duty_code
@@ -98,6 +98,16 @@
 		update TBL_post set subject = #{subject}, info = #{info}, mainduty = #{mainduty}
 						  , quality = #{quality}, salary = #{salary}, createday = #{createday}
 						  , deadline = #{deadline}, career = #{career}
+		where post_code = #{post_code}
+	</update>
+	
+	<delete id="deleteRecruit">
+		delete from tbl_post
+		where post_code = #{post_code}
+	</delete>
+	
+	<update id="stopRecruit">
+		update tbl_post set deadline = TRUNC(sysdate) - 1
 		where post_code = #{post_code}
 	</update>
 

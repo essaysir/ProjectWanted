@@ -106,6 +106,34 @@ public class CompanyController_2 {
 				
 	}
 	
+	// 기간만료 공고 삭제하기 
+	@ResponseBody
+	@GetMapping(value="/deleteRecruit", produces = "text/plain;charset=UTF-8")
+	public String deleteRecruit(@RequestParam("post_code") String post_code){
+				
+		int n = service.deleteRecruit(post_code);
+	    if (n==1) {
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+
+	}
+	
+	// 공고 중단하기 
+	@ResponseBody
+	@GetMapping(value="/stopRecruit", produces = "text/plain;charset=UTF-8")
+	public String stopRecruit(@RequestParam("post_code") String post_code){
+				
+		int n = service.stopRecruit(post_code);
+	    if (n==1) {
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+
+	}
+	
 	//===============================SJS시작==================================
 	@ResponseBody
 	@GetMapping(value="/getHeaderList" , produces = "text/plain;charset=UTF-8" )

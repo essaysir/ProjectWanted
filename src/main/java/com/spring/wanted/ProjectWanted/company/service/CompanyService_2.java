@@ -91,5 +91,23 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	public void updateRecruit(PostVO postvo) {
 		cdao.updateRecruit(postvo);
 	}
+	
+	// 기간만료 공고 삭제하기 
+	@Override
+	public int deleteRecruit(String post_code) {
+		
+		int n = cdao.deleteRecruit(post_code);
+		
+	    return n;
+	}
+	
+	// 공고 중단 하기 
+	@Override
+	public int stopRecruit(String post_code) {
+		
+		int n = cdao.stopRecruit(post_code);
+		
+	    return n;
+	}
 
 }

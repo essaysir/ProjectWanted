@@ -241,7 +241,7 @@
 					 		}else if(item.pay_status == "1" && item.dateDiff < 5){
 					 			html += "<button type='button' class='jpAnd' onclick='test3()'><span>공고 연장</span></button>";
 					 		}else if(item.pay_status == "1" && item.dateDiff > 0){
-					 			html += "<button type='button' class='jpEnd' onclick='test2()'><span>공고 중단</span></button>";
+					 			html += "<button type='button' class='jpEnd' onclick='postStop("+item.post_code+")'><span>공고 중단</span></button>";
 					 		}
 					 			html += "<br><br><br>"
 					 					+"<p>공고시작일 : "+item.createday+"<br>공고마감일 : "+item.deadline+"</p>"
@@ -249,7 +249,7 @@
 								 			+"<button onclick='myFunction("+item.post_code+")' class='dropbtn'><i class='fa-solid fa-gear'></i></button>"
 								 			+"<div id='"+item.post_code+"' class='dropdown-content'>";
 								 				if(item.dateDiff < 0){
-								 					html += "<a onclick='delete("+item.post_code+")'>삭제하기</a>";
+								 					html += "<a onclick='p_delete("+item.post_code+")'>삭제하기</a>";
 								 				} else if(item.dateDiff > 0 && item.pay_status == "0") {
 								 					html += "<a onclick='p_edit("+item.post_code+")'>수정하기</a>";
 								 					 +"<a onclick='p_delete("+item.post_code+")'>삭제하기</a>";
@@ -291,8 +291,23 @@
 		alert("결제하기버튼");
 	}
 	
-	function test2(){
-		alert("공고중단버튼");
+	function postStop(post_code){
+		$.ajax({
+	        url: "stopRecruit",
+	        data: {"post_code": post_code },
+	        type: "get",
+	        success: function(result) {
+	            if (result == "success") {
+	                alert("공고를 중단하였습니다.");
+	                location.reload();
+	            } else {
+	                alert("공고중단에 실패했습니다.");
+	            }
+	        },
+	        error: function(request, status, error) {
+	            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+	        }
+	    });
 	}
 	
 	function test3(){
@@ -315,8 +330,23 @@
 	   		 }); // end of $.ajax ----
 	}
 	
-	function p_delete(){
-		$("div#jpMain_frame").empty();
+	function p_delete(post_code) {
+		 $.ajax({
+		        url: "deleteRecruit",
+		        data: {"post_code": post_code },
+		        type: "get",
+		        success: function(result) {
+		            if (result == "success") {
+		                alert("삭제되었습니다.");
+		                location.reload();
+		            } else {
+		                alert("삭제에 실패했습니다.");
+		            }
+		        },
+		        error: function(request, status, error) {
+		            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+		        }
+		    });
 	}
 	
 	function myFunction(dropdownId) {
