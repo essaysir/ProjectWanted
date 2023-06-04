@@ -28,4 +28,27 @@ public class CompanyDAO_1 implements InterCompanyDAO_1 {
 		return candidateList;
 	}
 
+
+	// 지원자List totalCount
+	@Override
+	public int getTotalCount(Map<String, String> paraMap) {
+		int n = mapper.getTotalCount(paraMap);
+		return n;
+	}
+
+
+	// 페이징처리  한 지원자List 불러오기
+	@Override
+	public List<Map<String, String>> candidateListSearchWithPaging(Map<String, String> paraMap) {
+		List<Map<String, String>> candidateList = mapper.candidateListSearchWithPaging(paraMap);
+		return candidateList;
+	}
+
+
+	@Override
+	public List<String> wordSearchShow(Map<String, String> paraMap) {
+		List<String> wordList = mapper.wordSearchShow(paraMap);
+		return wordList;
+	}
+
 }
