@@ -27,9 +27,9 @@ public class CompanyService_1 implements InterCompanyService_1 {
 		List<Map<String, String>> candidateList = cdao.getcandidateList(paraMap);
 		return candidateList;
 	}
-
-
-	// 지원자List totalCount
+	
+	
+	// 지원자List 페이징
 	@Override
 	public int getTotalCount(Map<String, String> paraMap) {
 		int n = cdao.getTotalCount(paraMap);
@@ -37,16 +37,15 @@ public class CompanyService_1 implements InterCompanyService_1 {
 	}
 
 
-	// 페이징처리  한 지원자List 불러오기
-	@Override
-	public List<Map<String, String>> candidateListSearchWithPaging(Map<String, String> paraMap) {
-		List<Map<String, String>> candidateList = cdao.candidateListSearchWithPaging(paraMap);
-		return candidateList;
-	}
-
-
 	// 검색기능
 	@Override
+	public List<Map<String, String>> listSearchWithPaging(Map<String, String> paraMap) {
+		List<Map<String, String>> candidateList = cdao.listSearchWithPaging(paraMap); 
+		return candidateList;
+	}
+	
+/*	
+	@Override 
 	public String wordSearchShow(Map<String, String> paraMap) {
 		List<String> wordList =  cdao.wordSearchShow(paraMap);
 		
@@ -63,5 +62,16 @@ public class CompanyService_1 implements InterCompanyService_1 {
 		
 		return jsonArr.toString();
 	}
+
+*/
+
+
+
+
+	
+	
+	
+	
+	
 
 }

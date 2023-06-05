@@ -51,13 +51,13 @@
 		
 			<tr style="height: 40px;"></tr>
 			<tr>
-				<th class="formTitle">지원자명</th>
-				<th class="formTitle">공고명</th>
-				<th class="formTitle">지원일자</th>
-				<th class="formTitle">현재상태</th>
+				<th class="formTitle"></th>
+				<th class="formTitle"></th>
+				<th class="formTitle"></th>
+				<th class="formTitle"></th>
 			</tr>
 			<tr>
-				<td colspan="4">지원자 목록이 없습니다.</td>
+				<td colspan="4"></td>
 			</tr>
 		</table>
 	</div>
