@@ -235,7 +235,7 @@
 								 	+"<div class='jcard_topR'>";
 								 	
 					 		if(item.pay_status == "0"){
-					 			html += "<button type='button' class='jpPay' onclick='test()'><span>결제 하기</span></button>";
+					 			html += "<button type='button' class='jpPay' onclick='postPayment("+item.post_code+")'><span>결제 하기</span></button>";
 					 		}else if(item.pay_status == "1" && item.dateDiff < 0){
 					 			html += "<button type='button' class='jpFin' disabled onclick=''><span>공고 마감</span></button>";
 					 		}else if(item.pay_status == "1" && item.dateDiff < 5){
@@ -251,10 +251,10 @@
 								 				if(item.dateDiff < 0){
 								 					html += "<a onclick='p_delete("+item.post_code+")'>삭제하기</a>";
 								 				} else if(item.dateDiff > 0 && item.pay_status == "0") {
-								 					html += "<a onclick='p_edit("+item.post_code+")'>수정하기</a>";
+								 					html += "<a onclick='p_edit("+item.post_code+")'>수정하기</a>"
 								 					 +"<a onclick='p_delete("+item.post_code+")'>삭제하기</a>";
 								 				} else {
-								 					html += "<a onclick='p_edit("+item.post_code+")'>수정하기</a>";
+								 					html += "<a onclick='viewCount("+item.post_code+")'>조회수  확인하기</a>";
 								 				}
 								 	html +="</div>"
 								 		+"</div>"
@@ -287,11 +287,23 @@
 			
 		
 	
-	function test(){
-		alert("결제하기버튼");
+	function postPayment(post_code){
+		$.ajax({
+		       url:"viewPostPayment",
+		       data:{"post_code": post_code},
+		       type:"get",
+		       success:function(result) {
+		    	  
+		          $("#jpMain_frame").html(result);
+
+		       },
+		       error: function(request, status, error){
+		           alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		        }
+	   		 });
 	}
-	
 	function postStop(post_code){
+					
 		$.ajax({
 	        url: "stopRecruit",
 	        data: {"post_code": post_code },
@@ -308,6 +320,7 @@
 	            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 	        }
 	    });
+		
 	}
 	
 	function test3(){
@@ -327,26 +340,35 @@
 		       error: function(request, status, error){
 		           alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		        }
-	   		 }); // end of $.ajax ----
+	   		 });
 	}
 	
 	function p_delete(post_code) {
-		 $.ajax({
-		        url: "deleteRecruit",
-		        data: {"post_code": post_code },
-		        type: "get",
-		        success: function(result) {
-		            if (result == "success") {
-		                alert("삭제되었습니다.");
-		                location.reload();
-		            } else {
-		                alert("삭제에 실패했습니다.");
-		            }
-		        },
-		        error: function(request, status, error) {
-		            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-		        }
-		    });
+		if(confirm("정말로 삭제하시겠습니까?")){
+			 $.ajax({
+			        url: "deleteRecruit",
+			        data: {"post_code": post_code },
+			        type: "get",
+			        success: function(result) {
+			            if (result == "success") {
+			                alert("삭제되었습니다.");
+			                location.reload();
+			            } else {
+			                alert("삭제에 실패했습니다.");
+			            }
+			        },
+			        error: function(request, status, error) {
+			            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			        }
+			  });
+		}
+		else{
+			alert("삭제를 취소했습니다.")
+		}	
+	}
+	
+	function viewCount(post_code){
+		alert(post_code);
 	}
 	
 	function myFunction(dropdownId) {

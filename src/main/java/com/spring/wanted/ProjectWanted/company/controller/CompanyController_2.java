@@ -86,6 +86,17 @@ public class CompanyController_2 {
 
 	}
 	
+	//ajax로 결제 상세페이지 띄우기
+	@GetMapping(value="/viewPostPayment", produces = "text/plain;charset=UTF-8")
+	public String viewPostPayment(HttpServletRequest request, @RequestParam("post_code") String post_code) {
+		
+		List<Map<String,String>> postPayment = service.viewPostPayment(post_code);
+		
+		request.setAttribute("postPayment", postPayment);
+		
+		return "tiles2/company/content/postPayment";
+	}
+	
 	//ajax로 수정페이지 띄우기
 	@GetMapping(value="/getEditRecruit", produces = "text/plain;charset=UTF-8")
 	public String getRecruit(HttpServletRequest request, @RequestParam("post_code") String post_code) {
