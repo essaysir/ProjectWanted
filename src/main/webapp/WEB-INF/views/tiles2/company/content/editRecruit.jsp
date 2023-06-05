@@ -14,7 +14,6 @@
 		border: solid 0px black;
 		width:100%;
 		height:100%;
-		padding: 100px 0;
 	}
 	
 	.main_content{
@@ -72,6 +71,7 @@
 		margin-top:10px;
 	}
 	
+	.cancel:hover,
 	.submit:hover{
 		border: solid 1px black;
 		cursor: pointer;
@@ -361,6 +361,13 @@
 				$(".deadline_input").parent().find(".error").hide();
 			}
 			
+			const checkbox_checked_len = $("input:checkbox[id='agree']:checked").length;
+			
+			if(checkbox_checked_len == 0){
+				alert('공고시작일을 확인하셔야 합니다.');
+				return; // 함수종료
+			}
+			
 			const frm = document.editRecruitFrm;
 			frm.action = "getEditRecruit";
 			frm.method = "post";
@@ -385,13 +392,13 @@
 				<c:forEach  var="map" items="${requestScope.editRecruit}">
 					<div class="category">
 						<label class="con_title">직군선택</label>&nbsp;&nbsp;<span class="error3">수정이 불가한 사항입니다.</span><br>
-						<select class="job_select" id="job_select">
+						<select class="job_select" id="job_select" disabled>
 						    <option value="${map.job_code}">${map.job_name}</option>
 						</select>
 					</div>
 					<div class="dcategory">
 						<label class="con_title">직무선택</label>&nbsp;&nbsp;<span class="error3">수정이 불가한 사항입니다.</span><br>
-						<select class="duty_select" id="duty_select" name="fk_duty_code">
+						<select class="duty_select" id="duty_select" name="fk_duty_code" disabled>
 							<option value="${map.duty_code}">${map.duty_name}</option>
 						</select>
 					</div>
@@ -433,11 +440,11 @@
 						<input class="sal_input" id="sal_input" name="salary" value="${map.salary}"></input><span>&nbsp;만 원</span>
 					</div>
 					<div class="create">
-						<label class="con_title">등 록 일</label><span class="error3">공고시작일을 확인해주세요</span><br>
+						<label class="con_title">등 록 일</label>&nbsp;&nbsp;<span class="error3">공고시작일을 확인해주세요.</span>&nbsp;&nbsp;<input type="checkbox" id="agree" /><br>
 						<input  type="text" id="create_input" name="createday" class="create_input"></input>
 					</div>
 					<div class="deadline">
-						<label class="con_title">마 감 일</label><span class="error3">공고마감일을 확인해주세요</span><br>
+						<label class="con_title">마 감 일</label><br>
 						<input type="text" id="deadline_input" name="deadline" class="deadline_input" ></input>
 					</div>
 					<input type="hidden" name="post_code" value="${map.post_code}" readonly></input>

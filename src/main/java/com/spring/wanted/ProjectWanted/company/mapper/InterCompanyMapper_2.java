@@ -36,5 +36,8 @@ public interface InterCompanyMapper_2 {
 	
 	// 공고 중단하기
 	int stopRecruit(String post_code);
+	
+	//ajax로 결제 상세페이지 띄우기
+	List<Map<String, String>> viewPostPayment(String post_code);
 
 }

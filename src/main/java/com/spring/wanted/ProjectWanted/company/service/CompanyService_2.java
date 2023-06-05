@@ -109,5 +109,14 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		
 	    return n;
 	}
+	
+	//ajax로 결제 상세페이지 띄우기
+	@Override
+	public List<Map<String, String>> viewPostPayment(String post_code) {
+		
+		List<Map<String, String>> postPayment = cdao.viewPostPayment(post_code);
+		
+		return postPayment;
+	}
 
 }
