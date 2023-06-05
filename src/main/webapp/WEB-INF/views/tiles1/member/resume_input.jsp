@@ -136,6 +136,8 @@
 		margin-top: 5px;
 	}
 	
+	
+	
 </style>
 
 <script type="text/javascript">
@@ -143,39 +145,53 @@
 		$(document).ready(function(){
 			
 			preventEnter(); // 엔터 전송 방지 함수 실행
-			
-			checkResume(); // 글자수 게이지바 함수 실행
-			$("textarea.resume_text").on('input' , checkResume); // 인풋 이벤트가 발생하면, 글자수 게이지바 증가 함수를 직접 이벤트 핸들러로 전달하여 실행
-			
-			checkName(); // 이름 유효성 검사 함수 실행
-			$("input[name='name']").on('input', checkName); // 인풋 이벤트가 발생하면, 이름 유효성 검사 함수를 직접 이벤트 핸들러로 전달하여 실행
-			$("span#name_error").hide();
-			
-			checkEmail(); // 이메일 유효성 검사 함수 실행
-			$("input[name='email']").on('input', checkEmail); // 인풋 이벤트가 발생하면, 이메일 유효성 검사 함수를 직접 이벤트 핸들러로 전달하여 실행
-			$("span#email_error").hide();
-			
-			checkContact(); // 연락처 유효성 검사 함수 실행
-			$("input[name='contact']").on('input', checkContact); // 인풋 이벤트가 발생하면, 연락처 유효성 검사 함수를 직접 이벤트 핸들러로 전달하여 실행
-			$("span#contact_error").hide();
-			
-			checkSubject() // 이력서 제목 유효성 검사 함수 실행
-			$("input[name='subject']").on('input', checkSubject); // 인풋 이벤트가 발생하면, 이력서 제목 유효성 검사 함수를 직접 이벤트 핸들러로 전달하여 실행
-			$("span#subject_error").hide();
-			
-			addCareer(); // 경력 추가 버튼 클릭시 동적으로 html을 추가해주는 함수 호출
-			$('button#career_btn').on('click', addCareer); // 경력 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
-			
-			$('button#addSchool_btn').on('click', addSchool); // 학력 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
-			
-			$('button#addReward_btn').on('click', addReward); // 수상 및 기타 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
-			
-			$('button#addLanguage_btn').on('click', addLanguage); // 외국어 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
-			
-			
-		}); // END OF $(DOCUMENT).READY(FUNCTION()-----------------------------
+		    
+		    checkResume(); // 글자수 게이지바 함수 실행
+		    $("textarea.resume_text").on('input', checkResume); // 인풋 이벤트가 발생하면, 글자수 게이지바 증가 함수를 직접 이벤트 핸들러로 전달하여 실행
+		    
+		    checkName(); // 이름 유효성 검사 함수 실행
+		    $("input[name='name']").on('input', checkName); // 인풋 이벤트가 발생하면, 이름 유효성 검사 함수를 직접 이벤트 핸들러로 전달하여 실행
+		    $("span#name_error").hide();
+		    
+		    checkEmail(); // 이메일 유효성 검사 함수 실행
+		    $("input[name='email']").on('input', checkEmail); // 인풋 이벤트가 발생하면, 이메일 유효성 검사 함수를 직접 이벤트 핸들러로 전달하여 실행
+		    $("span#email_error").hide();
+		    
+		    checkContact(); // 연락처 유효성 검사 함수 실행
+		    $("input[name='contact']").on('input', checkContact); // 인풋 이벤트가 발생하면, 연락처 유효성 검사 함수를 직접 이벤트 핸들러로 전달하여 실행
+		    $("span#contact_error").hide();
+		    
+		    checkSubject(); // 이력서 제목 유효성 검사 함수 실행
+		    $("input[name='subject']").on('input', checkSubject); // 인풋 이벤트가 발생하면, 이력서 제목 유효성 검사 함수를 직접 이벤트 핸들러로 전달하여 실행
+		    $("span#subject_error").hide();
+		    
+		    addCareer(); // 경력 추가 버튼 클릭시 동적으로 html을 추가해주는 함수 호출
+		    $('button#career_btn').on('click', addCareer); // 경력 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
+		    
+		    $('button#addSchool_btn').on('click', addSchool); // 학력 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
+		    
+		    $('button#addReward_btn').on('click', addReward); // 수상 및 기타 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
+		    
+		    $('button#addLanguage_btn').on('click', addLanguage); // 외국어 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
+		    
+		    var year1Input = document.querySelector('[name="year1"]');
+		    var year2Input = document.querySelector('[name="year2"]');
+		    
+		    var month1Input = document.querySelector('[name="month1"]');
+		    var month2Input = document.querySelector('[name="month2"]');
+		    
+		    var hiddenYear1Input = document.querySelector('[name="hiddenYear1"]');
+		    var hiddenYear2Input = document.querySelector('[name="hiddenYear2"]');
+		      
+		    year1Input.addEventListener('input', updateHiddenYear1);
+		    month1Input.addEventListener('input', updateHiddenYear1);
+		    
+		    year2Input.addEventListener('input', updateHiddenYear2);
+		    month2Input.addEventListener('input', updateHiddenYear2);
+		    
+		}); // END OF $(DOCUMENT).READY(FUNCTION()---------------------------
 
-		let career_count = 0 ; 
+		let career_count = 0; 
 		let achievementsDel_count = 0;
 		let schoolDel_count = 0;	
 		let rewardDel_count = 0;	
@@ -187,12 +203,73 @@
 		
 		
 		
-		// 임시저장 기능 구현
-		const temporary storage = document.queryselector(".storageArea")
 		
-		area.addEventListener("keydown", () => {
-			localStorage.setItem("form", storageArea.vlaue);
-		});
+		  
+		
+		  
+		
+		// DB에 데이터를 넘기기 위해 입력 받은 년월 합쳐주는 함수 (경력, 주요성과, 수상 및 기타, 외국)
+		function updateHiddenYears() {
+		   
+			for (var i = 1; i <= career_count; i++) {
+		        var hiddenYearInput1 = document.getElementsByName('hiddenYear1' + i)[0];
+		        var hiddenYearInput2 = document.getElementsByName('hiddenYear2' + i)[0];
+
+		        var year1Input = document.getElementsByName('year1' + i)[0];
+		        var month1Input = document.getElementsByName('month1' + i)[0];
+		        hiddenYearInput1.value = year1Input.value + month1Input.value;
+
+		        var year2Input = document.getElementsByName('year2' + i)[0];
+		        var month2Input = document.getElementsByName('month2' + i)[0];
+		        hiddenYearInput2.value = year2Input.value + month2Input.value;
+		    }// end of for (var i = 1; i <= career_count; i++)--------------------------
+		  
+		    for (var i = 1; i <= achievementsDel_count; i++) {
+		        var hiddenYearInput3 = document.getElementsByName('hiddenYear3' + i)[0];
+		        var hiddenYearInput4 = document.getElementsByName('hiddenYear4' + i)[0];
+
+		        var year3Input = document.getElementsByName('year3' + i)[0];
+		        var month3Input = document.getElementsByName('month3' + i)[0];
+		        hiddenYearInput3.value = year3Input.value + month3Input.value;
+
+		        var year4Input = document.getElementsByName('year4' + i)[0];
+		        var month4Input = document.getElementsByName('month4' + i)[0];
+		        hiddenYearInput4.value = year4Input.value + month4Input.value;
+		      } // end of for (var i = 1; i <= achievementsDel_count; i++)--------------
+		  
+		  
+		    for (var i = 1; i <= schoolDel_count; i++) {
+		        var hiddenYearInput5 = document.getElementsByName('hiddenYear5' + i)[0];
+		        var hiddenYearInput6= document.getElementsByName('hiddenYear6' + i)[0];
+
+		        var year5Input = document.getElementsByName('year5' + i)[0];
+		        var month5Input = document.getElementsByName('month5' + i)[0];
+		        hiddenYearInput5.value = year5Input.value + month5Input.value;
+
+		        var year6Input = document.getElementsByName('year6' + i)[0];
+		        var month6Input = document.getElementsByName('month6' + i)[0];
+		        hiddenYearInput6.value = year6Input.value + month6Input.value;
+		      } // end of for (var i = 1; i <= schoolDel_count; i++)---------------------
+		  
+		    for (var i = 1; i <= rewardDel_count; i++) {
+		        var hiddenYearInput7 = document.getElementsByName('hiddenYear7' + i)[0];
+
+		        var year7Input = document.getElementsByName('year7' + i)[0];
+		        var month7Input = document.getElementsByName('month7' + i)[0];
+		        hiddenYearInput7.value = year7Input.value + month7Input.value;
+		      } // end of for (var i = 1; i <= rewardDel_count; i++)---------------------
+		    
+		      for (var i = 1; i <= languageDel_count; i++) {
+			        var hiddenYearInput7 = document.getElementsByName('hiddenYear8' + i)[0];
+
+			        var year8Input = document.getElementsByName('year8' + i)[0];
+			        var month8Input = document.getElementsByName('month8' + i)[0];
+			        hiddenYearInput8.value = year8Input.value + month8Input.value;
+			      } // end of for (var i = 1; i <= languageDel_count; i++)---------------------
+			      
+		};// end of function updateHiddenYears()--------------------------------------------------
+
+		 
 		
 		
 		// 기타 기능 및 유효성 검사 함수 모음 //
@@ -245,7 +322,7 @@
 				$("span#subject_error").hide();
 			}
 			
-		}// end of function checkSubject()----------------------------------------
+		}; // end of function checkSubject()----------------------------------------
 		
 		
 		// input 요소에서 Enter키를 누르면 데이터가 전송되어지는 것을 방지
@@ -257,7 +334,7 @@
 				    return false;
 				  }
 				});
-		} // end of function preventEnter()----------------------------------------
+		}; // end of function preventEnter()----------------------------------------
 
 		
 		// 이름 유효성 검사
@@ -326,7 +403,7 @@
 				$("span#contact_error").hide();
 			}
 
-		}// end of function checkContact()---------------------------------------
+		}; // end of function checkContact()---------------------------------------
 		
 		
 		// 작성 완료 버튼 클릭시 필수입력항목 유효성검사(공백 및 미작성만) 함수 
@@ -366,7 +443,7 @@
 			frm.method = "post";
 			frm.submit();
 		    
-		} // end of function insertResume()------------------------------
+		}; // end of function insertResume()------------------------------
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -385,14 +462,16 @@
 			               '  <div style="display:flex; flex-direction: row">\n' +
 			               '    <div style="width: 20%; display: flex; flex-direction: row;">\n' +
 			               '      <div class="my-3" style="display: block; width: 100%; margin-right: 10px; flex-grow: 1;">\n' +
-			               '        <input type="text" placeholder="YYYY" maxlength="4" style="width: 41px;">${fk_userid}</input>\n' +
+			               '        <input type="text" name="year1'+career_count+'" placeholder="YYYY" maxlength="4" style="width: 41px;">${fk_userid}</input>\n' +
 			               '        .\n' +
-			               '        <input type="text" placeholder="MM" maxlength="2" style="width: 28px;" />\n' +
+			               '        <input type="text" name="month1'+career_count+'" placeholder="MM" maxlength="2" style="width: 28px;" />\n' +
+			               '		<input type="hidden" name="hiddenYear1'+career_count+'" value="">' +		
 			               '        &nbsp;- &nbsp;\n' +
-			               '        <input type="text" placeholder="YYYY" maxlength="4" style="width: 41px;" />\n' +
+			               '        <input type="text" name="year2'+career_count+'" placeholder="YYYY" maxlength="4" style="width: 41px;" />\n' +
 			               '        .\n' +
-			               '        <input type="text" placeholder="MM" maxlength="2" style="width: 28px;" />\n' +
-			               '        <span style="color:#ff425f;">*</span>\n' +
+			               '        <input type="text" name="month2'+career_count+'" placeholder="MM" maxlength="2" style="width: 28px;" />\n' +
+			               '		<input type="hidden" name="hiddenYear2'+career_count+'" value="">' +
+			               '        <span style="color:#ff425f;">*</span>\n' + 
 			               '      </div>\n' +
 			               '    </div>\n' +
 			               '    <div class="my-3" style="display:block; width : 60%; margin-left: auto;">\n' +
@@ -409,6 +488,8 @@
 			    $('ul#addCareer').append(html);
 			    
 			    delCareer(career_count);
+			    
+			    updateHiddenYears();
 			    
 		}; // end of function addCareer()------------------------------------
 		
@@ -431,13 +512,15 @@
 		  var html = '<li id="achievementsDel_range'+achievementsDel_count+'">\n' +
 				     '  <input type="text" autocomplete="off" placeholder="주요성과" style="width:80%; font-size:16px;"/>\n' +
 				     '  <button id="achievementsDel_btn'+achievementsDel_count+'" class="btn-delete-detail" type="button" style="width:17%;">X</button>\n' +
-				     '  <input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:38px; font-size:14px;"/>\n' +
+				     '  <input type="text" name="year3'+achievementsDel_count+'" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:38px; font-size:14px;"/>\n' +
 				     '  .\n' +
-				     '  <input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:25px; font-size:14px;"/>\n' +
+				     '  <input type="text" name="month3'+achievementsDel_count+'" autocomplete="off" placeholder="MM" maxlength="2" style="width:25px; font-size:14px;"/>\n' +
+				     '	<input type="hidden" name="hiddenYear3'+achievementsDel_count+'" value="">' +	
 				     '  &nbsp;- &nbsp;\n' +
-				     '  <input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:38px; font-size:14px;"/>\n' +
+				     '  <input type="text" name="year4'+achievementsDel_count+'" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:38px; font-size:14px;"/>\n' +
 				     '  .\n' +
-				     '  <input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:25px; font-size:14px;"/>\n' +
+				     '  <input type="text" name="month4'+achievementsDel_count+'" autocomplete="off" placeholder="MM" maxlength="2" style="width:25px; font-size:14px;"/>\n' +
+				     '	<input type="hidden" name="hiddenYear4'+achievementsDel_count+'" value="">' +	
 				     '  <div style="display:flex;"><textarea placeholder="상세 업무 내용과 성과를 기입해주세요." style="border:none; flex-grow:1;"></textarea></div>\n' +
 				     '</li>';
 
@@ -446,6 +529,8 @@
 		  
 		  delAchievements(achievementsDel_count);
 			
+		  updateHiddenYears();
+		  
 		}; // end of function addAchievements()-----------------------------------
 		
 		
@@ -467,13 +552,15 @@
 			var html = '  <div id="schoolDel_range'+schoolDel_count+'" style="display:flex; flex-direction: row">' +
 			           '    <div style="display:flex; flex-direction: row; width: 100%; padding-left: 40px;">' +
 			           '      <div class="my-3" style="display:block; width:36%; margin-right: 10px;">' +
-			           '        <input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:43px;"/>' +
+			           '        <input type="text" name="year5'+schoolDel_count+'" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:43px;"/>' +
 			           '        .' +
-			           '        <input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;"/>' +
+			           '        <input type="text" name="month5'+schoolDel_count+'" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;"/>' +
+			           '		<input type="hidden" name="hiddenYear5'+schoolDel_count+'" value="">' +
 			           '        &nbsp;- &nbsp;' +
-			           '        <input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:43px;"/>' +
+			           '        <input type="text" name="year6'+schoolDel_count+'" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:43px;"/>' +
 			           '        .' +
-			           '        <input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;"/>' +
+			           '        <input type="text" name="month6'+schoolDel_count+'" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;"/>' +
+			           '		<input type="hidden" name="hiddenYear6'+schoolDel_count+'" value="">' +
 			           '        <span style="color:#ff425f;">*</span>' +
 			           '      </div>' +
 			           '      <div class="my-3" style="display:block; width : 70%">' +
@@ -492,6 +579,8 @@
 	           							   // 그러므로 addSchool() 선언 내부에 호출되어있는 delSchool() 파라미터에 addSchool()의 schoolDel_count 를 전달
 	           							   // 그래야 동일하게 schoolDel_count 값을 가질 수 있음.
 	           
+	           updateHiddenYears();
+	           							   
 		}; // end of function addSchool()-------------------------------------------------- 
 
 		
@@ -512,9 +601,10 @@
 			
 			var html = '<div id="rewardDel_range'+rewardDel_count+'" style="display:flex; flex-direction: row">' +
 					   '  <div class="my-3" style="display:block; width:30%; margin-right : 10px;">' +
-					   '    <input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:42px;"/>' +
+					   '    <input type="text" name="year7'+rewardDel_count+'" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:42px;"/>' +
 					   '    .' +
-					   '    <input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:36px;"/>' +
+					   '    <input type="text" name="month7'+rewardDel_count+'" autocomplete="off" placeholder="MM" maxlength="2" style="width:36px;"/>' +
+					   '	<input type="hidden" name="hiddenYear7'+rewardDel_count+'" value="">' +
 					   '  </div>' +
 					   '  <div class="my-3" style="display:block; width : 70%">' +
 					   '    <input type="text" autocomplete="off" placeholder="활동명" style="width:80%; font-size:2opx;"/>' +
@@ -527,7 +617,9 @@
 			
 			delReward(rewardDel_count);
 			
-		} // end of function addReward()-------------------------------------------------
+			updateHiddenYears();
+			
+		}; // end of function addReward()-------------------------------------------------
 		
 		
 		// 수상 및 기타 입력란 삭제함수
@@ -547,9 +639,10 @@
 			
 			var html = '<div id="languageDel_range'+languageDel_count+'" style="display:flex; flex-direction: row">' +
 			  		   '  <div class="my-3" style="display:block; width:30%; margin-right : 10px;">' +
-					   '    <input type="text" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:43px;"/>' +
+					   '    <input type="text" name="year8'+languageDel_count+'" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:43px;"/>' +
 					   '    .' +
-					   '    <input type="text" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;"/>' +
+					   '    <input type="text" name="month8'+languageDel_count+'" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;"/>' +
+	   				   '	<input type="hidden" name="hiddenYear8'+languageDel_count+'" value="">' +
 					   '  </div>' +
 					   '  <div class="my-3" style="display:block; width : 60%">' +
 					   '    <input type="text" autocomplete="off" placeholder="언어" style="width:80%; font-size:20px;"/>' +
@@ -560,6 +653,8 @@
 			$('div.addLanguage').append(html);
 			
 			delLanguage(languageDel_count);
+			
+			updateHiddenYears();
 			
 		}; // end of function addLanguage()----------------------------------------------------------------------
 		
@@ -653,6 +748,8 @@
 					<div>
 						<p class="resume-inform">• 개발 스택, 디자인 툴, 마케팅 툴 등 가지고 있는 직무와 관련된 스킬을 추가해보세요.
 						<br />• 데이터 분석 툴이나 협업 툴 등의 사용해본 경험이 있으신 툴들도 추가해보세요.</p>
+						<input type="text" id="searchWord" name="searchWord" placeholder="보유하신 스킬을 입력하세요">
+						<button type="button" onclick="searchData()">검색</button>
 						
 						<textarea class="resume_text" name="skill" oninput="autoResize(this)" placeholder="검색으로 대체할 예정"></textarea>
 					</div>

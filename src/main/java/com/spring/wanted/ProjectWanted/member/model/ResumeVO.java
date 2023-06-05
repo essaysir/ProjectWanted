@@ -13,5 +13,7 @@ public class ResumeVO {
     private String introduce;
     private String uploadLink;
     private String skill;
+    
+    
 }
 
