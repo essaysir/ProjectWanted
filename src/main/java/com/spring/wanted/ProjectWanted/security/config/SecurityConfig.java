@@ -51,7 +51,7 @@ public class SecurityConfig  {
 	                		"/js/**", 
 	                		"/OwlCarousel/**", 
 	                		"/smarteditor/**", 
-	                		"/wanted/company/**" , "/wanted/login" , "/wanted").permitAll() // 해당 API에 대해서는 모든 요청을 허가한다는 설정	                
+	                		"/wanted/company/**" , "/wanted/login" , "/wanted" , "/wanted/skill" , "/wanted/getSkill").permitAll() // 해당 API에 대해서는 모든 요청을 허가한다는 설정	                
 	                //	                .antMatchers("/**").hasAnyRole("USER") // 그 외 페이지는 로그인 한 유저만 사용 가능
 	        		.anyRequest().authenticated(); // 이 밖에 모든 요청에 대해서 인증을 필요로 한다는 설정
 	                
@@ -64,7 +64,7 @@ public class SecurityConfig  {
 	    public WebSecurityCustomizer webSecurityCustomizer() {
 	        // 인증 및 인가 예외 Path URL        
 	    	return (web) -> web.ignoring().antMatchers( "**", "/login/**",   "/bootstrap-4.6.0-dist/**",
-	                "/css/**",  "/images/**",	 "/jquery-ui-1.13.1.custom/**",  "/js/**",
+	                "/css/**",  "/images/**",	 "/jquery-ui-1.13.1.custom/**",  "/js/**",  "/wanted/getSkill",
 	                "/smarteditor/**" );    
 	        }
 	
