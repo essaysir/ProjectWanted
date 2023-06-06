@@ -4,8 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-
-	
 		<table class="containerTitle">
 
 		<thead>
@@ -13,9 +11,9 @@
 				<div id="buttonSection">
 					<%-- 정렬Frm 시작 --%>
 					<div class="col-auto">
-					     <button class="btn btn-primary" type="button" id="defaultOpen" onclick="sortNew">지원 최신 순</button>
-					     <button class="btn btn-primary" type="button" onclick="sortPast">지원 과거 순</button>
-					     <button class="btn btn-primary" type="button" onclick="sortSubject">공고명 순</button>
+					     <button class="btn btn-primary" type="button" id="defaultOpen" onclick="sortNew()">지원 최신 순</button>
+					     <button class="btn btn-primary" type="button" onclick="sortPast()">지원 과거 순</button>
+					     <button class="btn btn-primary" type="button" onclick="sortSubject()">공고명 순</button>
 					</div>
 				    <%-- 정렬Frm 끝 --%>
 					<%-- 검색 Frm 시작 --%>
@@ -29,10 +27,6 @@
 				      <input type="text" style="display: none;"/>
 				      <button type="button" id="search" class="btn btn-secondary btn-sm" onclick="goSearch()">검색</button>
 				   </form>
-				   <%-- 
-				      <div id="displayList" style="border:solid 1px gray; border-top:0px; height:100px; margin-left:75px; margin-top:-1px; overflow:auto;">
-   					  </div>
-   					--%>  
 				   </div>
 				   <%-- 검색 Frm 끝 --%>
 				</div>	
@@ -53,7 +47,7 @@
 		<tr style="height: 80px; text-align: center;">
 			<td class="formList" style="width: 28%;">[&nbsp;${candidateList.post_subject}&nbsp;]</td>
 			<td class="formList" style="width: 10%;">${candidateList.name}</td>
-			<td class="formList" style="width: 27%;"><a href="#">${candidateList.resume_subject}</a></td>
+			<td class="formList" style="width: 27%;"><a href="/wanted/resume">${candidateList.resume_subject}</a></td>
 			<td class="formList" style="width: 10%;">${candidateList.applydate}</td>
 			<c:choose>
 				<c:when test="${candidateList.status eq '합격'}">

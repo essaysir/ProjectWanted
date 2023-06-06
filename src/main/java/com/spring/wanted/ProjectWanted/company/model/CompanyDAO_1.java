@@ -43,6 +43,14 @@ public class CompanyDAO_1 implements InterCompanyDAO_1 {
 		List<Map<String, String>> candidateList = mapper.listSearchWithPaging(paraMap);
 		return candidateList;
 	}
+
+	
+	// 지원자 이력서 가져오기
+	@Override
+	public List<Map<String, String>> getResume(Map<String, String> paraMap) {
+		List<Map<String, String>> candidateResume = mapper.getResume(paraMap);
+		return candidateResume;
+	}
 	
 /*	
 	@Override
