@@ -11,7 +11,7 @@
 		<result property="applydate" 		column="applydate" 		javaType="String" />
 		<result property="status" 			column="status" 		javaType="String" />
 	</resultMap>
-	<select id="getcandidateList" resultType="String" resultMap="company_candidateList_Map">
+	<select id="getcandidateList" resultType="HashMap" resultMap="company_candidateList_Map">
 		SELECT p.SUBJECT AS post_subject, m.NAME AS name, r.SUBJECT AS resume_subject, a.APPLYDATE
 			 , CASE WHEN a.STATUS = '1' THEN '합격' 
 			 		WHEN a.STATUS = '2' THEN '불합격' 
@@ -30,8 +30,12 @@
 	<select id="getTotalCount" resultType="Integer">
 		SELECT COUNT(*)
 		FROM TBL_APPLY a JOIN TBL_POST p ON a.FK_POST_CODE = p.POST_CODE
+		WHERE 1=1
 	<if test='searchType != ""'>	
-		WHERE LOWER(${searchType}) LIKE '%'|| LOWER(#{searchWord}) || '%'
+			AND LOWER(${searchType}) LIKE '%'|| LOWER(#{searchWord}) || '%'
+	</if>
+	<if test="status != 0">
+				AND a.STATUS = #{status}
 	</if>
 	</select>
 	
@@ -56,14 +60,17 @@
 		    WHERE 1=1
 			<if test='searchType != "" and searchWord != ""'>
 				<choose>
-				<when test="searchType == subject">
+				<when test="searchType == 'subject'">
 				 AND lower(p.SUBJECT) LIKE '%' || lower(#{searchWord}) || '%'
 				</when>
 				<otherwise>
 				AND lower(m.NAME) LIKE '%' || lower(#{searchWord}) || '%'
 				</otherwise>
 				</choose>
-			</if>		
+			</if>	
+			<if test="status != 0">
+				AND a.STATUS = #{status}
+			</if>
 		) V
 		WHERE rno between #{startRno} and #{endRno}
 		ORDER BY v.APPLYDATE DESC

@@ -58,18 +58,15 @@ public class CompanyController_1 {
 		String searchWord = request.getParameter("searchWord");
 		String str_currentShowPageNo = request.getParameter("currentShowPageNo");
 		
-		System.out.println("확인용 1 : " + searchType + ", " + searchWord);
-		
 		Map<String, String> paraMap = new HashMap<>();
 		String status = request.getParameter("status");
 		paraMap.put("status", status);
-		
+
 		List<Map<String,String>> candidateList = service.candidateList(paraMap);
 //			ModelAndView mav = new ModelAndView("tiles2/company/content/company_candidateList_detail");
 //			mav.addObject("candidateList", candidateList);
 		
 		request.setAttribute("candidateList", candidateList);
-		
 		
 		if(searchType == null || (!"subject".equals(searchType) && !"name".equals(searchType) )) {
 			searchType = "";
@@ -81,11 +78,10 @@ public class CompanyController_1 {
 		
 		paraMap.put("searchType", searchType);
 		paraMap.put("searchWord", searchWord);
-		
-		System.out.println("확인용 2 : " + searchType + ", " + searchWord);
+
 		
 		int totalCount = 0;        // 총 게시물 건수
-        int sizePerPage = 10;       // 한 페이지당 보여줄 게시물 건수 
+        int sizePerPage = 3;       // 한 페이지당 보여줄 게시물 건수 
         int currentShowPageNo = 0; // 현재 보여주는 페이지번호로서, 초기치로는 1페이지로 설정함.
         int totalPage = 0;         // 총 페이지수(웹브라우저상에서 보여줄 총 페이지 개수, 페이지바)
       
@@ -95,7 +91,6 @@ public class CompanyController_1 {
         totalCount = service.getTotalCount(paraMap);
         totalPage = (int) Math.ceil((double)totalCount/sizePerPage);
         
-        System.out.println("페이징 확인용 : " + totalCount + ", " + totalPage);
         
         if(str_currentShowPageNo == null) {
         	// 게시판에 보여지는 초기화면
@@ -119,7 +114,7 @@ public class CompanyController_1 {
         paraMap.put("startRno", String.valueOf(startRno));
         paraMap.put("endRno", String.valueOf(endRno));
         
-        candidateList = service.listSearchWithPaging(paraMap);
+
         
         // 검색어 유지
         if( !"".equals(searchType) && !"".equals(searchWord) ) {
@@ -127,7 +122,7 @@ public class CompanyController_1 {
  		}
 
         // 페이지바
-        int blockSize = 10;
+        int blockSize = 2;
         int loop = 1;
         int pageNo = ((currentShowPageNo - 1)/blockSize) * blockSize + 1;
         
@@ -136,17 +131,17 @@ public class CompanyController_1 {
       
         // === [맨처음][이전] 만들기 === //
         if(pageNo != 1) {
-           pageBar += "<li style='display:inline-block; width:70px; font-size:12pt;'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo=1'>[맨처음]</a></li>";
-           pageBar += "<li style='display:inline-block; width:50px; font-size:12pt;'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+(pageNo-1)+"'>[이전]</a></li>";
+           pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo=1'><i class=\"fa-solid fa-play fa-flip-both\"></i></a></li>";
+           pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+(pageNo-1)+"'><i class=\"fa-solid fa-backward\"></i></a></li>";
         }
       
         while( !(loop > blockSize || pageNo > totalPage) ) {
          
            if(pageNo == currentShowPageNo) {
-              pageBar += "<li style='display:inline-block; width:30px; font-size:12pt; border:solid 1px gray; color:red; padding:2px 4px;'>"+pageNo+"</li>";  
+              pageBar += "<li id='pageNo'>"+pageNo+"</li>";  
            }
            else {
-              pageBar += "<li style='display:inline-block; width:30px; font-size:12pt;'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'>"+pageNo+"</a></li>"; 
+              pageBar += "<li id='pageBarNo'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'>"+pageNo+"</a></li>"; 
            }
          
            loop++;
@@ -155,12 +150,12 @@ public class CompanyController_1 {
         
         // === [다음][마지막] 만들기 === //
 	    if( pageNo <= totalPage ) {
-	        pageBar += "<li style='display:inline-block; width:50px; font-size:12pt;'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'>[다음]</a></li>";
-	        pageBar += "<li style='display:inline-block; width:70px; font-size:12pt;'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+totalPage+"'>[마지막]</a></li>"; 
+	        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'><i class=\"fa-solid fa-play\"></i></a></li>";
+	        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+totalPage+"'><i class=\"fa-solid fa-forward\"></i></a></li>"; 
 	    }
 	      
 	    pageBar += "</ul>";
-	      
+	    
 	    System.out.println("pageBar : "+ pageBar);
 	    
 	    request.setAttribute("pageBar", pageBar);
@@ -169,13 +164,7 @@ public class CompanyController_1 {
 		
 		return "tiles2/company/content/company_candidateList_detail";
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	
 /*	
 	@ResponseBody 
