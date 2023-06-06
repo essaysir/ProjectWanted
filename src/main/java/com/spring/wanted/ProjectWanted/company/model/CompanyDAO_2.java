@@ -104,5 +104,22 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 		mapper.updatePostPayment(post_code);
 		
 	}
+	
+	//ajax로 연장상세페이지 띄우기
+	@Override
+	public List<Map<String, String>> viewExtendPost(String post_code) {
+
+		List<Map<String, String>> extendPost = mapper.viewExtendPost(post_code);
+		
+		return extendPost;
+	}
+	
+	//결제완료 후 deadline update하기
+	@Override
+	public void updateExtendPost(String post_code) {
+
+		mapper.updateExtendPost(post_code);
+		
+	}
 
 }
