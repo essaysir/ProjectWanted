@@ -101,7 +101,7 @@
     }
     
     
-    ul#recommendList{
+    ul#recommendList , ul#resultList {
     	list-style-type: none ; 
     	display : flex; 
     	 flex-wrap: wrap; /*  ul 을 감싸고 있는 Div 범위를 초과하면 다음 줄로 내리기 위한 설정*/
@@ -218,36 +218,59 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-    	 	buttonActive();
-    	 	getSkil();
-    	 	$("p.search-answer-none").hide();
-    	 	$("div.search-result").hide();
-    		$("input#search-skill").on('input', searchSkill );
+    		settingSearchSkill(); 	
+    		// 해당 기능 사용법 
+    		// 1. 우선 모든 Javascript 를 복사해서 붙여 넣는다. 또한, HTML 태그도 복사 붙여넣는다.
+    		// CSS 도 모두 복사 붙여넣는다. 
+    		// 그 후, 기능 테스트를 한다. 
     		
-    		/// 밑의 방식과 같이 되어있는 이유는 밑의 함수에서 
-    		// $(this) 를 사용하기 위해서 다음과 같이 실행중이다. 
-    		$(document).on('click', 'li.search-answer-li', function(){
-    			insertSkill.call(this, "list")
-    		});
-			$(document).on('click' , 'button.btn-skill' , function(){
-				 insertSkill.call(this, "button")
-			});
-			
-			$(document).on('click' , 'button.btn-delete' , function(){
-				deleteSkill.call(this)
-			});
-			
-			$(document).on('click', 'button#section-cancle' , function(){
-				sectionClose.call(this)				
-			})
+    		// 2. 기능이 확인되면 이제 CSS 를 조정해야한다. 
+    		// 처음에 복붙하면 , 버튼의 위치와 검색창의 위치가 맞지 않을 것이다.
+    		//  section#skillSearch 여기 CSS 를 가서 TOP, LEFT 를 조정하면서 버튼 밑으로 내려오도록 위치를 조정한다.
     		
-    		$(document).on('click', 'button#section-adjust' , function(){
-    			sectionAdjust_1.call(this)				
-			})
+    		// 3. 버튼의 경우 , 따로 디자인을 해주지 않았음. 원하는 경우에는 따로 지정해주면 된다. 
+    		//  현재 ,       '<input type="hidden" class="tech_code" value=" '+tech_code+' "/> '  다음과 같이 본문에 추가되기 때문에
+    		
+    		// @RequestParam(value="tech_code", required=true) List<String> tech_code)
+    		// 스프링 에서 다음과 같이 불러주면 될 것이다. 
+    		
+    		// 디자인을 변경하고 싶은 부분은 각자 고쳐서 사용하면 된다. 
+    		// btn-delete, btn-skill 클래스를 만들거나 건들면 해당 기능의 오류가 생길 수 있으니 주의 할 필요가 있다. 
+    	
     		
 	}); // END OF DOCUMENT.READY(FUNCTION)
 	
 	let insert_count = 0 ;  // 최대 다섯개까지만 선택할 수 있게 해주는 COUNT
+	function settingSearchSkill(){
+		buttonActive();
+	 	getSkil();
+	 	$("p.search-answer-none").hide();
+	 	$("div.search-result").hide();
+		$("input#search-skill").on('input', searchSkill );
+		
+		/// 밑의 방식과 같이 되어있는 이유는 밑의 함수에서 
+		// $(this) 를 사용하기 위해서 다음과 같이 실행중이다. 
+		$(document).on('click', 'li.search-answer-li', function(){
+			insertSkill.call(this, "list")
+		});
+		$(document).on('click' , 'button.btn-skill' , function(){
+			 insertSkill.call(this, "button")
+		});
+		
+		$(document).on('click' , 'button.btn-delete' , function(){
+			deleteSkill.call(this)
+		});
+		
+		$(document).on('click', 'button#section-cancle' , function(){
+			sectionClose.call(this)				
+		})
+		
+		$(document).on('click', 'button#section-adjust' , function(){
+			sectionAdjust.call(this)				
+		})
+		
+	} // END OF FUNCTION
+	
 	
 	function buttonActive(){
 		$("#skill").click(function() {
@@ -479,16 +502,31 @@
 		 
 	}// END OF FUNCTION SECTIONCLOSE 
 	
-	function sectionAdjust_1(){
-
-		
+	function sectionAdjust(){
+		let html ="" ;
+		$("ul#insertList button.btn-delete").each(function(){
+			let tech_name = $(this).text();
+			// console.log($(this).text());
+			let tech_code= $(this).find("input").val();
+			// console.log(tech_code); // 1000 1002 1003
+			  
+			html += '<li class="li-skill">' +
+                   '<div class="div_skill">' +
+                   tech_name+
+                       '<input type="hidden" class="tech_code" value=" '+tech_code+' "/> '+
+                       '<span style="margin-left:4px; margin-bottom:2px; ">' +
+                           '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
+                               '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
+                           '</svg>' +
+                       '</span>' +
+                   '</div>' +
+           '</li>';
+		});
+		$("ul#resultList").html(html); 
+		$("section#skillSearch").hide();
 	}// END OF FUNCTION SECTIONADJUST
 	
-	function sectionAdjust_2(){
 
-	
-		
-	}// END OF FUNCTION SECTIONADJUST
 	
 </script>
 
@@ -545,8 +583,8 @@
 </section>
                          
 <!--  적용하기 클릭 후 선택했던 값들이 들어가는 공간 -->                         
- <div class="data-input">
-					<ul id="insertList" style="padding-left:0px;"> 
+ <div class="data-result">
+					<ul id="resultList" style="padding-left:0px;"> 
 
 					</ul>
 					
