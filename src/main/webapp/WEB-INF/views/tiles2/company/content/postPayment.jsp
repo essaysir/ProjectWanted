@@ -56,6 +56,12 @@
 		margin-top: 20px;
 	}
 	
+	.content_bottom{
+		display: flex;
+		justify-content: center;
+  		align-items: center;
+	}
+	
 	.payment{
 		background-color: #184CED;
 		color: #FFF;
@@ -65,7 +71,6 @@
 	    height: 100px;
 	    font-size: 20pt;
 	    border-radius: 10px;
-	    margin: 0 130px;
 	}
 	
 	.payment:hover{
@@ -134,8 +139,8 @@
 		
 						
 	});// end of $(document).ready(function()
-	
-	function payment1(){
+			
+	function payment(){
 		const checkbox_checked_len = $("input:checkbox[id='agree']:checked").length;
 		
 		if(checkbox_checked_len == 0){
@@ -150,11 +155,12 @@
 			return; // 함수종료
 		}
 		
-		const frm = document.editRecruitFrm;
-		frm.action = "getEditRecruit";
+		const frm = document.postPaymentFrm;
+		frm.action = "goPostPayment";
 		frm.method = "post";
 		frm.submit();
-	}	
+		
+	}			
 	
 </script>
 <body>
@@ -205,14 +211,16 @@
 					<div class="deadline">
 						<label class="con_title">마 감 일</label><br>
 						<h3>${map.deadline}</h3>
-					</div>					
-				</c:forEach>
+					</div>
 					<span style="font-size: 15pt;">공고 내용을 확인하셨습니까?</span>&nbsp;&nbsp;<input type="checkbox" id="agree" /><br><br>
 					<span style="font-size: 15pt;">공고는 30일동안 개시되며, 가격은 30일간 300,000원 입니다.</span>&nbsp;&nbsp;<input type="checkbox" id="agree1" /><br><br>
-					<button type="button" id="payment" class="payment" onclick="payment1()">결제하기</button>
-				<form name="editRecruitFrm">
-					<input type="hidden" name="post_code" value="${map.post_code}" readonly></input>	
-				</form>
+					<div class="content_bottom">
+						<button type="button" id="payment" class="payment" onclick="payment()">결제하기</button>
+					</div>
+					<form name="postPaymentFrm">
+						<input type="hidden" name="post_code" value="${map.post_code}" readonly></input>	
+					</form>	
+				</c:forEach>										
 			</div>
 		</div>
 	</div>

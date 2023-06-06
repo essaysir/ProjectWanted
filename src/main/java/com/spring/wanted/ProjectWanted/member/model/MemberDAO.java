@@ -26,5 +26,11 @@ public class MemberDAO implements InterMemberDAO {
 		return n ;
 	}
 
+	@Override
+	public MemberVO login(String username) {
+		MemberVO mvo = mapper.login(username);
+		return mvo ;
+	}
+
 
 }

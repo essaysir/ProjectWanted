@@ -118,5 +118,13 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		
 		return postPayment;
 	}
+	
+	//결제완료 후 pay_status update하기
+	@Override
+	public void updatePostPayment(String post_code) {
+
+		cdao.updatePostPayment(post_code);
+		
+	}
 
 }

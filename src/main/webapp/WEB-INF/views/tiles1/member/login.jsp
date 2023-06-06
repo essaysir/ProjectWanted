@@ -319,10 +319,9 @@
 				}
 			});
 
-
-				
 			
 		}// end of function checkUserid
+
 </script>
 
 
