@@ -363,23 +363,30 @@
 	}	
 	
 	function postStop(post_code){
-					
-		$.ajax({
-	        url: "stopRecruit",
-	        data: {"post_code": post_code },
-	        type: "get",
-	        success: function(result) {
-	            if (result == "success") {
-	                alert("공고를 중단하였습니다.");
-	                location.reload();
-	            } else {
-	                alert("공고중단에 실패했습니다.");
-	            }
-	        },
-	        error: function(request, status, error) {
-	            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-	        }
-	    });
+		
+		if(confirm("정말로 중단하시겠습니까?")){
+			
+			$.ajax({
+		        url: "stopRecruit",
+		        data: {"post_code": post_code },
+		        type: "get",
+		        success: function(result) {
+		            if (result == "success") {
+		                alert("공고를 중단하였습니다.");
+		                location.reload();
+		            } else {
+		                alert("공고중단에 실패했습니다.");
+		            }
+		        },
+		        error: function(request, status, error) {
+		            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+		        }
+		    });
+			
+		}
+		else{
+			alert("중단을 취소했습니다.")
+		}
 		
 	}
 	
