@@ -5,4 +5,6 @@ import java.util.List;
 public interface InterMemberDAO {
 
 	int checkUserid(String userid); // 
+
+	MemberVO login(String username);
 }

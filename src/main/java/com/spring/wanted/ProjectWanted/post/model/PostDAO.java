@@ -29,5 +29,13 @@ public class PostDAO implements InterPostDAO {
 		
 		return JobList;
 	}
+
+	// 공고리스트 불러오기
+	@Override
+	public List<Map<String, String>> getPostList() {
+		List<Map<String, String>> PostList = mapper.getPostList();
+		
+		return PostList;
+	}
 	
 }

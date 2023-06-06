@@ -12,15 +12,13 @@
 	.jpMain_frame{
 		margin: 0 auto;
 		margin-top: 50px;
-		border: solid 2px red;
 	}
 	
 	.jptop_content{
-		border: solid 2px black;
 		margin-bottom: 20px;
 	}
 	
-	.plus {
+	.plus1 {
 	 	position:relative;
 		width: 250px;
 		height: 55px;
@@ -34,19 +32,16 @@
 		display: flex;
 	    justify-content: center;
 	    align-items: center;
+	    margin-left: 20px;
 	}
 	
-	.plus:hover {
+	.plus1:hover {
 		background-color: #184CED !important;
 		color: #FFF;
 		cursor: pointer;
 		border: none;
 	}
 	
-	.jp_content{
-		border: solid 2px black;
-	}
-
 	.jcard{
 		width: 470px;
 		height: 200px;
@@ -86,6 +81,25 @@
 		border: solid 1px #3366FF;
 		background-color: #ECF1FE !important; 
 		color: #184CED;
+	}
+	
+	.jcard_topR > .jpPass {
+		background-color: #2f85c6;
+		color: #FFF;
+		cursor: pointer;
+		border: none;
+		width: 110px;
+	    height: 50px;
+	    font-size: 16pt;
+	    border-radius: 10px;
+	    float: right;
+      	clear: right;
+	}
+	
+	.jcard_topR > .jpPass:hover{
+		border: solid 1px #3366FF;
+		background-color: #ECF1FE !important; 
+		color: #2f85c6;
 	}
 	
 	.jcard_topR > .jpEnd {
@@ -138,6 +152,18 @@
       	clear: right;
 	}
 	
+	.jcard_topR > .jpPayC {
+		background-color: #30cf33;
+		color: #FFF;
+		border: none;
+		width: 110px;
+	    height: 50px;
+	    font-size: 16pt;
+	    border-radius: 10px;
+	    float: right;
+      	clear: right;
+	}
+	
 	.dropbtn {
 	  border: none;
 	  cursor: pointer;
@@ -173,12 +199,38 @@
 	
 	.show {display: block;}
 	
+	.jp_bottom{
+		display: flex;
+		justify-content: center;
+  		align-items: center;
+	}
+		
+	.btnPost {
+		background-color: #184CED;
+		color: #FFF;
+		cursor: pointer;
+		border: none;
+		width: 250px;
+		height: 55px;
+	    font-size: 16pt;
+	    font-weight: bold;
+	    border-radius: 10px;
+	}
+	
+	.btnPost:hover{
+		border: solid 1px #3366FF;
+		background-color: #ECF1FE !important; 
+		color: #184CED;
+	}
 	
 
 </style>
 <script type="text/javascript">
 	
 	$(document).ready(function(){
+		
+		$("span#totalPost").hide();
+		$("span#countPost").hide();
 		
 		displayPost("1");
 		
@@ -233,15 +285,18 @@
 							  }
 							html += "</div>"
 								 	+"<div class='jcard_topR'>";
-								 	
-					 		if(item.pay_status == "0"){
-					 			html += "<button type='button' class='jpPay' onclick='test()'><span>결제 하기</span></button>";
-					 		}else if(item.pay_status == "1" && item.dateDiff < 0){
+							if(item.pay_status == "0" && item.createDiff < 1){
+							 	html += "<button type='button' class='jpPass' onclick='passdate()'><span>기간 초과</span></button>";
+					 		}else if(item.pay_status == "0"){
+					 			html += "<button type='button' class='jpPay' onclick='postPayment("+item.post_code+")'><span>결제 하기</span></button>";
+					 		}else if(item.pay_status == "1" && item.dateDiff < 0 && item.createDiff < 1){
 					 			html += "<button type='button' class='jpFin' disabled onclick=''><span>공고 마감</span></button>";
-					 		}else if(item.pay_status == "1" && item.dateDiff < 5){
-					 			html += "<button type='button' class='jpAnd' onclick='test3()'><span>공고 연장</span></button>";
-					 		}else if(item.pay_status == "1" && item.dateDiff > 0){
+					 		}else if(item.pay_status == "1" && item.dateDiff < 5 && item.createDiff < 1){
+					 			html += "<button type='button' class='jpAnd' onclick='extendPost("+item.post_code+")'><span>공고 연장</span></button>";
+					 		}else if(item.pay_status == "1" && item.dateDiff > 0 && item.createDiff < 1){
 					 			html += "<button type='button' class='jpEnd' onclick='postStop("+item.post_code+")'><span>공고 중단</span></button>";
+					 		}else if(item.pay_status == "1" && item.dateDiff > 0 && item.createDiff > 0){
+					 			html += "<button type='button' class='jpPayC' disabled onclick=''><span>결제 완료</span></button>";
 					 		}
 					 			html += "<br><br><br>"
 					 					+"<p>공고시작일 : "+item.createday+"<br>공고마감일 : "+item.deadline+"</p>"
@@ -251,10 +306,10 @@
 								 				if(item.dateDiff < 0){
 								 					html += "<a onclick='p_delete("+item.post_code+")'>삭제하기</a>";
 								 				} else if(item.dateDiff > 0 && item.pay_status == "0") {
-								 					html += "<a onclick='p_edit("+item.post_code+")'>수정하기</a>";
+								 					html += "<a onclick='p_edit("+item.post_code+")'>수정하기</a>"
 								 					 +"<a onclick='p_delete("+item.post_code+")'>삭제하기</a>";
 								 				} else {
-								 					html += "<a onclick='p_edit("+item.post_code+")'>수정하기</a>";
+								 					html += "<a onclick='viewCount("+item.post_code+")'>조회수  확인하기</a>";
 								 				}
 								 	html +="</div>"
 								 		+"</div>"
@@ -287,31 +342,68 @@
 			
 		
 	
-	function test(){
-		alert("결제하기버튼");
+	function postPayment(post_code){
+		$.ajax({
+		       url:"viewPostPayment",
+		       data:{"post_code": post_code},
+		       type:"get",
+		       success:function(result) {
+		    	  
+		          $("#jpMain_frame").html(result);
+
+		       },
+		       error: function(request, status, error){
+		           alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		        }
+	   		 });
 	}
+	
+	function passdate(){
+		alert("수정하기에서 기간을 변경해주세요!");
+	}	
 	
 	function postStop(post_code){
-		$.ajax({
-	        url: "stopRecruit",
-	        data: {"post_code": post_code },
-	        type: "get",
-	        success: function(result) {
-	            if (result == "success") {
-	                alert("공고를 중단하였습니다.");
-	                location.reload();
-	            } else {
-	                alert("공고중단에 실패했습니다.");
-	            }
-	        },
-	        error: function(request, status, error) {
-	            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-	        }
-	    });
+		
+		if(confirm("정말로 중단하시겠습니까?")){
+			
+			$.ajax({
+		        url: "stopRecruit",
+		        data: {"post_code": post_code },
+		        type: "get",
+		        success: function(result) {
+		            if (result == "success") {
+		                alert("공고를 중단하였습니다.");
+		                location.reload();
+		            } else {
+		                alert("공고중단에 실패했습니다.");
+		            }
+		        },
+		        error: function(request, status, error) {
+		            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+		        }
+		    });
+			
+		}
+		else{
+			alert("중단을 취소했습니다.")
+		}
+		
 	}
 	
-	function test3(){
-		alert("공고연장버튼");
+	function extendPost(post_code){
+		$.ajax({
+		       url:"viewExtendPost",
+		       data:{"post_code": post_code},
+		       type:"get",
+		       success:function(result) {
+		    	  
+		          $("#jpMain_frame").html(result);
+
+		       },
+		       error: function(request, status, error){
+		           alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		        }
+	   		 });
 	}
 	
 	function p_edit(post_code){
@@ -327,26 +419,35 @@
 		       error: function(request, status, error){
 		           alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 		        }
-	   		 }); // end of $.ajax ----
+	   		 });
 	}
 	
 	function p_delete(post_code) {
-		 $.ajax({
-		        url: "deleteRecruit",
-		        data: {"post_code": post_code },
-		        type: "get",
-		        success: function(result) {
-		            if (result == "success") {
-		                alert("삭제되었습니다.");
-		                location.reload();
-		            } else {
-		                alert("삭제에 실패했습니다.");
-		            }
-		        },
-		        error: function(request, status, error) {
-		            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-		        }
-		    });
+		if(confirm("정말로 삭제하시겠습니까?")){
+			 $.ajax({
+			        url: "deleteRecruit",
+			        data: {"post_code": post_code },
+			        type: "get",
+			        success: function(result) {
+			            if (result == "success") {
+			                alert("삭제되었습니다.");
+			                location.reload();
+			            } else {
+			                alert("삭제에 실패했습니다.");
+			            }
+			        },
+			        error: function(request, status, error) {
+			            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			        }
+			  });
+		}
+		else{
+			alert("삭제를 취소했습니다.")
+		}	
+	}
+	
+	function viewCount(post_code){
+		alert(post_code);
 	}
 	
 	function myFunction(dropdownId) {
@@ -367,22 +468,20 @@
 		}
 	}
 		
-	
-		
-	
-
 </script>
 <body>
 
 <div class="jpMain_frame" id="jpMain_frame">
 	<div class="jptop_content">
-		<button class="plus" type="button" onclick="location.href='/wanted/company_recruit'"><span><i class="fa-regular fa-square-plus"></i>&nbsp;&nbsp;채용공고 등록</span></button>
+		<button class="plus1" type="button" onclick="location.href='/wanted/company_recruit'"><span><i class="fa-regular fa-square-plus"></i>&nbsp;&nbsp;채용공고 등록</span></button>
 	</div>
 	<div class="jp_content" id="jp_content">
 	</div>
-	<button class="btnPost" id="btnPost" type="button">더보기</button>
-	<span id="totalPost">${requestScope.totalPost}</span>
-	<span id="countPost">0</span>
+	<div class="jp_bottom">
+		<button class="btnPost" id="btnPost" type="button">더보기</button>
+		<span id="totalPost">${requestScope.totalPost}</span>
+		<span id="countPost">0</span>
+	</div>
 </div>
 
 </body>

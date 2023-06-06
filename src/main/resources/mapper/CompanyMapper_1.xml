@@ -2,8 +2,6 @@
 <!-- ==== #29. mapper 기본설정 ==== -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- ==== #29. 루트 엘리먼트 & 네임스페이스 설정(프로젝트 전체내에서 유일해야 한다.) ==== -->
-<!--  mapper 의 namespace(네임스페이스)가 중복되면, 작동하지 않는다. -->
 <mapper namespace="com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_1">
 
 	<resultMap type="HashMap" id="company_candidateList_Map">
@@ -13,71 +11,96 @@
 		<result property="applydate" 		column="applydate" 		javaType="String" />
 		<result property="status" 			column="status" 		javaType="String" />
 	</resultMap>
-	<select id="getcandidateList" resultType="String" resultMap="company_candidateList_Map">
-		select P.subject AS post_subject, M.name AS name, R.subject AS resume_subject, A.applydate
-			 , case when a.status = '1' then '합격' 
-			 		when a.status = '2' then '불합격' 
-			 		when a.status = '3' then '채용전' end AS status
-		from tbl_member M
-		    join tbl_resume R on M.userid = R.fk_userid
-		    join tbl_apply A on R.resume_code = A.fk_resume_code
-		    join tbl_post P on A.fk_post_code = P.post_code
-		where 1=1
-		<if test="status != 0">and status = #{status}</if>
-		order by A.applydate desc
+	<select id="getcandidateList" resultType="HashMap" resultMap="company_candidateList_Map">
+		SELECT p.SUBJECT AS post_subject, m.NAME AS name, r.SUBJECT AS resume_subject, a.APPLYDATE
+			 , CASE WHEN a.STATUS = '1' THEN '합격' 
+			 		WHEN a.STATUS = '2' THEN '불합격' 
+			 		WHEN a.STATUS = '3' THEN '채용전' END AS status
+		FROM TBL_MEMBER M
+		     JOIN TBL_RESUME r ON m.USERID = r.FK_USERID
+		     JOIN TBL_APPLY a ON r.RESUME_CODE = a.FK_RESUME_CODE
+		     JOIN TBL_POST p ON a.FK_POST_CODE = p.POST_CODE
+		WHERE 1=1
+		<if test="status != 0">AND STATUS = #{status}</if>
+		ORDER BY a.APPLYDATE DESC
 	</select>
 
 
-	<!-- === #111. 검색어 입력시 자동글 완성하기 6 === -->
-	<select id="wordSearchShow" parameterType="HashMap" resultType="String">
+	<!-- 총 지원서 건수(totalCount) 구하기 - 검색이 있을 때와 검색이 없을 때로 나뉜다. --> 
+	<select id="getTotalCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM TBL_APPLY a JOIN TBL_POST p ON a.FK_POST_CODE = p.POST_CODE
+		WHERE 1=1
+	<if test='searchType != ""'>	
+			AND LOWER(${searchType}) LIKE '%'|| LOWER(#{searchWord}) || '%'
+	</if>
+	<if test="status != 0">
+				AND a.STATUS = #{status}
+	</if>
+	</select>
+	
+	
+	<!-- 페이징 처리한 지원서List 가져오기  === --> 
+	<select id="listSearchWithPaging" resultType="String" resultMap="company_candidateList_Map">
+		SELECT V.name AS name, V.resume_subject AS resume_subject, V.post_subject AS post_subject, V.applydate AS applydate,
+		       CASE WHEN V.status = '1' THEN '합격'
+		            WHEN V.status = '2' THEN '불합격' 
+					WHEN V.STATUS = '3' THEN '채용전' END AS status
+		FROM (
+		    SELECT row_number() over(order by a.APPLYDATE desc) AS rno,
+		           m.NAME AS name,
+		           r.SUBJECT AS resume_subject,
+		           p.SUBJECT AS post_subject,
+		           a.APPLYDATE,
+		           a.STATUS 
+		    FROM TBL_MEMBER m
+		         JOIN TBL_RESUME r ON m.USERID = r.FK_USERID
+		         JOIN TBL_APPLY a ON r.RESUME_CODE = a.FK_RESUME_CODE
+		         JOIN TBL_POST p ON a.FK_POST_CODE = p.POST_CODE
+		    WHERE 1=1
+			<if test='searchType != "" and searchWord != ""'>
+				<choose>
+				<when test="searchType == 'subject'">
+				 AND lower(p.SUBJECT) LIKE '%' || lower(#{searchWord}) || '%'
+				</when>
+				<otherwise>
+				AND lower(m.NAME) LIKE '%' || lower(#{searchWord}) || '%'
+				</otherwise>
+				</choose>
+			</if>	
+			<if test="status != 0">
+				AND a.STATUS = #{status}
+			</if>
+		) V
+		WHERE rno between #{startRno} and #{endRno}
+		ORDER BY v.APPLYDATE DESC
+	</select>
+	
+
+
+	<!-- 검색어 입력시 자동글 완성하기
+	<select id="wordSearchShow" resultType="String">
 		<choose>
-			<when test="searchType eq 'subject'">
+			<when test="searchType eq 'name'">
 				select distinct ${searchType}
 			</when>
 			<otherwise>
 				select ${searchType}
 			</otherwise>
 		</choose>
-				from tbl_post
-				where lower(${searchType}) like '%'|| lower(#{searchWord}) || '%'
+				from tbl_post p join TBL_APPLY a ON p.POST_CODE = a.FK_POST_CODE
+				where 1=1 and lower(${searchType}) like '%'|| lower(#{searchWord}) || '%'
+		<choose>
+			<when test="searchType neq 'subject'">
+				order by ${searchType} asc
+			</when>
+			<otherwise>
+				order by a.APPLYDATE DESC
+			</otherwise>
+		</choose>		
 	</select>
-	
-	
-	
-	<!-- === #117. 총 게시물 건수(totalCount) 구하기 - 검색이 있을 때와 검색이 없을 때로 나뉜다. === --> 
-	<select id="getTotalCount" parameterType="HashMap" resultType="Integer">
-		select count(*)
-		from tbl_apply
-	<if test='searchType != ""'>
-		where lower(${searchType}) like '%'|| lower(#{searchWord}) || '%'
-	</if>
-	</select>
-	
-	
-	
-	<!-- === #120. 페이징 처리한 글목록 가져오기(검색이 있든지, 검색이 없든지 모두 다 포함한 것) === -->
-	 <resultMap type="HashMap" id="candidateListForSearch_Map">
-		<result property="post_subject" 	column="post_subject" 	javaType="String" />
-		<result property="name" 			column="name" 			javaType="String" />
-		<result property="resume_subject" 	column="resume_subject" javaType="String" />
-		<result property="applydate" 		column="applydate" 		javaType="String" />
-		<result property="status" 			column="status" 		javaType="String" />
-	</resultMap>
-	<select id="candidateListSearchWithPaging" parameterType="HashMap" resultMap="candidateListForSearch_Map">
-		select P.subject AS post_subject, M.name AS name, R.subject AS resume_subject, A.applydate
-			 , case when a.status = '1' then '합격' 
-			 		when a.status = '2' then '불합격' 
-			 		when a.status = '3' then '채용전' end AS status
-		from tbl_member M
-		    join tbl_resume R on M.userid = R.fk_userid
-		    join tbl_apply A on R.resume_code = A.fk_resume_code
-		    join tbl_post P on A.fk_post_code = P.post_code
-		<if test='searchType != "" and searchWord != ""'>
-		where lower(${searchType}) like '%' || lower(#{searchWord}) || '%'
-		</if>
-		<if test="status != 0">and status = #{status}</if>
-		order by A.applydate desc
-	</select>
+	 -->
+
 	
 
 

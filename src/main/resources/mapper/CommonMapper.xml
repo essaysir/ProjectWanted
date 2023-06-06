@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ==== #29. mapper 기본설정 ==== -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- ==== #29. 루트 엘리먼트 & 네임스페이스 설정(프로젝트 전체내에서 유일해야 한다.) ==== -->
+<!--  mapper 의 namespace(네임스페이스)가 중복되면, 작동하지 않는다. -->
+<mapper namespace="com.spring.wanted.ProjectWanted.common.mapper.InterCommonMapper">
+			<resultMap type="HashMap" id="SkillMap">
+				<result property="tech_code" column="tech_code" javaType="String" />
+				<result property="tech_name" column="tech_name" javaType="String" />
+			</resultMap>
+		
+		<select id="getSkill" resultMap="SkillMap">
+			select tech_code , tech_name 
+			from tbl_tech 
+			where tech_code between 1000 and 1009 
+		</select>
+		
+		<select id="searchSkill" parameterType="String" resultMap="SkillMap">
+				SELECT tech_code, tech_name
+				FROM
+				(
+				    select rownum AS RNO , tech_code, tech_name
+				    from
+				    (
+				        SELECT tech_code, tech_name
+				    FROM tbl_tech
+				    WHERE LOWER(tech_name) LIKE '%' || LOWER(#{input_val}) || '%'
+				    ORDER BY CASE WHEN LOWER(tech_name) LIKE CONCAT(LOWER(#{input_val}), '%') THEN 0 ELSE 1 END, LOWER(tech_name)
+				    )V
+				)T
+				WHERE RNO between 1 and 4 
+		</select>
+		
+		
+
+
+
+</mapper>

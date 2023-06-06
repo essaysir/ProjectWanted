@@ -33,5 +33,17 @@ public interface InterCompanyService_2 {
 	
 	// 공고 중단하기
 	int stopRecruit(String post_code);
+	
+	//ajax로 결제 상세페이지 띄우기
+	List<Map<String, String>> viewPostPayment(String post_code);
+	
+	//결제완료 후 pay_status update하기
+	void updatePostPayment(String post_code);
+	
+	//ajax로 연장상세페이지 띄우기
+	List<Map<String, String>> viewExtendPost(String post_code);
+	
+	//결제완료 후 deadline update하기
+	void updateExtendPost(String post_code);
 
 }

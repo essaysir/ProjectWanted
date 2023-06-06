@@ -148,7 +148,7 @@
 		color: #888;
 	}
 	
-	input#email_input:not(:focus) { /* 커서 올라가기 전 */
+	input#password_input:not(:focus) { /* 커서 올라가기 전 */
 	
 		margin: 0 0 10px;
 		padding: 0 12px;
@@ -162,11 +162,11 @@
 	    font-size: 14px;
     	font-weight: 400;
 	}
-	input#email_input::placeholder { /* 커서 올라가기 전 placeholder 색상 변경 */
+	input#password_input::placeholder { /* 커서 올라가기 전 placeholder 색상 변경 */
 		color: #e1e2e3;
 	}
 	
-	input#email_input:focus { /* 커서 올라간 후 */
+	input#password_input:focus { /* 커서 올라간 후 */
 	
 		margin: 0 0 10px;
 		padding: 0 12px;
@@ -267,17 +267,41 @@
 </style>
 <script type="text/javascript">
 		$(document).ready(function(){
-			
+			setdocument() ; //  document 초기 로딩시 필요한 것들 
 			
 			
 		}); // END OF $(DOCUMENT).READY(FUNCTION()
 		
-	
-
+		function setdocument(){
+			$("input#password_input").on('input', checkPwd);
+			$("input#username_input").val('${userid}');
+			$("button#go_email").on('click',login);
+			
+		}// END OF FUNCTION SETDOCUMENT
+		
+		function checkPwd(){ // input 에 비밀번호를 입력하면 CSS 를 바꿔주는 함수이다. 
+			if ( $(this).val().trim() == ""){
+				$("button#go_email").css('background-color' , '');
+				$("span#span_email").css('color', '');
+			}
+			else{
+				$("button#go_email").css('background-color' , '#36f');
+				$("span#span_email").css('color', '#ffffff !important');
+			}
+			
+		}// END OF FUNCTION function checkPwd()
+		
+		function login(){
+			const frm = document.login ;
+			console.log(frm); 
+			frm.method = "post" ;
+			frm.action ="/wanted/login";
+			frm.submit();
+			
+		}
 
 				
 			
-		}// end of function checkUserid
 </script>
 
 
@@ -292,50 +316,32 @@
 		<!-- 두 번째 틀(가로전체) -->
 		<div id="login_mid">
 			<!-- 세 번째 중간 틀(로그인폼 전체틀) -->
-			<div id="login_mainfrm">
+			<div id="login_mainfrm" style="height: 41%;">
 				<!-- 네 번째 중간 틀(로그인폼 안에 두 번쨰 틀) -->
-				<div id="login_title" style="height: 98%;">
+				<div id="login_title" >
 					<!-- 다섯 번째 중간 틀(wanted 제목이 있는 틀) -->
 					<div id="login_wanted">
 						<div id="title_name">
+							<span style="float:left;">&lt;</span>
 							<p id="logintoemail">이메일로 로그인</p>
 						</div>
 					</div >		
 					<!-- 다섯 번째 중간 틀 끝(wanted 제목이 있는 틀) -->
-					<form id="login_input">
-						<p id="subtitle_1">하나의 계정으로<br>더욱 편리하게</p>
-						<p id="subtitle_2">원티드가 제공하는 서비스를<br>하나의 계정으로 모두 이용할 수 있습니다.</p>
+					<form name="login" id="login_input">
 						<div>
 							<div id="email_box">
-								<label>이메일</label>
+								<label>비밀번호</label>
 							</div>
-							<input type="email" id="email_input" placeholder="이메일을 입력해주세요."  style="margin-bottom: 0px;"/>
-							<span id="warning-email">올바른 이메일을 입력해주세요!</span>
+							<input name="password" type="password" id="password_input" placeholder="비밀번호를 입력해주세요."  style="margin-bottom: 0px;"/>
+							<input name="username" type="hidden" id="username_input" />
+							 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</div>
 						<button type="button" id="go_email" >
-							<span id="span_email">이메일로 계속하기</span>
+							<span id="span_email">다음</span>
 						</button>
-						<p style="color: #939393; font-size: 11px; font-weight: bold; text-align: center; margin: 5px 0 15px 0;">또는</p>
-						<div id="login_method">
-							<button type="button" id="login_apple">
-								<span><i class="fa-brands fa-apple fa-2xl" style="color: #000000;"></i></span>
-								<p>Apple</p>
-							</button>
-							<button type="button" id="login_facebook">
-								<span><i class="fa-brands fa-facebook fa-2xl" style="color: #1d4486;"></i></span>
-								<p>Facebook</p>
-							</button>
-							<button type="button" id="login_google">
-								<span><i class="fa-brands fa-google fa-2xl" style="color: #202427;"></i></span>
-								<p>Google</p>
-								</button>
-							<button type="button" id="login_kakao">
-								<span><i class="fa-sharp fa-solid fa-comment fa-2xl" style="color: #4d2d00;"></i></span>
-								<p>Kakao</p>
-							</button>
-						</div>
+						
 						<button type="button" id="forgot_id">
-							<p>계정을 잊으셨나요?  ></p>
+							<p style="color:#36f;">비밀번호 초기화/변경</p>
 						</button>
 					</form>
 				</div>

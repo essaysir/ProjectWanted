@@ -546,7 +546,7 @@ function gominFunction() {
 			<div class="main_button_text"><i class="fas fa-search"></i>채용 중인 포지션 보러가기</div>
 		</div>
 	</div>
-	<div class="mid_recommend" style="background-image: url(/images/main_image/optimize.png);">
+	<div class="mid_recommend" style="background-image: url(/static/images/main_image/optimize.png);">
 		<div class="mr-t">
 			<img src="/images/main_image/다운로드.png" style="width:80px; height: 80px;">
 			<img src="/images/main_image/logo-wantedai.png" style="width:170px; height: 27.5px;">
