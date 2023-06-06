@@ -63,10 +63,10 @@ public class CompanyController_1 {
 		paraMap.put("status", status);
 
 		List<Map<String,String>> candidateList = service.candidateList(paraMap);
-//			ModelAndView mav = new ModelAndView("tiles2/company/content/company_candidateList_detail");
-//			mav.addObject("candidateList", candidateList);
+//		ModelAndView mav = new ModelAndView("tiles2/company/content/company_candidateList_detail");
+//		mav.addObject("candidateList", candidateList);
 		
-		request.setAttribute("candidateList", candidateList);
+//		request.setAttribute("candidateList", candidateList);
 		
 		if(searchType == null || (!"subject".equals(searchType) && !"name".equals(searchType) )) {
 			searchType = "";
@@ -130,10 +130,9 @@ public class CompanyController_1 {
         String url = "company";
       
         // === [맨처음][이전] 만들기 === //
-        if(pageNo != 1) {
-           pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo=1'><i class=\"fa-solid fa-play fa-flip-both\"></i></a></li>";
-           pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+(pageNo-1)+"'><i class=\"fa-solid fa-backward\"></i></a></li>";
-        }
+        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo=1'><i class=\"fa-solid fa-backward\"></i></a></li>";
+        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+(pageNo-1)+"'><i class=\"fa-solid fa-play fa-flip-both\"></i></a></li>";
+
       
         while( !(loop > blockSize || pageNo > totalPage) ) {
          
@@ -149,10 +148,9 @@ public class CompanyController_1 {
         }// end of while-----------------------
         
         // === [다음][마지막] 만들기 === //
-	    if( pageNo <= totalPage ) {
-	        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'><i class=\"fa-solid fa-play\"></i></a></li>";
-	        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+totalPage+"'><i class=\"fa-solid fa-forward\"></i></a></li>"; 
-	    }
+        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'><i class=\"fa-solid fa-play\"></i></a></li>";
+        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+totalPage+"'><i class=\"fa-solid fa-forward\"></i></a></li>"; 
+
 	      
 	    pageBar += "</ul>";
 	    

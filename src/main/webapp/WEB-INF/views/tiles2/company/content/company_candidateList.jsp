@@ -36,18 +36,19 @@
    th.formTitle {
       font-size: 13pt;
       height: 40px;
-      border-top: solid 2px #ddd;
-      border-bottom: solid 2px #ddd;
       background-color: #F5F9FD;
       text-align: center;
    }
    
+   #candidateList {
+   	  border: solid 2px #ddd;
+   }
    
    
    /* 표 상단 tab */
-   .tab {
+   .tabTitle {
        overflow: hidden;
-      border: solid 2px #ddd;
+       border: solid 2px #ddd;
        background-color: #fff;
        width: 1500px;
        margin: 0 auto;
@@ -90,6 +91,16 @@
        border-top: none;
    }
    
+   #buttonSection {
+   	   display: flex; 
+   	   padding: 10px; 
+   	   border: solid 2px #ddd; 
+   	   background-color: #fff;
+       width: 1500px;
+       margin: 0 auto;
+   	   justify-content: space-between;
+   }
+   
    
    /* 검색 Frm */
    button#search {
@@ -112,9 +123,9 @@
       font-size: 16pt; 
    	  border: solid 1px #184CED; 
    	  border-radius: 50px; 
-   	  color: gray; 
-   	  padding: 6px; 
-   	  margin: 5px;
+   	  color: #184CED; 
+   	  padding: 8px; 
+   	  margin: 6px;
    }
    
    #pageBarNo, #pageArrow {
@@ -125,11 +136,20 @@
    	  border: solid 1px gray; 
    	  border-radius: 50px; 
    	  font-color: gray !important; 
-   	  padding: 6px; 
-   	  margin: 5px;
+   	  padding: 8px; 
+   	  margin: 6px;
+   	  
    }
-
-
+   	
+   #pageBarNo > a, #pageArrow > a {
+	  text-decoration: none;
+	  color: gray;
+   }
+   
+   #pageBarNo:hover, #pageBarNo>a:hover, #pageArrow:hover, #pageArrow>a:hover {
+	  color: #184CED; 
+	  border-color: #184CED; 
+   }
 
 </style>
  
@@ -314,11 +334,11 @@
    
    <div class="listForm">
    <h3>전체 지원자 목록</h3>
-
+	<div class="tabTitle">
 		<button class="tablinks" id="defaultOpen" onclick="getCandidateList('0')">지원서 접수</button>
 	    <button class="tablinks" onclick="getCandidateList('1')" style="border-left: solid 2px #ddd; border-right: solid 2px #ddd;">합격</button>
 	    <button class="tablinks" onclick="getCandidateList('2')">불합격</button>
-
+	</div>
    <div class="tab">
 
    		
