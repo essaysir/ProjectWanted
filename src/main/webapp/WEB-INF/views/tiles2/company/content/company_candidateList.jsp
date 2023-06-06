@@ -150,14 +150,15 @@
 	    $.ajax({
 	       url:"/wanted/getCandidateList",
 	       data:{status: status },
+	       async:"true",
 	       type:"get",
 	       success:function(result) {
 	    	   
 	    	   if(result.trim() == 'false') {
-                    $("#candidateList").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
+                    $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
                } 
                else {
-            	    $("#candidateList").html(result);
+            	    $("div.tab").html(result);
                }
 
 	       },
@@ -289,63 +290,21 @@
 	<div class="listForm">
 	<h3>전체 지원자 목록</h3>
 
-	<div class="tab">
+
 		  <button class="tablinks" id="defaultOpen" onclick="getCandidateList('0')">지원서 접수</button>
 		  <button class="tablinks" onclick="getCandidateList('1')" style="border-left: solid 2px #ddd; border-right: solid 2px #ddd;">합격</button>
 		  <button class="tablinks" onclick="getCandidateList('2')">불합격</button>
-	
-		<table class="containerTitle">
+		  
+	<div class="tab">
 
-		<thead>
-			<tr>
-				<div style="display: flex; padding: 10px; border-top: solid 2px #ddd; width: 100%; justify-content: space-between;">
-					<%-- 정렬Frm 시작 --%>
-					<div class="col-auto">
-					     <button class="btn btn-primary" type="button" id="defaultOpen" onclick="sortNew">지원 최신 순</button>
-					     <button class="btn btn-primary" type="button" onclick="sortPast">지원 과거 순</button>
-					     <button class="btn btn-primary" type="button" onclick="sortSubject">공고명 순</button>
-					</div>
-				    <%-- 정렬Frm 끝 --%>
-					<%-- 검색 Frm 시작 --%>
-					<div>
-					<form name="searchFrm" style="display: flex; font-size: 13pt;">
-				      <select name="searchType" id="searchType">
-				         <option value="subject">공고명</option>
-				         <option value="name">지원자명</option>
-				      </select>
-				      <input type="text" name="searchWord" id="searchWord" size="30" autocomplete="off" style="height: 35px;" /> 
-				      <input type="text" style="display: none;"/>
-				      <button type="button" id="search" class="btn btn-secondary btn-sm" onclick="goSearch()">검색</button>
-				   </form>
-				   <%-- 
-				      <div id="displayList" style="border:solid 1px gray; border-top:0px; height:100px; margin-left:75px; margin-top:-1px; overflow:auto;">
-   					  </div>
-   					--%>  
-				   </div>
-				   <%-- 검색 Frm 끝 --%>
-				</div>	
-			</tr>
+	
 			
-			<tr>
-				<th class="formTitle" style="width: 28%;">공고명</th>
-				<th class="formTitle" style="width: 10%;">지원자명</th>
-				<th class="formTitle" style="width: 27%;">이력서</th>
-				<th class="formTitle" style="width: 10%;">지원일자</th>
-				<th class="formTitle" style="width: 15%;">현재상태</th>
-			</tr>
-		</thead>
-		<tbody id="candidateList" style="font-size: 13pt;">
-			
-		</tbody>
-		</table>
+	
 		
-		<%-- === #122. 페이지바 보여주기 === --%>  
-	    <div align="center" style="border: solid 0px gray; width: 70%; margin: 20px auto; ">
-	       <%= request.getAttribute("pageBar") %>
-	    </div>
+	
 		
 	</div>
-	</div>
+</div>
 	
 
 
