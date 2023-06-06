@@ -36,5 +36,8 @@ public interface InterCompanyService_2 {
 	
 	//ajax로 결제 상세페이지 띄우기
 	List<Map<String, String>> viewPostPayment(String post_code);
+	
+	//결제완료 후 pay_status update하기
+	void updatePostPayment(String post_code);
 
 }
