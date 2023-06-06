@@ -1,5 +1,7 @@
 package com.spring.wanted.ProjectWanted.member.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -13,7 +15,6 @@ public class ResumeVO {
     private String introduce;
     private String uploadLink;
     private String skill;
-    
-    
+
 }
 

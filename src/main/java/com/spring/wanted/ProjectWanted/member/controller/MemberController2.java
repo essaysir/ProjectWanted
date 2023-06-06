@@ -1,6 +1,6 @@
 package com.spring.wanted.ProjectWanted.member.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.spring.wanted.ProjectWanted.member.model.CareerVO;
 import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 import com.spring.wanted.ProjectWanted.member.service.InterMemberService2;
 
@@ -33,10 +34,11 @@ public class MemberController2 {
 	
 	// 이력서 작성 페이지의 작성된 이력서 DB에 저장하기
 	@PostMapping(value = "/myresume")
-	public String resume_input( ) {
-		// 이력서 작성된 내용을 DB에 저장하는 로직
+	public String resume_input(ResumeVO resumevo, List<CareerVO> careervo ) {
+
+	//	careervo.set(index, element);
+
 		
-		// service2.insertResume();
 		
 		return "/member/resume_input.tiles1";
 	}
