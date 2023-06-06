@@ -7,6 +7,9 @@ public interface InterPostDAO {
 
 	// Job 데이터 불러오기
 	List<Map<String, String>> getJobList();
+
+	// 공고리스트 불러오기
+	List<Map<String, String>> getPostList();
 	
 	
 

@@ -44,6 +44,21 @@ public class PostController {
 	}
 	
 	
+	// 공고리스트 불러오기
+	@ResponseBody
+	@GetMapping(value = "/getPostList", produces="text/plain;charset=UTF-8" )
+	public String getPostList() {
+		List<Map<String, String>> PostList = service.getPostList();
+		
+		JSONObject jsonobj = new JSONObject();
+		
+		jsonobj.put("PostList", PostList);
+		
+		return jsonobj.toString();
+		
+	}
+	
+	
 	
 	
 	
