@@ -1988,6 +1988,8 @@ ol, ul {
     	// Joblist 불러오기
     	getJobList();
     	
+    	getPostList();
+    	
     	// 슬릭 시작
     	$('.slick-track').slick({
         	variableWidth: true,
@@ -2064,7 +2066,7 @@ ol, ul {
   	  //
        
 
-    });
+    }); // end of document
     
     //슬라이더 윗 버튼  
     function sliderfunc() {
@@ -2106,17 +2108,60 @@ ol, ul {
 						
 						
 				for (let i = 0; i < json.JobList.length; i++) {
-					 console.log(json.JobList[i].job_name);
-					 console.log(json.JobList[i].job_code);
+					// console.log(json.JobList[i].job_name);
+					// console.log(json.JobList[i].job_code);
 					
 					html += "<li>" +
-							"<a href='#' class='JobGroupItem_JobGroupItem__xXzAi'>" +
+							"<a href='/wanted/getPostList?"+json.JobList[i].job_code+"' class='JobGroupItem_JobGroupItem__xXzAi'>" +
 							json.JobList[i].job_name +
 							"</a></li>" ;
 				}
 				html += "</ul>"
 				
 				$("section#myDropdown").html(html);
+
+
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+
+
+		});
+	}
+    
+    function getPostList() {
+		$.ajax({
+			url: "/wanted/getPostList",
+			type: "get",
+			dataType: "json",
+			success: function (json) {
+				 console.log(JSON.stringify(json));
+				let html = ""
+				 html += " <ul id='job-list'> ";
+						
+						
+				for (let i = 0; i < json.PostList.length; i++) {
+					//console.log(json.PostList[i].SUBJECT);
+					// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
+					html += "<li>" +
+							"<div class='Card_className__u5rsb'><a href='/postdetail/"+json.PostList[i].post_code+"' class='' >" +
+							"<header style='background-image: "+json.PostList[i].image+" '></header>" +
+							"<div class='body'>"+
+							"<div class='job-card-position'>"+json.PostList[i].subject+"</div>"+
+							"<div class='job-card-company-name'>"+json.PostList[i].name+"</div>"+
+							"<div class='Tooltip_container__AvBvM'><button class='Tooltip_label__P9FMp' type='button'>"+
+							"<div class='ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP'><span>응답률 매우 높음</span></div>"+
+							"<div class='Tooltip_tooltipContent__6exdr'>지원 후 응답받을 확률이 95% 이상입니다.</div>"+
+							"</button></div>"+
+							"<div class='job-card-company-location'>"+json.PostList[i].region_name+"<span class='addressDot'>.</span><span>"+json.PostList[i].region_detail_name+"</span></div>"+
+							"</div></a></div></li>"
+					
+							
+				}
+				html += "</ul>"
+				
+				$("div.List_List_container__JnQMS").html(html);
 
 
 			},
@@ -2151,20 +2196,7 @@ ol, ul {
 				        <li><a href="/wdlist/523" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="523" data-job-category="Marketing &amp; Advertising">마케팅·광고</a></li>
 				        <li><a href="/wdlist/511" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="511" data-job-category="Design">디자인</a></li>
 				        <li><a href="/wdlist/530" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="530" data-job-category="Sales">영업</a></li>
-				        <li><a href="/wdlist/510" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="510" data-job-category="Customer Service">고객서비스·리테일</a></li>
-				        <li><a href="/wdlist/959" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="959" data-job-category="Game Production">게임 제작</a></li>
-				        <li><a href="/wdlist/524" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="524" data-job-category="Media &amp; Communication">미디어</a></li>
-				        <li><a href="/wdlist/517" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="517" data-job-category="HR">HR</a></li>
-				        <li><a href="/wdlist/513" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="513" data-job-category="Engineering">엔지니어링·설계</a></li>
-				        <li><a href="/wdlist/508" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="508" data-job-category="Finance">금융</a></li>
-				        <li><a href="/wdlist/522" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="522" data-job-category="Manufacturing">제조·생산</a></li>
-				        <li><a href="/wdlist/532" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="532" data-job-category="Logistics&amp; Trade">물류·무역</a></li>
-				        <li><a href="/wdlist/515" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="515" data-job-category="Bio, Medical">의료·제약·바이오</a></li>
-				        <li><a href="/wdlist/10101" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="10101" data-job-category="Education">교육</a></li>
-				        <li><a href="/wdlist/521" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="521" data-job-category="Law">법률·법집행기관</a></li>
-				        <li><a href="/wdlist/509" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="509" data-job-category="Construction">건설·시설</a></li>
-				        <li><a href="/wdlist/10057" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="10057" data-job-category="F&amp;B">식·음료</a></li>
-				        <li><a href="/wdlist/514" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="514" data-job-category="Public·Social Work">공공·복지</a></li>
+
 				    </ul>-->
 				</section> 
             </div>            
@@ -2666,133 +2698,8 @@ ol, ul {
                 </div>
             </div>
             <div class="List_List_container__JnQMS">
-                <ul data-cy="job-list">
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/160358" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="4376" data-company-name="파인디지털" data-position-id="160358" data-position-name="블랙박스 System 개발 (F/W개발)" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="0">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F4376%2Fcpqpzlymnr0tfec6__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">블랙박스 System 개발 (F/W개발)</div>
-                                    <div class="job-card-company-name">파인디지털</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">경기<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-
-                    
-                    
-                    <div></div>
-                </ul>
+                
+                
             </div>
         </div>
         
