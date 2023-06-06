@@ -58,5 +58,51 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 		List<Map<String, String>> postList = mapper.getPost(paraMap);
 		return postList;
 	}
+	
+	//ajax로 수정페이지 띄우기
+	@Override
+	public List<Map<String, String>> getEditRecruit(String post_code) {
+		
+		List<Map<String, String>> editRecruit = mapper.getEditRecruit(post_code);
+		
+		return editRecruit;
+	}
+	
+	// 수정한거 등록하기
+	@Override
+	public void updateRecruit(PostVO postvo) {
+		mapper.updateRecruit(postvo);
+		
+	}
+	
+	// 기간만료 공고 삭제하기 
+	@Override
+	public int deleteRecruit(String post_code) {
+		int n = mapper.deleteRecruit(post_code);
+		return n;
+	}
+	
+	// 공고 중단하기
+	@Override
+	public int stopRecruit(String post_code) {
+		int n = mapper.stopRecruit(post_code);
+		return n;
+	}
+	
+	//ajax로 결제 상세페이지 띄우기
+	@Override
+	public List<Map<String, String>> viewPostPayment(String post_code) {
+
+		List<Map<String, String>> postPayment = mapper.getEditRecruit(post_code);
+		
+		return postPayment;
+	}
+	
+	//결제완료 후 pay_status update하기
+	@Override
+	public void updatePostPayment(String post_code) {
+		mapper.updatePostPayment(post_code);
+		
+	}
 
 }

@@ -45,7 +45,7 @@ public class CompanyController_2 {
 	public String recruit(PostVO postvo){
 		service.insertRecruit(postvo);
 		
-		return "";
+		return "company/company_jobPost.tiles2";
 				
 	}
 	
@@ -84,7 +84,84 @@ public class CompanyController_2 {
 
 		return json;
 
+	}	
+		
+	//ajax로 수정페이지 띄우기
+	@GetMapping(value="/getEditRecruit", produces = "text/plain;charset=UTF-8")
+	public String getRecruit(HttpServletRequest request, @RequestParam("post_code") String post_code) {
+		
+		List<Map<String,String>> editRecruit = service.getEditRecruit(post_code);
+		
+		request.setAttribute("editRecruit", editRecruit);
+		
+		return "tiles2/company/content/editRecruit";
 	}
+	
+	// 수정한거 등록하기
+	@PostMapping(value="/getEditRecruit", produces = "text/plain;charset=UTF-8")
+	public String getRecruit(PostVO postvo){
+		service.updateRecruit(postvo);
+		
+		return "company/company_jobPost.tiles2";
+				
+	}
+	
+	// 기간만료 공고 삭제하기 
+	@ResponseBody
+	@GetMapping(value="/deleteRecruit", produces = "text/plain;charset=UTF-8")
+	public String deleteRecruit(@RequestParam("post_code") String post_code){
+				
+		int n = service.deleteRecruit(post_code);
+	    if (n==1) {
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+
+	}
+	
+	// 공고 중단하기 
+	@ResponseBody
+	@GetMapping(value="/stopRecruit", produces = "text/plain;charset=UTF-8")
+	public String stopRecruit(@RequestParam("post_code") String post_code){
+				
+		int n = service.stopRecruit(post_code);
+	    if (n==1) {
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+
+	}
+	
+	//ajax로 결제 상세페이지 띄우기
+		@GetMapping(value="/viewPostPayment", produces = "text/plain;charset=UTF-8")
+		public String viewPostPayment(HttpServletRequest request, @RequestParam("post_code") String post_code) {
+			
+			List<Map<String,String>> postPayment = service.viewPostPayment(post_code);
+			
+			request.setAttribute("postPayment", postPayment);
+			
+			return "tiles2/company/content/postPayment";
+		}
+		
+		//아임포트 결제페이지 이동
+		@PostMapping(value="/goPostPayment", produces = "text/plain;charset=UTF-8")
+		public String goPostPayment(HttpServletRequest request, @RequestParam("post_code") String post_code) {
+					
+			request.setAttribute("post_code", post_code);
+			
+			return "company/paymentGateway.tiles2";
+		}
+		
+		//결제완료 후 pay_status update하기
+		@PostMapping(value="/updatePostPayment")
+		public String updatePostPayment(@RequestParam("post_code") String post_code) {
+			
+			service.updatePostPayment(post_code);
+			
+			return "company/company_jobPost.tiles2";
+		}
 	
 	//===============================SJS시작==================================
 	@ResponseBody

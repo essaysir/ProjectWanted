@@ -14,7 +14,6 @@
 		border: solid 0px black;
 		width:100%;
 		height:100%;
-		padding: 100px 0;
 	}
 	
 	.main_content{
@@ -72,6 +71,7 @@
 		margin-top:10px;
 	}
 	
+	.cancel:hover,
 	.submit:hover{
 		border: solid 1px black;
 		cursor: pointer;
@@ -181,7 +181,8 @@
 	}
 	
 	span.error,
-	span.error2{
+	span.error2,
+	span.error3{
 		color: red;
 	}
 	
@@ -253,42 +254,7 @@
 			alert("마감일은 마우스클릭으로만 지정할수 있습니다.");
 			$(this).val("");
 		});
-	
-	    $(".job_select").change(function(){
-			
-			var selectedJob = $(this).val();
-			
-			//ajax로 duty_select 가져오기
-			$.ajax({
-				url : "getDuty",
-				type: "get",
-				data : { jobCode: selectedJob },
-				dataType:"json",
-				success:function(json){
-					$('.duty_select').empty(); // 기존의 내용을 모두 제거
-	
-					if (selectedJob == "999") {
-				        var option = '<option value="999">:::직군을 선택하세요:::</option>';
-				        $('.duty_select').append(option); // duty_select에 선택 옵션 추가
-				    } 
-					else {
-							var defaultOption = '<option value="999">:::직무를 선택하세요:::</option>';
-							$('.duty_select').append(defaultOption);  
-				          
-							$.each(json.dutyList, function(index, item) {
-								var option = '<option value="' + item.duty_code + '">' + item.duty_name + '</option>';
-								$('.duty_select').append(option); // duty_select에 option 태그 추가
-							});
-				      }
-				},
-				error: function (request, status, error) {
-					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-				}
-				
-			});
-			
-		});// end of $(".job_select").change(function()
-				
+					
 		$("div#submit").click(function(){
 			const job_select = $("select#job_select").val();
 			if (job_select == 999) {
@@ -395,8 +361,15 @@
 				$(".deadline_input").parent().find(".error").hide();
 			}
 			
-			const frm = document.recruitFrm;
-			frm.action = "company_recruit";
+			const checkbox_checked_len = $("input:checkbox[id='agree']:checked").length;
+			
+			if(checkbox_checked_len == 0){
+				alert('공고시작일을 확인하셔야 합니다.');
+				return; // 함수종료
+			}
+			
+			const frm = document.editRecruitFrm;
+			frm.action = "getEditRecruit";
 			frm.method = "post";
 			frm.submit();
 			
@@ -411,29 +384,27 @@
 		<div class="main_content">
 			<div class="content_header">
 				<div class="cancel" onclick="javascript:history.back()"><p>취소</p></div>
-				<div class="content_title"><p>공고 등록</p></div>
-				<div class="submit" id="submit"><p>등록</p></div>
+				<div class="content_title"><p>공고 수정</p></div>
+				<div class="submit" id="submit"><p>수정</p></div>
 			</div>
 			<div class="content_body">
-				<form name="recruitFrm">
+				<form name="editRecruitFrm">
+				<c:forEach  var="map" items="${requestScope.editRecruit}">
 					<div class="category">
-						<label class="con_title">직군선택</label>&nbsp;&nbsp;<span class="error">직군선택은 필수선택 사항입니다.</span><br>
-						<select class="job_select" id="job_select">
-							<option value="999">:::선택하세요:::</option>
-						    <c:forEach var="map" items="${requestScope.JobList}">
-						    	<option value="${map.job_code}">${map.job_name}</option>
-						    </c:forEach>
+						<label class="con_title">직군선택</label>&nbsp;&nbsp;<span class="error3">수정이 불가한 사항입니다.</span><br>
+						<select class="job_select" id="job_select" disabled>
+						    <option value="${map.job_code}">${map.job_name}</option>
 						</select>
 					</div>
 					<div class="dcategory">
-						<label class="con_title">직무선택</label>&nbsp;&nbsp;<span class="error">직무선택은 필수선택 사항입니다.</span><br>
-						<select class="duty_select" id="duty_select" name="fk_duty_code">
-							<option value="999">:::직군을 선택하세요:::</option>
+						<label class="con_title">직무선택</label>&nbsp;&nbsp;<span class="error3">수정이 불가한 사항입니다.</span><br>
+						<select class="duty_select" id="duty_select" name="fk_duty_code" disabled>
+							<option value="${map.duty_code}">${map.duty_name}</option>
 						</select>
 					</div>
 					<div class="subject">
 						<label class="con_title">공고 제목</label>&nbsp;&nbsp;<span class="error">공고 제목 입력은 필수입력 사항입니다.</span>
-						<input class="subject_input" id="subject_input" name="subject"></input>
+						<input class="subject_input" id="subject_input" name="subject" value="${map.subject}"></input>
 					</div>
 					<div class="career">
 						<label class="con_title">최소경력선택</label>&nbsp;&nbsp;<span class="error">경력선택은 필수선택 사항입니다.</span><br>
@@ -454,32 +425,30 @@
 					</div>
 					<div class="info">
 						<label class="con_title">공고 내용</label>&nbsp;&nbsp;<span class="error">공고 내용 입력은 필수입력 사항입니다.</span>
-						<textarea class="info_textarea" id="info_textarea" name="info"></textarea>
+						<textarea class="info_textarea" id="info_textarea" name="info" >${map.info}</textarea>
 					</div>
 					<div class="duty">
 						<label class="con_title">주요 업무</label>&nbsp;&nbsp;<span class="error">주요 업무 입력은 필수입력 사항입니다.</span>
-						<textarea class="duty_textarea" id="duty_textarea" name="mainduty"></textarea>
+						<textarea class="duty_textarea" id="duty_textarea" name="mainduty">${map.mainduty}</textarea>
 					</div>
 					<div class="duty">
 						<label class="con_title">필요 역량</label>&nbsp;&nbsp;<span class="error">필요 역량 입력은 필수입력 사항입니다.</span>
-						<textarea class="quality_textarea" id="quality_textarea" name="quality"></textarea>
-					</div>
-					<div class="file">
-						<label class="con_title">구직상세이미지</label><br>
-						<input type="file" name="attach" id="attach" name="image"/>
+						<textarea class="quality_textarea" id="quality_textarea" name="quality">${map.quality}</textarea>
 					</div>
 					<div class="quality">
 						<label class="con_title">연   봉</label>&nbsp;&nbsp;<span class="error">연봉 입력은 필수입력 사항입니다.</span><span class="error2">연봉 입력은 숫자만 가능합니다.</span><br>
-						<input class="sal_input" id="sal_input" name="salary"></input><span>&nbsp;만 원</span>
+						<input class="sal_input" id="sal_input" name="salary" value="${map.salary}"></input><span>&nbsp;만 원</span>
 					</div>
 					<div class="create">
-						<label class="con_title">등 록 일</label><br>
+						<label class="con_title">등 록 일</label>&nbsp;&nbsp;<span class="error3">공고시작일을 확인해주세요.</span>&nbsp;&nbsp;<input type="checkbox" id="agree" /><br>
 						<input  type="text" id="create_input" name="createday" class="create_input"></input>
 					</div>
 					<div class="deadline">
 						<label class="con_title">마 감 일</label><br>
 						<input type="text" id="deadline_input" name="deadline" class="deadline_input" ></input>
 					</div>
+					<input type="hidden" name="post_code" value="${map.post_code}" readonly></input>
+				</c:forEach>	
 				</form>
 			</div>
 		</div>

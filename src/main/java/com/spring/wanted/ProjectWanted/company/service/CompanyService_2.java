@@ -56,12 +56,75 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	//ajax로 Post호출하기
 	@Override
 	public String getPost(Map<String, String> paraMap) {
+		
+		String fk_company_id = paraMap.get("fk_company_id");
+		String start = paraMap.get("start");
+		String len = paraMap.get("len");
+		
+		String end = String.valueOf(Integer.parseInt(start)+ Integer.parseInt(len)-1);
+		
+		paraMap.put("fk_company_id", fk_company_id);
+		paraMap.put("start", start);
+		paraMap.put("end", end);
+		
+		
 		List<Map<String, String>> postList = cdao.getPost(paraMap);
+		
 		
 		Gson gson = new Gson();
 		String result = gson.toJson(postList);
 		
 		return result;
+	}
+	
+	//ajax로 수정페이지 띄우기
+	@Override
+	public List<Map<String, String>> getEditRecruit(String post_code) {
+		
+		List<Map<String, String>> editRecruit = cdao.getEditRecruit(post_code);
+		
+		return editRecruit;
+	}
+	
+	// 수정한거 등록하기
+	@Override
+	public void updateRecruit(PostVO postvo) {
+		cdao.updateRecruit(postvo);
+	}
+	
+	// 기간만료 공고 삭제하기 
+	@Override
+	public int deleteRecruit(String post_code) {
+		
+		int n = cdao.deleteRecruit(post_code);
+		
+	    return n;
+	}
+	
+	// 공고 중단 하기 
+	@Override
+	public int stopRecruit(String post_code) {
+		
+		int n = cdao.stopRecruit(post_code);
+		
+	    return n;
+	}
+	
+	//ajax로 결제 상세페이지 띄우기
+	@Override
+	public List<Map<String, String>> viewPostPayment(String post_code) {
+		
+		List<Map<String, String>> postPayment = cdao.viewPostPayment(post_code);
+		
+		return postPayment;
+	}
+	
+	//결제완료 후 pay_status update하기
+	@Override
+	public void updatePostPayment(String post_code) {
+
+		cdao.updatePostPayment(post_code);
+		
 	}
 
 }
