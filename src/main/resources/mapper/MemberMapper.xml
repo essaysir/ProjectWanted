@@ -12,7 +12,7 @@
 
 		<select id="login" parameterType="String" resultType="com.spring.wanted.ProjectWanted.member.model.MemberVO">
 				select  userid , pwd , name , nickname , mobile , profile_image , resume_count 
-				from tbl_member 
+				from tbl_member  where userid = #{username}
 		</select>
 
 
