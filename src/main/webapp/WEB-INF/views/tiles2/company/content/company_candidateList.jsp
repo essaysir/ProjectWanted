@@ -41,7 +41,7 @@
    }
    
    #candidateList {
-   	  border: solid 2px #ddd;
+   	  border: solid 2px #ddd; 
    }
    
    
