@@ -9,10 +9,10 @@
 
 <style>
     section#skillSearch {
-		     /*  display: none; */
-		      position: relative;
-		    left: 20px;
-		    top: 20px;
+		     display: none; 
+		     position: relative;
+		    left: 586px;
+		    top: 6px;
 		    width: 584px;
 		    height: 446px;
 		    border: 1px solid #e1e2e4;
@@ -236,12 +236,18 @@
 			$(document).on('click' , 'button.btn-delete' , function(){
 				deleteSkill.call(this)
 			});
+			
+			$(document).on('click', 'button#section-cancle' , function(){
+				sectionClose.call(this)				
+			})
     		
-    		
+    		$(document).on('click', 'button#section-adjust' , function(){
+    			sectionAdjust_1.call(this)				
+			})
     		
 	}); // END OF DOCUMENT.READY(FUNCTION)
-    
-	let insert_count = 0 ; 
+	
+	let insert_count = 0 ;  // 최대 다섯개까지만 선택할 수 있게 해주는 COUNT
 	
 	function buttonActive(){
 		$("#skill").click(function() {
@@ -344,6 +350,27 @@
 			$("ul.search-answer").empty();
 			$("div.search-result").hide();
 			
+			 $("button.btn-skill").each(function() {
+				
+				 	let buttonText = $(this).text(); // 각 button의 텍스트를 가져옵니다.
+				    if (buttonText.includes(tech_name)) {
+				      // 해당 button에 특정 단어가 포함되어 있다면 원하는 동작을 수행합니다.
+				      // 예를 들어, 해당 button을 스타일링하거나 클릭 이벤트를 트리거할 수 있습니다.
+				      // console.log($(this).html());
+				      $(this).removeClass("btn-skill").addClass("btn-delete");
+				      
+				      // 버튼 내부의 span 요소를 선택합니다.
+					    var spanElement = $(this).find('span');
+
+					    // span 요소의 내용을 변경합니다.
+					    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M0.826019 3.33516C0.637056 3.1462 0.330686 3.1462 0.141723 3.33516C-0.0472409 3.52412 -0.0472409 3.83049 0.141723 4.01946L3.36753 7.24526C3.55649 7.43423 3.86286 7.43423 4.05183 7.24526L9.85828 1.43881C10.0472 1.24985 10.0472 0.943479 9.85828 0.754515C9.66931 0.565552 9.36294 0.565552 9.17398 0.754515L3.70968 6.21882L0.826019 3.33516Z" fill="currentColor"></path></svg>');
+					    let div_element = $(this).parent().find("div.div_skill");
+					    div_element.css("color" , "#36f"); 
+				      
+				    }
+				    
+			 });
+			
 		} // END OF if ( type == "list" ) 
 
 		else if ( type == "button"){
@@ -397,12 +424,71 @@
 	}// END OF FUNCTION INSERTSKILL 
 	
 	function deleteSkill (){
-		console.log( $(this).html() );
+		// console.log( $(this).html() );
+		// console.log( $(this).text());  EX : Spring Framework 
+		let tech_name = $(this).text() ;
+		 $("div.data-input button.btn-delete").each(function() {
+				// console.log($(this).html());
+				// console.log($(this).text());
+				if ( $(this).text().includes(tech_name) ){
+					// console.log($(this).parent().html());
+					// console.log($(this).parent().parent().html() ) ;
+					// $(this).parent().parent().remove(); => ul 태그 까지 사라져서 사용 불가능
+					$(this).closest('li').remove(); //  다음과 같이 하면 , li 까지만 지워지게 된다.
+					
+					insert_count -- ; 
+				} // end of if 
+				
+				
+		 });// end of each.function
 		
-		
-		
-		
+		 $("ul#recommendList button.btn-delete").each(function(){
+			 if ( $(this).text().includes(tech_name)){
+				  $(this).closest('button').removeClass("btn-delete").addClass("btn-skill");
+				  // 버튼 내부의 span 요소를 선택합니다.
+				   var spanElement = $(this).find('span');
+
+				    // span 요소의 내용을 변경합니다.
+				    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path></svg>');
+					
+				    let div_element = $(this).parent().find("div.div_skill");
+				    div_element.css("color" , "#333"); 
+			 
+			 }
+			 
+		 });
 	} // END OF FUNCTION DELETESKILL 
+	
+	function sectionClose(){
+		$("section#skillSearch").hide();
+		$("ul#insertList").empty();
+		insert_count = 0 ; 
+		 $("ul#recommendList button.btn-delete").each(function(){
+				
+			  $(this).closest('button').removeClass("btn-delete").addClass("btn-skill");
+			  // 버튼 내부의 span 요소를 선택합니다.
+			   var spanElement = $(this).find('span');
+
+			    // span 요소의 내용을 변경합니다.
+			    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path></svg>');
+				
+			    let div_element = $(this).parent().find("div.div_skill");
+			    div_element.css("color" , "#333"); 
+		 
+		 });
+		 
+	}// END OF FUNCTION SECTIONCLOSE 
+	
+	function sectionAdjust_1(){
+
+		
+	}// END OF FUNCTION SECTIONADJUST
+	
+	function sectionAdjust_2(){
+
+	
+		
+	}// END OF FUNCTION SECTIONADJUST
 	
 </script>
 
@@ -458,6 +544,15 @@
 		
 </section>
                          
+<!--  적용하기 클릭 후 선택했던 값들이 들어가는 공간 -->                         
+ <div class="data-input">
+					<ul id="insertList" style="padding-left:0px;"> 
+
+					</ul>
+					
+</div>
+
+                        
 </body>
 
 
