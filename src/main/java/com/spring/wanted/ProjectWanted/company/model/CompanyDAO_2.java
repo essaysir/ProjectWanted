@@ -97,5 +97,12 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 		
 		return postPayment;
 	}
+	
+	//결제완료 후 pay_status update하기
+	@Override
+	public void updatePostPayment(String post_code) {
+		mapper.updatePostPayment(post_code);
+		
+	}
 
 }
