@@ -292,7 +292,7 @@
 					 		}else if(item.pay_status == "1" && item.dateDiff < 0 && item.createDiff < 1){
 					 			html += "<button type='button' class='jpFin' disabled onclick=''><span>공고 마감</span></button>";
 					 		}else if(item.pay_status == "1" && item.dateDiff < 5 && item.createDiff < 1){
-					 			html += "<button type='button' class='jpAnd' onclick='test3()'><span>공고 연장</span></button>";
+					 			html += "<button type='button' class='jpAnd' onclick='extendPost("+item.post_code+")'><span>공고 연장</span></button>";
 					 		}else if(item.pay_status == "1" && item.dateDiff > 0 && item.createDiff < 1){
 					 			html += "<button type='button' class='jpEnd' onclick='postStop("+item.post_code+")'><span>공고 중단</span></button>";
 					 		}else if(item.pay_status == "1" && item.dateDiff > 0 && item.createDiff > 0){
@@ -383,8 +383,20 @@
 		
 	}
 	
-	function test3(){
-		alert("공고연장버튼");
+	function extendPost(post_code){
+		$.ajax({
+		       url:"viewExtendPost",
+		       data:{"post_code": post_code},
+		       type:"get",
+		       success:function(result) {
+		    	  
+		          $("#jpMain_frame").html(result);
+
+		       },
+		       error: function(request, status, error){
+		           alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		        }
+	   		 });
 	}
 	
 	function p_edit(post_code){
@@ -449,10 +461,6 @@
 		}
 	}
 		
-	
-		
-	
-
 </script>
 <body>
 

@@ -42,5 +42,10 @@ public interface InterCompanyMapper_2 {
 	
 	//결제완료 후 pay_status update하기
 	void updatePostPayment(String post_code);
+	
+	//ajax로 연장상세페이지 띄우기
+	List<Map<String, String>> viewExtendPost(String post_code);
+
+	void updateExtendPost(String post_code);
 
 }
