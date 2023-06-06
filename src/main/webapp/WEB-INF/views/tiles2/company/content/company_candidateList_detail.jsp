@@ -10,7 +10,7 @@
 
 		<thead>
 			<tr>
-				<div style="display: flex; padding: 10px; border-top: solid 2px #ddd; width: 100%; justify-content: space-between;">
+				<div id="buttonSection">
 					<%-- 정렬Frm 시작 --%>
 					<div class="col-auto">
 					     <button class="btn btn-primary" type="button" id="defaultOpen" onclick="sortNew">지원 최신 순</button>
@@ -38,7 +38,7 @@
 				</div>	
 			</tr>
 			
-			<tr>
+			<tr style="border: solid 2px #ddd;">
 				<th class="formTitle" style="width: 28%;">공고명</th>
 				<th class="formTitle" style="width: 10%;">지원자명</th>
 				<th class="formTitle" style="width: 27%;">이력서</th>
@@ -53,7 +53,7 @@
 		<tr style="height: 80px; text-align: center;">
 			<td class="formList" style="width: 28%;">[&nbsp;${candidateList.post_subject}&nbsp;]</td>
 			<td class="formList" style="width: 10%;">${candidateList.name}</td>
-			<td class="formList" style="width: 27%;">${candidateList.resume_subject}</td>
+			<td class="formList" style="width: 27%;"><a href="#">${candidateList.resume_subject}</a></td>
 			<td class="formList" style="width: 10%;">${candidateList.applydate}</td>
 			<c:choose>
 				<c:when test="${candidateList.status eq '합격'}">
@@ -79,9 +79,9 @@
 	</tbody>
 		</table>	
 	
-	<%-- === #122. 페이지바 보여주기 === --%>  
-	    <div align="center" style="border: solid 0px gray; width: 70%; margin: 20px auto; ">
-			${pageBar}
-	    </div>
+	<%-- 페이지바 --%>  
+    <div align="center" style="width: 70%; margin: 20px auto; ">
+		${pageBar}
+    </div>
 
 
