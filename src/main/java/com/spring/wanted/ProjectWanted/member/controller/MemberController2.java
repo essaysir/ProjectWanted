@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.wanted.ProjectWanted.member.model.CareerVO;
 import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
@@ -26,7 +27,7 @@ public class MemberController2 {
 	
 	// 이력서 작성 페이지 불러오기
 	@GetMapping(value = "/myresume")
-	public String resume_inputLoad() {
+	public String resume_inputLoad(@RequestParam(value="tech_code", required=true) List<String> tech_code) {
 		// 이력서 작성 페이지를 불러오는 로직
 		return "/member/resume_input.tiles1";
 	}
@@ -34,7 +35,7 @@ public class MemberController2 {
 	
 	// 이력서 작성 페이지의 작성된 이력서 DB에 저장하기
 	@PostMapping(value = "/myresume")
-	public String resume_input(ResumeVO resumevo, List<CareerVO> careervo ) {
+	public String resume_input(@RequestParam(value="tech_code", required=true) List<String> tech_code, ResumeVO resumevo, List<CareerVO> careervo ) {
 
 	//	careervo.set(index, element);
 
