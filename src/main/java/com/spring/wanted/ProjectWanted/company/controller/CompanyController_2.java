@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_2;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
-@RequestMapping("/wanted")
+@RequestMapping("/wanted/company")
 @Controller
 public class CompanyController_2 {
 	
@@ -30,7 +30,7 @@ public class CompanyController_2 {
 	}
 	
 	// job_select에필요한 값 가져오기	
-	@GetMapping(value="/company_recruit")
+	@GetMapping(value="/recruit")
 	public String recruit(HttpServletRequest request){
 		
 		List<Map<String, String>> JobList = service.getJobList();
@@ -41,9 +41,17 @@ public class CompanyController_2 {
 	}
 	
 	// TBL_POST에 등록하기
-	@PostMapping(value="/company_recruit", produces = "text/plain;charset=UTF-8")
-	public String recruit(PostVO postvo){
-		service.insertRecruit(postvo);
+	@PostMapping(value="/recruit", produces = "text/plain;charset=UTF-8")
+	public String recruit(PostVO postvo , @RequestParam(value="tech_code") List<String> techcode){
+		
+			
+			if(techcode.size() <6) {
+				postvo.setTechcode(techcode);
+				service.insertRecruitSkil(postvo);
+			} else {
+				service.insertRecruit(postvo);
+			}
+		
 		
 		return "company/company_jobPost.tiles2";
 				
@@ -62,7 +70,7 @@ public class CompanyController_2 {
 	}
 	
 	// 채용공고관리페이지 띄우기
-	@GetMapping(value="/company_jobPost")
+	@GetMapping(value="/jobPost")
 	public String jobPost(HttpServletRequest request) {
 		
 		String id = "test_wanted";

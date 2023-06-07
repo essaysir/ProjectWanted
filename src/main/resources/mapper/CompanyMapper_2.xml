@@ -39,6 +39,11 @@
 		</if>
 	</insert>
 	
+	<insert id="insertTech" parameterType="HashMap">
+		insert into tbl_post_tech(post_tech_code, fk_post_code, fk_tech_code)
+		values(seq_post_tech.nextval, #{post_code}, #{fk_tech_code})
+	</insert>
+	
 	<select id="getTotalPost" parameterType="String" resultType="int">
 		select count(*)
 		from tbl_post
