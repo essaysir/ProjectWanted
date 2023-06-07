@@ -1,5 +1,7 @@
 package com.spring.wanted.ProjectWanted.security.config;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,6 +25,7 @@ public class Userdetails implements UserDetailsService {
 				   org.springframework.security.core.userdetails.User.builder()
 	                .username(mvo.getUserid())
 	                .password(mvo.getPwd())
+	                .authorities(Collections.emptyList())
 	                .build();
 	}
 
