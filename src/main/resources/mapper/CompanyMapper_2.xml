@@ -28,7 +28,7 @@
 	</select>
 	
 	<!-- TBL_POST에 등록하기 -->
-	<insert id="insertRecruit" parameterType="com.spring.wanted.ProjectWanted.post.model.PostVO">
+	<insert id="insertRecruit" parameterType="com.spring.wanted.ProjectWanted.post.model.PostVO" useGeneratedKeys="true" keyColumn="post_code" keyProperty="post_code">
 		<if test='image == null'>
 		insert into tbl_post(POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE, VIEWCOUNT, PAY_STATUS) 
 		values(SEQ_POST.nextval, 'test_wanted', #{fk_duty_code}, #{career}, #{subject}, #{info}, #{createday}, #{salary}, #{mainduty}, #{quality}, #{deadline}, default, 0)

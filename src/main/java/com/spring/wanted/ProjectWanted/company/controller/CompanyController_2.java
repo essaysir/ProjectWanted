@@ -46,14 +46,14 @@ public class CompanyController_2 {
 		
 			
 			if(techcode.size() <6) {
-				postvo.setTechcode(techcode);
-				service.insertRecruitSkil(postvo);
+				service.insertRecruitSkil(postvo, techcode);
 			} else {
 				service.insertRecruit(postvo);
 			}
+			
 		
 		
-		return "company/company_jobPost.tiles2";
+		return "redirect:jobPost";
 				
 	}
 	
@@ -110,7 +110,7 @@ public class CompanyController_2 {
 	public String getRecruit(PostVO postvo){
 		service.updateRecruit(postvo);
 		
-		return "company/company_jobPost.tiles2";
+		return "redirect:jobPost";
 				
 	}
 	
@@ -174,7 +174,7 @@ public class CompanyController_2 {
 		
 		service.updatePostPayment(post_code);
 		
-		return "company/company_jobPost.tiles2";
+		return "redirect:jobPost";
 	}
 		
 		
@@ -211,7 +211,7 @@ public class CompanyController_2 {
 		
 		service.updateExtendPost(post_code);
 		
-		return "company/company_jobPost.tiles2";
+		return "redirect:jobPost";
 	}
 	
 	//===============================SJS시작==================================
