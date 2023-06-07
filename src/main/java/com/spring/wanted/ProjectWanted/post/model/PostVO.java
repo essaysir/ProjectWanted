@@ -1,7 +1,5 @@
 package com.spring.wanted.ProjectWanted.post.model;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
@@ -21,7 +19,5 @@ public class PostVO {
 	private String deadline;
 	private	String viewcount;
 	private String pay_status;
-	
-	private List<String> techcode ;
 	
 }

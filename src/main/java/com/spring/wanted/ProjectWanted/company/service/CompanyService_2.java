@@ -46,8 +46,8 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	}
 	
 	@Override
-	public void insertRecruitSkil(PostVO postvo) {
-		cdao.insertRecruitSkil(postvo);
+	public void insertRecruitSkil(PostVO postvo, List<String> techcode) {
+		cdao.insertRecruitSkil(postvo, techcode);
 		
 	}
 	
@@ -149,7 +149,5 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		cdao.updateExtendPost(post_code);
 		
 	}
-
-	
 
 }

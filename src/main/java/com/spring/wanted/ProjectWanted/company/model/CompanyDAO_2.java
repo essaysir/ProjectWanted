@@ -51,7 +51,7 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 	// TBL_POST에 등록하기
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED, rollbackFor= {Throwable.class})
-	public void insertRecruitSkil(PostVO postvo) {
+	public void insertRecruitSkil(PostVO postvo, List<String> techcode) {
 		
 		int n=0;
 		
@@ -61,12 +61,14 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 		if( n ==1 ) {
 			String post_code = postvo.getPost_code();
 			
+			System.out.println(post_code);
+			
 			Map<String, String> paraMap = new HashMap<>();
 			
 			paraMap.put("post_code", post_code);
 			
-			for(int i =0; i<postvo.getTechcode().size(); i++) {
-				paraMap.put("fk_tech_code", postvo.getTechcode().get(i));
+			for(int i =0; i<techcode.size(); i++) {
+				paraMap.put("fk_tech_code", techcode.get(i));
 				
 				mapper.insertTech(paraMap);
 			}
