@@ -1,11 +1,15 @@
 package com.spring.wanted.ProjectWanted.company.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_2;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
@@ -40,8 +44,35 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 	// TBL_POST에 등록하기
 	@Override
 	public void insertRecruit(PostVO postvo) {
-		mapper.insertRecruit(postvo);
 		
+		mapper.insertRecruit(postvo);
+	}
+	
+	// TBL_POST에 등록하기
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED, rollbackFor= {Throwable.class})
+	public void insertRecruitSkil(PostVO postvo) {
+		
+		int n=0;
+		
+		n=mapper.insertRecruit(postvo);
+		
+		
+		if( n ==1 ) {
+			String post_code = postvo.getPost_code();
+			
+			Map<String, String> paraMap = new HashMap<>();
+			
+			paraMap.put("post_code", post_code);
+			
+			for(int i =0; i<postvo.getTechcode().size(); i++) {
+				paraMap.put("fk_tech_code", postvo.getTechcode().get(i));
+				
+				mapper.insertTech(paraMap);
+			}
+		}
+		
+				
 	}
 	
 	// 채용공고관리페이지 띄우기
