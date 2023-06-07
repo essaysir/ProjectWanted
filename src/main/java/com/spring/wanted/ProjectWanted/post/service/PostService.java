@@ -32,6 +32,14 @@ public class PostService implements InterPostService {
 		
 		return PostList;
 	}
+
+	// Duty 데이터 불러오기
+	@Override
+	public List<Map<String, String>> getDutyList(String job_code) {
+		List<Map<String, String>> DutyList = pdao.getDutyList(job_code);
+		
+		return DutyList;
+	}
 	
 	
 	

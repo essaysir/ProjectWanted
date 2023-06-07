@@ -102,6 +102,64 @@
 	 -->
 
 	
+	
+	<resultMap type="HashMap" id="candidateResume_Map">
+		<result property="resume_subject" 		column="resume_subject" 	javaType="String" />
+		<result property="name" 				column="name" 				javaType="String" />
+		<result property="email" 				column="email" 				javaType="String" />
+		<result property="mobile" 				column="mobile" 			javaType="String" />
+		<result property="introduce" 			column="introduce" 			javaType="String" />
+		<result property="career_start_date" 	column="career_start_date" 	javaType="String" />
+		<result property="career_end_date" 		column="career_end_date" 	javaType="String" />
+		<result property="company" 				column="company" 			javaType="String" />
+		<result property="department" 			column="department" 		javaType="String" />
+		<result property="career_content" 		column="career_content" 	javaType="String" />
+		<result property="school_start_date" 	column="school_end_date" 	javaType="String" />
+		<result property="shool" 				column="shool" 				javaType="String" />
+		<result property="major" 				column="major" 				javaType="String" />
+		<result property="school_content" 		column="school_content" 	javaType="String" />
+		<result property="skill" 				column="skill" 				javaType="String" />
+		<result property="reward_date" 			column="reward_date" 		javaType="String" />
+		<result property="reward" 				column="reward" 			javaType="String" />
+		<result property="reward_content" 		column="reward_content" 	javaType="String" />
+		<result property="language_date" 		column="language_date" 		javaType="String" />
+		<result property="language" 			column="language" 			javaType="String" />
+		<result property="language_content" 	column="language_content" 	javaType="String" />
+		<result property="link" 				column="link" 				javaType="String" />
+	</resultMap>
+	<select id="getResume" resultType="HashMap" resultMap="candidateResume_Map">
+		SELECT r.SUBJECT AS resume_subject,
+			   m.NAME AS name,
+			   m.USERID AS email,
+			   m.MOBILE AS mobile,
+			   r.INTRODUCE AS introduce,
+			   c.START_DATE AS career_start_date,
+			   c.END_DATE AS career_end_date,
+			   c.COMPANY AS company,
+			   c.DEPARTMENT AS department,
+			   c.CONTENT AS career_content,
+			   s.START_DATE AS school_start_date,
+			   s.END_DATE AS school_end_date,
+			   s.SCHOOL AS shool,
+			   s.MAJOR AS major,
+			   s.CONTENT AS school_content,
+			   r.SKILL AS skill,
+			   rw.REWARD_DATE AS reward_date,
+			   rw.REWARD AS reward,
+			   rw.CONTENT AS reward_content,
+			   l.LANG_DATE AS language_date,
+			   l.FOR_LANG AS language,
+			   l.CONTENT AS language_content,
+			   r.UPLOADLINK AS link
+		FROM TBL_RESUME r JOIN TBL_MEMBER m ON r.FK_USERID = m.USERID
+						  LEFT JOIN TBL_CAREER c ON r.RESUME_CODE = c.FK_RESUME_CODE
+						  LEFT JOIN TBL_SCHOOL s ON r.RESUME_CODE = s.FK_RESUME_CODE
+						  LEFT JOIN TBL_REWARD rw ON r.RESUME_CODE = rw.FK_RESUME_CODE
+						  LEFT JOIN TBL_LANGUAGE l ON r.RESUME_CODE = l.FK_RESUME_CODE
+		WHERE RESUME_CODE = ${resume_code}				  
+	</select>
+	
+	
 
 
 

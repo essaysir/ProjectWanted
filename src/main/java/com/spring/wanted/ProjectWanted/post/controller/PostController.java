@@ -3,11 +3,14 @@ package com.spring.wanted.ProjectWanted.post.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.wanted.ProjectWanted.post.service.InterPostService;
@@ -42,6 +45,21 @@ public class PostController {
 		return jsonobj.toString();
 		
 	}
+	
+	// Duty 데이터 불러오기
+	@ResponseBody
+	@GetMapping(value = "/getDutyList_post", produces="text/plain;charset=UTF-8" )
+	public String getDutyList(@RequestParam("job_code") String job_code , HttpServletRequest request) {
+	    
+		List<Map<String, String>> DutyList = service.getDutyList(job_code);
+		
+		JSONObject jsonobj = new JSONObject();
+		
+		jsonobj.put("DutyList", DutyList);
+		
+		return jsonobj.toString();
+	  }
+	
 	
 	
 	// 공고리스트 불러오기
