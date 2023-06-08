@@ -45,6 +45,12 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		
 	}
 	
+	@Override
+	public void insertRecruitSkil(PostVO postvo, List<String> techcode) {
+		cdao.insertRecruitSkil(postvo, techcode);
+		
+	}
+	
 	// 채용공고관리페이지 띄우기
 	@Override
 	public int getTotalPost(String id) {

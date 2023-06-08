@@ -17,7 +17,8 @@ public interface InterCompanyMapper_2 {
 	List<Map<String, String>> getDutyList(String jobCode);
 	
 	// TBL_POST에 등록하기
-	void insertRecruit(PostVO postvo);
+	int insertRecruit(PostVO postvo);
+	void insertTech(Map<String, String> paraMap);
 	
 	// 채용공고관리페이지 띄우기
 	int getTotalPost(String id);
@@ -47,5 +48,9 @@ public interface InterCompanyMapper_2 {
 	List<Map<String, String>> viewExtendPost(String post_code);
 
 	void updateExtendPost(String post_code);
+
+	
+
+	
 
 }

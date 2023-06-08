@@ -15,6 +15,7 @@ public interface InterCompanyService_2 {
 	
 	// TBL_POST에 등록하기
 	void insertRecruit(PostVO postvo);
+	void insertRecruitSkil(PostVO postvo, List<String> techcode);
 	
 	// 채용공고관리페이지 띄우기
 	int getTotalPost(String id);
@@ -45,5 +46,7 @@ public interface InterCompanyService_2 {
 	
 	//결제완료 후 deadline update하기
 	void updateExtendPost(String post_code);
+
+	
 
 }

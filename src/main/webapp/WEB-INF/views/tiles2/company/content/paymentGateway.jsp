@@ -67,7 +67,7 @@ $(document).ready(function() {
 			}
 			
         } else {
-            location.href="<%= request.getContextPath()%>/wanted/company_jobPost";
+            location.href="<%= request.getContextPath()%>/wanted/company/jobPost";
             alert("결제에 실패하였습니다.");
        }
 

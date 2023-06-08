@@ -47,7 +47,7 @@
 		<tr style="height: 80px; text-align: center;">
 			<td class="formList" style="width: 28%;">[&nbsp;${candidateList.post_subject}&nbsp;]</td>
 			<td class="formList" style="width: 10%;">${candidateList.name}</td>
-			<td class="formList" style="width: 27%;"><a href="/wanted/resume">${candidateList.resume_subject}</a></td>
+			<td class="formList" style="width: 27%;"><a href="/wanted/company/resume">${candidateList.resume_subject}</a></td>
 			<td class="formList" style="width: 10%;">${candidateList.applydate}</td>
 			<c:choose>
 				<c:when test="${candidateList.status eq '합격'}">
@@ -73,8 +73,8 @@
 	</tbody>
 		</table>	
 	
-	<%-- 페이지바 --%>  
-    <div align="center" style="width: 70%; margin: 20px auto; ">
+	<%-- 페이지바  --%>
+    <div id="pageBar" align="center" style="width: 70%; margin: 20px auto; ">
 		${pageBar}
     </div>
 

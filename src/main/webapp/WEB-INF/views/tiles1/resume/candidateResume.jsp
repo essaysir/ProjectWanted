@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+    
 <style type="text/css">
+
 	input[type="text"]
 	, input[type="text"]:focus {
-		 outline : none ; 
-		 border : 0px  ; 
-		 padding-left : 0px !important;  
+		 border : solid 3px #BFDEFF;
 	}
 	
 	input.resume-subject{
@@ -76,29 +78,7 @@
 		text-align: right ; 
 		
 	}
-	 .progress-bar {
-	    width: 200px;
-	    height: 15px;
-	    background-color: #e1e2e3;
-	    font-weight: 600;
-	    font-size: .8rem;
-	    border-radius: 10px; 
-	}
-	
-	.progress-bar .progress {
-	      /* // 나타내고자 하는 퍼센트 값을 넣으면 됩니다. */
-	    height: 30px;
-	    padding: 0;
-	    text-align: center;
-	    background-color: rgb(51, 102, 255);
-	    color: rgb(51, 102, 255) ;
-	}
-	button.save-temporary{
-		color: #36f;
-	    background-color: #fff;
-	    border: 1px solid #36f;
-		  	
-	}
+
 	
 	.status_button1 {
 		background-color: #3366FF; 
@@ -235,9 +215,6 @@
 			      
 		};// end of function updateHiddenYears()--------------------------------------------------
 
-		 
-
-		
 		
 
 		
@@ -255,27 +232,29 @@
 		
 		<div class="container my-5">
 				<div class="input-group input-group-lg input-div">
-				  <div name="subject" class="required_input form-control resume-subject"></div>
-				  <span style="margin-top: 35px; display: none;"></span>
+				  <input type="text" name="subject" class="required_input form-control resume-subject" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" 
+				  placeholder="이력서 제목(필수)" >
+				  <span class="error_comment" id="subject_error" style="margin-top: 35px; display: none;"></span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <div type="text" name="name" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-				  placeholder="이름(필수)" ></div>
+				  <input type="text" name="name" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  placeholder="이름(필수)" >
 				  <span class="error_comment" id="name_error" style="display: none;"></span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <div type="text" name="email" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-				  placeholder="이메일(필수) EX) wanted@wanted.com" ></div>
+				  <input type="text" name="email" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  placeholder="이메일(필수) EX) wanted@wanted.com" >
 				  <span class="error_comment" id="email_error" style="display: none;"></span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <div type="text" name="contact" class="required_input form-control noborder" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-				  placeholder="연락처(필수) EX) 01012345678" style="color: #3b3d40; font-size : 14px; " ></div>
+				  <input type="text" name="contact" class="required_input form-control noborder" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  placeholder="연락처(필수) EX) 01012345678" style="color: #3b3d40; font-size : 14px; " >
 				  <span class="error_comment" id="contact_error" style="display: none;"></span>
 				</div>
+				
 				
 				<div class="resume-header" style="margin-top:60px;">
 					간단 소개글 
@@ -296,7 +275,6 @@
 						<br/>• 커리어 조회 후 기업명이 실제와 다른 경우, 부서명/직책 란에 원하시는 기업명을 작성해주세요.
 					 </p>
 				</div>						
-					<button type="button" class="plushtml" id="career_btn">+추가</button>
 					<!-- 경력 추가 시작 -->
 				<ul id="addCareer"></ul>
 					<!--  경력 끝 -->	
@@ -308,7 +286,6 @@
 					<div>
 						<p class="resume-inform">• 최신순으로 작성해주세요. </p>
 					</div>		
-					<button class="plushtml" id="addSchool_btn" type="button" >+추가</button>
 					
 					<div class="addSchool"></div>
 					<!--  학력 끝 -->
@@ -321,7 +298,6 @@
 						<p class="resume-inform">• 개발 스택, 디자인 툴, 마케팅 툴 등 가지고 있는 직무와 관련된 스킬을 추가해보세요.
 						<br />• 데이터 분석 툴이나 협업 툴 등의 사용해본 경험이 있으신 툴들도 추가해보세요.</p>
 						<div type="text" id="searchWord" name="searchWord" placeholder="보유하신 스킬을 입력하세요"></div>
-						<button type="button" onclick="searchData()">검색</button>
 						
 						<div class="resume_text" name="skill" oninput="autoResize(this)" placeholder="검색으로 대체할 예정"></div>
 					</div>
@@ -335,7 +311,6 @@
 						<p class="resume-inform">• 수상 이력, 직무 관련 자격증, 수료한 교육이나 참석한 외부활동 등이 있다면 간략히 작성해주세요.
 						<br />• 지원하는 회사에서 요구하는 경우가 아니라면 운전면허증과 같은 자격증은 생략하는 것이 좋습니다!</p>
 					</div>
-					<button class="plushtml" id="addReward_btn" type="button">+추가</button>
 					
 					<div class="addReward"></div>
 					<!--  수상 및 기타 끝 -->
@@ -348,7 +323,6 @@
 						<p class="resume-inform">• 외국어 자격증을 보유한 경우 작성해주세요. 
 						<br />• 활용 가능한 외국어가 있다면, 어느정도 수준인지 레벨을 선택해주세요.</p>
 					</div>
-					<button class="plushtml" id="addLanguage_btn" type="button">+추가</button>
 					
 					<div class="addLanguage"></div>
 					<!--  외국어 끝  -->
@@ -364,17 +338,18 @@
 						<div name="uploadLink" oninput="autoResize(this)" maxlength= "2000" placeholder="ex) wanted.tistory.com" style="border: none; width: 100%;"></div>
 					</div>
 					
-					<!--  링크 끝  -->
+					<!-- 링크 끝  -->
 		</div>
 
 		<div class="container-fluid border-top fixed-bottom" style="padding: 5px 0;">
-			
+
 			<div class="container" style="display:flex; width: 600px;">		
 				<button class="status_button3" type="button" onclick="gobackURL()"><span>지원자 목록</span></button>
 				<button class="status_button1" type="button" onclick="updateStatus_1()"><span>합 격</span></button>
 				<button class="status_button2" type="button" onclick="updateStatus_2()"><span>불 합 격</span></button>
-				
 			</div>
+
+		
 		</div>
 
 

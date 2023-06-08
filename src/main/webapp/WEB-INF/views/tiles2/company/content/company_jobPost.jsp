@@ -473,7 +473,7 @@
 
 <div class="jpMain_frame" id="jpMain_frame">
 	<div class="jptop_content">
-		<button class="plus1" type="button" onclick="location.href='/wanted/company_recruit'"><span><i class="fa-regular fa-square-plus"></i>&nbsp;&nbsp;채용공고 등록</span></button>
+		<button class="plus1" type="button" onclick="location.href='/wanted/company/recruit'"><span><i class="fa-regular fa-square-plus"></i>&nbsp;&nbsp;채용공고 등록</span></button>
 	</div>
 	<div class="jp_content" id="jp_content">
 	</div>
