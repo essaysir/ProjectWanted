@@ -893,7 +893,7 @@
 		// 작성 완료 버튼 클릭시 필수입력항목 유효성검사(공백 및 미작성만) 함수 
 		function insertResume() {
 
-			// 필수입력사항이 모두 입력 됐는지 검사
+/* 			// 필수입력사항이 모두 입력 됐는지 검사
 			$("input.required_input").each( (index, elmt) => {
 				if($(elmt).val().trim() == "") {
 					alert("필수 입력사항을 모두 입력해주세요.");
@@ -918,44 +918,104 @@
 			}
 			else {
 			    $("span.error_comment").hide();
-			}
+			} */
 			
 			/* const formData = $("form[name='resumeForm']").serialize();
 			console.log(formData); */
-			 var inputs = document.querySelectorAll('input[name="lang_Date"], input[name="lang_content"], input[name="for_Lang"]');
-			 var inputData = [];
+			// 입력된 값들을 담을 빈 배열 생성
+			var languageList = [];
 
-			 inputs.forEach(function(input) {
-			    var data = {};
-			    data[input.name] = input.value;
-			    inputData.push(data);
-			  });
-			
+			// 입력된 input 태그들을 선택
+			var dateInputs = document.getElementsByName("lang_Date");
+			var contentInputs = document.getElementsByName("lang_content");
+			var forLangInputs = document.getElementsByName("for_Lang");
+
+			// 입력된 값들을 반복하여 JSON 객체로 생성
+			for (var i = 0; i < dateInputs.length; i++) {
+			  // 각 input 태그에서 값 가져오기
+			  var dateValue = dateInputs[i].value;
+			  var contentValue = contentInputs[i].value;
+			  var forLangValue = forLangInputs[i].value;
+
+			  // LanguageVO 객체 생성
+			  var languageVO = {
+			    lang_Date: dateValue,
+			    lang_content: contentValue,
+			    for_Lang: forLangValue
+			  };
+
+			  // LanguageVO 객체를 배열에 추가
+			  languageList.push(languageVO);
+			}
+
+			// 생성된 JSON 객체 확인
+			console.log(languageList);
+
+			// 입력된 값들을 담을 빈 배열 생성
+			var rewardList = [];
+
+			// 입력된 input 태그들을 선택
+			var dateInputs = document.getElementsByName("reward_Date");
+			var rewardInputs = document.getElementsByName("reward");
+			var contentInputs = document.getElementsByName("content");
+
+			// 입력된 값들을 반복하여 JSON 객체로 생성
+			for (var i = 0; i < dateInputs.length; i++) {
+			  // 각 input 태그에서 값 가져오기
+			  var dateValue = dateInputs[i].value;
+			  var rewardValue = rewardInputs[i].value;
+			  var contentValue = contentInputs[i].value;
+
+			  // RewardVO 객체 생성
+			  var rewardVO = {
+			    reward_Date: dateValue,
+			    reward: rewardValue,
+			    content: contentValue
+			  };
+
+			  // RewardVO 객체를 배열에 추가
+			  rewardList.push(rewardVO);
+			}
+
+			// 생성된 JSON 객체 확인
+			console.log(rewardList);
+
 			// #5.
-			var ResumeVO
-			= [
+			var ResumeVO= 
 				  { 
-					  fk_UserId :  ${userid} , 
+					  fk_UserId :  "한오열" , 
 					  subject : $("input[name='subject']").val() , 
 					  introduce : $("input[name='introduce']").val(),
 					  uploadLink : $("textarea[name='uploadLink']").val(), 
-					  languagevo :  languagevoList ,
-					  rewardvo : rewardvoList , 
-					  schoolvo : schoolvoList , 
-					  carrervo : carrervoList , 
-					  member_Techvo  : member_TechvoList 
-				  } ] ;
+					  languageList :  languageList ,
+					  rewardList : rewardList , 
+					  // schoolvo : schoolvoList , 
+					  //carrervo : carrervoList , 
+					  // member_Techvo  : member_TechvoList 
+				  }  ;
 				  
-			
+			$.ajax({
+				url: "/wanted/myresume",
+				type: "post",
+				async:"false",
+				contentType: "application/json; charset=utf-8", 
+				data: JSON.stringify(ResumeVO),
+				success: function (result) {
+					
+				},
+				error: function (request, status, error) {
+					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				}
+			});
 			
 			
 			
 			
 		 	// 유효성 검사 후 최종 전송 확정
-			const frm = document.resumeFrm;
+/* 			const frm = document.resumeFrm;
 			frm.action = "/wanted/myresume";
 			frm.method = "post";
-			frm.submit();
+			frm.submit(); */
 		    
 		}; // end of function insertResume()------------------------------
 		

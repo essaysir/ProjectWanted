@@ -18,11 +18,11 @@ public class ResumeVO {
 
     // join insert
     
-    private List<LanguageVO> languagevo; // Language 테이블에 대응하는 VO 리스트
-    private List<RewardVO> rewardvo; // Reward 테이블에 대응하는 VO 리스트
-    private List<SchoolVO> schoolvo; // School 테이블에 대응하는 VO 리스트
-    private List<CareerVO> careervo; // Career 테이블에 대응하는 VO 리스트
-    private List<MemberTechVO> member_Techvo; // MemberTech 테이블에 대응하는 VO 리스트
-    private List<PerformanceVO> performancevo; // MemberTech 테이블에 대응하는 VO 리스트
+    private List<LanguageVO> languageList; // Language 테이블에 대응하는 VO 리스트
+    private List<RewardVO> rewardList; // Reward 테이블에 대응하는 VO 리스트
+    private List<SchoolVO> schoolvoList; // School 테이블에 대응하는 VO 리스트
+    private List<CareerVO> careervoList; // Career 테이블에 대응하는 VO 리스트
+    private List<MemberTechVO> member_TechvoList; // MemberTech 테이블에 대응하는 VO 리스트
+    private List<PerformanceVO> performancevoList; // MemberTech 테이블에 대응하는 VO 리스트
 }
 

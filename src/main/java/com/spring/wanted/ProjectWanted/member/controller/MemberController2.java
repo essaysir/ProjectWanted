@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.spring.wanted.ProjectWanted.member.model.CareerVO;
 import com.spring.wanted.ProjectWanted.member.model.LanguageVO;
 import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
@@ -37,9 +40,10 @@ public class MemberController2 {
 	
 	// 이력서 작성 페이지의 작성된 이력서 DB에 저장하기
 	@PostMapping(value = "/myresume")
-	public String resume_input(ResumeVO resumevo ,  @RequestParam List<String> carrervo,   @RequestParam List<String> start_Date ) {
+	public String resume_input(@RequestBody ResumeVO resumevo ) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		System.out.println(gson.toJson(resumevo));
 		
-		
-		return "/login";
+		return "index.tiles1";
 	}
 }
