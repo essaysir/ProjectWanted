@@ -84,10 +84,10 @@
 	}
 	
 	.jcard_topR > .jpPass {
-		background-color: #2f85c6;
-		color: #FFF;
+		background-color: #ECF1FE; 
+		color: #2f85c6;
 		cursor: pointer;
-		border: none;
+		border: solid 1px #2f85c6;
 		width: 110px;
 	    height: 50px;
 	    font-size: 16pt;
@@ -97,9 +97,9 @@
 	}
 	
 	.jcard_topR > .jpPass:hover{
-		border: solid 1px #3366FF;
-		background-color: #ECF1FE !important; 
-		color: #2f85c6;
+		border: none;
+		background-color: #2f85c6!important;
+		color: #FFF;
 	}
 	
 	.jcard_topR > .jpEnd {

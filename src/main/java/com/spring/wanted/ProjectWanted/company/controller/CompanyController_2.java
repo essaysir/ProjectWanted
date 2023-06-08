@@ -1,9 +1,11 @@
 package com.spring.wanted.ProjectWanted.company.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_2;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
@@ -42,13 +46,13 @@ public class CompanyController_2 {
 	
 	// TBL_POST에 등록하기
 	@PostMapping(value="/recruit", produces = "text/plain;charset=UTF-8")
-	public String recruit(PostVO postvo , @RequestParam(value="tech_code") List<String> techcode){
+	public String recruit(PostVO postvo, @RequestParam(value="tech_code", required = false) List<String> techcode, MultipartHttpServletRequest mrequest){
 		
 			
-			if(techcode.size() <6) {
-				service.insertRecruitSkil(postvo, techcode);
-			} else {
-				service.insertRecruit(postvo);
+			if(techcode != null && techcode.size() > 0) {
+				//service.insertRecruitSkil(postvo, techcode, mrequest);
+			} else {				
+				service.insertRecruit(postvo, mrequest);
 			}
 			
 		
@@ -117,9 +121,10 @@ public class CompanyController_2 {
 	// 기간만료 공고 삭제하기 
 	@ResponseBody
 	@GetMapping(value="/deleteRecruit", produces = "text/plain;charset=UTF-8")
-	public String deleteRecruit(@RequestParam("post_code") String post_code){
-				
-		int n = service.deleteRecruit(post_code);
+	public String deleteRecruit(HttpServletRequest request, @RequestParam("post_code") String post_code){
+		
+		int n = service.deleteRecruit(post_code, request);
+		
 	    if (n==1) {
 	        return "success";
 	    } else {
@@ -134,6 +139,7 @@ public class CompanyController_2 {
 	public String stopRecruit(@RequestParam("post_code") String post_code){
 				
 		int n = service.stopRecruit(post_code);
+		
 	    if (n==1) {
 	        return "success";
 	    } else {

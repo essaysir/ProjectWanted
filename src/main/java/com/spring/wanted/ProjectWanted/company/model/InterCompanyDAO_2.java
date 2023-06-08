@@ -30,7 +30,7 @@ public interface InterCompanyDAO_2 {
 	void updateRecruit(PostVO postvo);
 	
 	// 기간만료 공고 삭제하기 
-	int deleteRecruit(String post_code);
+	int deleteRecruit(String post_code, Map<String, String> paraMap);
 	
 	// 공고 중단하기
 	int stopRecruit(String post_code);
@@ -46,6 +46,9 @@ public interface InterCompanyDAO_2 {
 	
 	//결제완료 후 deadline update하기
 	void updateExtendPost(String post_code);
+	
+	// 공고삭제를위한 하나의 공고 가져오기
+	PostVO getOneRecruit(String post_code);
 
 	
 
