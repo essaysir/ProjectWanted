@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.wanted.ProjectWanted.member.model.CareerVO;
+import com.spring.wanted.ProjectWanted.member.model.LanguageVO;
 import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 import com.spring.wanted.ProjectWanted.member.service.InterMemberService2;
 
@@ -36,13 +37,9 @@ public class MemberController2 {
 	
 	// 이력서 작성 페이지의 작성된 이력서 DB에 저장하기
 	@PostMapping(value = "/myresume")
-	public String resume_input(ResumeVO resumevo, List<CareerVO> careervo ) {
-
-	//	careervo.set(index, element);
-
-		//@RequestParam(value="tech_code", required=true) List<String> tech_code
+	public String resume_input(ResumeVO resumevo ,  @RequestParam List<String> carrervo,   @RequestParam List<String> start_Date ) {
 		
 		
-		return "/member/resume_input.tiles1";
+		return "/login";
 	}
 }
