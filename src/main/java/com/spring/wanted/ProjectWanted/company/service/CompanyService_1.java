@@ -37,12 +37,6 @@ public class CompanyService_1 implements InterCompanyService_1 {
 	}
 
 
-	// 검색기능
-	@Override
-	public List<Map<String, String>> listSearchWithPaging(Map<String, String> paraMap) {
-		List<Map<String, String>> candidateList = cdao.listSearchWithPaging(paraMap); 
-		return candidateList;
-	}
 
 
 	// 지원자 이력서  가져오기
@@ -50,6 +44,13 @@ public class CompanyService_1 implements InterCompanyService_1 {
 	public List<Map<String, String>> candidateResume(Map<String, String> paraMap) {
 		List<Map<String, String>> candidateResume = cdao.getResume(paraMap);
 		return null;
+	}
+
+
+	@Override
+	public List<Map<String, String>> listhSearchWithPaging(Map<String, String> paraMap) {
+		List<Map<String, String>> candidateList = cdao.listSearchWithPaging(paraMap); 
+		return candidateList;
 	}
 	
 	

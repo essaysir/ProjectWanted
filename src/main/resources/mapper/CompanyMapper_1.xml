@@ -21,7 +21,7 @@
 		     JOIN TBL_APPLY a ON r.RESUME_CODE = a.FK_RESUME_CODE
 		     JOIN TBL_POST p ON a.FK_POST_CODE = p.POST_CODE
 		WHERE 1=1
-		<if test="status != 0">AND STATUS = #{status}</if>
+		<if test="status != 0 and status != ''">AND STATUS = #{status}</if>
 		ORDER BY a.APPLYDATE DESC
 	</select>
 

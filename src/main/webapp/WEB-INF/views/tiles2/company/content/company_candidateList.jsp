@@ -11,7 +11,7 @@
    }
    
    h3{
-      width: 1500px;
+      width: 1400px;
       margin: 50px auto;
    }
    
@@ -29,7 +29,7 @@
    table.containerTitle {
       background-color: #fff;
       height: 50px;
-      width: 1500px;
+      width: 1400px;
       margin: 0 auto;
    }
    
@@ -50,7 +50,7 @@
        overflow: hidden;
        border: solid 2px #ddd;
        background-color: #fff;
-       width: 1500px;
+       width: 1400px;
        margin: 0 auto;
        border-top-left-radius: 10px;
        border-top-right-radius: 10px; 
@@ -70,7 +70,7 @@
        padding: 14px 16px;
        transition: 0.3s;
        font-size: 20px;
-       width: 498.2px;
+       width: 465px;
    }
    
    button.tablinks:hover {
@@ -94,9 +94,10 @@
    #buttonSection {
    	   display: flex; 
    	   padding: 10px; 
-   	   border: solid 2px #ddd; 
+   	   border-right: solid 2px #ddd; 
+   	   border-left: solid 2px #ddd; 
    	   background-color: #fff;
-       width: 1500px;
+       width: 1400px;
        margin: 0 auto;
    	   justify-content: space-between;
    }
@@ -116,6 +117,12 @@
 
 
    /* pageBar */
+   ul#pageBar {
+	  list-style:none; 
+	  display:flex; 
+	  border:solid 1px red;
+	}
+
    #pageNo {
    	  display:inline-block; 
    	  width: 50px; 
@@ -135,19 +142,15 @@
    	  font-size: 16pt; 
    	  border: solid 1px gray; 
    	  border-radius: 50px; 
-   	  font-color: gray !important; 
+   	  color: gray !important; 
    	  padding: 8px; 
    	  margin: 6px;
-   	  
+   	  list-style: none;
+   	  background-color: inherit;
    }
-   	
-   #pageBarNo > a, #pageArrow > a {
-	  text-decoration: none;
-	  color: gray;
-   }
-   
-   #pageBarNo:hover, #pageBarNo>a:hover, #pageArrow:hover, #pageArrow>a:hover {
-	  color: #184CED; 
+
+   #pageBarNo:hover, #pageBarNo:hover, #pageArrow:hover, #pageArrow:hover {
+	  color: #184CED !important; 
 	  border-color: #184CED; 
    }
 
@@ -190,32 +193,31 @@
 
    
    <%-- 지원자List 불러오기 시작 --%>
-   function getCandidateList(status){
-    
-       $.ajax({
-          url:"/wanted/getCandidateList",
-          data:{status: status },
-          async:"true",
-          type:"get",
-          success:function(result) {
-             
-             if(result.trim() == 'false') {
-                    $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
-               } 
-               else {
-                   $("div.tab").html(result);
-               }
-
-          },
-          error: function(request, status, error){
-              alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-           }
-          
-          }); // end of $.ajax({}) ----
-   }; 
+   function getCandidateList(status, orderBy) {
+	   $.ajax({
+	      url: "/wanted/company/getCandidateList",
+	      data: { status: status, orderBy: orderBy },
+	      async: true,
+	      type: "get",
+	      success: function(result) {
+	         if (result.trim() == 'false') {
+	            $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
+	         } else {
+	            $("div.tab").html(result);
+	         }
+	      },
+	      error: function(request, status, error) {
+	         alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+	      }
+	   });
+	}
    <%-- 지원자List 불러오기 끝 --%>
    
    
+
+	  
+   
+
    $(document).ready(function(){
 
         $("input#searchWord").keyup(function(e){
@@ -312,18 +314,83 @@
 
      
      // Function Declaration
-     function goSearch(){
-   /*     
-          var searchType = document.getElementById("searchType").value;
-          
-          // 입력된 값을 가져옴
-          var searchWord = document.getElementById("searchWord").value;
-   */     
-        const frm = document.searchFrm;
-        frm.method = "get";
-        frm.action = "/wanted/getCandidateList";
-        frm.submit();
+     function goSearch(){   
+    	 $.ajax({
+    	     url:"/wanted/getCandidateList",
+             data:{ status: status },
+             async:"true",
+             type:"get",
+             success:function(result) {
+                
+            	 var searchType = document.getElementById("searchType").value;
+                 var searchWord = document.getElementById("searchWord").value;
+                 
+                      $("div.tab").html(result);
+
+             },
+             error: function(request, status, error){
+                 alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+              }
+    	    });
      }// end of function goSearch()--------------------- 
+     
+     
+     function sortNew() {
+    	   $.ajax({
+    	      url: "/wanted/company/getCandidateList",
+    	      data: { status: status, orderBy: "a.APPLYDATE DESC" },
+    	      async: true,
+    	      type: "get",
+    	      success: function(result) {
+    	         if (result.trim() == 'false') {
+    	            $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
+    	         } else {
+    	            $("div.tab").html(result);
+    	         }
+    	      },
+    	      error: function(request, status, error) {
+    	         alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+    	      }
+    	   });
+    }
+
+   	 function sortPast() {
+   		$.ajax({
+  	      url: "/wanted/company/getCandidateList",
+  	      data: { status: status, orderBy: "a.APPLYDATE ASC" },
+  	      async: true,
+  	      type: "get",
+  	      success: function(result) {
+  	         if (result.trim() == 'false') {
+  	            $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
+  	         } else {
+  	            $("div.tab").html(result);
+  	         }
+  	      },
+  	      error: function(request, status, error) {
+  	         alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+  	      }
+  	   });
+   	 }
+
+   	 function sortSubject() {
+   		$.ajax({
+    	      url: "/wanted/company/getCandidateList",
+    	      data: { status: status, orderBy: "SUBJECT ASC" },
+    	      async: true,
+    	      type: "get",
+    	      success: function(result) {
+    	         if (result.trim() == 'false') {
+    	            $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
+    	         } else {
+    	            $("div.tab").html(result);
+    	         }
+    	      },
+    	      error: function(request, status, error) {
+    	         alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+    	      }
+    	   });
+    	 }
    
    
 </script>
