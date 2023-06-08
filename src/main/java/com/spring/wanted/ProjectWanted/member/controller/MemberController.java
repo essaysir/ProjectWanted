@@ -1,19 +1,22 @@
 package com.spring.wanted.ProjectWanted.member.controller;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.wanted.ProjectWanted.member.service.InterMemberService;
 
-import javax.servlet.http.HttpServletRequest;
+import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.model.Message;
+import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
+import net.nurigo.sdk.message.response.SingleMessageSentResponse;
+import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @RequestMapping(value="/wanted")
 @Controller
@@ -32,40 +35,14 @@ public class MemberController {
 		public String login() {
 			return "tiles1/member/login";
 		}
-
-		
-		@GetMapping(value="/login2")
-		public String login2() {
-			return "/post/mainPost2.tiles1";
-		}
-		@GetMapping(value="/index")
-		public String index() {
-			return "/tiles1/post/test";
-		}
-			
 		
 		// 이메일 입력시 
-		@PostMapping(value="/checkUserid")
+		@PostMapping(value="/login/checkUserid")
 		public String checkUserid(@RequestParam String userid , HttpServletRequest request ) {
 			String view = service.checkUserid(userid);
 			request.setAttribute("userid", userid);
 			return view ;
 		}
 		
-		@GetMapping(value="/register")
-		public String test() {
-			
-			return "tiles1/member/signup";
-		}
-		
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

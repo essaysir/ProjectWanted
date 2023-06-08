@@ -70,11 +70,11 @@
 		border: solid 1px #e1e2e3;
 		border-radius: 5px;
 		width: 35%;
-	    height: 98%;
+	    height: 130%;
 	    margin: 0 auto;
 	    display: flex;
 		position: absolute;
-	    top: 50%;
+	    top: 62%;
 	    left: 50%;
 	    transform: translate(-50%, -50%);
   		flex-direction: column;
@@ -266,11 +266,64 @@
 </style>
 
 <script type="text/javascript">	
-			 $(document).ready(function() {
-				  $(".is_agree_check").click(function() {
-				    $(this).toggleClass("checked");
-		  });
-		});
+		let username_flag = false ;
+		$(document).ready(function() {
+			$("p#username-warning").hide();		  
+			$(".is_agree_check").click(function() {
+					    $(this).toggleClass("checked");
+					  });
+					  
+					  // checked 클래스 추가
+					  $(".is_agree_check").addClass("checked");
+						
+				  $("button#register").on('click', register );
+				  $("input#name_input").on('input', checkName);
+				  $("input#pwd_input").on('input', checkPassword);
+				  $("input#pwd2_input").on('input', checkPassword);
+				  $("input#what_input").on('input',checkMobile)
+		}); // END OF  $(DOCUMENT).READY(FUNCTION() 
+		function checkName (){
+			const regExp = /^[가-힣]{2,6}$/ ; 
+			const bool = regExp.test( $(this).val() );
+			
+			if ( !bool ){
+				username_flag = false ; 
+				$("p#username-warning").show();
+			}
+			else{
+				username_flag = true ; 
+				$("p#username-warning").hide();
+			}
+			
+		} // end of function checkName
+		function checkMobile(){
+			const regExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+			const bool = regExp.test( $(this).val() );
+			
+			if ( !bool){
+				
+			}
+			else{
+				
+			}
+			
+			
+		}// end of function checkMobile
+		function checkPassword(){
+			
+			
+		}
+				
+		function register(){
+			
+			const registerFrm = document.login_input;
+			registerFrm.action="/"; 
+			registerFrm.method ="post"; 
+			registerFrm.submit();
+		} // end of function register 		
+				
+			 
+			 
 </script>
 
 
@@ -301,33 +354,38 @@
 				</div>		
 				<!-- 네 번째 중간 틀 끝(제목이 있는 틀) -->
 				<div id="signup_innerFrm">
-					<form id="login_input">
+					<form id="login_input" name="login_input">
 					<div id="signup_innerFrm2">
 						<div id="email_box">
 							<label>이메일</label>
-							<input type="email" id="email_input" placeholder="자바스크립트로 로그인창에서 받아온 입력값 가져오기" name="email" />
+							<input type="email" id="email_input" value="${userid}" name="userid" readonly/>
 						</div>
 						<div id="username_box">
 							<label>이름</label>
-							<input type="text" id="name_input" placeholder="이름을 입력해주세요." name="username" required />
+							<input type="text" id="name_input" placeholder="이름을 입력해주세요." name="username"  />
+							<p  id="username-warning" style="color: red; font-weight: 400; text-align: left; font-size: 12px; margin: 0 10px 0 0;">이름은 한글 2글자에서 6글자만 가능합니다.</p>
+							
 						</div>	
-						<div class="certification_box"><label>휴대폰인증</label></div>
+						 <div class="certification_box"><label>휴대폰인증</label></div>
 						<div class="certification_box">
 							<input type="text" id="what_input" placeholder="(예시)01012345678" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" />
-							<button type="submit" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 90px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
-						</div>
-						<div class="certification_box"><label>이메일 인증</label></div>
+							<button type="button" disabled style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 90px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
+						</div> 
+						
+						<%-- <div class="certification_box"><label>이메일 인증</label></div>
 						<div class="certification_box">	
-							<input type="text" id="what2_input" placeholder="자바스크립트로 로그인창에서 받아온 입력값 가져오기" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" />
+							<input type="text" id="what2_input" value="${userid}" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" readonly />
 							<button type="submit" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 90px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
 						</div>
 						<div class="certification_check">
 							<input type="text" id="certification_input" placeholder="인증번호를 입력해주세요." style="background-color: #f2f4f7;" />
 						</div>
-						<div id="pwd_box">
+						 --%>
+						 
+						 <div id="pwd_box">
 							<label>비밀번호</label>
-							<input type="text" id="pwd_input" placeholder="비밀번호를 입력해주세요." name="pwd" required />
-							<input type="password" id="pwd2_input" placeholder="비밀번호를 다시 한번 입력해주세요." name="pwd" required />
+							<input type="password" id="pwd_input" placeholder="비밀번호를 입력해주세요." name="pwd"  />
+							<input type="password" id="pwd2_input" placeholder="비밀번호를 다시 한번 입력해주세요." name="pwd"  />
 							<p style="color: #888888; font-weight: 400; text-align: left; font-size: 12px; margin: 0 10px 0 0;">영문 대소문자, 숫자, 특수문자, 3가지 이상으로 조합해 8자 이상 16자 이하로 입력해주세요.</p>
 						</div>		
 						<div id="is_agree_all_box" class="is_agree_box">
@@ -362,7 +420,7 @@
 							<a href="https://id.wanted.jobs/privacy/ko" style="color: #888888; line-height: 22px; text-align: right; padding-left: 271.3px;">자세히</a>
 						</div>
 						<div>
-							<button style="background-color: #f2f4f7; border: none; cursor: pointer; color: #ccc; width: 100%; height: 50px; min-height: 50px; border-radius: 25px; font-size: 16px; margin-bottom: 10px; margin-top: 30px;">가입하기</button>
+							<button type="button" id="register" disabled style="background-color: #f2f4f7; border: none; cursor: pointer; color: #ccc; width: 100%; height: 50px; min-height: 50px; border-radius: 25px; font-size: 16px; margin-bottom: 10px; margin-top: 30px;">가입하기</button>
 						</div>
 					</div>
 						

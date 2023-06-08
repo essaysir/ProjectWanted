@@ -306,7 +306,7 @@
 		
 		function checkUserid(){
 			$.ajax({
-				url: "/wanted/checkUserid",
+				url: "/wanted/login/checkUserid",
 				type: "post",
 				async:"false", 
 				data: {"userid": $('input#email_input').val()} ,
