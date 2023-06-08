@@ -34,7 +34,7 @@
 
 	function setMenuList() {
 		$.ajax({
-			url: "/wanted/getHeaderList",
+			url: "/wanted/company/getHeaderList",
 			type: "get",
 			dataType: "json",
 			success: function (json) {
@@ -91,7 +91,7 @@
 		var duties;
 		
 		$.ajax({
-			url: "/wanted/getDuty",
+			url: "/wanted/company/getDuty",
 			type: "get",
 			data: {"jobCode": jobCode},
 			dataType: "json",
