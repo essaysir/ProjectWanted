@@ -2390,9 +2390,9 @@ section#skillSearch {
     		cancelDuty.call(this);
 		});
     	
-    	$(document).on('click', 'button#confirmDuty' , function(){
+    	/* $(document).on('click', 'button#confirmDuty' , function(){
 			confirmDuty.call(this);				
-		})
+		}) */
     	
     	
     }
@@ -2424,11 +2424,11 @@ section#skillSearch {
 		
 		duty_select_count--;
 	}
-	
+	/* 
 	function confirmDuty() {
-		
+		console.log("하하하");
 	}
-	
+	 */
 	
 	
     
