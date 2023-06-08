@@ -408,288 +408,285 @@
 		
 		
 		let insert_count = 0 ;  // 최대 다섯개까지만 선택할 수 있게 해주는 COUNT
-	function settingSearchSkill(){
-		buttonActive();
-	 	getSkil();
-	 	$("p.search-answer-none").hide();
-	 	$("div.search-result").hide();
-		$("input#search-skill").on('input', searchSkill );
-		
-		/// 밑의 방식과 같이 되어있는 이유는 밑의 함수에서 
-		// $(this) 를 사용하기 위해서 다음과 같이 실행중이다. 
-		$(document).on('click', 'li.search-answer-li', function(){
-			insertSkill.call(this, "list")
-		});
-		$(document).on('click' , 'button.btn-skill' , function(){
-			 insertSkill.call(this, "button")
-		});
-		
-		$(document).on('click' , 'button.btn-delete' , function(){
-			deleteSkill.call(this)
-		});
-		
-		$(document).on('click', 'button#section-cancle' , function(){
-			sectionClose.call(this)				
-		})
-		
-		$(document).on('click', 'button#section-adjust' , function(){
-			sectionAdjust.call(this)				
-		})
-		
-	} // END OF FUNCTION
-	
-	
-	function buttonActive(){
-		$("#skill").click(function() {
-		    $("section#skillSearch").toggle();
-		  }); 	
-	
-	} // END OF FUNCTION buttonActive 
-	
-	function getSkil(){
-		let html = "" ;
-		$.ajax({
-			url: "/wanted/getSkill",
-			type: "get",
-			dataType:"json",
-			success: function (result) {
-			   //  console.log(JSON.stringify(result));
-				// 버튼 추가를 위한 반복문
-			    $.each(result, function(index, skill) {
-			        html += '<li class="li-skill">' +
-			                        '<button type="button" class="btn-skill" id="btn-skill-'+skill.tech_code+ '">' +
-			                            '<div class="div_skill">' +
-			                                skill.tech_name +
-			                                '<input type="hidden" class="tech_code" value=" '+skill.tech_code+' "/> '+
-			                                '<span style="margin-left:4px; margin-bottom:2px; ">' +
-			                                    '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
-			                                        '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
-			                                    '</svg>' +
-			                                '</span>' +
-			                            '</div>' +
-			                        '</button>' +
-			                    '</li>';
-			    });
-				
-			    // 생성한 것들을 HTML 에 추가
-			    $("ul#recommendList").html(html); 
-			},
-			error: function (request, status, error) {
-				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-			}
-		});
+		function settingSearchSkill(){
+			buttonActive();
+		 	getSkil();
+		 	$("p.search-answer-none").hide();
+		 	$("div.search-result").hide();
+			$("input#search-skill").on('input', searchSkill );
+			
+			/// 밑의 방식과 같이 되어있는 이유는 밑의 함수에서 
+			// $(this) 를 사용하기 위해서 다음과 같이 실행중이다. 
+			$(document).on('click', 'li.search-answer-li', function(){
+				insertSkill.call(this, "list")
+			});
+			$(document).on('click' , 'button.btn-skill' , function(){
+				 insertSkill.call(this, "button")
+			});
+			
+			$(document).on('click' , 'button.btn-delete' , function(){
+				deleteSkill.call(this)
+			});
+			
+			$(document).on('click', 'button#section-cancle' , function(){
+				sectionClose.call(this)				
+			})
+			
+			$(document).on('click', 'button#section-adjust' , function(){
+				sectionAdjust.call(this)				
+			})
+			
+		} // END OF FUNCTION
 		
 		
-	}// END OF FUCNTION GETSKILL
-	
-	function searchSkill(){
-		$("div.search-result").show();
-		let html = "";
-		const input_val = $("input#search-skill").val();
-		if ( input_val.trim() == ""   ){
-			$("ul.search-answer").empty();
-			$("div.search-result").hide();
-			return false ; 
-		}// end of if 
+		function buttonActive(){
+			$("#skill").click(function() {
+			    $("section#skillSearch").toggle();
+			  }); 	
 		
-		else{
-			$("p.search-answer-none").hide();
+		} // END OF FUNCTION buttonActive 
+		
+		function getSkil(){
+			let html = "" ;
 			$.ajax({
-				url: "/wanted/searchSkill",
+				url: "/wanted/getSkill",
 				type: "get",
-				data: {"input_val": input_val } ,
 				dataType:"json",
 				success: function (result) {
-				   	//console.log(JSON.stringify(result));
-				    // console.log(result.length);
+				   //  console.log(JSON.stringify(result));
 					// 버튼 추가를 위한 반복문
-					if ( result.length == 0 ){
-						$("p.search-answer-none").show();
-					}
+				    $.each(result, function(index, skill) {
+				        html += '<li class="li-skill">' +
+				                        '<button type="button" class="btn-skill" id="btn-skill-'+skill.tech_code+ '">' +
+				                            '<div class="div_skill">' +
+				                                skill.tech_name +
+				                                '<input type="hidden" class="tech_code" value=" '+skill.tech_code+' "/> '+
+				                                '<span style="margin-left:4px; margin-bottom:2px; ">' +
+				                                    '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
+				                                        '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
+				                                    '</svg>' +
+				                                '</span>' +
+				                            '</div>' +
+				                        '</button>' +
+				                    '</li>';
+				    });
 					
-					else{
-						$.each(result, function(index, skill) {
-					    	html += "<li class=\"border-bottom search-answer-li\">"+skill.tech_name+"<input type='hidden'  class='tech_code' value='"+skill.tech_code+"' /></li>" 
-						});
-					}
-					$("ul.search-answer").html(html); // 생성한 것들을 HTML 에 추가
-				
+				    // 생성한 것들을 HTML 에 추가
+				    $("ul#recommendList").html(html); 
 				},
 				error: function (request, status, error) {
 					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 				}
-			});// END OF AJAX 
+			});
 			
-			
-		}// end of else
-	}// END OF FUNCTION SEARCHSKILL 
-	
-	function insertSkill(type){
-		let tech_name = ""; 
-		let tech_code = ""; 
+		}// END OF FUCNTION GETSKILL
 		
-		tech_name = $(this).text();
-		tech_code = $(this).find('input.tech_code').val();
-		// console.log(tech_name);  // PYTHON 
-		// console.log(tech_code);  //  1000 		
-	
-		if ( type == "list" ){
-			$("input#search-skill").val("");
-			$("ul.search-answer").empty();
-			$("div.search-result").hide();
+		function searchSkill(){
+			$("div.search-result").show();
+			let html = "";
+			const input_val = $("input#search-skill").val();
+			if ( input_val.trim() == ""   ){
+				$("ul.search-answer").empty();
+				$("div.search-result").hide();
+				return false ; 
+			}// end of if 
 			
-			 $("button.btn-skill").each(function() {
-				
-				 	let buttonText = $(this).text(); // 각 button의 텍스트를 가져옵니다.
-				    if (buttonText.includes(tech_name)) {
-				      // 해당 button에 특정 단어가 포함되어 있다면 원하는 동작을 수행합니다.
-				      // 예를 들어, 해당 button을 스타일링하거나 클릭 이벤트를 트리거할 수 있습니다.
-				      // console.log($(this).html());
-				      $(this).removeClass("btn-skill").addClass("btn-delete");
-				      
-				      // 버튼 내부의 span 요소를 선택합니다.
-					    var spanElement = $(this).find('span');
-
-					    // span 요소의 내용을 변경합니다.
-					    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M0.826019 3.33516C0.637056 3.1462 0.330686 3.1462 0.141723 3.33516C-0.0472409 3.52412 -0.0472409 3.83049 0.141723 4.01946L3.36753 7.24526C3.55649 7.43423 3.86286 7.43423 4.05183 7.24526L9.85828 1.43881C10.0472 1.24985 10.0472 0.943479 9.85828 0.754515C9.66931 0.565552 9.36294 0.565552 9.17398 0.754515L3.70968 6.21882L0.826019 3.33516Z" fill="currentColor"></path></svg>');
-					    let div_element = $(this).parent().find("div.div_skill");
-					    div_element.css("color" , "#36f"); 
-				      
-				    }
-				    
-			 });
-			
-		} // END OF if ( type == "list" ) 
-
-		else if ( type == "button"){
-			// 버튼을 클릭했을 시, 클래스를 바꿔줌을 통해 기존의 function 이 작동되지 않고
-			// delete 함수를 작동시킬 수 있도록 설정
-			let  element = $(this);
-			element.removeClass("btn-skill").addClass("btn-delete");
-			
-		    // 버튼 내부의 span 요소를 선택합니다.
-		    var spanElement = $(this).find('span');
-
-		    // span 요소의 내용을 변경합니다.
-		    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M0.826019 3.33516C0.637056 3.1462 0.330686 3.1462 0.141723 3.33516C-0.0472409 3.52412 -0.0472409 3.83049 0.141723 4.01946L3.36753 7.24526C3.55649 7.43423 3.86286 7.43423 4.05183 7.24526L9.85828 1.43881C10.0472 1.24985 10.0472 0.943479 9.85828 0.754515C9.66931 0.565552 9.36294 0.565552 9.17398 0.754515L3.70968 6.21882L0.826019 3.33516Z" fill="currentColor"></path></svg>');
-			
-		    let div_element = $(this).parent().find("div.div_skill");
-		    div_element.css("color" , "#36f"); 
-			
-		} // END OF else if ( type == "button" )
-		
-		else{
-			alert("잘못된 경로입니다. 하지마세요");
-			return false; 
-		}
-
-		if  ( insert_count >= 5 ){
-			alert(" 최대 5개의 기술스택만 선택할 수 있습니다.");
-			return false ; 
-		} // end of if 
-		
-		let html = ""; 
-	
-		
-	
-		html += '<li class="li-skill">' +
-					        '<button type="button" class="btn-delete">' +
-					          '<div class="div_insert_skill">' +
-					            tech_name +
-					            '<input type="hidden" id="insert-tech-code" value="'+tech_code+'"/>'+
-					            '<span style="margin-left:4px; margin-bottom:2px;">' +
-					              '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
-					                '<path d="M0.882988 0.151497L5.00001 4.26852L9.11705 0.151497C9.31905 -0.0504989 9.6465 -0.0504989 9.8485 0.151497C10.0505 0.35349 10.0505 0.680994 9.8485 0.882988L5.7315 5.00001L9.8485 9.11705C10.0505 9.31905 10.0505 9.6465 9.8485 9.8485C9.6465 10.0505 9.31905 10.0505 9.11705 9.8485L5.00001 5.7315L0.882988 9.8485C0.680994 10.0505 0.35349 10.0505 0.151497 9.8485C-0.0504989 9.6465 -0.0504989 9.31905 0.151497 9.11705L4.26852 5.00001L0.151497 0.882988C-0.0504989 0.680994 -0.0504989 0.35349 0.151497 0.151497C0.35349 -0.0504989 0.680994 -0.0504989 0.882988 0.151497Z" fill="currentColor"></path>' +
-					              '</svg>' +
-					            '</span>' +
-					          '</div>' +
-					        '</button>' +
-					      '</li>';
-			
-		$("ul#insertList").append(html) ;
-		insert_count ++ ; 
-		
-	}// END OF FUNCTION INSERTSKILL 
-	
-	function deleteSkill (){
-		// console.log( $(this).html() );
-		// console.log( $(this).text());  EX : Spring Framework 
-		let tech_name = $(this).text() ;
-		 $("div.data-input button.btn-delete").each(function() {
-				// console.log($(this).html());
-				// console.log($(this).text());
-				if ( $(this).text().includes(tech_name) ){
-					// console.log($(this).parent().html());
-					// console.log($(this).parent().parent().html() ) ;
-					// $(this).parent().parent().remove(); => ul 태그 까지 사라져서 사용 불가능
-					$(this).closest('li').remove(); //  다음과 같이 하면 , li 까지만 지워지게 된다.
+			else{
+				$("p.search-answer-none").hide();
+				$.ajax({
+					url: "/wanted/searchSkill",
+					type: "get",
+					data: {"input_val": input_val } ,
+					dataType:"json",
+					success: function (result) {
+					   	//console.log(JSON.stringify(result));
+					    // console.log(result.length);
+						// 버튼 추가를 위한 반복문
+						if ( result.length == 0 ){
+							$("p.search-answer-none").show();
+						}
+						
+						else{
+							$.each(result, function(index, skill) {
+						    	html += "<li class=\"border-bottom search-answer-li\">"+skill.tech_name+"<input type='hidden'  class='tech_code' value='"+skill.tech_code+"' /></li>" 
+							});
+						}
+						$("ul.search-answer").html(html); // 생성한 것들을 HTML 에 추가
 					
-					insert_count -- ; 
-				} // end of if 
+					},
+					error: function (request, status, error) {
+						alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+					}
+				});// END OF AJAX 
 				
 				
-		 });// end of each.function
+			}// end of else
+		}// END OF FUNCTION SEARCHSKILL 
 		
-		 $("ul#recommendList button.btn-delete").each(function(){
-			 if ( $(this).text().includes(tech_name)){
+		function insertSkill(type){
+			let tech_name = ""; 
+			let tech_code = ""; 
+			
+			tech_name = $(this).text();
+			tech_code = $(this).find('input.tech_code').val();
+			// console.log(tech_name);  // PYTHON 
+			// console.log(tech_code);  //  1000 		
+		
+			if ( type == "list" ){
+				$("input#search-skill").val("");
+				$("ul.search-answer").empty();
+				$("div.search-result").hide();
+				
+				 $("button.btn-skill").each(function() {
+					
+					 	let buttonText = $(this).text(); // 각 button의 텍스트를 가져옵니다.
+					    if (buttonText.includes(tech_name)) {
+					      // 해당 button에 특정 단어가 포함되어 있다면 원하는 동작을 수행합니다.
+					      // 예를 들어, 해당 button을 스타일링하거나 클릭 이벤트를 트리거할 수 있습니다.
+					      // console.log($(this).html());
+					      $(this).removeClass("btn-skill").addClass("btn-delete");
+					      
+					      // 버튼 내부의 span 요소를 선택합니다.
+						    var spanElement = $(this).find('span');
+	
+						    // span 요소의 내용을 변경합니다.
+						    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M0.826019 3.33516C0.637056 3.1462 0.330686 3.1462 0.141723 3.33516C-0.0472409 3.52412 -0.0472409 3.83049 0.141723 4.01946L3.36753 7.24526C3.55649 7.43423 3.86286 7.43423 4.05183 7.24526L9.85828 1.43881C10.0472 1.24985 10.0472 0.943479 9.85828 0.754515C9.66931 0.565552 9.36294 0.565552 9.17398 0.754515L3.70968 6.21882L0.826019 3.33516Z" fill="currentColor"></path></svg>');
+						    let div_element = $(this).parent().find("div.div_skill");
+						    div_element.css("color" , "#36f"); 
+					      
+					    }
+					    
+				 });
+				
+			} // END OF if ( type == "list" ) 
+	
+			else if ( type == "button"){
+				// 버튼을 클릭했을 시, 클래스를 바꿔줌을 통해 기존의 function 이 작동되지 않고
+				// delete 함수를 작동시킬 수 있도록 설정
+				let  element = $(this);
+				element.removeClass("btn-skill").addClass("btn-delete");
+				
+			    // 버튼 내부의 span 요소를 선택합니다.
+			    var spanElement = $(this).find('span');
+	
+			    // span 요소의 내용을 변경합니다.
+			    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M0.826019 3.33516C0.637056 3.1462 0.330686 3.1462 0.141723 3.33516C-0.0472409 3.52412 -0.0472409 3.83049 0.141723 4.01946L3.36753 7.24526C3.55649 7.43423 3.86286 7.43423 4.05183 7.24526L9.85828 1.43881C10.0472 1.24985 10.0472 0.943479 9.85828 0.754515C9.66931 0.565552 9.36294 0.565552 9.17398 0.754515L3.70968 6.21882L0.826019 3.33516Z" fill="currentColor"></path></svg>');
+				
+			    let div_element = $(this).parent().find("div.div_skill");
+			    div_element.css("color" , "#36f"); 
+				
+			} // END OF else if ( type == "button" )
+			
+			else{
+				alert("잘못된 경로입니다. 하지마세요");
+				return false; 
+			}
+	
+			if  ( insert_count >= 5 ){
+				alert(" 최대 5개의 기술스택만 선택할 수 있습니다.");
+				return false ; 
+			} // end of if 
+			
+			let html = ""; 
+		
+			html += '<li class="li-skill">' +
+						        '<button type="button" class="btn-delete">' +
+						          '<div class="div_insert_skill">' +
+						            tech_name +
+						            '<input type="hidden" id="insert-tech-code" value="'+tech_code+'"/>'+
+						            '<span style="margin-left:4px; margin-bottom:2px;">' +
+						              '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
+						                '<path d="M0.882988 0.151497L5.00001 4.26852L9.11705 0.151497C9.31905 -0.0504989 9.6465 -0.0504989 9.8485 0.151497C10.0505 0.35349 10.0505 0.680994 9.8485 0.882988L5.7315 5.00001L9.8485 9.11705C10.0505 9.31905 10.0505 9.6465 9.8485 9.8485C9.6465 10.0505 9.31905 10.0505 9.11705 9.8485L5.00001 5.7315L0.882988 9.8485C0.680994 10.0505 0.35349 10.0505 0.151497 9.8485C-0.0504989 9.6465 -0.0504989 9.31905 0.151497 9.11705L4.26852 5.00001L0.151497 0.882988C-0.0504989 0.680994 -0.0504989 0.35349 0.151497 0.151497C0.35349 -0.0504989 0.680994 -0.0504989 0.882988 0.151497Z" fill="currentColor"></path>' +
+						              '</svg>' +
+						            '</span>' +
+						          '</div>' +
+						        '</button>' +
+						      '</li>';
+				
+			$("ul#insertList").append(html) ;
+			insert_count ++ ; 
+			
+		}// END OF FUNCTION INSERTSKILL 
+		
+		function deleteSkill (){
+			// console.log( $(this).html() );
+			// console.log( $(this).text());  EX : Spring Framework 
+			let tech_name = $(this).text() ;
+			 $("div.data-input button.btn-delete").each(function() {
+					// console.log($(this).html());
+					// console.log($(this).text());
+					if ( $(this).text().includes(tech_name) ){
+						// console.log($(this).parent().html());
+						// console.log($(this).parent().parent().html() ) ;
+						// $(this).parent().parent().remove(); => ul 태그 까지 사라져서 사용 불가능
+						$(this).closest('li').remove(); //  다음과 같이 하면 , li 까지만 지워지게 된다.
+						
+						insert_count -- ; 
+					} // end of if 
+					
+					
+			 });// end of each.function
+			
+			 $("ul#recommendList button.btn-delete").each(function(){
+				 if ( $(this).text().includes(tech_name)){
+					  $(this).closest('button').removeClass("btn-delete").addClass("btn-skill");
+					  // 버튼 내부의 span 요소를 선택합니다.
+					   var spanElement = $(this).find('span');
+	
+					    // span 요소의 내용을 변경합니다.
+					    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path></svg>');
+						
+					    let div_element = $(this).parent().find("div.div_skill");
+					    div_element.css("color" , "#333"); 
+				 
+				 }
+				 
+			 });
+		} // END OF FUNCTION DELETESKILL 
+		
+		function sectionClose(){
+			$("section#skillSearch").hide();
+			$("ul#insertList").empty();
+			insert_count = 0 ; 
+			 $("ul#recommendList button.btn-delete").each(function(){
+					
 				  $(this).closest('button').removeClass("btn-delete").addClass("btn-skill");
 				  // 버튼 내부의 span 요소를 선택합니다.
 				   var spanElement = $(this).find('span');
-
+	
 				    // span 요소의 내용을 변경합니다.
 				    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path></svg>');
 					
 				    let div_element = $(this).parent().find("div.div_skill");
 				    div_element.css("color" , "#333"); 
 			 
-			 }
+			 });
 			 
-		 });
-	} // END OF FUNCTION DELETESKILL 
-	
-	function sectionClose(){
-		$("section#skillSearch").hide();
-		$("ul#insertList").empty();
-		insert_count = 0 ; 
-		 $("ul#recommendList button.btn-delete").each(function(){
-				
-			  $(this).closest('button').removeClass("btn-delete").addClass("btn-skill");
-			  // 버튼 내부의 span 요소를 선택합니다.
-			   var spanElement = $(this).find('span');
-
-			    // span 요소의 내용을 변경합니다.
-			    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path></svg>');
-				
-			    let div_element = $(this).parent().find("div.div_skill");
-			    div_element.css("color" , "#333"); 
-		 
-		 });
-		 
-	}// END OF FUNCTION SECTIONCLOSE 
-	
-	function sectionAdjust(){
-		let html ="" ;
-		$("ul#insertList button.btn-delete").each(function(){
-			let tech_name = $(this).text();
-			// console.log($(this).text());
-			let tech_code= $(this).find("input").val();
-			// console.log(tech_code); // 1000 1002 1003
-			  
-			html += '<li class="li-skill">' +
-                   '<div class="div_skill">' +
-                   tech_name+
-                       '<input type="hidden" class="tech_code" value=" '+tech_code+' "/> '+
-                       '<span style="margin-left:4px; margin-bottom:2px; ">' +
-                           '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
-                               '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
-                           '</svg>' +
-                       '</span>' +
-                   '</div>' +
-           '</li>';
-		});
-		$("ul#resultList").html(html); 
-		$("section#skillSearch").hide();
-	}// END OF FUNCTION SECTIONADJUST
+		}// END OF FUNCTION SECTIONCLOSE 
+		
+		function sectionAdjust(){
+			let html ="" ;
+			$("ul#insertList button.btn-delete").each(function(){
+				let tech_name = $(this).text();
+				// console.log($(this).text());
+				let tech_code= $(this).find("input").val();
+				// console.log(tech_code); // 1000 1002 1003
+				  
+				html += '<li class="li-skill">' +
+	                   '<div class="div_skill">' +
+	                   tech_name+
+	                       '<input type="hidden" class="tech_code" value=" '+tech_code+' "/> '+
+	                       '<span style="margin-left:4px; margin-bottom:2px; ">' +
+	                           '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
+	                               '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
+	                           '</svg>' +
+	                       '</span>' +
+	                   '</div>' +
+	           '</li>';
+			});
+			$("ul#resultList").html(html); 
+			$("section#skillSearch").hide();
+		}// END OF FUNCTION SECTIONADJUST
 		
 		  
 		
@@ -923,8 +920,14 @@
 			    $("span.error_comment").hide();
 			}
 			
+			/* const formData = $("form[name='resumeForm']").serialize();
+			console.log(formData); */
+
 		    
-		 // 유효성 검사 후 최종 전송 확정
+			
+			
+			
+		 	// 유효성 검사 후 최종 전송 확정
 			const frm = document.resumeFrm;
 			frm.action = "myresume";
 			frm.method = "post";
@@ -944,14 +947,14 @@
 		function addCareer() {
 			
 			career_count ++;
-			
+`			
 			    var html = '<li id="careerDel_range'+career_count+'" style="list-style-type: none;">\n' +
 			               '  <div style="display:flex; flex-direction: row">\n' +
 			               '    <div style="width: 20%; display: flex; flex-direction: row;">\n' +
 			               '      <div class="my-3" style="display: block; width: 100%; margin-right: 10px; flex-grow: 1;">\n' +
-			               '        <input type="text" name="year1'+career_count+'" value="" placeholder="YYYY" maxlength="4" style="width: 41px;">${fk_userid}</input>\n' +
+			               '        <input type="text" id="year1'+career_count+'"  value="" placeholder="YYYY" maxlength="4" style="width: 41px;">${fk_userid}</input>\n' +
 			               '        .\n' +
-			               '        <input type="text" name="month1'+career_count+'" value="" placeholder="MM" maxlength="2" style="width: 28px;" />\n' +
+			               '        <input type="text" id="month1'+career_count+'" value="" placeholder="MM" maxlength="2" style="width: 28px;" />\n' +
 			               '		<input type="hidden" name="hiddenYear1'+career_count+'" value="">' +		
 			               '        &nbsp;- &nbsp;\n' +
 			               '        <input type="text" name="year2'+career_count+'" value="" placeholder="YYYY" maxlength="4" style="width: 41px;" />\n' +
@@ -1157,7 +1160,7 @@
 		
 </script>
 
-<form name="resumeFrm storageArea">
+<form name="resumeFrm" id="resumeForm" method="post">
 		<div class="container inform">
 				<p style="margin-bottom: 0px ; "><span class="matchup">매치업 이력서 </span> 
 				<svg  style="width:18px; height: 18px; "class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.1952 21.2854L11.8874 20.4277C11.9581 20.3919 12.0421 20.3919 12.1127 20.4277L13.805 21.2854L13.827 21.2963C14.6729 21.71 15.7018 21.3753 16.1251 20.5487L16.9783 18.8828C17.0139 18.8133 17.0819 18.7651 17.1606 18.7534L19.0455 18.4753L19.07 18.4715C20.0031 18.3204 20.6342 17.4586 20.4795 16.5467L20.1677 14.709C20.1546 14.6323 20.1806 14.5542 20.2373 14.4996L21.595 13.1919L21.6125 13.1748C22.2765 12.5165 22.2686 11.4569 21.595 10.8081L20.2373 9.50038C20.1806 9.4458 20.1546 9.3677 20.1677 9.291L20.4795 7.45324L20.4833 7.42937C20.6246 6.51542 19.9808 5.66265 19.0455 5.52466L17.1606 5.24654C17.0819 5.23493 17.0139 5.18666 16.9783 5.11713L16.1251 3.45126L16.1139 3.42973C15.6784 2.60922 14.6447 2.28905 13.805 2.71461L12.1127 3.57229C12.0421 3.60808 11.9581 3.60808 11.8874 3.57229L10.1952 2.71461L10.1731 2.70364C9.32725 2.28997 8.29835 2.62469 7.87503 3.45126L7.02185 5.11713C6.98624 5.18666 6.91826 5.23493 6.83958 5.24654L4.95461 5.52466L4.93018 5.52844C3.99702 5.67962 3.36597 6.54138 3.52069 7.45324L3.83249 9.291C3.84551 9.3677 3.81954 9.4458 3.76287 9.50038L2.40519 10.8081L2.3877 10.8252C1.7237 11.4834 1.73153 12.5431 2.40519 13.1919L3.76287 14.4996C3.81954 14.5542 3.84551 14.6323 3.83249 14.709L3.52069 16.5467L3.51682 16.5706C3.3756 17.4846 4.01932 18.3373 4.95461 18.4753L6.83958 18.7534C6.91826 18.7651 6.98624 18.8133 7.02185 18.8828L7.87503 20.5487L7.88626 20.5703C8.32176 21.3908 9.35549 21.7109 10.1952 21.2854ZM13.2557 10.1725L12.4119 8.47279C12.2388 8.12309 11.7614 8.12309 11.5883 8.47279L10.7433 10.1725C10.6763 10.3084 10.5513 10.4034 10.4085 10.4272L8.59847 10.7426C8.22837 10.8059 8.08058 11.2797 8.34458 11.5594L9.63172 12.9239C9.73403 13.0335 9.78077 13.1852 9.7593 13.337L9.48646 15.2306C9.43088 15.6199 9.81614 15.9129 10.1521 15.7374L11.7929 14.8796C11.9231 14.8123 12.0772 14.8123 12.2073 14.8796L13.8468 15.7374C14.1828 15.9129 14.5693 15.6199 14.5138 15.2306L14.2396 13.337C14.2182 13.1852 14.2662 13.0335 14.3685 12.9239L15.6556 11.5594C15.9196 11.2797 15.7718 10.8059 15.4005 10.7426L13.5917 10.4272C13.4477 10.4034 13.3239 10.3084 13.2557 10.1725Z" fill="#8958FA"></path></svg>
@@ -1166,25 +1169,25 @@
 		
 		<div class="container my-5">
 				<div class="input-group input-group-lg input-div">
-				  <input type="text" name="subject" class="required_input form-control resume-subject" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" 
+				  <input type="text" value="" name="subject" class="required_input form-control resume-subject" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" 
 				  placeholder="이력서 제목(필수)" >
 				  <span class="error_comment" id="subject_error" style="margin-top: 35px; display: none;"></span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" name="name" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  <input type="text" value="" name="name" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
 				  placeholder="이름(필수)" >
 				  <span class="error_comment" id="name_error" style="display: none;"></span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" name="email" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  <input type="text" value="" name="email" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
 				  placeholder="이메일(필수) EX) wanted@wanted.com" >
 				  <span class="error_comment" id="email_error" style="display: none;"></span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" name="contact" class="required_input form-control noborder" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  <input type="text" value="" name="contact" class="required_input form-control noborder" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
 				  placeholder="연락처(필수) EX) 01012345678" style="color: #3b3d40; font-size : 14px; " >
 				  <span class="error_comment" id="contact_error" style="display: none;"></span>
 				</div>

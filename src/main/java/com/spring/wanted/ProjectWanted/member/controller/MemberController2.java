@@ -27,18 +27,20 @@ public class MemberController2 {
 	
 	// 이력서 작성 페이지 불러오기
 	@GetMapping(value = "/myresume")
-	public String resume_inputLoad(@RequestParam(value="tech_code", required=true) List<String> tech_code) {
+	public String resume_inputLoad() {
 		// 이력서 작성 페이지를 불러오는 로직
 		return "/member/resume_input.tiles1";
+		// @RequestParam(value="tech_code", required=true) List<String> tech_code
 	}
 	
 	
 	// 이력서 작성 페이지의 작성된 이력서 DB에 저장하기
 	@PostMapping(value = "/myresume")
-	public String resume_input(@RequestParam(value="tech_code", required=true) List<String> tech_code, ResumeVO resumevo, List<CareerVO> careervo ) {
+	public String resume_input(ResumeVO resumevo, List<CareerVO> careervo ) {
 
 	//	careervo.set(index, element);
 
+		//@RequestParam(value="tech_code", required=true) List<String> tech_code
 		
 		
 		return "/member/resume_input.tiles1";
