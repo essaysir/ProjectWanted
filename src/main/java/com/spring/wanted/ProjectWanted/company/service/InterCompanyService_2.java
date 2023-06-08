@@ -3,6 +3,10 @@ package com.spring.wanted.ProjectWanted.company.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 public interface InterCompanyService_2 {
@@ -14,8 +18,8 @@ public interface InterCompanyService_2 {
 	List<Map<String, String>> getDutyList(String jobCode);
 	
 	// TBL_POST에 등록하기
-	void insertRecruit(PostVO postvo);
-	void insertRecruitSkil(PostVO postvo, List<String> techcode);
+	void insertRecruit(PostVO postvo, MultipartHttpServletRequest mrequest);
+	void insertRecruitSkil(PostVO postvo, List<String> techcode, MultipartHttpServletRequest mrequest);
 	
 	// 채용공고관리페이지 띄우기
 	int getTotalPost(String id);
@@ -30,7 +34,7 @@ public interface InterCompanyService_2 {
 	void updateRecruit(PostVO postvo);
 	
 	// 기간만료 공고 삭제하기 
-	int deleteRecruit(String post_code);
+	int deleteRecruit(String post_code, HttpServletRequest request);
 	
 	// 공고 중단하기
 	int stopRecruit(String post_code);
@@ -46,7 +50,5 @@ public interface InterCompanyService_2 {
 	
 	//결제완료 후 deadline update하기
 	void updateExtendPost(String post_code);
-
-	
 
 }

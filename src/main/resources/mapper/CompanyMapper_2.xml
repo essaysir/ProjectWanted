@@ -157,4 +157,14 @@
 		where post_code = #{post_code}
 	</update>
 	
+	<select id="getOneRecruit" parameterType="String" resultType="com.spring.wanted.ProjectWanted.post.model.PostVO">
+		select post_code, job_code, job_name, duty_code, duty_name, subject, career, info, mainduty, quality, image, salary, createday, deadline
+		from tbl_post P
+		JOIN tbl_duty D
+		on p.fk_duty_code = D.duty_code
+		JOIN tbl_job J
+		on D.fk_job_code = J.job_code
+		where post_code = #{post_code}	
+	</select>
+	
 </mapper>

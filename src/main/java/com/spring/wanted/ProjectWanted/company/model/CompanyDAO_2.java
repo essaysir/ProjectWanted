@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.spring.wanted.ProjectWanted.common.common.FileManager;
 import com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_2;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
@@ -24,6 +25,9 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 	public CompanyDAO_2(InterCompanyMapper_2 mapper) {
 		this.mapper = mapper;
 	}
+	
+	@Autowired
+	private FileManager fileManager;
 	
 	// job_select에필요한 값 가져오기	
 	@Override
@@ -110,8 +114,24 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 	
 	// 기간만료 공고 삭제하기 
 	@Override
-	public int deleteRecruit(String post_code) {
+	public int deleteRecruit(String post_code, Map<String, String> paraMap) {
+		
 		int n = mapper.deleteRecruit(post_code);
+		
+		// === # 165.파일첨구가 된글이라면~~
+		if(n==1){
+			String path = paraMap.get("path");
+			String image = paraMap.get("image");
+
+			if( image != null && !"".equals(image)){
+				try {
+					fileManager.doFileDelete(image, path);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		return n;
 	}
 	
@@ -153,6 +173,14 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 
 		mapper.updateExtendPost(post_code);
 		
+	}
+	
+	// 공고삭제를위한 하나의 공고 가져오기
+	@Override
+	public PostVO getOneRecruit(String post_code) {
+		PostVO oneRecruit = mapper.getOneRecruit(post_code);
+		
+		return oneRecruit;
 	}
 
 }
