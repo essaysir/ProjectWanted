@@ -33,7 +33,7 @@ public class SMSSendController {
 
 	    	Message message = new Message();
 	        // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
-	        message.setFrom("01075543049");
+	        message.setFrom("발신번호");
 	        message.setTo(mobile);
 	        message.setText("[인증번호 : "+ RandomNo + "] 원티드 인증번호입니다.");
 	        

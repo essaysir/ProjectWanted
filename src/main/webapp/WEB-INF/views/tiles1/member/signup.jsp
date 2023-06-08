@@ -261,6 +261,13 @@
    		padding: 0;
 	
 	}
+	button.certify{
+		color: #36f !important; 
+		background-color:  #fff !important;
+	    font-size: 16px !important ; 
+	    font-weight: 600 ; 
+	    border: 1px #e1e2e3 solid !important ;
+	}
 	
     
 </style>
@@ -269,6 +276,8 @@
 		let username_flag = false ;
 		$(document).ready(function() {
 			$("p#username-warning").hide();		  
+			$("p#mobile-warning").hide();		  
+			
 			$(".is_agree_check").click(function() {
 					    $(this).toggleClass("checked");
 					  });
@@ -280,7 +289,9 @@
 				  $("input#name_input").on('input', checkName);
 				  $("input#pwd_input").on('input', checkPassword);
 				  $("input#pwd2_input").on('input', checkPassword);
-				  $("input#what_input").on('input',checkMobile)
+				  $("input#what_input").on('input',checkMobile);
+				  $("button#certification").on('click', SendMessage);	  
+				  
 		}); // END OF  $(DOCUMENT).READY(FUNCTION() 
 		function checkName (){
 			const regExp = /^[가-힣]{2,6}$/ ; 
@@ -296,15 +307,45 @@
 			}
 			
 		} // end of function checkName
+		function SendMessage(){
+			$.ajax({
+				url: "/send-one",
+				type: "post",
+				async:"false", 
+				data: {"mobile": $('input#what_input').val()} ,
+				success: function (result) {
+					$("body").empty();
+					$("body").html(result);
+				},
+				error: function (request, status, error) {
+					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				}
+				
+				
+			});
+			
+			
+		} // END OF FUNCTION SENDMESSAGE
+		
 		function checkMobile(){
 			const regExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 			const bool = regExp.test( $(this).val() );
 			
+			// 버튼 요소 가져오기
+			const button = document.getElementById('certification');
+			
 			if ( !bool){
-				
+				$("p#mobile-warning").show();
+				$("button#certification").removeClass("certify");
+				// 버튼 활성화
+				button.disabled = true;
+
 			}
 			else{
-				
+				$("p#mobile-warning").hide();
+				$("button#certification").addClass("certify");
+				// 버튼 활성화
+				button.disabled = false;
 			}
 			
 			
@@ -312,7 +353,7 @@
 		function checkPassword(){
 			
 			
-		}
+		}// function checkPassword
 				
 		function register(){
 			
@@ -369,7 +410,11 @@
 						 <div class="certification_box"><label>휴대폰인증</label></div>
 						<div class="certification_box">
 							<input type="text" id="what_input" placeholder="(예시)01012345678" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" />
-							<button type="button" disabled style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 90px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
+							<button id="certification" type="button" disabled style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 120px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
+							<input type="text"  data-mobile id="certification_input" placeholder="인증번호를 입력해주세요." style="background-color: #f2f4f7;" />
+							<p  id="mobile-warning" style="color: red; font-weight: 400; text-align: left; font-size: 12px; margin: 0 10px 0 0;">휴대폰 번호는 EX)00012345678 방식으로 입력해주세요</p>
+							<button id="fake_certification" type="button" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 120px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
+						
 						</div> 
 						
 						<%-- <div class="certification_box"><label>이메일 인증</label></div>
@@ -378,7 +423,7 @@
 							<button type="submit" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 90px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
 						</div>
 						<div class="certification_check">
-							<input type="text" id="certification_input" placeholder="인증번호를 입력해주세요." style="background-color: #f2f4f7;" />
+							
 						</div>
 						 --%>
 						 
