@@ -144,6 +144,14 @@ button {
     overflow: hidden;
 }
 
+.JobCategory_JobCategory__btn__title__empty__fHZd2 {
+    padding-top: 3px;
+    font-size: 24px;
+    line-height: 29px;
+    font-weight: 400;
+    color: #aaa;
+}
+
 .MoreButton_MoreButton__2UmZ8 {
     position: relative;
     border: 1px solid #e1e2e3;
@@ -1585,7 +1593,7 @@ sup {
     color: #333;
 }
 
-.JobGroupItem_JobGroupItem__xXzAi.active {
+.JobGroupItem_JobGroupItem__xXzAiactive {
     color: #36f;
     font-weight: 500;
 }
@@ -2191,7 +2199,12 @@ section#skillSearch {
 
 <script type="text/javascript">
     $(document).ready(function(){
-       
+    	
+    	
+    	//var container = document.querySelectorAll("input[name='test']");
+    	//alert(container[2].value);
+    	//같은 name으로 해서 값을 넣어두고 완료버튼 누르면 
+    	
     	// Joblist 불러오기
     	getJobList();
     	
@@ -2201,6 +2214,10 @@ section#skillSearch {
     	
     	// 기술스택 불러오기
     	settingSearchSkill();
+    	
+    	// dutylist 관련 함수
+    	settingDutyList()
+    	
     	
     	// 슬릭 시작
     	$('.slick-track').slick({
@@ -2308,6 +2325,8 @@ section#skillSearch {
     
     // joblist 가져오기
     function getJobList() {
+    	
+    	
 		$.ajax({
 			url: "/wanted/getJobList",
 			type: "get",
@@ -2323,7 +2342,7 @@ section#skillSearch {
 					 // console.log(json.JobList[i].job_name);
 					 // console.log(json.JobList[i].job_code);
 					 html += "<li>" +
-							"<a onclick='getDutyList_post("+json.JobList[i].job_code+")' class='JobGroupItem_JobGroupItem__xXzAi'>" +
+							"<a onclick='getDutyList_post("+json.JobList[i].job_code+")' class='JobGroupItem_JobGroupItem__xXzAi'>" + //<input type='hidden'  value=' "+json.JobList[i].job_code+" '/>
 							json.JobList[i].job_name +
 							"</a></li>" ; 
 					
@@ -2345,19 +2364,101 @@ section#skillSearch {
 
 
 		});
+		
+	}// end of function getJobList()
+    
+    
+	// joblist 선택된 값의 dutylist 가져오기
+	let duty_select_count = 0
+	function settingDutyList(){
+    	
+    	let job_name = "";
+    	$(document).on('click', 'a.JobGroupItem_JobGroupItem__xXzAi', function() {
+	   		job_name = $(this).text();
+	   		$("span.JobCategory_JobCategory__btn__title__empty__fHZd2").html('<span class="JobCategory_JobCategory__btn__title__ixP9v">'+job_name+' 전체</span>');
+	   		$("span.JobGroup_JobGroup__title__nZmec").html(job_name);
+	   		$("a.JobGroupItem_JobGroupItem__xXzAiactive").removeClass("JobGroupItem_JobGroupItem__xXzAiactive");
+	   		$(this).addClass("JobGroupItem_JobGroupItem__xXzAiactive");
+	   		dropdownfunc();
+	   	});
+    	
+    	$(document).on('click' , 'button.JobCategoryItem_JobCategoryItem__oUaZr' , function(){
+    		selectDuty.call(this);
+		});
+    	
+    	$(document).on('click' , 'button.JobCategoryItem_clicked__cmZll' , function(){
+    		cancelDuty.call(this);
+		});
+    	
+    	$(document).on('click', 'button#confirmDuty' , function(){
+			confirmDuty.call(this);				
+		})
+    	
+    	
+    }
+	
+	function selectDuty(){
+		let duty_name = ""; 
+		let duty_code = ""; 
+		
+		duty_name = $(this).text();
+		duty_code = $(this).find('input').val();
+		
+		let  element = $(this);
+		//element.removeClass("JobCategoryItem_JobCategoryItem__oUaZr").addClass("JobCategoryItem_clicked__cmZll");
+		element.addClass("JobCategoryItem_clicked__cmZll");
+		
+		if  ( insert_count >= 5 ){
+			alert(" 최대 5개의 기술스택만 선택할 수 있습니다.");
+			return false ; 
+		}
+		
+		duty_select_count++;
 	}
+	
+	function cancelDuty(){
+		
+		let  element = $(this);
+		//element.removeClass("JobCategoryItem_JobCategoryItem__oUaZr").addClass("JobCategoryItem_clicked__cmZll");
+		element.removeClass("JobCategoryItem_clicked__cmZll");
+		
+		duty_select_count--;
+	}
+	
+	function confirmDuty() {
+		
+	}
+	
+	
+	
     
-    
-    // joblist 선택된 값의 dutylist 가져오기
-    function getDutyList_post(job_code) {
-    	console.log(job_code);
+	function getDutyList_post(job_code) {
+    	
     	  $.ajax({
 			url: "/wanted/getDutyList_post",
 			type: "get",
 			data: {"job_code":job_code},
 			dataType: "json",
 			success: function (json) {
-				console.log(JSON.stringify(json));
+				//console.log(JSON.stringify(json));
+				let html = ""
+				 html += '<div class="JobCategoryOverlay_JobCategoryOverlay__top__RppY3">'+
+				 		 '<p class="JobCategoryOverlay_JobCategoryOverlay__top__title__3tneN">직무를 선택해 주세요. (최대 5개 선택 가능)</p>'+
+				 		 '<div class="JobCategoryOverlay_JobCategoryOverlay__top__list__amyf6">'+
+				 		 '<button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">'+$("span.JobGroup_JobGroup__title__nZmec").text()+' 전체</button>';
+						
+				for (let i = 0; i < json.DutyList.length; i++) {
+					//console.log(json.PostList[i].SUBJECT);
+					// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
+					html += '<button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">'+json.DutyList[i].duty_name+'<input type="hidden" value="'+json.DutyList[i].duty_code+'"/></button>'
+							
+							
+				}
+				html += '</div>'+
+						'</div>'+
+						'<div class="JobCategoryOverlay_JobCategoryOverlay__bottom__6Q_OM"><button id="confirmDuty" class="Button_Button__root__V1ie3 Button_Button__contained__toUI5 Button_Button__containedPrimary__gFaT9 Button_Button__containedSizeMedium__c2z9c Button_Button__containedDisabled__qiqtc Button_Button__disabled__2eyyF JobCategoryOverlay_JobCategoryOverlay__bottom__btn__GliIw" ><span class="Button_Button__label__1Kk0v">선택 완료하기</span></button></div>';
+				
+				$("section.JobCategoryOverlay_JobCategoryOverlay__rkFLO").html(html);
 
 			},
 			error: function (request, status, error) {
@@ -2368,6 +2469,10 @@ section#skillSearch {
 		}); 
     }
     
+	
+	
+	////////////////////////////////////////////////////////////////////////
+	
     function getPostList() {
 		$.ajax({
 			url: "/wanted/getPostList",
@@ -2468,7 +2573,7 @@ section#skillSearch {
 			                        '<button type="button" class="btn-skill" id="btn-skill-'+skill.tech_code+ '">' +
 			                            '<div class="div_skill">' +
 			                                skill.tech_name +
-			                                '<input type="hidden" class="tech_code" value=" '+skill.tech_code+' "/> '+
+			                                '<input type="hidden" name="tech_code" value=" '+skill.tech_code+' "/> '+
 			                                '<span style="margin-left:4px; margin-bottom:2px; ">' +
 			                                    '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
 			                                        '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
@@ -2679,6 +2784,7 @@ section#skillSearch {
 	
 	function sectionAdjust(){
 		let html ="" ;
+		let tech_count = 0;
 		$("ul#insertList button.btn-delete").each(function(){
 			let tech_name = $(this).text();
 			// console.log($(this).text());
@@ -2688,7 +2794,7 @@ section#skillSearch {
 			html += '<li class="li-skill">' +
                    '<div class="div_skill">' +
                    tech_name+
-                       '<input type="hidden" class="tech_code" value=" '+tech_code+' "/> '+
+                       '<input type="hidden" name="tech_code" value=" '+tech_code+' "/> '+
                        '<span style="margin-left:4px; margin-bottom:2px; ">' +
                            '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
                                '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
@@ -2696,10 +2802,16 @@ section#skillSearch {
                        '</span>' +
                    '</div>' +
            '</li>';
+
 		});
 		$("ul#resultList").html(html); 
 		$("section#skillSearch").hide();
-		let tech_name = $("ul#insertList").text();
+		
+		//let tech_name = $("ul#insertList").text();
+		
+		let tech_name = document.querySelector("#insertList > li:nth-child(1) > button > div").textContent;
+		
+		
 		if(insert_count == 1) {
 			$("button#skill").html('<span class="FilterButton_title__MNRKD">기술스택<span class="FilteredCount_filteredCount__3PCO5 FilterInWdlist_filteredCount__f825_">'+insert_count+'</span></span><span class="ButtonDisplay_ButtonDisplay__4VTdg">'+tech_name+'</span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path></svg>');
 		}
@@ -2707,7 +2819,7 @@ section#skillSearch {
 			$("button#skill").html('<span class="FilterButton_title__MNRKD">기술스택<span class="FilteredCount_filteredCount__3PCO5 FilterInWdlist_filteredCount__f825_">'+insert_count+'</span></span><span class="ButtonDisplay_ButtonDisplay__4VTdg">'+tech_name+' 외</span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path></svg>');
 			
 		}
-		else {f
+		else {
 			$("button#skill").html('<span class="FilterButton_title__MNRKD">기술스택</span><span class="ButtonDisplay_ButtonDisplay__4VTdg"></span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path></svg>');
 		}
 		
@@ -2724,6 +2836,11 @@ section#skillSearch {
 <body>
 <div class="JobList_cn__t_THp container">
 
+	<!--        <input name="test" value="1" />
+                <input name="test" value="2" />
+                <input name="test" value="3" />
+                -->
+                
 
 
     <article role="navigation" class="CategoryNavbar_Container__MvZaR">
@@ -2746,27 +2863,23 @@ section#skillSearch {
             </div>            
                         
             <div class="JobCategory_JobCategory__uTt2E">
-            	<button type="button" onclick="dropdownfunc2()"  JobCategory_JobCategory__btn__k3EFe" aria-label="popup navigation button"><span class="JobCategory_JobCategory__btn__title__ixP9v">개발 전체</span><span class="MoreButton_MoreButton__2UmZ8" style="top: 3px;" role="button" aria-label="popup navigation button"><svg xmlns="https://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" class="MoreButton_MoreButton__icon__L_DpL">
+            	<button type="button" onclick="dropdownfunc2()"  JobCategory_JobCategory__btn__k3EFe" aria-label="popup navigation button"><span class="JobCategory_JobCategory__btn__title__empty__fHZd2">직군을 선택해주세요</span><span class="MoreButton_MoreButton__2UmZ8" style="top: 3px;" role="button" aria-label="popup navigation button"><svg xmlns="https://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" class="MoreButton_MoreButton__icon__L_DpL">
                             <path fill="#767676" fill-rule="nonzero" d="M2.28 3.22a.75.75 0 0 0-1.06 1.06l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L6 6.94 2.28 3.22z"></path>
                         </svg></span></button>
             	
             	<section class="JobCategoryOverlay_JobCategoryOverlay__rkFLO" role="navigation">
-				    <div class="JobCategoryOverlay_JobCategoryOverlay__top__RppY3">
+				    <!-- <div class="JobCategoryOverlay_JobCategoryOverlay__top__RppY3">
 				        <p class="JobCategoryOverlay_JobCategoryOverlay__top__title__3tneN">직무를 선택해 주세요. (최대 5개 선택 가능)</p>
 				        <div class="JobCategoryOverlay_JobCategoryOverlay__top__list__amyf6">
 					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">개발 전체</button>
 					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">웹 개발자</button>
 					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">서버 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">소프트웨어 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">프론트엔드 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">자바 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">C,C++ 개발자</button>
 					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">안드로이드 개발자</button>
 					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">CIO,Chief Information Officer</button>
 				        </div>
 				    </div>
-				    <div class="JobCategoryOverlay_JobCategoryOverlay__bottom__6Q_OM"><button class="Button_Button__root__V1ie3 Button_Button__contained__toUI5 Button_Button__containedPrimary__gFaT9 Button_Button__containedSizeMedium__c2z9c Button_Button__containedDisabled__qiqtc Button_Button__disabled__2eyyF JobCategoryOverlay_JobCategoryOverlay__bottom__btn__GliIw" data-attribute-id="jobRole__click" data-job-category="IT" data-job-category-id="518" data-job-role-id="" data-job-role="" disabled=""><span class="Button_Button__label__1Kk0v">선택 완료하기</span></button></div>
-				</section>
+				     <div class="JobCategoryOverlay_JobCategoryOverlay__bottom__6Q_OM"><button class="Button_Button__root__V1ie3 Button_Button__contained__toUI5 Button_Button__containedPrimary__gFaT9 Button_Button__containedSizeMedium__c2z9c Button_Button__containedDisabled__qiqtc Button_Button__disabled__2eyyF JobCategoryOverlay_JobCategoryOverlay__bottom__btn__GliIw" ><span class="Button_Button__label__1Kk0v">선택 완료하기</span></button></div>-->
+				</section> 
             		            
             </div>
                         
@@ -3124,6 +3237,8 @@ section#skillSearch {
                 </div>
             </div>
             <div class="List_List_container__JnQMS">
+            
+                
                 
                 
             </div>
