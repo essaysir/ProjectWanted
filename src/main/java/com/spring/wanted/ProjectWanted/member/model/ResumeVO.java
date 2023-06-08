@@ -15,17 +15,13 @@ public class ResumeVO {
     private String introduce;
     private String uploadLink;
     private String skill;
-    
-    private List<CareerVO> careervo;
-    private List<RewardVO> rewardvo;
-    private List<SchoolVO> shoolvo;
-    private List<LanguageVO> languagevo;
 
+    // join insert
     
-    private List<LanguageVO> languages; // Language 테이블에 대응하는 VO 리스트
-    private List<RewardVO> rewards; // Reward 테이블에 대응하는 VO 리스트
-    private List<SchoolVO> schools; // School 테이블에 대응하는 VO 리스트
-    private List<CareerVO> careers; // Career 테이블에 대응하는 VO 리스트
-    private List<MemberTechVO> member_Techs; // MemberTech 테이블에 대응하는 VO 리스트
+    private List<LanguageVO> languagevo; // Language 테이블에 대응하는 VO 리스트
+    private List<RewardVO> rewardvo; // Reward 테이블에 대응하는 VO 리스트
+    private List<SchoolVO> schoolvo; // School 테이블에 대응하는 VO 리스트
+    private List<CareerVO> careervo; // Career 테이블에 대응하는 VO 리스트
+    private List<MemberTechVO> member_Techvo; // MemberTech 테이블에 대응하는 VO 리스트
 }
 
