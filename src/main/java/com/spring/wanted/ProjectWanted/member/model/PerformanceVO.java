@@ -9,7 +9,7 @@ public class PerformanceVO {
     private int fk_career_code;
     private int fk_resume_code;
     private String perform_content;
-    private String start_date;
-    private String end_date;
+    private String start_date_detail;
+    private String end_date_detail;
     
 }

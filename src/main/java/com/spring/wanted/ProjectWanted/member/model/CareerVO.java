@@ -1,5 +1,7 @@
 package com.spring.wanted.ProjectWanted.member.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -12,4 +14,7 @@ public class CareerVO {
     private String content;
     private String start_Date;
     private String end_Date;
+    
+    private List<PerformanceVO> performancevo ;
+    
 }
