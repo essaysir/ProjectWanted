@@ -947,7 +947,7 @@
 		function addCareer() {
 			
 			career_count ++;
-`			
+			
 			    var html = '<li id="careerDel_range'+career_count+'" style="list-style-type: none;">\n' +
 			               '  <div style="display:flex; flex-direction: row">\n' +
 			               '    <div style="width: 20%; display: flex; flex-direction: row;">\n' +
