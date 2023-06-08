@@ -88,7 +88,7 @@
 		var duties;
 		
 		$.ajax({
-			url: "/wanted/getDuty",
+			url: "/wanted/company/getDuty",
 			type: "get",
 			data: {"jobCode": jobCode},
 			dataType: "json",
