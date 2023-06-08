@@ -107,17 +107,17 @@
         <nav style="margin: 20px auto;">
             <ul>
                 <li>
-                    <a class="menu" href="/wanted/company">전체지원자관리</a>
-                    <a class="menu" href="/wanted/company_jobPost">채용공고관리</a>
+                    <a class="menu" href="/wanted/company/candidateList">전체지원자관리</a>
+                    <a class="menu" href="/wanted/company/jobPost">채용공고관리</a>
                     <a class="menu" href="#">회사정보</a>
                     <a class="menu" href="#">계정관리</a>
-                    <a class="menu" href="/wanted/company_chart">지원통계</a>
+                    <a class="menu" href="/wanted/company/chart">지원통계</a>
                 </li>
             </ul>
         </nav>
 
         <div style="display: flex; justify-content: center;">
-            <button class="plus" type="button" onclick="location.href='/wanted/company_recruit'"><span><i class="fa-regular fa-square-plus"></i>&nbsp;&nbsp;채용공고 등록</span></button>
+            <button class="plus" type="button" onclick="location.href='/wanted/company/recruit'"><span><i class="fa-regular fa-square-plus"></i>&nbsp;&nbsp;채용공고 등록</span></button>
         </div>
         <div style="display: flex; justify-content: center;">
             <button class="goHome" type="button" onclick="location.href='/wanted/index'"><span><i class="fas fa-home"></i>&nbsp;&nbsp;원티드 홈</span></button>

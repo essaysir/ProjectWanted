@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_1;
 import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 
-@RequestMapping("/wanted")
+@RequestMapping("/wanted/company")
 @Controller
 public class CompanyController_1 {
 
@@ -49,29 +49,27 @@ public class CompanyController_1 {
 	
 
 	// 회사 지원자List 페이지
-	@GetMapping("/company")
+	@GetMapping("/candidateList")
 	public String viewCandidateList() {
 		return "company/company_candidateList.tiles2";
 	}
 	
 	
+	
 	// 회사 지원자List 불러오기
-	//@ResponseBody 
 	@GetMapping(value = "/getCandidateList")
-	public String candidateList(HttpServletRequest request){
-		//String viewName="company/company_candidateList.tiles2";
+	public String candidateList(HttpServletRequest request, Model model){
 
-		String searchType = request.getParameter("searchType");
-		String searchWord = request.getParameter("searchWord");
-		String str_currentShowPageNo = request.getParameter("currentShowPageNo");
-		
 		Map<String, String> paraMap = new HashMap<>();
 		String status = request.getParameter("status");
 		paraMap.put("status", status);
 
 		List<Map<String,String>> candidateList = service.candidateList(paraMap);
-//		ModelAndView mav = new ModelAndView("tiles2/company/content/company_candidateList_detail");
-//		mav.addObject("candidateList", candidateList);
+		
+
+		String searchType = request.getParameter("searchType");
+		String searchWord = request.getParameter("searchWord");
+		String str_currentShowPageNo = request.getParameter("currentShowPageNo");
 		
 		
 		if(searchType == null || (!"subject".equals(searchType) && !"name".equals(searchType) )) {
@@ -85,58 +83,56 @@ public class CompanyController_1 {
 		paraMap.put("searchType", searchType);
 		paraMap.put("searchWord", searchWord);
 
-        // 검색어 유지
-        if( !"".equals(searchType) && !"".equals(searchWord) ) {
- 			request.setAttribute("paraMap", paraMap);
- 		}
 
+		int totalCount = service.getTotalCount(paraMap);       // 총 게시물 건수
+        int sizePerPage = 7;       							   // 한 페이지당 보여줄 게시물 건수 
+        int currentShowPageNo = 1; 							   // 현재 보여주는 페이지번호로서, 초기치로는 1페이지로 설정함.
+        int totalPage = 0;         							   // 총 페이지수(웹브라우저상에서 보여줄 총 페이지 개수, 페이지바)
 
-		int totalCount = 0;        // 총 게시물 건수
-        int sizePerPage = 3;       // 한 페이지당 보여줄 게시물 건수 
-        int currentShowPageNo = 0; // 현재 보여주는 페이지번호로서, 초기치로는 1페이지로 설정함.
-        int totalPage = 0;         // 총 페이지수(웹브라우저상에서 보여줄 총 페이지 개수, 페이지바)
-      
-        int startRno = 0; 
-        int endRno = 0; 
         
         totalCount = service.getTotalCount(paraMap);
         totalPage = (int) Math.ceil((double)totalCount/sizePerPage);
         
         
-        if(str_currentShowPageNo == null) {
-        	// 게시판에 보여지는 초기화면
-        	currentShowPageNo = 1;
+        if (str_currentShowPageNo != null) {
+            try {
+                currentShowPageNo = Integer.parseInt(str_currentShowPageNo);
+                if (currentShowPageNo < 1 || currentShowPageNo > Math.ceil((double) totalCount / sizePerPage)) {
+                    currentShowPageNo = 1;
+                }
+            } catch (NumberFormatException e) {
+                currentShowPageNo = 1;
+            }
         }
-        else {
-        	try {
-        		currentShowPageNo = Integer.parseInt(str_currentShowPageNo);
-        		if(currentShowPageNo < 1 || currentShowPageNo > totalPage) {
-        			currentShowPageNo = 1;
-        		}
-			} catch (NumberFormatException e) {
-				currentShowPageNo = 1;
-			}
-        	
-        }
+        
+        int startRno = 0; 
+        int endRno = 0; 
         
         startRno = ((currentShowPageNo - 1) * sizePerPage) + 1;
         endRno = startRno + sizePerPage - 1;
         
         paraMap.put("startRno", String.valueOf(startRno));
         paraMap.put("endRno", String.valueOf(endRno));
-        paraMap.put("sizePerPage", String.valueOf(sizePerPage));
+        
+        candidateList = service.listhSearchWithPaging(paraMap);
+        
+        // 검색어 유지
+        if (!"".equals(searchType) && !"".equals(searchWord)) {
+            model.addAttribute("searchType", searchType);
+            model.addAttribute("searchWord", searchWord);
+        }
         
         // 페이지바
-        int blockSize = 2;
+        int blockSize = 5;
         int loop = 1;
         int pageNo = ((currentShowPageNo - 1)/blockSize) * blockSize + 1;
         
-        String pageBar = "<ul style='list-style: none;'>";
-        String url = "company?sizePerPage=" + sizePerPage;
+        String pageBar = "<ul id='pageBar'>";
+        String url = "/company/candidateList";
       
         // === [맨처음][이전] 만들기 === //
-        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo=1'><i class=\"fa-solid fa-backward\"></i></a></li>";
-        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+(pageNo-1)+"'><i class=\"fa-solid fa-play fa-flip-both\"></i></a></li>";
+        pageBar += "<li><button type='button' id='pageArrow' onclick='location.href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo=1'><i class=\"fa-solid fa-backward\"></i></button></li>";
+        pageBar += "<li><button type='button' id='pageArrow' onclick='location.href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+(pageNo-1)+"'><i class=\"fa-solid fa-play fa-flip-both\"></i></button></li>";
 
       
         while( !(loop > blockSize || pageNo > totalPage) ) {
@@ -145,7 +141,7 @@ public class CompanyController_1 {
               pageBar += "<li id='pageNo'>"+pageNo+"</li>";  
            }
            else {
-              pageBar += "<li id='pageBarNo'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'>"+pageNo+"</a></li>"; 
+              pageBar += "<li><button type='button' id='pageBarNo' onclick='location.href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'>"+pageNo+"</button></li>"; 
            }
          
            loop++;
@@ -153,18 +149,16 @@ public class CompanyController_1 {
         }// end of while-----------------------
         
         // === [다음][마지막] 만들기 === //
-        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'><i class=\"fa-solid fa-play\"></i></a></li>";
-        pageBar += "<li id='pageArrow'><a href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+totalPage+"'><i class=\"fa-solid fa-forward\"></i></a></li>"; 
+        pageBar += "<li><button type='button' id='pageArrow' onclick='location.href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'><i class=\"fa-solid fa-play\"></i></button></li>";
+        pageBar += "<li><button type='button' id='pageArrow' onclick='location.href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+totalPage+"'><i class=\"fa-solid fa-forward\"></i></button></li>";
 
-	      
 	    pageBar += "</ul>";
 	    
-	    System.out.println("pageBar : "+ pageBar);
 	    
-	    request.setAttribute("pageBar", pageBar);
+	    request.setAttribute("pageBar", pageBar); 
+//	    String gobackURL = MyUtil.getCurrentURL(request);
 	    request.setAttribute("candidateList", candidateList);
-        
-		
+    
 		return "tiles2/company/content/company_candidateList_detail";
 	}
 
