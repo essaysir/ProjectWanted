@@ -3,25 +3,22 @@ package com.spring.wanted.ProjectWanted.member.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 import com.spring.wanted.ProjectWanted.member.service.InterMemberService;
-
-import net.nurigo.sdk.NurigoApp;
-import net.nurigo.sdk.message.model.Message;
-import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
-import net.nurigo.sdk.message.response.SingleMessageSentResponse;
-import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @RequestMapping(value="/wanted")
 @Controller
 public class MemberController {
-		
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder ;
 	
 	private final InterMemberService service ;
 	
@@ -44,5 +41,19 @@ public class MemberController {
 			return view ;
 		}
 		
+		@PostMapping(value="/register")
+		public String register(MemberVO mvo) {
+			// System.out.println(" 확인용 mvo : " + mvo );
+			mvo.setPwd(passwordEncoder.encode(mvo.getPwd()));
+			mvo.setMobile(passwordEncoder.encode(mvo.getMobile()));
+			
+			// System.out.println(mvo.getMobile());
+			// System.out.println(mvo.getPwd());
+			
+			service.register(mvo);
+			
+			return "/member/login.tiles1";
+		}
+		
 
-}
+}// END OF PUBLIC CLASS MEMEBERCONTROLLER

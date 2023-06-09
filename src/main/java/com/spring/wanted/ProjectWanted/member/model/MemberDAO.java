@@ -32,5 +32,10 @@ public class MemberDAO implements InterMemberDAO {
 		return mvo ;
 	}
 
+	@Override
+	public void register(MemberVO mvo) {
+		 mapper.register(mvo);
+	}
+
 
 }
