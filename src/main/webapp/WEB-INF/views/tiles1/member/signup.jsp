@@ -291,8 +291,8 @@
 				  $("input#pwd2_input").on('input', checkPassword);
 				  $("input#what_input").on('input',checkMobile);
 				  $("button#certification").on('click', SendMessage);	  
-				  
-		}); // END OF  $(DOCUMENT).READY(FUNCTION() 
+				  $("button#access").on('click' , access);
+				  		}); // END OF  $(DOCUMENT).READY(FUNCTION() 
 		function checkName (){
 			const regExp = /^[가-힣]{2,6}$/ ; 
 			const bool = regExp.test( $(this).val() );
@@ -307,6 +307,7 @@
 			}
 			
 		} // end of function checkName
+		
 		function SendMessage(){
 			$.ajax({
 				url: "/send-one",
@@ -314,8 +315,11 @@
 				async:"false", 
 				data: {"mobile": $('input#what_input').val()} ,
 				success: function (result) {
-					$("body").empty();
-					$("body").html(result);
+					// console.log(result.randomNo);
+					// console.log(JSON.stringify(result));
+					$("input#randomNo").val(result.randomNo);
+					
+					
 				},
 				error: function (request, status, error) {
 					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
@@ -354,7 +358,18 @@
 			
 			
 		}// function checkPassword
+		function access(){
+			if ( $("input#randomNo").val() == $("input#certification_input").val() ){
 				
+			}
+			else{
+				
+				
+			}
+			
+			
+			
+		}
 		function register(){
 			
 			const registerFrm = document.login_input;
@@ -411,10 +426,12 @@
 						<div class="certification_box">
 							<input type="text" id="what_input" placeholder="(예시)01012345678" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" />
 							<button id="certification" type="button" disabled style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 120px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
-							<input type="text"  data-mobile id="certification_input" placeholder="인증번호를 입력해주세요." style="background-color: #f2f4f7;" />
+							<input type="text"  id="certification_input" placeholder="인증번호를 입력해주세요." style="background-color: #f2f4f7;" />
+							<input type="hidden" id="randomNo" />
 							<p  id="mobile-warning" style="color: red; font-weight: 400; text-align: left; font-size: 12px; margin: 0 10px 0 0;">휴대폰 번호는 EX)00012345678 방식으로 입력해주세요</p>
-							<button id="fake_certification" type="button" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 120px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
-						
+							<button id="fake_certification" type="button" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 120px; height: 50px; font-size: 10px; color: #888888;">가짜 인증완료</button>
+							<button id="access" type="button"  style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 120px; height: 50px; font-size: 10px; color: #888888;">인증완료</button>
+								
 						</div> 
 						
 						<%-- <div class="certification_box"><label>이메일 인증</label></div>
