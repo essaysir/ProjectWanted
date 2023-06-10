@@ -16,12 +16,5 @@ public class MemberController3 {
 		
 	}
 	
-	@GetMapping(value="/memberInfo2")
-	public String memberInfo2() {
-		
-		
-		return "member/memberInfo.tiles3";
-		
-	}
 	
 }
