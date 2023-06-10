@@ -45,17 +45,17 @@ public class SecurityConfig  {
 				.antMatchers("/wanted/register" ,"/send-one").permitAll() // 회원가입 페이지 접근권한 모두 허용
 				.antMatchers("/wanted/login" , "/wanted/login/checkUserid").permitAll()
 				// .antMatchers("/mypage/**").hasRole("USER") 
-				.antMatchers("/wanted/company/**").hasRole("COMPANY") 
+				.antMatchers("/wanted/company/**").hasRole("COMPANY")
 				// .antMatchers("/admin/**").hasRole("ADMIN") 
 				.anyRequest().authenticated();
 		http
 				.formLogin()
 					.loginPage("/wanted/login")
 					.loginProcessingUrl("/login/proc")
-					.defaultSuccessUrl("/wanted")
+					.defaultSuccessUrl("/wanted", true)
 					.usernameParameter("username")
                 	.passwordParameter("password")
-                	.failureUrl("/wanted/register")
+                	.failureUrl("/wanted/company/jobPost")
 					.permitAll();
 					
 		http
