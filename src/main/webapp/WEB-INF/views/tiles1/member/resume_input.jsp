@@ -373,7 +373,11 @@
 		    
 		    $('button#addLanguage_btn').on('click', addLanguage); // 외국어 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
 		    
-		    $(document).on('input', '[name^="year1"], [name^="year2"], [name^="month1"], [name^="month2"], [name^="hiddenYear1"], [name^="hiddenYear2"]', updateHiddenYears);
+		    $(document).on('input', '[name^="year"], [name^="month"], [name^="hiddenYear"]', function() {
+		    	  var index = $(this).attr('name').replace(/\D/g, ''); // 이름에서 숫자 부분 추출
+		    	  updateHiddenYears(index);
+		    });
+
 		    
 		    settingSearchSkill(); 	
     		// 해당 기능 사용법 
@@ -893,7 +897,7 @@
 		// 작성 완료 버튼 클릭시 필수입력항목 유효성검사(공백 및 미작성만) 함수 
 		function insertResume() {
 
-/* 			// 필수입력사항이 모두 입력 됐는지 검사
+			// 필수입력사항이 모두 입력 됐는지 검사
 			$("input.required_input").each( (index, elmt) => {
 				if($(elmt).val().trim() == "") {
 					alert("필수 입력사항을 모두 입력해주세요.");
@@ -918,7 +922,7 @@
 			}
 			else {
 			    $("span.error_comment").hide();
-			} */
+			} 
 			
 			/* const formData = $("form[name='resumeForm']").serialize();
 			console.log(formData); */
@@ -1129,9 +1133,6 @@
 					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 				}
 			});
-			
-			
-			
 			
 		 	// 유효성 검사 후 최종 전송 확정
  			const frm = document.resumeFrm;

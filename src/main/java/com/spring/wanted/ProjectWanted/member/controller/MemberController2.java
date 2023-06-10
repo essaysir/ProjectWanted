@@ -44,6 +44,6 @@ public class MemberController2 {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		System.out.println(gson.toJson(resumevo));
 		
-		return "index.tiles1";
+		return "/member/resume_input.tiles1";
 	}
 }

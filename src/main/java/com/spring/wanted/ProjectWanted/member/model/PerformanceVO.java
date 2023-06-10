@@ -11,5 +11,6 @@ public class PerformanceVO {
     private String perform_content;
     private String start_date_detail;
     private String end_date_detail;
+    private String performance;
     
 }
