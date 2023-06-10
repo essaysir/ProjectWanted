@@ -319,7 +319,17 @@
 	
 	$(document).ready(function() {
 		
+		// 모달 창에서 입력된 값 초기화 시키기 //
+	    $("button.my_close").on("click", function(){
+	  	  const modal_frmArr = document.querySelectorAll("form.passwdfrm");
+	  	  for(let i=0; i<modal_frmArr.length; i++) {
+	  		  modal_frmArr[i].reset();
+	  	  }
+	    });
+		
 	});
+	
+	
 	
 </script>
 
@@ -409,7 +419,7 @@
 		      
 		      <!-- Modal body -->
 		      <div class="modal-body">
-		        <form class="namefrm">
+		        <form class="nickfrm">
 		        	<div class="inputArea">
 		        		<input type="text" placeholder="별명을 입력해주세요." name="username" data-testid="Input_username" class="modaltext" value="필사즉생, 필생즉사">
 		        	</div>
@@ -438,7 +448,7 @@
 		      
 		      <!-- Modal body -->
 		      <div class="modal-body">
-		        <form class="namefrm">
+		        <form class="phonefrm">
 		        	<div class="inputArea">
 		        		<div class="phoneFrame">
 		        			<input type="text" placeholder="(예시) 01013245768" name="mobile" data-testid="Input_mobile" class="phoneInput" value="010-5555-3333" readonly />
@@ -468,12 +478,12 @@
 		      <!-- Modal header -->
 		      <div class="modal-header">
 		        <h5 class="modal-title">비밀번호 변경</h5>
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <button type="button" class="close my_close" data-dismiss="modal">&times;</button>
 		      </div>
 		      
 		      <!-- Modal body -->
 		      <div class="modal-body">
-		        <form class="namefrm">
+		        <form class="passwdfrm">
 		        	<div class="inputArea">
 		        		<div class="pwTitleFrame">
 		        			<label class="pwTitle">현재 비밀번호</label>
@@ -491,7 +501,7 @@
 		      
 		      <!-- Modal footer -->
 		      <div class="modal-footer">
-		        <button type="button" class="btn_cancel" data-dismiss="modal">취소</button>
+		        <button type="button" class="btn_cancel my_close" data-dismiss="modal">취소</button>
 		        <button type="button" class="btn_submit" onclick="phoneUpdate()">저장</button>
 		      </div>
 		    </div>
