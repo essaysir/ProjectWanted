@@ -15,5 +15,65 @@
 		select job_code, job_name 
 		from tbl_job
 	</select>
+	
+	<!-- Duty 데이터 불러오기	 -->
+	<resultMap type="HashMap" id="getDutyList_Map">
+		<result property="duty_code" 	column="duty_code" 		javaType="String" />
+		<result property="fk_job_code" 	column="fk_job_code" 	javaType="String" />
+		<result property="duty_name" 	column="duty_name" 		javaType="String" />
+	</resultMap>	
+	<select id="getDutyList" resultMap="getDutyList_Map">
+		select duty_code, fk_job_code, duty_name
+		from tbl_duty
+		where fk_job_code = #{job_code}
+
+	</select>
+
+
+
+	<!-- 공고리스트 데이터 불러오기	 -->
+	<resultMap type="HashMap" id="getPostList_Map">
+		<result property="company_id" 				column="company_id" 			javaType="String" />
+		<result property="fk_region_detail_code" 	column="fk_region_detail_code"  javaType="String" />
+		<result property="name" 					column="name" 					javaType="String" />
+		<result property="company_code" 			column="company_code" 			javaType="String" />
+		<result property="fk_region_code" 			column="fk_region_code" 		javaType="String" />
+		<result property="region_name" 				column="region_name" 			javaType="String" />
+		<result property="region_detail_code" 		column="region_detail_code" 	javaType="String" />
+		<result property="region_detail_name" 		column="region_detail_name" 	javaType="String" />
+		<result property="post_code" 				column="post_code" 				javaType="String" />
+		<result property="fk_company_id" 			column="fk_company_id" 			javaType="String" />
+		<result property="fk_duty_code" 			column="fk_duty_code" 			javaType="String" />
+		<result property="career" 					column="career" 				javaType="String" />
+		<result property="subject" 					column="subject" 				javaType="String" />
+		<result property="info" 					column="info" 					javaType="String" />
+		<result property="image" 					column="image" 					javaType="String" />
+		<result property="createday" 				column="createday" 				javaType="String" />
+		<result property="salary" 					column="salary" 				javaType="String" />
+		<result property="mainduty" 				column="mainduty" 				javaType="String" />
+		<result property="quality" 					column="quality" 				javaType="String" />
+		<result property="deadline" 				column="deadline" 				javaType="String" />
+		<result property="viewcount" 				column="viewcount" 				javaType="String" />
+		<result property="pay_status" 				column="pay_status" 			javaType="String" />
+	</resultMap>
+	<select id="getPostList" resultMap="getPostList_Map">
+		WITH 
+		region_with AS
+		(select fk_region_code, region_name, region_detail_code, region_detail_name
+		from tbl_region A join tbl_region_detail B
+		on A.region_code = B.fk_region_code),
+		company_post_with AS
+		(select   company_id, fk_region_detail_code, name, company_code, POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, D.IMAGE AS IMAGE, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE, VIEWCOUNT, PAY_STATUS
+		from tbl_company C join tbl_post D
+		on C.company_id = D.fk_company_id
+		where PAY_STATUS = '1')
+		
+		select company_id, fk_region_detail_code, name, company_code, fk_region_code, region_name, region_detail_code, region_detail_name,
+			   POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, IMAGE, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE,
+			   VIEWCOUNT, PAY_STATUS
+		from company_post_with A join region_with B
+		on A.fk_region_detail_code = B.region_detail_code
+	</select>
+
 
 </mapper>

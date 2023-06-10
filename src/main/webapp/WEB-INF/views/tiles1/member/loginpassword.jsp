@@ -293,9 +293,9 @@
 		
 		function login(){
 			const frm = document.login ;
-			console.log(frm); 
+			// console.log(frm); 
 			frm.method = "post" ;
-			frm.action ="/wanted/login";
+			frm.action ="/login/proc";
 			frm.submit();
 			
 		}

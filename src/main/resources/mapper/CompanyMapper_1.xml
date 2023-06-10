@@ -2,8 +2,6 @@
 <!-- ==== #29. mapper 기본설정 ==== -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- ==== #29. 루트 엘리먼트 & 네임스페이스 설정(프로젝트 전체내에서 유일해야 한다.) ==== -->
-<!--  mapper 의 namespace(네임스페이스)가 중복되면, 작동하지 않는다. -->
 <mapper namespace="com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_1">
 
 	<resultMap type="HashMap" id="company_candidateList_Map">
@@ -13,20 +11,155 @@
 		<result property="applydate" 		column="applydate" 		javaType="String" />
 		<result property="status" 			column="status" 		javaType="String" />
 	</resultMap>
-	<select id="getcandidateList" resultType="String" resultMap="company_candidateList_Map">
-		select P.subject AS post_subject, M.name AS name, R.subject AS resume_subject, A.applydate
-			 , case when a.status = '1' then '합격' 
-			 		when a.status = '2' then '불합격' end AS status
-		from tbl_member M
-		    join tbl_resume R on M.userid = R.fk_userid
-		    join tbl_apply A on R.resume_code = A.fk_resume_code
-		    join tbl_post P on A.fk_post_code = P.post_code
-		where 1=1
-		<if test="status != 0">and status = #{status}</if>
+	<select id="getcandidateList" resultType="HashMap" resultMap="company_candidateList_Map">
+		SELECT p.SUBJECT AS post_subject, m.NAME AS name, r.SUBJECT AS resume_subject, a.APPLYDATE
+			 , CASE WHEN a.STATUS = '1' THEN '합격' 
+			 		WHEN a.STATUS = '2' THEN '불합격' 
+			 		WHEN a.STATUS = '3' THEN '채용전' END AS status
+		FROM TBL_MEMBER M
+		     JOIN TBL_RESUME r ON m.USERID = r.FK_USERID
+		     JOIN TBL_APPLY a ON r.RESUME_CODE = a.FK_RESUME_CODE
+		     JOIN TBL_POST p ON a.FK_POST_CODE = p.POST_CODE
+		WHERE 1=1
+		<if test="status != 0 and status != ''">AND STATUS = #{status}</if>
+		ORDER BY a.APPLYDATE DESC
 	</select>
 
 
+	<!-- 총 지원서 건수(totalCount) 구하기 - 검색이 있을 때와 검색이 없을 때로 나뉜다. --> 
+	<select id="getTotalCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM TBL_APPLY a JOIN TBL_POST p ON a.FK_POST_CODE = p.POST_CODE
+		WHERE 1=1
+	<if test='searchType != ""'>	
+			AND LOWER(${searchType}) LIKE '%'|| LOWER(#{searchWord}) || '%'
+	</if>
+	<if test="status != 0">
+				AND a.STATUS = #{status}
+	</if>
+	</select>
+	
+	
+	<!-- 페이징 처리한 지원서List 가져오기  === --> 
+	<select id="listSearchWithPaging" resultType="String" resultMap="company_candidateList_Map">
+		SELECT V.name AS name, V.resume_subject AS resume_subject, V.post_subject AS post_subject, V.applydate AS applydate,
+		       CASE WHEN V.status = '1' THEN '합격'
+		            WHEN V.status = '2' THEN '불합격' 
+					WHEN V.STATUS = '3' THEN '채용전' END AS status
+		FROM (
+		    SELECT row_number() over(order by a.APPLYDATE desc) AS rno,
+		           m.NAME AS name,
+		           r.SUBJECT AS resume_subject,
+		           p.SUBJECT AS post_subject,
+		           a.APPLYDATE,
+		           a.STATUS 
+		    FROM TBL_MEMBER m
+		         JOIN TBL_RESUME r ON m.USERID = r.FK_USERID
+		         JOIN TBL_APPLY a ON r.RESUME_CODE = a.FK_RESUME_CODE
+		         JOIN TBL_POST p ON a.FK_POST_CODE = p.POST_CODE
+		    WHERE 1=1
+			<if test='searchType != "" and searchWord != ""'>
+				<choose>
+				<when test="searchType == 'subject'">
+				 AND lower(p.SUBJECT) LIKE '%' || lower(#{searchWord}) || '%'
+				</when>
+				<otherwise>
+				AND lower(m.NAME) LIKE '%' || lower(#{searchWord}) || '%'
+				</otherwise>
+				</choose>
+			</if>	
+			<if test="status != 0">
+				AND a.STATUS = #{status}
+			</if>
+		) V
+		WHERE rno between #{startRno} and #{endRno}
+		ORDER BY v.APPLYDATE DESC
+	</select>
+	
 
+
+	<!-- 검색어 입력시 자동글 완성하기
+	<select id="wordSearchShow" resultType="String">
+		<choose>
+			<when test="searchType eq 'name'">
+				select distinct ${searchType}
+			</when>
+			<otherwise>
+				select ${searchType}
+			</otherwise>
+		</choose>
+				from tbl_post p join TBL_APPLY a ON p.POST_CODE = a.FK_POST_CODE
+				where 1=1 and lower(${searchType}) like '%'|| lower(#{searchWord}) || '%'
+		<choose>
+			<when test="searchType neq 'subject'">
+				order by ${searchType} asc
+			</when>
+			<otherwise>
+				order by a.APPLYDATE DESC
+			</otherwise>
+		</choose>		
+	</select>
+	 -->
+
+	
+	
+	<resultMap type="HashMap" id="candidateResume_Map">
+		<result property="resume_subject" 		column="resume_subject" 	javaType="String" />
+		<result property="name" 				column="name" 				javaType="String" />
+		<result property="email" 				column="email" 				javaType="String" />
+		<result property="mobile" 				column="mobile" 			javaType="String" />
+		<result property="introduce" 			column="introduce" 			javaType="String" />
+		<result property="career_start_date" 	column="career_start_date" 	javaType="String" />
+		<result property="career_end_date" 		column="career_end_date" 	javaType="String" />
+		<result property="company" 				column="company" 			javaType="String" />
+		<result property="department" 			column="department" 		javaType="String" />
+		<result property="career_content" 		column="career_content" 	javaType="String" />
+		<result property="school_start_date" 	column="school_end_date" 	javaType="String" />
+		<result property="shool" 				column="shool" 				javaType="String" />
+		<result property="major" 				column="major" 				javaType="String" />
+		<result property="school_content" 		column="school_content" 	javaType="String" />
+		<result property="skill" 				column="skill" 				javaType="String" />
+		<result property="reward_date" 			column="reward_date" 		javaType="String" />
+		<result property="reward" 				column="reward" 			javaType="String" />
+		<result property="reward_content" 		column="reward_content" 	javaType="String" />
+		<result property="language_date" 		column="language_date" 		javaType="String" />
+		<result property="language" 			column="language" 			javaType="String" />
+		<result property="language_content" 	column="language_content" 	javaType="String" />
+		<result property="link" 				column="link" 				javaType="String" />
+	</resultMap>
+	<select id="getResume" resultType="HashMap" resultMap="candidateResume_Map">
+		SELECT r.SUBJECT AS resume_subject,
+			   m.NAME AS name,
+			   m.USERID AS email,
+			   m.MOBILE AS mobile,
+			   r.INTRODUCE AS introduce,
+			   c.START_DATE AS career_start_date,
+			   c.END_DATE AS career_end_date,
+			   c.COMPANY AS company,
+			   c.DEPARTMENT AS department,
+			   c.CONTENT AS career_content,
+			   s.START_DATE AS school_start_date,
+			   s.END_DATE AS school_end_date,
+			   s.SCHOOL AS shool,
+			   s.MAJOR AS major,
+			   s.CONTENT AS school_content,
+			   r.SKILL AS skill,
+			   rw.REWARD_DATE AS reward_date,
+			   rw.REWARD AS reward,
+			   rw.CONTENT AS reward_content,
+			   l.LANG_DATE AS language_date,
+			   l.FOR_LANG AS language,
+			   l.CONTENT AS language_content,
+			   r.UPLOADLINK AS link
+		FROM TBL_RESUME r JOIN TBL_MEMBER m ON r.FK_USERID = m.USERID
+						  LEFT JOIN TBL_CAREER c ON r.RESUME_CODE = c.FK_RESUME_CODE
+						  LEFT JOIN TBL_SCHOOL s ON r.RESUME_CODE = s.FK_RESUME_CODE
+						  LEFT JOIN TBL_REWARD rw ON r.RESUME_CODE = rw.FK_RESUME_CODE
+						  LEFT JOIN TBL_LANGUAGE l ON r.RESUME_CODE = l.FK_RESUME_CODE
+		WHERE RESUME_CODE = ${resume_code}				  
+	</select>
+	
+	
 
 
 

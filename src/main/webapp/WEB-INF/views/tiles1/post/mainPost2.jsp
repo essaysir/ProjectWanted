@@ -9,10 +9,10 @@
 
 <style>
     section#skillSearch {
-		     /*  display: none; */
-		      position: relative;
-		    left: 20px;
-		    top: 20px;
+		     display: none; 
+		     position: relative;
+		    left: 586px;
+		    top: 6px;
 		    width: 584px;
 		    height: 446px;
 		    border: 1px solid #e1e2e4;
@@ -101,7 +101,7 @@
     }
     
     
-    ul#recommendList{
+    ul#recommendList , ul#resultList {
     	list-style-type: none ; 
     	display : flex; 
     	 flex-wrap: wrap; /*  ul 을 감싸고 있는 Div 범위를 초과하면 다음 줄로 내리기 위한 설정*/
@@ -218,30 +218,59 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-    	 	buttonActive();
-    	 	getSkil();
-    	 	$("p.search-answer-none").hide();
-    	 	$("div.search-result").hide();
-    		$("input#search-skill").on('input', searchSkill );
+    		settingSearchSkill(); 	
+    		// 해당 기능 사용법 
+    		// 1. 우선 모든 Javascript 를 복사해서 붙여 넣는다. 또한, HTML 태그도 복사 붙여넣는다.
+    		// CSS 도 모두 복사 붙여넣는다. 
+    		// 그 후, 기능 테스트를 한다. 
     		
-    		/// 밑의 방식과 같이 되어있는 이유는 밑의 함수에서 
-    		// $(this) 를 사용하기 위해서 다음과 같이 실행중이다. 
-    		$(document).on('click', 'li.search-answer-li', function(){
-    			insertSkill.call(this, "list")
-    		});
-			$(document).on('click' , 'button.btn-skill' , function(){
-				 insertSkill.call(this, "button")
-			});
-			
-			$(document).on('click' , 'button.btn-delete' , function(){
-				deleteSkill.call(this)
-			});
+    		// 2. 기능이 확인되면 이제 CSS 를 조정해야한다. 
+    		// 처음에 복붙하면 , 버튼의 위치와 검색창의 위치가 맞지 않을 것이다.
+    		//  section#skillSearch 여기 CSS 를 가서 TOP, LEFT 를 조정하면서 버튼 밑으로 내려오도록 위치를 조정한다.
     		
+    		// 3. 버튼의 경우 , 따로 디자인을 해주지 않았음. 원하는 경우에는 따로 지정해주면 된다. 
+    		//  현재 ,       '<input type="hidden" class="tech_code" value=" '+tech_code+' "/> '  다음과 같이 본문에 추가되기 때문에
     		
+    		// @RequestParam(value="tech_code", required=true) List<String> tech_code)
+    		// 스프링 에서 다음과 같이 불러주면 될 것이다. 
+    		
+    		// 디자인을 변경하고 싶은 부분은 각자 고쳐서 사용하면 된다. 
+    		// btn-delete, btn-skill 클래스를 만들거나 건들면 해당 기능의 오류가 생길 수 있으니 주의 할 필요가 있다. 
+    	
     		
 	}); // END OF DOCUMENT.READY(FUNCTION)
-    
-	let insert_count = 0 ; 
+	
+	let insert_count = 0 ;  // 최대 다섯개까지만 선택할 수 있게 해주는 COUNT
+	function settingSearchSkill(){
+		buttonActive();
+	 	getSkil();
+	 	$("p.search-answer-none").hide();
+	 	$("div.search-result").hide();
+		$("input#search-skill").on('input', searchSkill );
+		
+		/// 밑의 방식과 같이 되어있는 이유는 밑의 함수에서 
+		// $(this) 를 사용하기 위해서 다음과 같이 실행중이다. 
+		$(document).on('click', 'li.search-answer-li', function(){
+			insertSkill.call(this, "list")
+		});
+		$(document).on('click' , 'button.btn-skill' , function(){
+			 insertSkill.call(this, "button")
+		});
+		
+		$(document).on('click' , 'button.btn-delete' , function(){
+			deleteSkill.call(this)
+		});
+		
+		$(document).on('click', 'button#section-cancle' , function(){
+			sectionClose.call(this)				
+		})
+		
+		$(document).on('click', 'button#section-adjust' , function(){
+			sectionAdjust.call(this)				
+		})
+		
+	} // END OF FUNCTION
+	
 	
 	function buttonActive(){
 		$("#skill").click(function() {
@@ -344,6 +373,27 @@
 			$("ul.search-answer").empty();
 			$("div.search-result").hide();
 			
+			 $("button.btn-skill").each(function() {
+				
+				 	let buttonText = $(this).text(); // 각 button의 텍스트를 가져옵니다.
+				    if (buttonText.includes(tech_name)) {
+				      // 해당 button에 특정 단어가 포함되어 있다면 원하는 동작을 수행합니다.
+				      // 예를 들어, 해당 button을 스타일링하거나 클릭 이벤트를 트리거할 수 있습니다.
+				      // console.log($(this).html());
+				      $(this).removeClass("btn-skill").addClass("btn-delete");
+				      
+				      // 버튼 내부의 span 요소를 선택합니다.
+					    var spanElement = $(this).find('span');
+
+					    // span 요소의 내용을 변경합니다.
+					    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M0.826019 3.33516C0.637056 3.1462 0.330686 3.1462 0.141723 3.33516C-0.0472409 3.52412 -0.0472409 3.83049 0.141723 4.01946L3.36753 7.24526C3.55649 7.43423 3.86286 7.43423 4.05183 7.24526L9.85828 1.43881C10.0472 1.24985 10.0472 0.943479 9.85828 0.754515C9.66931 0.565552 9.36294 0.565552 9.17398 0.754515L3.70968 6.21882L0.826019 3.33516Z" fill="currentColor"></path></svg>');
+					    let div_element = $(this).parent().find("div.div_skill");
+					    div_element.css("color" , "#36f"); 
+				      
+				    }
+				    
+			 });
+			
 		} // END OF if ( type == "list" ) 
 
 		else if ( type == "button"){
@@ -397,12 +447,86 @@
 	}// END OF FUNCTION INSERTSKILL 
 	
 	function deleteSkill (){
-		console.log( $(this).html() );
+		// console.log( $(this).html() );
+		// console.log( $(this).text());  EX : Spring Framework 
+		let tech_name = $(this).text() ;
+		 $("div.data-input button.btn-delete").each(function() {
+				// console.log($(this).html());
+				// console.log($(this).text());
+				if ( $(this).text().includes(tech_name) ){
+					// console.log($(this).parent().html());
+					// console.log($(this).parent().parent().html() ) ;
+					// $(this).parent().parent().remove(); => ul 태그 까지 사라져서 사용 불가능
+					$(this).closest('li').remove(); //  다음과 같이 하면 , li 까지만 지워지게 된다.
+					
+					insert_count -- ; 
+				} // end of if 
+				
+				
+		 });// end of each.function
 		
-		
-		
-		
+		 $("ul#recommendList button.btn-delete").each(function(){
+			 if ( $(this).text().includes(tech_name)){
+				  $(this).closest('button').removeClass("btn-delete").addClass("btn-skill");
+				  // 버튼 내부의 span 요소를 선택합니다.
+				   var spanElement = $(this).find('span');
+
+				    // span 요소의 내용을 변경합니다.
+				    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path></svg>');
+					
+				    let div_element = $(this).parent().find("div.div_skill");
+				    div_element.css("color" , "#333"); 
+			 
+			 }
+			 
+		 });
 	} // END OF FUNCTION DELETESKILL 
+	
+	function sectionClose(){
+		$("section#skillSearch").hide();
+		$("ul#insertList").empty();
+		insert_count = 0 ; 
+		 $("ul#recommendList button.btn-delete").each(function(){
+				
+			  $(this).closest('button').removeClass("btn-delete").addClass("btn-skill");
+			  // 버튼 내부의 span 요소를 선택합니다.
+			   var spanElement = $(this).find('span');
+
+			    // span 요소의 내용을 변경합니다.
+			    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path></svg>');
+				
+			    let div_element = $(this).parent().find("div.div_skill");
+			    div_element.css("color" , "#333"); 
+		 
+		 });
+		 
+	}// END OF FUNCTION SECTIONCLOSE 
+	
+	function sectionAdjust(){
+		let html ="" ;
+		$("ul#insertList button.btn-delete").each(function(){
+			let tech_name = $(this).text();
+			// console.log($(this).text());
+			let tech_code= $(this).find("input").val();
+			// console.log(tech_code); // 1000 1002 1003
+			  
+			html += '<li class="li-skill">' +
+                   '<div class="div_skill">' +
+                   tech_name+
+                       '<input type="hidden" class="tech_code" value=" '+tech_code+' "/> '+
+                       '<span style="margin-left:4px; margin-bottom:2px; ">' +
+                           '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
+                               '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
+                           '</svg>' +
+                       '</span>' +
+                   '</div>' +
+           '</li>';
+		});
+		$("ul#resultList").html(html); 
+		$("section#skillSearch").hide();
+	}// END OF FUNCTION SECTIONADJUST
+	
+
 	
 </script>
 
@@ -458,6 +582,15 @@
 		
 </section>
                          
+<!--  적용하기 클릭 후 선택했던 값들이 들어가는 공간 -->                         
+ <div class="data-result">
+					<ul id="resultList" style="padding-left:0px;"> 
+
+					</ul>
+					
+</div>
+
+                        
 </body>
 
 

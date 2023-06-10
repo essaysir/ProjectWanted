@@ -40,7 +40,7 @@ dependencies {
 	
 	/////////////////////////////////////////////////////////////////
 	//security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // implementation 'org.springframework.boot:spring-boot-starter-security'
 	
 	//build.gradle
 	implementation 'org.springframework.boot:spring-boot-starter-mail'

@@ -144,6 +144,14 @@ button {
     overflow: hidden;
 }
 
+.JobCategory_JobCategory__btn__title__empty__fHZd2 {
+    padding-top: 3px;
+    font-size: 24px;
+    line-height: 29px;
+    font-weight: 400;
+    color: #aaa;
+}
+
 .MoreButton_MoreButton__2UmZ8 {
     position: relative;
     border: 1px solid #e1e2e3;
@@ -964,7 +972,9 @@ a, a:active, a:hover, a:visited {
     max-height: calc(100vh - 150px);
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
-    z-index: 5;
+    /* z-index: 5; */
+    z-index: 1050;
+    
     overflow-y: auto;
 }
 
@@ -1210,7 +1220,7 @@ ol, ul {
 
 .modal-backdrop {
     
-    z-index: 1 !important;
+    z-index: 1045 !important;
     
 }
 
@@ -1543,7 +1553,7 @@ sup {
 }
 
 .dropdown-content a {
-  color: black;
+  /* color: black; */
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -1583,7 +1593,7 @@ sup {
     color: #333;
 }
 
-.JobGroupItem_JobGroupItem__xXzAi.active {
+.JobGroupItem_JobGroupItem__xXzAiactive {
     color: #36f;
     font-weight: 500;
 }
@@ -1592,7 +1602,7 @@ sup {
     display: block;
     align-items: center;
     font-size: 16px;
-    color: #333;
+    /* color: #333; */
     padding: 11px 25px 9px;
     width: 100%;
     text-overflow: ellipsis;
@@ -1965,7 +1975,212 @@ ol, ul {
 }
 
 
-
+/* 기술스택 css */
+section#skillSearch {
+	display:none;
+	position: absolute;
+    z-index: 99;
+    left: -1px;
+    top: 45px;
+    width: 584px;
+    height: 469px;
+    border: 1px solid #e1e2e4;
+    border-radius: 5px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 4px 8px rgba(0,0,0,.15);
+    box-shadow: 0 4px 8px rgba(0,0,0,.15);
+    overflow: hidden;
+    }
+    div.search-wrapper{
+    	padding: 26px 20px 20px 20px ; 
+        height: 396px;
+  		overflow: auto;
+    }
+    
+    input#search-skill:not(:focus) { /* 커서 올라가기 전 */
+		margin: 0 0 10px;
+		padding: 0 12px;
+		width: 100%;
+	    height: 50px;
+	    min-height: 50px;
+	    outline: none;
+	    background-color: transparent;
+	    border: 1px solid #e1e2e3;
+	    border-radius: 25px;
+	    font-size: 14px;
+    	font-weight: 400;
+	}
+	input#search-skill::placeholder { /* 커서 올라가기 전 placeholder 색상 변경 */
+		color: #e1e2e3;
+	}
+	
+	input#search-skill:focus { /* 커서 올라간 후 */
+		margin: 0 0 10px;
+		padding: 0 12px;
+		width: 100%;
+	    height: 50px;
+	    min-height: 50px;
+	    outline: none;
+	    background-color: transparent;
+	    border: 1px solid #e1e2e3;
+	    border-color: blue;
+	    border-radius: 25px;
+	    font-size: 14px;
+    	font-weight: 400;
+	}
+    h4.recommend{
+        font-size: 14px;
+   		font-weight: 500;
+   		 line-height: 17px;
+    	margin: 0px 0px 14px;
+    	color: rgb(51, 51, 51) ;
+    }
+    
+    div.div_skill{
+        display: inline-flex;
+	    align-items: center;
+	    justify-content: center;
+	    height: 32px;
+	    padding: 8px 14px;
+	    border: 1px solid #f2f4f7;
+	    border-radius: 16px;
+	    margin: 0;
+	    background: #f2f4f7;
+	    color: #333;
+	    font-size: 13px;
+	    font-weight: 400;
+	    line-height: 16px;
+	    cursor: pointer;
+    }
+    
+    button.btn-skill{
+	    margin: 0 !important ; 
+	    padding: 0 !important;
+	    border: 0 !important;
+	    background: none !important;
+	    cursor: pointer !important;
+        border: 0px !important;
+    	border-radius: 20px !important;
+    }
+     button.btn-delete{
+	    margin: 0  ; 
+	    padding: 0 ;
+	    border: 0 ;
+	    background: none ;
+	    cursor: pointer ;
+        border: 0px ;
+    	border-radius: 20px ;
+    }
+    
+    
+    ul#recommendList , ul#resultList {
+    	list-style-type: none ; 
+    	display : flex; 
+    	 flex-wrap: wrap; /*  ul 을 감싸고 있는 Div 범위를 초과하면 다음 줄로 내리기 위한 설정*/
+    
+    
+    }
+    li.li-skill{
+    	margin : 0px 10px 10px 0px ; 
+    }
+    
+    div.data-input{
+    		width: 100%;
+		    min-height: 102px;
+		    padding: 14px;
+		    border-radius: 5px;
+		    background-color: #f8f8f8;
+    }
+    p.recommend{
+        width: 100%;
+	    margin-top: 10px;
+    	font-size: 12px;
+    	font-weight: 400;
+    	line-height: 14px;
+    	color: #939393;
+    }
+	button#section-cancle{
+		color: #767676;
+	    font-weight: 600;
+	    padding-right: 10px;
+	    min-width: 0;
+	    font-size: 14px;
+		display: inline-flex;
+	    align-items: center;
+	    background-color : #fff ;
+	    justify-content: center;
+	    vertical-align: middle;
+	    box-sizing: border-box;
+	    line-height: normal;
+	    border: none;
+	    cursor: pointer;
+	}
+	button#section-adjust{
+	    margin: 0;
+    	padding: 0;
+    	border: 0;
+		color:#36f;
+		background-color: #fff ;
+		font-size: 14px;
+    	font-weight: 600;
+	}
+	div.search-result{
+		  position : absolute;  
+		  top: 85px; /* 혹은 다른 원하는 위치로 조정 */
+		  left: 17px ;
+		  
+		  z-index: 1; /* 다른 요소들보다 위에 표시되도록 설정 */
+		  background-color: white;
+		    border: 1px solid #f2f4f7;
+		  /* 추가적인 스타일링을 원하는 경우 여기에 작성해주세요. */
+			height: 170px ;
+			width:  530px ; 
+			/* justify-content: center;
+  			align-items: center;
+	    	display: flex; */
+		
+	}
+	p.search-answer-none{
+			text-align: center ;
+			font-size: 14px;
+			color: #767676;
+	    	font-weight: 600;
+	}
+	ul.search-answer{
+		list-style-type: none ; 
+		padding-left : 0px ; 
+	
+	}
+	.search-answer li:hover , .search-answer li:focus {
+  		background-color: lightgray;
+	}
+	li.search-answer-li{
+		height: 42px ;
+	    padding-left: 17px;
+    	padding-top: 8px;
+	}
+	ul#insertList{
+		list-style-type: none ; 
+    	display : flex; 
+    	flex-wrap: wrap; /*  ul 을 감싸고 있는 Div 범위를 초과하면 다음 줄로 내리기 위한 설정*/
+	}
+	div.div_insert_skill{
+		border: 1px solid #36f;
+	    background: #fff;
+	    color: #36f;
+	    font-weight: 600;
+	    display: inline-flex;
+   		 align-items: center;
+	    justify-content: center;
+    	height: 32px;
+    	padding: 8px 14px;
+    	border-radius: 16px;
+   		 margin: 0;
+    	font-size: 13px;
+    	line-height: 16px;
+    	cursor: pointer;
+	}
+/* 기술스택 css 끝 */	
 
 
 
@@ -1984,9 +2199,25 @@ ol, ul {
 
 <script type="text/javascript">
     $(document).ready(function(){
-       
+    	
+    	
+    	//var container = document.querySelectorAll("input[name='test']");
+    	//alert(container[2].value);
+    	//같은 name으로 해서 값을 넣어두고 완료버튼 누르면 
+    	
     	// Joblist 불러오기
     	getJobList();
+    	
+    	
+    	// postlist 불러오기
+    	getPostList();
+    	
+    	// 기술스택 불러오기
+    	settingSearchSkill();
+    	
+    	// dutylist 관련 함수
+    	settingDutyList()
+    	
     	
     	// 슬릭 시작
     	$('.slick-track').slick({
@@ -2064,7 +2295,7 @@ ol, ul {
   	  //
        
 
-    });
+    }); // end of document
     
     //슬라이더 윗 버튼  
     function sliderfunc() {
@@ -2092,27 +2323,34 @@ ol, ul {
     	
     }
     
+    // joblist 가져오기
     function getJobList() {
+    	
+    	
 		$.ajax({
 			url: "/wanted/getJobList",
 			type: "get",
 			dataType: "json",
 			success: function (json) {
-				<%--  === #112. 검색어 입력시 자동글 완성하기 7  === --%>
 				// console.log(JSON.stringify(json));
 				let html = "" //"<section role='navigation' id='myDropdown' class='dropdown-content JobGroupOverlay_JobGroupOverlay__ZEs7N isKR'>";
 				 html += " <ul> "
-						+ "<li><a href='#' class='JobGroupOverlay_JobGroupOverlay__all__1x5HT'>전체</a></li>";
+						+ "<li><a href='/wanted/mainPost' class='JobGroupOverlay_JobGroupOverlay__all__1x5HT'>전체</a></li>";
 						
 						
 				for (let i = 0; i < json.JobList.length; i++) {
-					 console.log(json.JobList[i].job_name);
-					 console.log(json.JobList[i].job_code);
-					
-					html += "<li>" +
-							"<a href='#' class='JobGroupItem_JobGroupItem__xXzAi'>" +
+					 // console.log(json.JobList[i].job_name);
+					 // console.log(json.JobList[i].job_code);
+					 html += "<li>" +
+							"<a onclick='getDutyList_post("+json.JobList[i].job_code+")' class='JobGroupItem_JobGroupItem__xXzAi'>" + //<input type='hidden'  value=' "+json.JobList[i].job_code+" '/>
 							json.JobList[i].job_name +
-							"</a></li>" ;
+							"</a></li>" ; 
+					
+					/* html += "<li>" +
+							"<a href='/wanted/getPostList?"+json.JobList[i].job_code+"' class='JobGroupItem_JobGroupItem__xXzAi'>" +
+							json.JobList[i].job_name +
+							"</a></li>" ;  */		
+							
 				}
 				html += "</ul>"
 				
@@ -2126,7 +2364,470 @@ ol, ul {
 
 
 		});
+		
+	}// end of function getJobList()
+    
+    
+	// joblist 선택된 값의 dutylist 가져오기
+	let duty_select_count = 0
+	function settingDutyList(){
+    	
+    	let job_name = "";
+    	$(document).on('click', 'a.JobGroupItem_JobGroupItem__xXzAi', function() {
+	   		job_name = $(this).text();
+	   		$("span.JobCategory_JobCategory__btn__title__empty__fHZd2").html('<span class="JobCategory_JobCategory__btn__title__ixP9v">'+job_name+' 전체</span>');
+	   		$("span.JobGroup_JobGroup__title__nZmec").html(job_name);
+	   		$("a.JobGroupItem_JobGroupItem__xXzAiactive").removeClass("JobGroupItem_JobGroupItem__xXzAiactive");
+	   		$(this).addClass("JobGroupItem_JobGroupItem__xXzAiactive");
+	   		dropdownfunc();
+	   	});
+    	
+    	$(document).on('click' , 'button.JobCategoryItem_JobCategoryItem__oUaZr' , function(){
+    		selectDuty.call(this);
+		});
+    	
+    	$(document).on('click' , 'button.JobCategoryItem_clicked__cmZll' , function(){
+    		cancelDuty.call(this);
+		});
+    	
+    	/* $(document).on('click', 'button#confirmDuty' , function(){
+			confirmDuty.call(this);				
+		}) */
+    	
+    	
+    }
+	
+	function selectDuty(){
+		let duty_name = ""; 
+		let duty_code = ""; 
+		
+		duty_name = $(this).text();
+		duty_code = $(this).find('input').val();
+		
+		let  element = $(this);
+		//element.removeClass("JobCategoryItem_JobCategoryItem__oUaZr").addClass("JobCategoryItem_clicked__cmZll");
+		element.addClass("JobCategoryItem_clicked__cmZll");
+		
+		if  ( insert_count >= 5 ){
+			alert(" 최대 5개의 기술스택만 선택할 수 있습니다.");
+			return false ; 
+		}
+		
+		duty_select_count++;
 	}
+	
+	function cancelDuty(){
+		
+		let  element = $(this);
+		//element.removeClass("JobCategoryItem_JobCategoryItem__oUaZr").addClass("JobCategoryItem_clicked__cmZll");
+		element.removeClass("JobCategoryItem_clicked__cmZll");
+		
+		duty_select_count--;
+	}
+	/* 
+	function confirmDuty() {
+		console.log("하하하");
+	}
+	 */
+	
+	
+    
+	function getDutyList_post(job_code) {
+    	
+    	  $.ajax({
+			url: "/wanted/getDutyList_post",
+			type: "get",
+			data: {"job_code":job_code},
+			dataType: "json",
+			success: function (json) {
+				//console.log(JSON.stringify(json));
+				let html = ""
+				 html += '<div class="JobCategoryOverlay_JobCategoryOverlay__top__RppY3">'+
+				 		 '<p class="JobCategoryOverlay_JobCategoryOverlay__top__title__3tneN">직무를 선택해 주세요. (최대 5개 선택 가능)</p>'+
+				 		 '<div class="JobCategoryOverlay_JobCategoryOverlay__top__list__amyf6">'+
+				 		 '<button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">'+$("span.JobGroup_JobGroup__title__nZmec").text()+' 전체</button>';
+						
+				for (let i = 0; i < json.DutyList.length; i++) {
+					//console.log(json.PostList[i].SUBJECT);
+					// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
+					html += '<button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">'+json.DutyList[i].duty_name+'<input type="hidden" value="'+json.DutyList[i].duty_code+'"/></button>'
+							
+							
+				}
+				html += '</div>'+
+						'</div>'+
+						'<div class="JobCategoryOverlay_JobCategoryOverlay__bottom__6Q_OM"><button id="confirmDuty" class="Button_Button__root__V1ie3 Button_Button__contained__toUI5 Button_Button__containedPrimary__gFaT9 Button_Button__containedSizeMedium__c2z9c Button_Button__containedDisabled__qiqtc Button_Button__disabled__2eyyF JobCategoryOverlay_JobCategoryOverlay__bottom__btn__GliIw" ><span class="Button_Button__label__1Kk0v">선택 완료하기</span></button></div>';
+				
+				$("section.JobCategoryOverlay_JobCategoryOverlay__rkFLO").html(html);
+
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			} 
+
+
+		}); 
+    }
+    
+	
+	
+	////////////////////////////////////////////////////////////////////////
+	
+    function getPostList() {
+		$.ajax({
+			url: "/wanted/getPostList",
+			type: "get",
+			dataType: "json",
+			success: function (json) {
+				 //console.log(JSON.stringify(json));
+				let html = ""
+				 html += " <ul id='job-list'> ";
+						
+						
+				for (let i = 0; i < json.PostList.length; i++) {
+					//console.log(json.PostList[i].SUBJECT);
+					// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
+					html += "<li>" +
+							"<div class='Card_className__u5rsb'><a href='/postdetail/"+json.PostList[i].post_code+"' class='' >" +
+							"<header style='background-image: "+json.PostList[i].image+" '></header>" +
+							"<div class='body'>"+
+							"<div class='job-card-position'>"+json.PostList[i].subject+"</div>"+
+							"<div class='job-card-company-name'>"+json.PostList[i].name+"</div>"+
+							"<div class='Tooltip_container__AvBvM'><button class='Tooltip_label__P9FMp' type='button'>"+
+							"<div class='ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP'><span>응답률 매우 높음</span></div>"+
+							"<div class='Tooltip_tooltipContent__6exdr'>지원 후 응답받을 확률이 95% 이상입니다.</div>"+
+							"</button></div>"+
+							"<div class='job-card-company-location'>"+json.PostList[i].region_name+"<span class='addressDot'>.</span><span>"+json.PostList[i].region_detail_name+"</span></div>"+
+							"</div></a></div></li>"
+					
+							
+				}
+				html += "</ul>"
+				
+				$("div.List_List_container__JnQMS").html(html);
+
+
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+
+
+		});
+	}
+    
+    
+    
+    // 기술스택 시작
+    
+    let insert_count = 0 ;  // 최대 다섯개까지만 선택할 수 있게 해주는 COUNT
+	function settingSearchSkill(){
+		buttonActive();
+	 	getSkil();
+	 	$("p.search-answer-none").hide();
+	 	$("div.search-result").hide();
+		$("input#search-skill").on('input', searchSkill );
+		
+		/// 밑의 방식과 같이 되어있는 이유는 밑의 함수에서 
+		// $(this) 를 사용하기 위해서 다음과 같이 실행중이다. 
+		$(document).on('click', 'li.search-answer-li', function(){
+			insertSkill.call(this, "list")
+		});
+		$(document).on('click' , 'button.btn-skill' , function(){
+			 insertSkill.call(this, "button")
+		});
+		
+		$(document).on('click' , 'button.btn-delete' , function(){
+			deleteSkill.call(this)
+		});
+		
+		$(document).on('click', 'button#section-cancle' , function(){
+			sectionClose.call(this)				
+		})
+		
+		$(document).on('click', 'button#section-adjust' , function(){
+			sectionAdjust.call(this)				
+		})
+		
+	} // END OF FUNCTION
+	
+	
+	function buttonActive(){
+		$("#skill").click(function() {
+		    $("section#skillSearch").toggle();
+		  }); 	
+	
+	} // END OF FUNCTION buttonActive 
+	
+	function getSkil(){
+		let html = "" ;
+		$.ajax({
+			url: "/wanted/getSkill",
+			type: "get",
+			dataType:"json",
+			success: function (result) {
+			   //  console.log(JSON.stringify(result));
+				// 버튼 추가를 위한 반복문
+			    $.each(result, function(index, skill) {
+			        html += '<li class="li-skill">' +
+			                        '<button type="button" class="btn-skill" id="btn-skill-'+skill.tech_code+ '">' +
+			                            '<div class="div_skill">' +
+			                                skill.tech_name +
+			                                '<input type="hidden" name="tech_code" value=" '+skill.tech_code+' "/> '+
+			                                '<span style="margin-left:4px; margin-bottom:2px; ">' +
+			                                    '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
+			                                        '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
+			                                    '</svg>' +
+			                                '</span>' +
+			                            '</div>' +
+			                        '</button>' +
+			                    '</li>';
+			          
+			           
+			    });
+				
+			    // 생성한 것들을 HTML 에 추가
+			    $("ul#recommendList").html(html); 
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+		});
+		
+		
+	}// END OF FUCNTION GETSKILL
+	
+	function searchSkill(){
+		$("div.search-result").show();
+		let html = "";
+		const input_val = $("input#search-skill").val();
+		if ( input_val.trim() == ""   ){
+			$("ul.search-answer").empty();
+			$("div.search-result").hide();
+			return false ; 
+		}// end of if 
+		
+		else{
+			$("p.search-answer-none").hide();
+			$.ajax({
+				url: "/wanted/searchSkill",
+				type: "get",
+				data: {"input_val": input_val } ,
+				dataType:"json",
+				success: function (result) {
+				   	//console.log(JSON.stringify(result));
+				    // console.log(result.length);
+					// 버튼 추가를 위한 반복문
+					if ( result.length == 0 ){
+						$("p.search-answer-none").show();
+					}
+					
+					else{
+						$.each(result, function(index, skill) {
+					    	html += "<li class=\"border-bottom search-answer-li\">"+skill.tech_name+"<input type='hidden'  class='tech_code' value='"+skill.tech_code+"' /></li>" 
+						});
+					}
+					$("ul.search-answer").html(html); // 생성한 것들을 HTML 에 추가
+				
+				},
+				error: function (request, status, error) {
+					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				}
+			});// END OF AJAX 
+			
+			
+		}// end of else
+	}// END OF FUNCTION SEARCHSKILL 
+	
+	function insertSkill(type){
+		let tech_name = ""; 
+		let tech_code = ""; 
+		
+		tech_name = $(this).text();
+		tech_code = $(this).find('input.tech_code').val();
+		// console.log(tech_name);  // PYTHON 
+		// console.log(tech_code);  //  1000 		
+	
+		if ( type == "list" ){
+			$("input#search-skill").val("");
+			$("ul.search-answer").empty();
+			$("div.search-result").hide();
+			
+			 $("button.btn-skill").each(function() {
+				
+				 	let buttonText = $(this).text(); // 각 button의 텍스트를 가져옵니다.
+				    if (buttonText.includes(tech_name)) {
+				      // 해당 button에 특정 단어가 포함되어 있다면 원하는 동작을 수행합니다.
+				      // 예를 들어, 해당 button을 스타일링하거나 클릭 이벤트를 트리거할 수 있습니다.
+				      // console.log($(this).html());
+				      $(this).removeClass("btn-skill").addClass("btn-delete");
+				      
+				      // 버튼 내부의 span 요소를 선택합니다.
+					    var spanElement = $(this).find('span');
+
+					    // span 요소의 내용을 변경합니다.
+					    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M0.826019 3.33516C0.637056 3.1462 0.330686 3.1462 0.141723 3.33516C-0.0472409 3.52412 -0.0472409 3.83049 0.141723 4.01946L3.36753 7.24526C3.55649 7.43423 3.86286 7.43423 4.05183 7.24526L9.85828 1.43881C10.0472 1.24985 10.0472 0.943479 9.85828 0.754515C9.66931 0.565552 9.36294 0.565552 9.17398 0.754515L3.70968 6.21882L0.826019 3.33516Z" fill="currentColor"></path></svg>');
+					    let div_element = $(this).parent().find("div.div_skill");
+					    div_element.css("color" , "#36f"); 
+				      
+				    }
+				    
+			 });
+			
+		} // END OF if ( type == "list" ) 
+
+		else if ( type == "button"){
+			// 버튼을 클릭했을 시, 클래스를 바꿔줌을 통해 기존의 function 이 작동되지 않고
+			// delete 함수를 작동시킬 수 있도록 설정
+			let  element = $(this);
+			element.removeClass("btn-skill").addClass("btn-delete");
+			
+		    // 버튼 내부의 span 요소를 선택합니다.
+		    var spanElement = $(this).find('span');
+
+		    // span 요소의 내용을 변경합니다.
+		    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M0.826019 3.33516C0.637056 3.1462 0.330686 3.1462 0.141723 3.33516C-0.0472409 3.52412 -0.0472409 3.83049 0.141723 4.01946L3.36753 7.24526C3.55649 7.43423 3.86286 7.43423 4.05183 7.24526L9.85828 1.43881C10.0472 1.24985 10.0472 0.943479 9.85828 0.754515C9.66931 0.565552 9.36294 0.565552 9.17398 0.754515L3.70968 6.21882L0.826019 3.33516Z" fill="currentColor"></path></svg>');
+			
+		    let div_element = $(this).parent().find("div.div_skill");
+		    div_element.css("color" , "#36f"); 
+			
+		} // END OF else if ( type == "button" )
+		
+		else{
+			alert("잘못된 경로입니다. 하지마세요");
+			return false; 
+		}
+
+		if  ( insert_count >= 5 ){
+			alert(" 최대 5개의 기술스택만 선택할 수 있습니다.");
+			return false ; 
+		} // end of if 
+		
+		let html = ""; 
+	
+		
+	
+		html += '<li class="li-skill">' +
+					        '<button type="button" class="btn-delete">' +
+					          '<div class="div_insert_skill">' +
+					            tech_name +
+					            '<input type="hidden" id="insert-tech-code" value="'+tech_code+'"/>'+
+					            '<span style="margin-left:4px; margin-bottom:2px;">' +
+					              '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
+					                '<path d="M0.882988 0.151497L5.00001 4.26852L9.11705 0.151497C9.31905 -0.0504989 9.6465 -0.0504989 9.8485 0.151497C10.0505 0.35349 10.0505 0.680994 9.8485 0.882988L5.7315 5.00001L9.8485 9.11705C10.0505 9.31905 10.0505 9.6465 9.8485 9.8485C9.6465 10.0505 9.31905 10.0505 9.11705 9.8485L5.00001 5.7315L0.882988 9.8485C0.680994 10.0505 0.35349 10.0505 0.151497 9.8485C-0.0504989 9.6465 -0.0504989 9.31905 0.151497 9.11705L4.26852 5.00001L0.151497 0.882988C-0.0504989 0.680994 -0.0504989 0.35349 0.151497 0.151497C0.35349 -0.0504989 0.680994 -0.0504989 0.882988 0.151497Z" fill="currentColor"></path>' +
+					              '</svg>' +
+					            '</span>' +
+					          '</div>' +
+					        '</button>' +
+					      '</li>';
+			
+		$("ul#insertList").append(html) ;
+		insert_count ++ ; 
+		
+	}// END OF FUNCTION INSERTSKILL 
+	
+	function deleteSkill (){
+		// console.log( $(this).html() );
+		// console.log( $(this).text());  EX : Spring Framework 
+		let tech_name = $(this).text() ;
+		 $("div.data-input button.btn-delete").each(function() {
+				// console.log($(this).html());
+				// console.log($(this).text());
+				if ( $(this).text().includes(tech_name) ){
+					// console.log($(this).parent().html());
+					// console.log($(this).parent().parent().html() ) ;
+					// $(this).parent().parent().remove(); => ul 태그 까지 사라져서 사용 불가능
+					$(this).closest('li').remove(); //  다음과 같이 하면 , li 까지만 지워지게 된다.
+					
+					insert_count -- ; 
+				} // end of if 
+				
+				
+		 });// end of each.function
+		
+		 $("ul#recommendList button.btn-delete").each(function(){
+			 if ( $(this).text().includes(tech_name)){
+				  $(this).closest('button').removeClass("btn-delete").addClass("btn-skill");
+				  // 버튼 내부의 span 요소를 선택합니다.
+				   var spanElement = $(this).find('span');
+
+				    // span 요소의 내용을 변경합니다.
+				    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path></svg>');
+					
+				    let div_element = $(this).parent().find("div.div_skill");
+				    div_element.css("color" , "#333"); 
+			 
+			 }
+			 
+		 });
+	} // END OF FUNCTION DELETESKILL 
+	
+	function sectionClose(){
+		$("section#skillSearch").hide();
+		$("ul#insertList").empty();
+		insert_count = 0 ; 
+		 $("ul#recommendList button.btn-delete").each(function(){
+				
+			  $(this).closest('button').removeClass("btn-delete").addClass("btn-skill");
+			  // 버튼 내부의 span 요소를 선택합니다.
+			   var spanElement = $(this).find('span');
+
+			    // span 요소의 내용을 변경합니다.
+			    spanElement.html('<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path></svg>');
+				
+			    let div_element = $(this).parent().find("div.div_skill");
+			    div_element.css("color" , "#333"); 
+		 
+		 });
+		 
+	}// END OF FUNCTION SECTIONCLOSE 
+	
+	function sectionAdjust(){
+		let html ="" ;
+		let tech_count = 0;
+		$("ul#insertList button.btn-delete").each(function(){
+			let tech_name = $(this).text();
+			// console.log($(this).text());
+			let tech_code= $(this).find("input").val();
+			// console.log(tech_code); // 1000 1002 1003
+			  
+			html += '<li class="li-skill">' +
+                   '<div class="div_skill">' +
+                   tech_name+
+                       '<input type="hidden" name="tech_code" value=" '+tech_code+' "/> '+
+                       '<span style="margin-left:4px; margin-bottom:2px; ">' +
+                           '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
+                               '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
+                           '</svg>' +
+                       '</span>' +
+                   '</div>' +
+           '</li>';
+
+		});
+		$("ul#resultList").html(html); 
+		$("section#skillSearch").hide();
+		
+		//let tech_name = $("ul#insertList").text();
+		
+		let tech_name = document.querySelector("#insertList > li:nth-child(1) > button > div").textContent;
+		
+		
+		if(insert_count == 1) {
+			$("button#skill").html('<span class="FilterButton_title__MNRKD">기술스택<span class="FilteredCount_filteredCount__3PCO5 FilterInWdlist_filteredCount__f825_">'+insert_count+'</span></span><span class="ButtonDisplay_ButtonDisplay__4VTdg">'+tech_name+'</span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path></svg>');
+		}
+		else if(insert_count > 1) {
+			$("button#skill").html('<span class="FilterButton_title__MNRKD">기술스택<span class="FilteredCount_filteredCount__3PCO5 FilterInWdlist_filteredCount__f825_">'+insert_count+'</span></span><span class="ButtonDisplay_ButtonDisplay__4VTdg">'+tech_name+' 외</span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path></svg>');
+			
+		}
+		else {
+			$("button#skill").html('<span class="FilterButton_title__MNRKD">기술스택</span><span class="ButtonDisplay_ButtonDisplay__4VTdg"></span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path></svg>');
+		}
+		
+		
+		
+	}// END OF FUNCTION SECTIONADJUST
+	
+	// 기술스택 끝
     
 	
 </script>
@@ -2135,6 +2836,11 @@ ol, ul {
 <body>
 <div class="JobList_cn__t_THp container">
 
+	<!--        <input name="test" value="1" />
+                <input name="test" value="2" />
+                <input name="test" value="3" />
+                -->
+                
 
 
     <article role="navigation" class="CategoryNavbar_Container__MvZaR">
@@ -2151,75 +2857,29 @@ ol, ul {
 				        <li><a href="/wdlist/523" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="523" data-job-category="Marketing &amp; Advertising">마케팅·광고</a></li>
 				        <li><a href="/wdlist/511" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="511" data-job-category="Design">디자인</a></li>
 				        <li><a href="/wdlist/530" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="530" data-job-category="Sales">영업</a></li>
-				        <li><a href="/wdlist/510" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="510" data-job-category="Customer Service">고객서비스·리테일</a></li>
-				        <li><a href="/wdlist/959" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="959" data-job-category="Game Production">게임 제작</a></li>
-				        <li><a href="/wdlist/524" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="524" data-job-category="Media &amp; Communication">미디어</a></li>
-				        <li><a href="/wdlist/517" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="517" data-job-category="HR">HR</a></li>
-				        <li><a href="/wdlist/513" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="513" data-job-category="Engineering">엔지니어링·설계</a></li>
-				        <li><a href="/wdlist/508" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="508" data-job-category="Finance">금융</a></li>
-				        <li><a href="/wdlist/522" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="522" data-job-category="Manufacturing">제조·생산</a></li>
-				        <li><a href="/wdlist/532" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="532" data-job-category="Logistics&amp; Trade">물류·무역</a></li>
-				        <li><a href="/wdlist/515" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="515" data-job-category="Bio, Medical">의료·제약·바이오</a></li>
-				        <li><a href="/wdlist/10101" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="10101" data-job-category="Education">교육</a></li>
-				        <li><a href="/wdlist/521" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="521" data-job-category="Law">법률·법집행기관</a></li>
-				        <li><a href="/wdlist/509" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="509" data-job-category="Construction">건설·시설</a></li>
-				        <li><a href="/wdlist/10057" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="10057" data-job-category="F&amp;B">식·음료</a></li>
-				        <li><a href="/wdlist/514" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="514" data-job-category="Public·Social Work">공공·복지</a></li>
+
 				    </ul>-->
 				</section> 
             </div>            
                         
             <div class="JobCategory_JobCategory__uTt2E">
-            	<button type="button" onclick="dropdownfunc2()"  JobCategory_JobCategory__btn__k3EFe" aria-label="popup navigation button"><span class="JobCategory_JobCategory__btn__title__ixP9v">개발 전체</span><span class="MoreButton_MoreButton__2UmZ8" style="top: 3px;" role="button" aria-label="popup navigation button"><svg xmlns="https://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" class="MoreButton_MoreButton__icon__L_DpL">
+            	<button type="button" onclick="dropdownfunc2()"  JobCategory_JobCategory__btn__k3EFe" aria-label="popup navigation button"><span class="JobCategory_JobCategory__btn__title__empty__fHZd2">직군을 선택해주세요</span><span class="MoreButton_MoreButton__2UmZ8" style="top: 3px;" role="button" aria-label="popup navigation button"><svg xmlns="https://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" class="MoreButton_MoreButton__icon__L_DpL">
                             <path fill="#767676" fill-rule="nonzero" d="M2.28 3.22a.75.75 0 0 0-1.06 1.06l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L6 6.94 2.28 3.22z"></path>
                         </svg></span></button>
             	
             	<section class="JobCategoryOverlay_JobCategoryOverlay__rkFLO" role="navigation">
-				    <div class="JobCategoryOverlay_JobCategoryOverlay__top__RppY3">
+				    <!-- <div class="JobCategoryOverlay_JobCategoryOverlay__top__RppY3">
 				        <p class="JobCategoryOverlay_JobCategoryOverlay__top__title__3tneN">직무를 선택해 주세요. (최대 5개 선택 가능)</p>
 				        <div class="JobCategoryOverlay_JobCategoryOverlay__top__list__amyf6">
 					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">개발 전체</button>
 					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">웹 개발자</button>
 					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">서버 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">소프트웨어 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">프론트엔드 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">자바 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">C,C++ 개발자</button>
 					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">안드로이드 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">파이썬 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">Node.js 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">iOS 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">머신러닝 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">DevOps / 시스템 관리자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">데이터 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">시스템,네트워크 관리자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">개발 매니저</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">QA,테스트 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">기술지원</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">데이터 사이언티스트</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">보안 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">프로덕트 매니저</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">임베디드 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">빅데이터 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">하드웨어 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">PHP 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">블록체인 플랫폼 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">DBA</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">크로스플랫폼 앱 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">ERP전문가</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">.NET 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">웹 퍼블리셔</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">영상,음성 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">그래픽스 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">CTO,Chief Technology Officer</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">BI 엔지니어</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">루비온레일즈 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">VR 엔지니어</button>
 					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">CIO,Chief Information Officer</button>
 				        </div>
 				    </div>
-				    <div class="JobCategoryOverlay_JobCategoryOverlay__bottom__6Q_OM"><button class="Button_Button__root__V1ie3 Button_Button__contained__toUI5 Button_Button__containedPrimary__gFaT9 Button_Button__containedSizeMedium__c2z9c Button_Button__containedDisabled__qiqtc Button_Button__disabled__2eyyF JobCategoryOverlay_JobCategoryOverlay__bottom__btn__GliIw" data-attribute-id="jobRole__click" data-job-category="IT" data-job-category-id="518" data-job-role-id="" data-job-role="" disabled=""><span class="Button_Button__label__1Kk0v">선택 완료하기</span></button></div>
-				</section>
+				     <div class="JobCategoryOverlay_JobCategoryOverlay__bottom__6Q_OM"><button class="Button_Button__root__V1ie3 Button_Button__contained__toUI5 Button_Button__containedPrimary__gFaT9 Button_Button__containedSizeMedium__c2z9c Button_Button__containedDisabled__qiqtc Button_Button__disabled__2eyyF JobCategoryOverlay_JobCategoryOverlay__bottom__btn__GliIw" ><span class="Button_Button__label__1Kk0v">선택 완료하기</span></button></div>-->
+				</section> 
             		            
             </div>
                         
@@ -2269,142 +2929,53 @@ ol, ul {
                             
                         </div>
                             <div class="FilterInWdlist_skillsFilterContainer__UZGLH">
-                            	<button type="button" class="FilterButton_ButtonClassName__PWHFf FilterInWdlist_filterButton__njVLF" data-attribute-id="explore__filter__click" data-filter-name="skill" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all"><span class="FilterButton_title__MNRKD">기술스택</span><span class="ButtonDisplay_ButtonDisplay__4VTdg"></span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg">
+                            	<button type="button" id="skill" class="FilterButton_ButtonClassName__PWHFf FilterInWdlist_filterButton__njVLF" ><span class="FilterButton_title__MNRKD">기술스택</span><span class="ButtonDisplay_ButtonDisplay__4VTdg"></span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg">
                                         <path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path>
                                     </svg>
                                 </button>
                                 
-                                <!-- <section class="SkillsPopup_container__YmAtm">
-								    <div class="SkillsPopup_bodyContainer__ys1JY">
-								        <div class="SkillsSearch_SkillsSearch__At_ER"><input placeholder="보유 기술스택을 검색해주세요." value="">
-								            <div class="SkillsSearch_SkillsSearch__icon__peLwi"><svg xmlns="https://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-								                    <path d="M16.4747 17.3587C16.7188 17.6028 17.1145 17.6028 17.3586 17.3587C17.6026 17.1146 17.6026 16.7189 17.3586 16.4748L11.9419 11.0581L11.7305 10.8742C11.483 10.6618 11.1138 10.6754 10.8825 10.9054C9.83555 11.9471 8.42382 12.5417 6.91663 12.5417C3.81023 12.5417 1.29163 10.0229 1.29163 6.91675C1.29163 3.81 3.80988 1.29175 6.91663 1.29175C10.0234 1.29175 12.5416 3.81 12.5416 6.91675C12.5416 7.49637 12.4536 8.06522 12.2829 8.60813C12.1794 8.93741 12.3624 9.28828 12.6917 9.39182C13.0209 9.49535 13.3718 9.31235 13.4753 8.98306C13.684 8.31931 13.7916 7.62405 13.7916 6.91675C13.7916 3.11965 10.7137 0.041748 6.91663 0.041748C3.11952 0.041748 0.041626 3.11965 0.041626 6.91675C0.041626 10.7132 3.11984 13.7917 6.91663 13.7917C8.55107 13.7917 10.0962 13.2181 11.3173 12.1989L16.4747 17.3587Z" fill="black"></path>
-								                </svg></div>
-								        </div>
-								        <div class="RecommendedSkills_RecommendedSkills__EeSZ9">
-								            <h4>많이 쓰는 인기 기술스택을 추천해 드려요!</h4>
-								            <ul>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">Python<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">Spring Framework<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">AWS<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">Git<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">iOS<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">HTML<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">JavaScript<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">MySQL<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">SQL<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">Linux<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">Android<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">Kotlin<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">Swift<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">C / C++<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">PHP<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">Docker<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">React<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">Github<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">JPA<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								                <li><button type="button">
-								                        <div class="SkillTag_SkillTag__tURfQ">C++<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-								                                    <path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>
-								                                </svg></span></div>
-								                    </button></li>
-								            </ul>
-								        </div>
-								        
-								        <div class="SelectedSkills_SelectedSkills__OWCLm">
-										    <div class="SelectedSkills_SelectedSkills__selected___Tg9D">
-										        <ul>
-										            <li><button type="button">
-										                    <div class="SkillTag_SkillTag__tURfQ selected">Spring Framework<span><svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-										                                <path d="M0.882988 0.151497L5.00001 4.26852L9.11705 0.151497C9.31905 -0.0504989 9.6465 -0.0504989 9.8485 0.151497C10.0505 0.35349 10.0505 0.680994 9.8485 0.882988L5.7315 5.00001L9.8485 9.11705C10.0505 9.31905 10.0505 9.6465 9.8485 9.8485C9.6465 10.0505 9.31905 10.0505 9.11705 9.8485L5.00001 5.7315L0.882988 9.8485C0.680994 10.0505 0.35349 10.0505 0.151497 9.8485C-0.0504989 9.6465 -0.0504989 9.31905 0.151497 9.11705L4.26852 5.00001L0.151497 0.882988C-0.0504989 0.680994 -0.0504989 0.35349 0.151497 0.151497C0.35349 -0.0504989 0.680994 -0.0504989 0.882988 0.151497Z" fill="currentColor"></path>
-										                            </svg></span></div>
-										                </button></li>
-										        </ul>
-										    </div>
-										    <p>·기술 스택은 최대 5개까지 선택 가능합니다.</p>
-										</div>
-								    </div>
-								    <hr class="Divider_Divider__root__f2LD0" style="margin: 5px 0px;">
-								    <footer class="Footer_Footer__rgOdb">
-								        <div class="Footer_Footer__btnBox__cO3zF"><button class="Button_Button__root__V1ie3 Button_Button__text__GCOTx Button_Button__textAssistive__Dx57x Button_Button__textSizeSmall__VSAkQ Footer_Footer__btnBox__cancle__oMWEp"><span class="Button_Button__label__1Kk0v">취소</span><span class="Button_Button__interaction__kkYaa"></span></button><button class="Button_Button__root__V1ie3 Button_Button__text__GCOTx Button_Button__textPrimary__hcFzK Button_Button__textSizeSmall__VSAkQ" data-attribute-id="explore__filter__update" data-job-category-id="518" data-job-category="IT" data-job-role-id="10110" data-job-role="Software Engineer" data-filter-name="skill" data-update-result=""><span class="Button_Button__label__1Kk0v">적용하기</span><span class="Button_Button__interaction__kkYaa"></span></button></div>
-								    </footer>
-								</section> -->
+                                
+								<section id="skillSearch">
+											<div class="search-wrapper">
+												<input type="text" id="search-skill"  placeholder=" 보유 기술 스택을 검색해주세요" style=""/>
+												<button class="btn-search border-left" style="position : relative; top: -46px;  right: -482px;"><i class="fa-solid fa-magnifying-glass"></i></button>
+												<!-- 검색시 결과가 뜨도록 하는 곳 -->
+												
+												<div class="search-result">
+														<p class="search-answer-none"> 검색 결과가 없습니다.<br/>
+														한글 검색결과가 없는 경우 영어로 검색해보세요</p>	
+														<ul class="search-answer">
+														
+														</ul>
+														
+												</div>
+												
+												<h4 class="recommend">많이 쓰는 인기 기술스택을 추천해드려요</h4>
+												<!-- 버튼들이 들어가는 ul -->
+												<ul id="recommendList" style="padding-left:0px;"> 
+												</ul>
+								
+												<!--  선택한 것들이 들어가는 곳-->
+												<div class="data-input">
+													<ul id="insertList" style="padding-left:0px;"> 
+								
+													</ul>
+													
+												</div>
+												
+												<p class="recommend">·기술 스택은 최대 5개까지만 선택가능합니다.</p>
+											</div>
+											
+											<footer style="padding:10px;" class="border-top">
+											
+												<div style="text-align: right; margin-right: 10px; ">
+													<button type="button" id="section-cancle">취소</button>
+													<button type="button" id="section-adjust">적용하기</button>
+												</div>
+											
+											</footer>
+										
+								</section>
                                 
                             
                             </div>
@@ -2666,133 +3237,10 @@ ol, ul {
                 </div>
             </div>
             <div class="List_List_container__JnQMS">
-                <ul data-cy="job-list">
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/160358" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="4376" data-company-name="파인디지털" data-position-id="160358" data-position-name="블랙박스 System 개발 (F/W개발)" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="0">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F4376%2Fcpqpzlymnr0tfec6__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">블랙박스 System 개발 (F/W개발)</div>
-                                    <div class="job-card-company-name">파인디지털</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">경기<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-                    <li>
-                        <div data-cy="job-card" class="Card_className__u5rsb"><a href="/wd/135853" class="" aria-label="position link" data-attribute-id="position__click" data-job-category-id="518" data-job-category="IT" data-company-id="22811" data-company-name="플랜티넷" data-position-id="135853" data-position-name="AI 알고리즘 설계, 딥러닝/머닝러닝" data-response-level="very_high" data-response-rate="100" data-ai-score="" data-ai-score-status="" data-recommend-model-status="notBase" data-recommend-model-index="196">
-                                <header style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F22811%2Fic2hoxm3ujxgql7j__400_400.jpg&amp;w=400&amp;q=75&quot;);"></header>
-                                <div class="body">
-                                    <div class="job-card-position">AI 알고리즘 설계, 딥러닝/머닝러닝</div>
-                                    <div class="job-card-company-name">플랜티넷</div>
-                                    <div class="Tooltip_container__AvBvM"><button class="Tooltip_label__P9FMp" type="button">
-                                            <div class="ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP"><span>응답률 매우 높음</span></div>
-                                            <div class="Tooltip_tooltipContent__6exdr">지원 후 응답받을 확률이 95% 이상입니다.</div>
-                                        </button></div>
-                                    <div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-                                    <div class="reward">채용보상금 1,000,000원</div>
-                                </div>
-                            </a></div>
-                    </li>
-
-                    
-                    
-                    <div></div>
-                </ul>
+            
+                
+                
+                
             </div>
         </div>
         

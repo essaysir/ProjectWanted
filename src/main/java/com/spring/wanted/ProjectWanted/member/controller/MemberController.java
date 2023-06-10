@@ -18,14 +18,13 @@ import com.spring.wanted.ProjectWanted.member.service.InterMemberService;
 public class MemberController {
 	
 	@Autowired
-	private PasswordEncoder passwordEncoder ;
+	public MemberController(InterMemberService service , PasswordEncoder passwordEncoder) {
+		this.service = service;
+		this.passwordEncoder = passwordEncoder ;
+	}
 	
 	private final InterMemberService service ;
-	
-	@Autowired
-	public MemberController(InterMemberService service ) {
-		this.service = service;
-	}
+	private final PasswordEncoder passwordEncoder ;
 	
 		//  회원 가입 페이지
 		@GetMapping(value="/login")

@@ -1,8 +1,11 @@
 package com.spring.wanted.ProjectWanted.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,10 +14,15 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.spring.wanted.ProjectWanted.member.service.InterMemberService;
+
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan
 public class SecurityConfig  {
+	
+	
 	
 	
 	@Bean
@@ -23,6 +31,12 @@ public class SecurityConfig  {
 	}
 	
 	
+	 @Bean
+	    public CustomAuthenticationProvider customAuthenticationProvider() {
+	        return new CustomAuthenticationProvider();
+	    }
+
+    
 	@Bean
 	 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
@@ -31,11 +45,19 @@ public class SecurityConfig  {
 				.antMatchers("/wanted/register" ,"/send-one").permitAll() // 회원가입 페이지 접근권한 모두 허용
 				.antMatchers("/wanted/login" , "/wanted/login/checkUserid").permitAll()
 				// .antMatchers("/mypage/**").hasRole("USER") 
-				.antMatchers("/company/**").hasRole("COMPANY") 
+				.antMatchers("/wanted/company/**").hasRole("COMPANY") 
 				// .antMatchers("/admin/**").hasRole("ADMIN") 
 				.anyRequest().authenticated();
 		http
-				.formLogin();
+				.formLogin()
+					.loginPage("/wanted/login")
+					.loginProcessingUrl("/login/proc")
+					.defaultSuccessUrl("/wanted")
+					.usernameParameter("username")
+                	.passwordParameter("password")
+                	.failureUrl("/wanted/register")
+					.permitAll();
+					
 		http
 				.csrf().disable();
 		
@@ -52,7 +74,7 @@ public class SecurityConfig  {
 	    public WebSecurityCustomizer webSecurityCustomizer() {
 	        // 인증 및 인가 예외 Path URL        
 	    	return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-	    			.antMatchers( "/bootstrap-4.6.0-dist/**", "/jquery-ui-1.13.1.custom/**","/smarteditor/**" , "/OwlCarousel/**" );
+	    			.antMatchers( "/js/**" , "/images/**" , "/bootstrap-4.6.0-dist/**", "/jquery-ui-1.13.1.custom/**","/smarteditor/**" , "/OwlCarousel/**" );
 	    				
 	 }
 
