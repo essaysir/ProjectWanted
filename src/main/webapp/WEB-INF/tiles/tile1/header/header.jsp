@@ -38,7 +38,7 @@
 
 	function setMenuList() {
 		$.ajax({
-			url: "/wanted/company/getHeaderList",
+			url: "/getHeaderList",
 			type: "get",
 			dataType: "json",
 			success: function (json) {
@@ -271,7 +271,7 @@
 				    </li>
 				    
 				    <li class="border-left text-center" style="margin: 10px 30px 10px 30px; padding-left:10px;">
-				      <a class="header-category" href="<%=ctxPath%>/" style="color: #666;  border-radius: 15px; border: 1px solid">기업서비스</a>
+				      <a class="header-category" href="<%=ctxPath%>/wanted/company/login" style="color: #666;  border-radius: 15px; border: 1px solid">기업서비스</a>
 				    </li>
 			  </ul>
 		</nav>

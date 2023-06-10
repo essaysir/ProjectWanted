@@ -1,12 +1,10 @@
 package com.spring.wanted.ProjectWanted.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -14,13 +12,12 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.spring.wanted.ProjectWanted.member.service.InterMemberService;
-
 
 @Configuration
 @EnableWebSecurity
 @ComponentScan
-public class SecurityConfig  {
+@Order(1)
+public class MemberSecurityConfig  {
 	
 	
 	
@@ -44,9 +41,7 @@ public class SecurityConfig  {
 				.antMatchers("/wanted").permitAll() // 메인 페이지 접근권한 모두 허용
 				.antMatchers("/wanted/register" ,"/send-one").permitAll() // 회원가입 페이지 접근권한 모두 허용
 				.antMatchers("/wanted/login" , "/wanted/login/checkUserid").permitAll()
-				// .antMatchers("/mypage/**").hasRole("USER") 
-				.antMatchers("/wanted/company/**").hasRole("COMPANY")
-				// .antMatchers("/admin/**").hasRole("ADMIN") 
+				.antMatchers("/wanted/user/**").hasRole("USER")
 				.anyRequest().authenticated();
 		http
 				.formLogin()
