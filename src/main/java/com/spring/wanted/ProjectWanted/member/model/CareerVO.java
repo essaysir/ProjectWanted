@@ -11,10 +11,9 @@ public class CareerVO {
     private int fk_Resume_Code;
     private String company;
     private String department;
-    private String content;
     private String start_Date;
     private String end_Date;
     
-    private List<PerformanceVO> performancevo ;
+    private List<PerformanceVO> performancevoList;
     
 }
