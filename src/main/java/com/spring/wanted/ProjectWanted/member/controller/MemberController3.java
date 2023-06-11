@@ -8,10 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 import com.spring.wanted.ProjectWanted.member.service.InterMemberService3;
 
 @RequestMapping(value="/wanted/member")
@@ -101,6 +104,20 @@ public class MemberController3 {
 		        return "fail";
 		    }
 
+		}
+		@ResponseBody
+		@PostMapping(value = "/profileImageUpdate", produces = "text/plain;charset=UTF-8")		
+		public String profileImageUpdate(MemberVO membervo, MultipartHttpServletRequest mrequest) {
+		    // membervo를 사용하여 필요한 데이터 처리
+
+		    // attach 파일을 사용하여 프로필 사진 업데이트 처리
+			int n = service.profileImageUpdate(membervo, mrequest);
+
+			if (n==1) {
+		        return "success";
+		    } else {
+		        return "fail";
+		    }
 		}
 	
 	
