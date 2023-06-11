@@ -61,6 +61,21 @@ public class MemberDAO3 implements InterMemberDAO3 {
 		int n = mapper.passwdUpdate(paraMap);
 		return n;
 	}
+	
+	// 프로필사진업데이트하기
+	@Override
+	public int profileImageUpdate(MemberVO membervo) {
+
+		int n = mapper.profileImageUpdate(membervo);
+		return n;
+	}
+	
+	// 원래프로필이미지 가져오기
+	@Override
+	public MemberVO getMemberImage(String userid) {
+		MemberVO memberImage = mapper.getMemberImage(userid);
+		return memberImage;
+	}
 
 	
 
