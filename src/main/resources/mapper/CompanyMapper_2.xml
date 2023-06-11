@@ -103,6 +103,7 @@
 		where post_code = #{post_code}	
 	</select>
 	
+	<!-- 수정페이지 에서 수정한거 update -->
 	<update id="updateRecruit" parameterType="com.spring.wanted.ProjectWanted.post.model.PostVO">
 		update TBL_post set subject = #{subject}, info = #{info}, mainduty = #{mainduty}
 						  , quality = #{quality}, salary = #{salary}, createday = #{createday}
@@ -110,21 +111,25 @@
 		where post_code = #{post_code}
 	</update>
 	
+	<!-- 공고페이지 에서 원하는공고 삭제하기 -->
 	<delete id="deleteRecruit">
 		delete from tbl_post
 		where post_code = #{post_code}
 	</delete>
 	
+	<!-- 공고페이지 에서 원하는공고 중단하기 -->
 	<update id="stopRecruit">
 		update tbl_post set deadline = TRUNC(sysdate) - 1
 		where post_code = #{post_code}
 	</update>
 	
+	<!-- 공고페이지 에서 원하는공고 결제상태 update하기 -->
 	<update id="updatePostPayment">
 		update tbl_post set pay_status = 1
 		where post_code = #{post_code}
 	</update>
 	
+	<!-- 공고페이지 에서 원하는공고 연장페이지 띄우기 -->
 	<resultMap type="HashMap" id="viewExtendPost_Map">
 		<result property="post_code" 		column="post_code" 		javaType="String" />
 		<result property="job_code" 		column="job_code" 		javaType="String" />
@@ -152,11 +157,13 @@
 		where post_code = #{post_code}	
 	</select>
 	
+	<!--기간연장하기 update하기 -->
 	<update id="updateExtendPost">
 		update tbl_post set deadline = TRUNC(deadline) + 30
 		where post_code = #{post_code}
 	</update>
 	
+	<!-- 원하는공고정보 가져오기 -->
 	<select id="getOneRecruit" parameterType="String" resultType="com.spring.wanted.ProjectWanted.post.model.PostVO">
 		select post_code, job_code, job_name, duty_code, duty_name, subject, career, info, mainduty, quality, image, salary, createday, deadline
 		from tbl_post P

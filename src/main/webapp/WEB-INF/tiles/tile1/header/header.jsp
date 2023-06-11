@@ -220,7 +220,7 @@
 				    <li style="margin: 10px 50px 10px 10px; ">
 				      	<a class="header-category border-right" href="#" data-toggle="dropdown" style="color: black;">
 				        	<i class="fa-solid fa-bars"></i>
-				       		 <img  src="/resources/images/원티드로고.png" class="position-relative" style="width: 80px; margin-left:10px; top:-3px;"/>
+				       		 <img  src="/images/원티드로고.png" class="position-relative" style="width: 80px; margin-left:10px; top:-3px;"/>
 				      	</a>
 				      
 				      <div id="menu-list"class="dropdown-menu" aria-labelledby="navbardrop">
@@ -256,7 +256,7 @@
 					
 					<c:if test="${ userid != 'anonymousUser' }">
 						<div class="profile">
-								  <img src="<%= ctxPath%>/resources/images/원티드로고.png" style="width: 28px; height: 28px; border-radius:50%;"/>
+								  <img src="/images/profile_default.png" style="width: 28px; height: 28px; border-radius:50%;"/>
 								  <div class="menu" id="menu">
 								    <ul>
 								      <li><a href="/wanted/login">MY 원티드</a></li>
@@ -264,6 +264,7 @@
 								      <li class="border-top"><a href="/wanted/logout">로그아웃</a></li>
 								    </ul>
 								  </div>
+
 						</div>
 					</c:if>
 
