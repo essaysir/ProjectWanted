@@ -2,21 +2,18 @@ package com.spring.wanted.ProjectWanted.security.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan
-@Order(1)
 public class MemberSecurityConfig  {
 	
 	
@@ -41,18 +38,34 @@ public class MemberSecurityConfig  {
 				.antMatchers("/wanted").permitAll() // 메인 페이지 접근권한 모두 허용
 				.antMatchers("/wanted/register" ,"/send-one").permitAll() // 회원가입 페이지 접근권한 모두 허용
 				.antMatchers("/wanted/login" , "/wanted/login/checkUserid").permitAll()
+				.antMatchers("/wanted/company/login" , "/wanted/company/checkUserid").permitAll()
+				
 				.antMatchers("/wanted/user/**").hasRole("USER")
+				.antMatchers("/wanted/company/**").hasRole("COMPANY")
 				.anyRequest().authenticated();
 		http
-				.formLogin()
-					.loginPage("/wanted/login")
-					.loginProcessingUrl("/login/proc")
-					.defaultSuccessUrl("/wanted", true)
-					.usernameParameter("username")
-                	.passwordParameter("password")
-                	.failureUrl("/wanted/company/jobPost")
-					.permitAll();
-					
+		.formLogin()
+		.loginPage("/wanted/company/login")
+		.loginProcessingUrl("/login/company/proc")
+		.usernameParameter("username")
+		.passwordParameter("password")
+		.permitAll()
+		.successHandler(new SimpleUrlAuthenticationSuccessHandler("/wanted/company/candidateList")) // 로그인 성공 후 리다이렉트될 URL 설정
+		.failureUrl("/wanted/company/login_error");
+		
+		http
+	    .formLogin()
+	        .loginPage("/wanted/login")
+	        .loginProcessingUrl("/login/proc")
+	        .usernameParameter("username")
+	        .passwordParameter("password")
+	        .permitAll()
+	        .successHandler(new SimpleUrlAuthenticationSuccessHandler("/wanted")) // 로그인 성공 후 리다이렉트될 URL 설정
+	        .failureUrl("/wanted/login_error");
+		
+		
+
+
 		http
 				.csrf().disable();
 		

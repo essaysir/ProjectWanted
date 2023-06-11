@@ -307,7 +307,7 @@
 		function checkUserid(){
 			
 			 $.ajax({
-				url: "/wanted/login/checkUserid",
+				url: "/wanted/company/checkUserid",
 				type: "post",
 				async:"false", 
 				data: {"userid": $('input#email_input').val()} ,
@@ -343,13 +343,12 @@
 					<!-- 다섯 번째 중간 틀(wanted 제목이 있는 틀) -->
 					<div id="login_wanted">
 						<div id="title_name">
-							<p>wanted</p>
+							<p>wanted 기업서비스</p>
 						</div>
 					</div >		
 					<!-- 다섯 번째 중간 틀 끝(wanted 제목이 있는 틀) -->
 					<form  name="test" id="login_input">
-						<h4> 기업 서비스</h4>
-						<p id="subtitle_1">하나의 계정으로<br>더욱 편리하게</p>
+						<p id="subtitle_1">기업서비스<br/>하나의 계정으로<br>더욱 편리하게</p>
 						<p id="subtitle_2">원티드가 제공하는 서비스를<br>하나의 계정으로 모두 이용할 수 있습니다.</p>
 						<div>
 							<div id="email_box">

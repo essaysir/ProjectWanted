@@ -13,7 +13,7 @@ import com.spring.wanted.ProjectWanted.common.model.InterCommonDAO;
 public class CommonService implements InterCommonService {
 	
 	private final InterCommonDAO cdao ;
-	
+
 	@Autowired
 	public CommonService ( InterCommonDAO cdao) {
 		this.cdao = cdao ;
@@ -35,6 +35,17 @@ public class CommonService implements InterCommonService {
 		String json = gson.toJson(skillList);
 		
 		return json;
+	}
+
+	@Override
+	public String checkUserid(String userid) {
+		int n = cdao.checkUserid(userid);
+		if ( n == 1 ) {
+			return  "tiles2/company/content/company_loginpassword" ;
+		}
+		else {
+			return "tiles2/company/content/company_signup"; 
+		}
 	}
 
 }

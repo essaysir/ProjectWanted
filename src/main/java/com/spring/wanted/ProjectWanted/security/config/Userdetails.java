@@ -29,7 +29,7 @@ public class Userdetails implements UserDetailsService {
 		}
 		System.out.println(" USERDETAILS 부분 확인용 : "+mvo);
 		List<GrantedAuthority>  roles = new ArrayList<>();
-		roles.add(new SimpleGrantedAuthority("COMPANY"));
+		roles.add(new SimpleGrantedAuthority("ROLE_COMPANY"));
 		// 추후에 관리자가 들어오거나 COMPANY 가 들어오면 다르게 정의해준다. 
 		
 		MemberContext memberContext = new MemberContext(mvo ,  roles);

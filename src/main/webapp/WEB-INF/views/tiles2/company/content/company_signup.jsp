@@ -449,7 +449,7 @@
 						</div>
 						<div id="username_box">
 							<label>별명</label>
-							<input name="nickname" id="name_input" type="text" placeholder="이름을 입력해주세요." name="username"  />
+							<input name="nickname" type="text" placeholder="이름을 입력해주세요." name="username"  />
 						</div>		
 						 <div class="certification_box"><label>휴대폰인증</label></div>
 						<div class="certification_box">
