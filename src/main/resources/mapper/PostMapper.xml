@@ -29,7 +29,31 @@
 
 	</select>
 
+	<!-- region 데이터 불러오기	 -->
+	<resultMap type="HashMap" id="getRegionList_Map">
+		<result property="region_code" 	column="region_code" javaType="String" />
+		<result property="region_name" 	column="region_name" javaType="String" />
+	</resultMap>
+	<select id="getRegionList" resultMap="getRegionList_Map">
+		select region_code, region_name
+		from tbl_region
+		order by region_code asc
+	</select>
 
+
+	<!-- region_detail 데이터 불러오기	 -->
+	<resultMap type="HashMap" id="getRegionDetailList_Map">
+		<result property="region_detail_code" 	column="region_detail_code" 		javaType="String" />
+		<result property="fk_region_code" 		column="fk_region_code" 			javaType="String" />
+		<result property="region_detail_name" 	column="region_detail_name" 		javaType="String" />
+	</resultMap>	
+	<select id="getRegionDetailList" resultMap="getRegionDetailList_Map">
+		select region_detail_code, fk_region_code, region_detail_name
+		from tbl_region_detail
+		where fk_region_code = #{region_code}
+		
+
+	</select>
 
 	<!-- 공고리스트 데이터 불러오기	 -->
 	<resultMap type="HashMap" id="getPostList_Map">
