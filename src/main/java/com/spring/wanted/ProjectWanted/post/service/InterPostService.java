@@ -14,6 +14,12 @@ public interface InterPostService {
 	// Duty 데이터 불러오기
 	List<Map<String, String>> getDutyList(String job_code);
 
+	// region 데이터 불러오기
+	List<Map<String, String>> getRegionList();
+
+	// region_detail 데이터 불러오기
+	List<Map<String, String>> getRegionDetailList(String region_code);
+
 	
 
 }
