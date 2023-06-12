@@ -7,12 +7,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.stereotype.Component;
 
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-	
 	@Autowired
 	private  Userdetails userDetailService ; 
 	@Autowired

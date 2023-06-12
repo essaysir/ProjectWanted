@@ -29,13 +29,15 @@ public class CommonController {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@GetMapping(value="")
 	public String index(HttpServletRequest request) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String userid  = authentication.getName();
-		
-		System.out.println(" 확인용 userid : " + userid );
-
-		request.setAttribute("userid", userid);
-		
+		/*
+		 * Authentication authentication =
+		 * SecurityContextHolder.getContext().getAuthentication(); String userid =
+		 * authentication.getName();
+		 * 
+		 * System.out.println(" 확인용 userid : " + userid );
+		 * 
+		 * request.setAttribute("userid", userid);
+		 */
 		return "index.tiles1";
 	}
 	
