@@ -31,10 +31,8 @@ public class CommonController {
 	public String index(HttpServletRequest request) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userid  = authentication.getName();
-		MemberVO mvo = (MemberVO)authentication.getPrincipal();
 		
 		System.out.println(" 확인용 userid : " + userid );
-		System.out.println(" 확인용 mvo : " + mvo.getName() );
 
 		request.setAttribute("userid", userid);
 		
