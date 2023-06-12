@@ -40,12 +40,8 @@ public class CommonService implements InterCommonService {
 	@Override
 	public String checkUserid(String userid) {
 		int n = cdao.checkUserid(userid);
-		if ( n == 1 ) {
 			return  "tiles2/company/content/company_loginpassword" ;
-		}
-		else {
-			return "tiles2/company/content/company_signup"; 
-		}
+		
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.spring.wanted.ProjectWanted.common.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,55 +15,54 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.wanted.ProjectWanted.common.service.InterCommonService;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 
-@RequestMapping(value="/wanted")
+@RequestMapping(value = "/wanted")
 @Controller
 public class CommonController {
-	private final InterCommonService service ;
-	
+	private final InterCommonService service;
+
 	@Autowired
-	public CommonController(InterCommonService service ) {
+	public CommonController(InterCommonService service) {
 		this.service = service;
 	}
-	
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	@GetMapping(value="")
+	@GetMapping(value = "")
 	public String index(HttpServletRequest request) {
-		/*
-		 * Authentication authentication =
-		 * SecurityContextHolder.getContext().getAuthentication(); String userid =
-		 * authentication.getName();
-		 * 
-		 * System.out.println(" 확인용 userid : " + userid );
-		 * 
-		 * request.setAttribute("userid", userid);
-		 */
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+		System.out.println(" 확인용 authentication " + authentication);
+		if ( authentication != null ) {
+			MemberVO mvo = (MemberVO)authentication.getPrincipal();
+			System.out.println("확인용 mvo "+mvo);
+			request.setAttribute("userid", mvo.getUserid());
+		}
+		 
 		return "index.tiles1";
 	}
-	
-	@GetMapping(value="/skill")
+
+	@GetMapping(value = "/skill")
 	public String login() {
 		return "/post/mainPost2.tiles1";
 	}
-	
+
 	@ResponseBody
-	@GetMapping(value="/getSkill")
+	@GetMapping(value = "/getSkill")
 	public String getSkill() {
-		String json  = service.getSkill();
-		return json ;
+		String json = service.getSkill();
+		return json;
 	}
+
 	@ResponseBody
-	@GetMapping(value="/searchSkill")
-	public String searchSkill(@RequestParam String input_val ) {
+	@GetMapping(value = "/searchSkill")
+	public String searchSkill(@RequestParam String input_val) {
 		String json = service.searchSkill(input_val);
-		return json ;
+		return json;
 	}
-	
-	@PostMapping(value="/company/checkUserid")
-	public String checkUserid(@RequestParam String userid , HttpServletRequest request ) {
+
+	@PostMapping(value = "/company/checkUserid")
+	public String checkUserid(@RequestParam String userid, HttpServletRequest request) {
 		String view = service.checkUserid(userid);
 		request.setAttribute("userid", userid);
-		return view ;
+		return view;
 	}
-	
-	
+
 }

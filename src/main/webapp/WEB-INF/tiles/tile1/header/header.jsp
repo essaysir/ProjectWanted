@@ -249,12 +249,12 @@
 				    <li  style="margin: 10px 0px 10px 10px;">
 				    	
 				    	
-				    <c:if test="${  userid == 'anonymousUser'}">
+				    <c:if test="${ empty userid}">
 					    <%-- 로그인된 상태 --%>
-					    <p><a href="/wanted/login">회원가입/로그인></a></p>
+					    <p style="width: 150px; margin-bottom:0px;"><a href="/wanted/login">회원가입/로그인</a></p>
 					</c:if>
 					
-					<c:if test="${ userid != 'anonymousUser' }">
+					<c:if test="${ not empty userid  }">
 						<div class="profile">
 								  <img src="/images/profile_default.png" style="width: 28px; height: 28px; border-radius:50%;"/>
 								  <div class="menu" id="menu">

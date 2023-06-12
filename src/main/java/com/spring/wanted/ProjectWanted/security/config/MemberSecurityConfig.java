@@ -1,6 +1,5 @@
 package com.spring.wanted.ProjectWanted.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +11,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
+@Configuration
 @EnableWebSecurity
 public class MemberSecurityConfig  {
 	 	
@@ -21,26 +20,26 @@ public class MemberSecurityConfig  {
 			return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		}
 
-		 
-		 @Order(0)
+
+		
+		
+		 @Order(1)
 		 @Configuration
 		 public  static class CommonConfigurationAdapter{
 			 
-		    	@Bean public CustomAuthenticationProvider customAuthenticationProvider() {
-					  return new CustomAuthenticationProvider(); 
-				}
 
 			 @Bean
 				public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 				  http.antMatcher("/wanted/*").authorizeRequests()
 				  .antMatchers("/wanted").permitAll()
-				   .antMatchers("/wanted/login", "/wanted/checkUserid").permitAll()
+				   .antMatchers("/wanted/login", "/wanted/checkUserid" , "/wanted/logout").permitAll()
 				  .anyRequest().authenticated();
+				  
 				  return http.build();
 			 }
 		 }
 		
-		 @Order(1)
+		 @Order(2)
 		 @Configuration
 		 public  static class MemberConfigurationAdapter{
 
@@ -50,22 +49,28 @@ public class MemberSecurityConfig  {
     		    	return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
     		    			.antMatchers( "/js/**" , "/images/**" , "/bootstrap-4.6.0-dist/**", "/jquery-ui-1.13.1.custom/**","/smarteditor/**" , "/OwlCarousel/**" );
     	}	 
-
+		@Bean 
+		public CustomAuthenticationProvider customAuthenticationProvider() {
+			return new CustomAuthenticationProvider(); 
+		}
 		 @Bean
 		public SecurityFilterChain MemberfilterChain(HttpSecurity http) throws Exception {
-	            http
+
+	            http.authenticationProvider(customAuthenticationProvider())
 	            .antMatcher("/wanted/member/**")
 	            .authorizeRequests()
 	            .anyRequest().hasRole("USER")
 	            .and()
-	            .formLogin().loginPage("/wanted/login").loginProcessingUrl("/login/proc").defaultSuccessUrl("/wanted", true)
-	            .usernameParameter("username").passwordParameter("password");
+	            .formLogin().loginPage("/wanted/login").loginProcessingUrl("/wanted/member/login/proc").defaultSuccessUrl("/wanted", true)
+	            
+	            .and()
+	            .csrf().disable();
 							
 				return http.build();
 				}
 		 }
 		 
-		 @Order(2)
+		 @Order(3)
 		 @Configuration
 		 public  static class CompanyConfigurationAdapter{
 		// permitAll 과 WebSecurity  의 차이는 permitAll 은 보안 필터를 거치지만, WebSecurity 는 아예 보안필터를 거치지 않는다. 
@@ -79,6 +84,7 @@ public class MemberSecurityConfig  {
 	 
 		 @Bean
 		public SecurityFilterChain CompanyfilterChain(HttpSecurity http) throws Exception {
+
 	            http
 	            .antMatcher("/wanted/company/**")
 	            .authorizeRequests()
@@ -86,8 +92,9 @@ public class MemberSecurityConfig  {
 	            .anyRequest().hasRole("COMPANY")
 	            .and()
 	            .formLogin().loginPage("/wanted/company/login").loginProcessingUrl("/login/company/proc")
-	            .usernameParameter("username").passwordParameter("password");
-							
+	            .usernameParameter("username").passwordParameter("password").permitAll()
+	            .and()
+	            .csrf().disable();			
 					return http.build();
 				}
 		 }
