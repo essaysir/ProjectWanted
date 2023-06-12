@@ -91,9 +91,7 @@ public class MemberController3 {
 			
 			String passwd = service.getPasswd(userid);
 			
-			boolean matchPwd = passwordEncoder.matches(inputPwd, passwd);
-			
-		    if (matchPwd) {
+			  if ( passwordEncoder.matches(inputPwd, passwd )) {
 		        return "success";
 		    } else {
 		        return "fail";		        
