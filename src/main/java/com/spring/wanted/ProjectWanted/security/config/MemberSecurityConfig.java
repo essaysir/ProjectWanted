@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class MemberSecurityConfig  {
 	
-	 @Bean
+		@Bean
 		public  PasswordEncoder passwordEncoder() {
 			return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		}
