@@ -3,6 +3,10 @@ package com.spring.wanted.ProjectWanted.member.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+
 public interface InterMemberService3 {
 	
 	// 멤버 정보가져오기
@@ -19,6 +23,9 @@ public interface InterMemberService3 {
 	
 	// 패스워드 업데이트하기
 	int passwdUpdate(Map<String, String> paraMap);
+	
+	// 프로필사진업데이트하기
+	int profileImageUpdate(MemberVO membervo, MultipartHttpServletRequest mrequest);
 
 	
 

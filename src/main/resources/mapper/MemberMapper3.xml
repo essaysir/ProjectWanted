@@ -42,8 +42,17 @@
 		where userid = #{userid}
 	</update>
 		
-
-
+	<update id="profileImageUpdate" parameterType="com.spring.wanted.ProjectWanted.member.model.MemberVO">
+		update tbl_member set profile_image = #{profile_image}
+		where userid = #{userid}
+	</update>
+		
+	<select id="getMemberImage" parameterType="String" resultType="com.spring.wanted.ProjectWanted.member.model.MemberVO">
+		select userid, pwd, name, nickname, mobile, profile_image, resume_count
+		from tbl_member
+		where userid = #{userid}		
+	</select>
+	
 
 
 </mapper>

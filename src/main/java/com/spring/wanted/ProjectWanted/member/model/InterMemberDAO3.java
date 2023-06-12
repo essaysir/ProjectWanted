@@ -19,5 +19,11 @@ public interface InterMemberDAO3 {
 	
 	//패스워드 업데이트하기
 	int passwdUpdate(Map<String, String> paraMap);
+	
+	// 프로필사진업데이트하기
+	int profileImageUpdate(MemberVO membervo);
+	
+	// 원래프로필이미지 가져오기
+	MemberVO getMemberImage(String userid);
 
 }

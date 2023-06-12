@@ -81,6 +81,13 @@
     	height: 80px;
 	}
 	
+	.profile_img > img {
+		border-radius: 50%;
+    	position: relative;
+    	width: 80px;
+    	height: 80px;
+	}
+	
 	.pencil_icon{
 		margin-top:15px;
 		display: flex;
@@ -277,7 +284,7 @@
     	width: auto;
     	flex: 0 0 auto;
     	border-radius: 5px;
-    	border: #e1e2e3;
+    	border: solid 1px #e1e2e3;
 	}
 	
 	.phoneFrame{
@@ -325,6 +332,11 @@
 		color:red;
 	}
 	
+	.imginput{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 	
 	
 </style>
@@ -541,7 +553,55 @@
 			alert("양식에 맞춰서 입력해주세요!");
 		}
 		
-	}
+	}//end of fucntion passwdUpdate
+	
+	function previewImage(event) {
+				
+	    var input = event.target;
+	    
+	    console.log(input);
+	    
+	    if (input.files && input.files[0]) {
+	    	
+	    	$('#profile_imageModal').modal('show');
+	    	
+	        var reader = new FileReader();
+	        
+	        reader.onload = function (e) {
+	        	
+	            var imgElement = document.getElementById("preview");
+	            
+	            imgElement.setAttribute("src", e.target.result);
+	            
+	        };
+	        
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}// end of function previewImage
+	
+	function profile_imageUpdate() {
+	    const frm = document.profile_imageFrm;
+	    var formData = new FormData(frm);
+
+	    $.ajax({
+	        url: "profileImageUpdate",
+	        type: "POST",
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        success: function(result) {
+	            if (result === "success") {
+	                alert("프로필 사진이 성공적으로 업데이트되었습니다.");
+	                location.reload();
+	            } else {
+	                alert("프로필 사진 업데이트 실패");
+	            }
+	        },
+	        error: function(request, status, error) {
+	            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+	        }
+	    });
+	}// end of function profile_imageUpdate
 	
 	
 </script>
@@ -551,13 +611,15 @@
 		<div class="miMain_content">
 			<c:forEach  var="map" items="${requestScope.memberinfo}">
 				<section class="scnum1">
+					<form name="profile_imageFrm" enctype="multipart/form-data">
 					<div class="profile_img">
-						<c:if test="${requestScope.profile_image == null}">
-							<img width="80" height="80" src="https://static.wanted.co.kr/oneid-user/profile_default.png">
-						</c:if>
-						<label class="pencil_icon"><input type="file" name="attach" id="attach" style="display:none;"/>
+						<img width="80" height="80" src="/images/profile_image/${map.profile_image}">
+						<label class="pencil_icon">						
+							<input type="file" name="attach" id="attach" style="display:none;" onchange="previewImage(event)"></input>
+							<input type="hidden" name="userid" value="${map.userid}" readonly></input>						
 						<i class="fa-solid fa-pencil" style="color: #ffffff;"></i></label>
 					</div>
+					</form>
 					<p class="welcom">${map.name}님, 환영해요.</p>
 				</section>
 				<section class="scnum2">
@@ -609,13 +671,10 @@
 		      </div>
 		      
 		      <!-- Modal body -->		      
-		      <div class="modal-body">	
-		      <form class="namefrm">	        
+		      <div class="modal-body">		        
 		        	<div class="inputArea">
 		        		<input type="text" placeholder="이름을 입력해주세요." name="name" id="name" class="modaltext" value="${modalMap.name}">
-		        		<input type="hidden" name="userid" value="${modalMap.userid}" readonly></input>
-		        	</div>		        	
-		        </form>
+		        	</div>	
 		      </div>
 		      
 		      <!-- Modal footer -->
@@ -640,12 +699,9 @@
 		      
 		      <!-- Modal body -->
 		      <div class="modal-body">
-		        <form class="nickfrm">
 		        	<div class="inputArea">
 		        		<input type="text" placeholder="별명을 입력해주세요." name="nickname" id="nickname" class="modaltext" value="${modalMap.nickname}">
-		        		<input type="hidden" name="userid" value="${modalMap.userid}" readonly></input>
 		        	</div>
-		        </form>
 		      </div>
 		      
 		      <!-- Modal footer -->
@@ -705,7 +761,6 @@
 		      
 		      <!-- Modal body -->
 		      <div class="modal-body">
-		        <form class="passwdfrm">
 		        	<div class="inputArea">
 		        		<div class="pwTitleFrame">
 		        			<label class="pwTitle">현재 비밀번호</label>
@@ -721,13 +776,40 @@
 		        		<p id="error_pwd_check" class="error-msg"></p>
 		        		<p class="pwText">영문 대소문자, 숫자, 특수문자를 3가지 이상으로 조합해 8자 이상 16자 이하로 입력해주세요.</p>
 		        	</div>
-		        </form>
 		      </div>
 		      
 		      <!-- Modal footer -->
 		      <div class="modal-footer">
 		        <button type="button" class="btn_cancel my_close" data-dismiss="modal">취소</button>
 		        <button type="button" class="btn_submit" id="pwdsubmit" onclick="passwdUpdate()">저장</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- profile_imageModal 구성 요소는 현재 페이지 상단에 표시되는 대화 상자/팝업 창입니다. -->
+		<div class="modal fade" id="profile_imageModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      
+		      <!-- Modal header -->
+		      <div class="modal-header">
+		        <h5 class="modal-title">프로필 사진</h5>
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		      </div>
+		      
+		      <!-- Modal body -->
+		      <div class="modal-body">		        
+	        	<div class="inputArea">
+	        		<div class="imginput">
+	        			<img id="preview" width="200" height="200" src="" alt="미리보기">
+	        		</div>	        		
+	        	</div>
+		      </div>
+		      
+		      <!-- Modal footer -->
+		      <div class="modal-footer">
+		        <button type="button" class="btn_cancel" data-dismiss="modal">취소</button>
+		        <button type="button" class="btn_submit" onclick="profile_imageUpdate()">저장</button>
 		      </div>
 		    </div>
 		  </div>
