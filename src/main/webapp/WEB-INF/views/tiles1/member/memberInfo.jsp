@@ -468,10 +468,10 @@
 	
 	function nameUpdate(){
 		var newName = $('#name').val();
-					
+		var userid = $("input#userid").val();
 		$.ajax({
 			url:"nameUpdate",
-			data:{"name": newName, "userid": "leess"},
+			data:{"name": newName, "userid": userid},
 			type:"get",
 			success: function(result) {
 				
@@ -494,13 +494,14 @@
 	function nickUpdate(){
 		
 	var newNickName = $('#nickname').val();
+	var userid = $("input#userid").val();
 	
 	if(newNickName.length > 10 ){
 		alert("닉네임은 10글자 이내로만 만들수있습니다.")
 	}else{
 		$.ajax({
 			url:"nickUpdate",
-			data:{"nickname": newNickName, "userid": "leess"},
+			data:{"nickname": newNickName, "userid": userid},
 			type:"get",
 			success: function(result) {
 				
@@ -530,10 +531,11 @@
 		if($('p#error_pwd1').text() == "" && $('p#error_pwd2').text() == "" && $('p#error_pwd_check').text() == ""){
 			
 			var newPasswd = $('#inputPwd3').val();
-			
+
+			var userid = $("input#userid").val();
 			$.ajax({
 				url:"passwdUpdate",
-				data:{"pwd": newPasswd, "userid": "leess"},
+				data:{"pwd": newPasswd, "userid": userid},
 				type:"get",
 				success: function(result) {
 					
@@ -580,6 +582,7 @@
 	}// end of function previewImage
 	
 	function profile_imageUpdate() {
+				
 	    const frm = document.profile_imageFrm;
 	    var formData = new FormData(frm);
 
@@ -616,7 +619,7 @@
 						<img width="80" height="80" src="/images/profile_image/${map.profile_image}">
 						<label class="pencil_icon">						
 							<input type="file" name="attach" id="attach" style="display:none;" onchange="previewImage(event)"></input>
-							<input type="hidden" name="userid" value="${map.userid}" readonly></input>						
+							<input type="hidden" name="userid" id="userid" value="${map.userid}" readonly></input>						
 						<i class="fa-solid fa-pencil" style="color: #ffffff;"></i></label>
 					</div>
 					</form>
@@ -762,6 +765,7 @@
 		      <!-- Modal body -->
 		      <div class="modal-body">
 		        	<div class="inputArea">
+		        	<form class="passwdfrm">
 		        		<div class="pwTitleFrame">
 		        			<label class="pwTitle">현재 비밀번호</label>
 		        		</div>
@@ -775,6 +779,7 @@
 		        		<input type="password" placeholder="새 비밀번호를 다시 한번 입력해주세요." name="passwordConfirm" class="pwInput" id="inputPwd3" value="">
 		        		<p id="error_pwd_check" class="error-msg"></p>
 		        		<p class="pwText">영문 대소문자, 숫자, 특수문자를 3가지 이상으로 조합해 8자 이상 16자 이하로 입력해주세요.</p>
+		        		</form>
 		        	</div>
 		      </div>
 		      

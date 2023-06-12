@@ -33,7 +33,7 @@ public class MemberSecurityConfig  {
 								.antMatchers("/wanted/register" ,"/send-one").permitAll() // 회원가입 페이지 접근권한 모두 허용
 								.antMatchers("/wanted/login" , "/wanted/login/checkUserid").permitAll()
 								.antMatchers("/wanted/company/login" , "/wanted/company/checkUserid" , "/wanted/detail").permitAll()
-								.antMatchers("/wanted/user/**").hasRole("USER")
+								.antMatchers("/wanted/member/**").permitAll()
 								.antMatchers("/wanted/company/**").permitAll()
 								.anyRequest().authenticated()
 					          .and()

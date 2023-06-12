@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,16 +26,21 @@ public class MemberController3 {
 	
 	private final InterMemberService3 service;
 	
+	private final PasswordEncoder passwordEncoder ;
 	@Autowired
-	public MemberController3(InterMemberService3 service) {
+	public MemberController3(InterMemberService3 service , PasswordEncoder passwordEncoder) {
 		this.service = service;
+		this.passwordEncoder = passwordEncoder ;
 	}
 		
 		// 멤버 정보가져오기
 		@GetMapping(value="/memberInfo")
 		public String getMemberInfo(HttpServletRequest request) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			MemberVO mvo = (MemberVO)authentication.getPrincipal();
+			String userid = mvo.getUserid();
 			
-			String userid = "leess";
+			System.out.println("확인용 userid " +userid);
 			
 			List<Map<String,String>> memberinfo = service.getMemberInfo(userid);
 			
@@ -82,8 +90,10 @@ public class MemberController3 {
 			String userid = paraMap.get("userid");
 			
 			String passwd = service.getPasswd(userid);
-						
-		    if (passwd.equals(inputPwd)) {
+			
+			boolean matchPwd = passwordEncoder.matches(inputPwd, passwd);
+			
+		    if (matchPwd) {
 		        return "success";
 		    } else {
 		        return "fail";		        
