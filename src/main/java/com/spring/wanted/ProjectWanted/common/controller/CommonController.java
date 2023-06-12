@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.wanted.ProjectWanted.common.service.InterCommonService;
+import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 
 @RequestMapping(value="/wanted")
 @Controller
@@ -29,7 +30,11 @@ public class CommonController {
 	@GetMapping(value="")
 	public String index(HttpServletRequest request) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String userid = authentication.getName();
+		String userid  = authentication.getName();
+		MemberVO mvo = (MemberVO)authentication.getPrincipal();
+		
+		System.out.println(" 확인용 userid : " + userid );
+		System.out.println(" 확인용 mvo : " + mvo.getName() );
 
 		request.setAttribute("userid", userid);
 		

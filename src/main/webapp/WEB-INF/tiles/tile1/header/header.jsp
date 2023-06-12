@@ -218,7 +218,7 @@
 				    <!-- Dropdown -->
 				   <!-- margin 상 우 좌 하 -->
 				    <li style="margin: 10px 50px 10px 10px; ">
-				      	<a class="header-category border-right" href="#" data-toggle="dropdown" style="color: black;">
+				      	<a class="header-category border-right" href="/wanted" data-toggle="dropdown" style="color: black;">
 				        	<i class="fa-solid fa-bars"></i>
 				       		 <img  src="/images/원티드로고.png" class="position-relative" style="width: 80px; margin-left:10px; top:-3px;"/>
 				      	</a>

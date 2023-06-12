@@ -29,7 +29,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		MemberContext memberContext =(MemberContext)userDetailService.loadUserByUsername(userid);
 		System.out.println(" 검증 구현 중 ~~~~~~~~~~~~~~");
 		System.out.println(memberContext.getAuthorities());
-		
 		if ( ! passwordEncoder.matches(pwd, memberContext.getMemberVO().getPwd())) { 
 				throw new BadCredentialsException(" 비밀번호가 일치하지 않습니다. ");
 		}
