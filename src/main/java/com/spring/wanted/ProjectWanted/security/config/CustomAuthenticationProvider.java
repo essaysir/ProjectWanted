@@ -23,6 +23,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String userid = authentication.getName(); // 유저 아이디 
+		System.out.println(" USERID : " + userid);
 		String pwd = (String)authentication.getCredentials() ; // 유저 비밀번호
 		
 		MemberContext memberContext =(MemberContext)userDetailService.loadUserByUsername(userid);

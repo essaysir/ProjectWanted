@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +34,8 @@ public class MemberController {
 		//  회원 가입 페이지
 		@GetMapping(value="/login")
 		public String login() {
-			return "tiles1/member/login";
+				return "tiles1/member/login";
+			
 		}
 		
 		// 이메일 입력시 
@@ -65,9 +67,12 @@ public class MemberController {
 				new SecurityContextLogoutHandler().logout(request, response, authentication);
 			}
 			
-			
 			return "redirect:/wanted";
 		}
 		
-
+		//  회원 가입 페이지
+		@GetMapping(value="/detail")
+		public String login2() {
+				return "post/detailPost.tiles1";
+		}
 }// END OF PUBLIC CLASS MEMEBERCONTROLLER
