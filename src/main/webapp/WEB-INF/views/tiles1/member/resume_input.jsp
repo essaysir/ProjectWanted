@@ -597,7 +597,7 @@
 						        '<button type="button" class="btn-delete">' +
 						          '<div class="div_insert_skill">' +
 						            tech_name +
-						            '<input type="hidden" id="insert-tech-code" value="'+tech_code+'"/>'+
+						            '<input type="hidden" name="fk_Tech_Code" id="insert-tech-code" value="'+tech_code+'"/>'+
 						            '<span style="margin-left:4px; margin-bottom:2px;">' +
 						              '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
 						                '<path d="M0.882988 0.151497L5.00001 4.26852L9.11705 0.151497C9.31905 -0.0504989 9.6465 -0.0504989 9.8485 0.151497C10.0505 0.35349 10.0505 0.680994 9.8485 0.882988L5.7315 5.00001L9.8485 9.11705C10.0505 9.31905 10.0505 9.6465 9.8485 9.8485C9.6465 10.0505 9.31905 10.0505 9.11705 9.8485L5.00001 5.7315L0.882988 9.8485C0.680994 10.0505 0.35349 10.0505 0.151497 9.8485C-0.0504989 9.6465 -0.0504989 9.31905 0.151497 9.11705L4.26852 5.00001L0.151497 0.882988C-0.0504989 0.680994 -0.0504989 0.35349 0.151497 0.151497C0.35349 -0.0504989 0.680994 -0.0504989 0.882988 0.151497Z" fill="currentColor"></path>' +
@@ -929,6 +929,23 @@
 			
 			
 		///////////////////////////////////CONTROLLER 로 데이터 보내기////////////////////////////////////////
+		
+			// #skill 선택 객체로 만들어주기 (JSON)
+			// 빈 배열 생성
+			
+			// 입력된 input 태그 선택
+			var  skillInputs = document.getElementsByName("fk_Tech_Code");
+			
+			var MemberTechVO = {
+				fk_Tech_Code: skillInputs
+			};
+			
+			// 생성된 JSON 객체 확인
+			console.log(MemberTechVO);
+			
+			
+			
+			
 			// #1.
 			// 빈 배열 생성
 			var careerList = [];
@@ -948,7 +965,7 @@
 			  var departmentValue = departmentInputs[i].value;
 
 			  // CareerVO 객체 생성
-			  var careerVO = {
+			  var CareerVO = {
 			    start_careerDate: dateValue,
 			    end_careerDate: endValue,
 			    company: companyValue,
@@ -956,11 +973,12 @@
 			  };
 
 			  // CareerVO 객체를 배열에 추가
-			  careerList.push(careerVO);
+			  careerList.push(CareerVO);
 			}
 
 			// 생성된 JSON 객체 확인
 			console.log(careerList);
+			
 			
 			
 			
@@ -984,7 +1002,7 @@
 			  var performContentValue = performContentInputs[i].value;
 			
 			  // PerformanceVO 객체 생성
-			  var performanceVO = {
+			  var PerformanceVO = {
 			    performance: performanceValue,
 			    start_date_detail: startDateValue,
 			    end_date_detail: endDateValue,
@@ -992,7 +1010,7 @@
 			  };
 			
 			  // PerformanceVO 객체를 배열에 추가
-			  performanceList.push(performanceVO);
+			  performanceList.push(PerformanceVO);
 			}
 			
 			// 생성된 JSON 객체 확인
@@ -1018,14 +1036,14 @@
 			  var forLangValue = forLangInputs[i].value;
 
 			  // LanguageVO 객체 생성
-			  var languageVO = {
+			  var LanguageVO = {
 			    lang_Date: dateValue,
 			    lang_content: contentValue,
 			    for_Lang: forLangValue
 			  };
 
 			  // LanguageVO 객체를 배열에 추가
-			  languageList.push(languageVO);
+			  languageList.push(LanguageVO);
 			}
 
 			// 생성된 JSON 객체 확인
@@ -1055,7 +1073,7 @@
 			  var contentValue = contentInputs[i].value;
 			
 			  // SchoolVO 객체 생성
-			  var schoolVO = {
+			  var SchoolVO = {
 			    start_shcoolDate: startValue,
 			    end_shcoolDate: endValue,
 			    school: schoolValue,
@@ -1064,7 +1082,7 @@
 			  };
 			
 			  // SchoolVO 객체를 배열에 추가
-			  schoolList.push(schoolVO);
+			  schoolList.push(SchoolVO);
 			}
 			
 			// 생성된 JSON 객체 확인
@@ -1089,14 +1107,14 @@
 			  var contentValue = contentInputs[i].value;
 
 			  // RewardVO 객체 생성
-			  var rewardVO = {
+			  var RewardVO = {
 			    reward_Date: dateValue,
 			    reward: rewardValue,
 			    content: contentValue
 			  };
 
 			  // RewardVO 객체를 배열에 추가
-			  rewardList.push(rewardVO);
+			  rewardList.push(RewardVO);
 			}
 
 			// 생성된 JSON 객체 확인
@@ -1113,12 +1131,12 @@
 					  subject : $("input[name='subject']").val() , 
 					  introduce : $("input[name='introduce']").val(),
 					  uploadLink : $("textarea[name='uploadLink']").val(), 
-					  languagevoList :  languageList ,
-					  rewardvoList : rewardList , 
-					  schoolvoList : schoolList , 
 					  careervoList  : careerList , 
-					  // member_Techvo  : member_TechvoList 
-				  }  ;
+					  schoolvoList : schoolList ,
+					  MemberTechVO : MemberTechVO ,
+					  rewardvoList : rewardList , 
+					  languagevoList :  languageList ,
+				  };
 				  
 			$.ajax({
 				url: "/wanted/myresume",

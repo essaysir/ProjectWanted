@@ -1,19 +1,12 @@
 package com.spring.wanted.ProjectWanted.member.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.spring.wanted.ProjectWanted.member.model.CareerVO;
-import com.spring.wanted.ProjectWanted.member.model.LanguageVO;
 import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 import com.spring.wanted.ProjectWanted.member.service.InterMemberService2;
 
@@ -39,11 +32,18 @@ public class MemberController2 {
 	
 	
 	// 이력서 작성 페이지의 작성된 이력서 DB에 저장하기
-	@PostMapping(value = "/myresume")
-	public String resume_input(@RequestBody ResumeVO resumevo ) {
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		System.out.println(gson.toJson(resumevo));
+	@PostMapping(value = "/myresume", produces = "text/plain;charset=UTF-8")
+	public String resume_input(@RequestBody ResumeVO resumevo) {
+	//	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	//	System.out.println(gson.toJson(resumevo));
+	//	System.out.println(resumevo);
 		
-		return "/member/resume_input.tiles1";
+		service2.insertResume(resumevo); // 이력서작성 페이지에서 입력 받은 데이터 insert 해주기
+		
+		
+		
+		
+		return "redirect:/wanted";
+
 	}
 }

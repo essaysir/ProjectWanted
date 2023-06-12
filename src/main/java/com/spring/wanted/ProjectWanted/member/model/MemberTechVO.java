@@ -6,7 +6,7 @@ import lombok.Data;
 public class MemberTechVO {
 
 	private int member_Tech_Code;
-    private int fk_tech_Code;
-    private String fk_userId;
+    private int fk_Tech_Code;
+    private String fk_UserId;
     private int resume_Code;
 }
