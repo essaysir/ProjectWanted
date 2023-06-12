@@ -228,6 +228,13 @@ public class CompanyController_2 {
 		
 		return jsonobj.toString();
 	}
+	
+	@GetMapping(value="/login")
+	public String Login() {
+	
+		return "tiles2/company/content/company_login";
+	}
+	
 	//===============================SJS끝==================================
 
 }

@@ -31,5 +31,12 @@ public class CommonDAO implements InterCommonDAO{
 		
 		return skillList;
 	}
+
+	@Override
+	public int checkUserid(String userid) {
+		int n = mapper.comp_checkUserid(userid);
+		
+		return n ;
+	}
 	
 }

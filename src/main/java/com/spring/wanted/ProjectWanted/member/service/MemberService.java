@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.wanted.ProjectWanted.member.model.InterMemberDAO;
+import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 
 @Service
 public class MemberService implements InterMemberService{
@@ -29,6 +30,14 @@ public class MemberService implements InterMemberService{
 			return "tiles1/member/signup"; 
 		}
 	}
+
+
+	@Override
+	public void register(MemberVO mvo) {
+		mdao.register(mvo);
+	
+	}
+	
 
 
 

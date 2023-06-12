@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <% String ctxPath = request.getContextPath(); %>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+ <% String ctxPath = request.getContextPath(); %>
+    
 <script type="text/javascript">
 	$(document).ready(function(){
-
+		
 		setMenuList();
 		setHeaderEvent();
 		
@@ -244,21 +248,31 @@
 				    
 				    <li  style="margin: 10px 0px 10px 10px;">
 				    	
-				    	<div class="profile">
-						  <img src="/images/profile_default.png" style="width: 28px; height: 28px; border-radius:50%;"/>
-						  <div class="menu" id="menu">
-						    <ul>
-						      <li><a>MY 원티드</a></li>
-						      <li><a>지원 현황</a></li>
-						      <li class="border-top"><a>로그아웃</a></li>
-						    </ul>
-						  </div>
+				    	
+				    <c:if test="${  userid == 'anonymousUser'}">
+					    <%-- 로그인된 상태 --%>
+					    <p><a href="/wanted/login">회원가입/로그인></a></p>
+					</c:if>
+					
+					<c:if test="${ userid != 'anonymousUser' }">
+						<div class="profile">
+								  <img src="/images/profile_default.png" style="width: 28px; height: 28px; border-radius:50%;"/>
+								  <div class="menu" id="menu">
+								    <ul>
+								      <li><a href="/wanted/login">MY 원티드</a></li>
+								      <li><a>지원 현황</a></li>
+								      <li class="border-top"><a href="/wanted/logout">로그아웃</a></li>
+								    </ul>
+								  </div>
+
 						</div>
+					</c:if>
+
 						
 				    </li>
 				    
 				    <li class="border-left text-center" style="margin: 10px 30px 10px 30px; padding-left:10px;">
-				      <a class="header-category" href="<%= ctxPath%>/" style="color: #666;  border-radius: 15px; border: 1px solid">기업서비스</a>
+				      <a class="header-category" href="<%=ctxPath%>/wanted/login" style="color: #666;  border-radius: 15px; border: 1px solid">기업서비스</a>
 				    </li>
 			  </ul>
 		</nav>

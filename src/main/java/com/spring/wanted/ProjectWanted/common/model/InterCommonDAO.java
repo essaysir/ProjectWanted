@@ -7,6 +7,8 @@ public interface InterCommonDAO {
 
 	List<Map<String, String>> getSkill();
 
-	List<Map<String, String>> searchSkill(String input_val); 
+	List<Map<String, String>> searchSkill(String input_val);
+
+	int checkUserid(String userid); 
 
 }

@@ -12,8 +12,13 @@
 
 		<select id="login" parameterType="String" resultType="com.spring.wanted.ProjectWanted.member.model.MemberVO">
 				select  userid , pwd , name , nickname , mobile , profile_image , resume_count 
-				from tbl_member 
+				from tbl_member  where userid = #{username}
 		</select>
+		
+		<insert id="register" parameterType="com.spring.wanted.ProjectWanted.member.model.MemberVO" >
+			insert into tbl_member ( userid , pwd , name , nickname , mobile , profile_image , resume_count )  
+			values ( #{userid} , #{pwd} , #{name} , #{nickname} , #{mobile} , '123.png' ,  0 ) 
+		</insert>
 
 
 

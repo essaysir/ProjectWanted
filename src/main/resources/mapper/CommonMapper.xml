@@ -32,7 +32,9 @@
 				WHERE RNO between 1 and 4 
 		</select>
 		
-		
+		<select id="comp_checkUserid" parameterType="String" resultType="int">
+			select count(*) from TBL_company where company_id = #{userid}
+		</select>
 
 
 
