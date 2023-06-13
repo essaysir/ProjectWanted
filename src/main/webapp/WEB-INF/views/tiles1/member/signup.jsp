@@ -153,7 +153,7 @@
     }
     
     
-    input#email_input:not(:focus), input#name_input:not(:focus), input#pwd_input:not(:focus), input#pwd2_input:not(:focus), input#what_input:not(:focus), input#what2_input:not(:focus), input#certification_input:not(:focus){ /* 커서 올라가기 전 */
+    input#email_input:not(:focus), input.name_input:not(:focus), input#pwd_input:not(:focus), input#pwd2_input:not(:focus), input#what_input:not(:focus), input#what2_input:not(:focus), input#certification_input:not(:focus){ /* 커서 올라가기 전 */
 	
 		margin: 0 0 10px;
 		padding: 0 12px;
@@ -168,11 +168,11 @@
     	font-weight: 400;
 	}
 	
-	input#email_input::placeholder, input#name_input::placeholder, input#pwd_input::placeholder, input#pwd2_input::placeholder, input#what_input::placeholder, input#what2_input::placeholder, input#certification_input::placeholder { /* 커서 올라가기 전 placeholder 색상 변경 */
+	input#email_input::placeholder, input.name_input::placeholder, input#pwd_input::placeholder, input#pwd2_input::placeholder, input#what_input::placeholder, input#what2_input::placeholder, input#certification_input::placeholder { /* 커서 올라가기 전 placeholder 색상 변경 */
 		color: #e1e2e3;
 	}
 	
-	input#email_input:focus, input#name_input:focus, input#pwd_input:focus, input#pwd2_input:focus, input#what_input:focus, input#what2_input:focus, input#certification_input:focus { /* 커서 올라간 후 */
+	input#email_input:focus, input.name_input:focus, input#pwd_input:focus, input#pwd2_input:focus, input#what_input:focus, input#what2_input:focus, input#certification_input:focus { /* 커서 올라간 후 */
 	
 		margin: 0 0 10px;
 		padding: 0 12px;
@@ -397,7 +397,7 @@
 			
 			
 			const registerFrm = document.login_input;
-			registerFrm.action="/wanted/register"; 
+			registerFrm.action="/wanted/member/register"; 
 			registerFrm.method ="post"; 
 			registerFrm.submit();
 		
@@ -443,13 +443,13 @@
 						</div>
 						<div id="username_box">
 							<label>이름</label>
-							<input name="name" type="text" id="name_input" placeholder="이름을 입력해주세요." name="username"  />
+							<input name="name" type="text" class="name_input" id="name_input" placeholder="이름을 입력해주세요." />
 							<p  id="username-warning" style="color: red; font-weight: 400; text-align: left; font-size: 12px; margin: 0 10px 0 0;">이름은 한글 2글자에서 6글자만 가능합니다.</p>
 							
 						</div>
 						<div id="username_box">
 							<label>별명</label>
-							<input name="nickname" id="name_input" type="text" placeholder="이름을 입력해주세요." name="username"  />
+							<input name="nickname" class="name_input" type="text" placeholder="이름을 입력해주세요." name="username"  />
 						</div>		
 						 <div class="certification_box"><label>휴대폰인증</label></div>
 						<div class="certification_box">

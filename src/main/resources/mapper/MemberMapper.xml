@@ -25,6 +25,10 @@
 				from tbl_company where company_id = #{userid}
 		</select>
 
+		<select id="getPostVO" parameterType="int"  resultType="com.spring.wanted.ProjectWanted.post.model.PostVO">
+			select post_code , fk_company_id , fk_duty_code , career , subject , info , image , createday , salary , mainduty, quality , deadline ,viewcount, pay_status
+			from tbl_post where post_code = #{post_code}
+		</select>
 
 
 </mapper>

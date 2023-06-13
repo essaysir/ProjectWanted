@@ -89,7 +89,7 @@ public class CommonController {
 		service.register(cvo);
 
 		
-		return "redirect:/wanted";
+		return "redirect:/wanted/company/login";
 	}
 
 }
