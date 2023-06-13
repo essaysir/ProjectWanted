@@ -55,6 +55,6 @@ public class MemberController2 {
 	    
 	    return json.toString();
 	}
-	
+	 
 	
 }
