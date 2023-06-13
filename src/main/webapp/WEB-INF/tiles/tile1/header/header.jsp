@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <% String ctxPath = request.getContextPath(); %>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+ <% String ctxPath = request.getContextPath(); %>
+    
 <script type="text/javascript">
 	$(document).ready(function(){
-
+		
 		setMenuList();
 		setHeaderEvent();
-		
+		getLogin();
 
 		
 		
@@ -34,7 +38,7 @@
 
 	function setMenuList() {
 		$.ajax({
-			url: "/wanted/getHeaderList",
+			url: "/wanted/company/getHeaderList",
 			type: "get",
 			dataType: "json",
 			success: function (json) {
@@ -80,7 +84,7 @@
 
 			},
 			error: function (request, status, error) {
-				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				// alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 			}
 
 
@@ -91,7 +95,7 @@
 		var duties;
 		
 		$.ajax({
-			url: "/wanted/getDuty",
+			url: "/wanted/company/getDuty",
 			type: "get",
 			data: {"jobCode": jobCode},
 			dataType: "json",
@@ -101,11 +105,42 @@
 				duties = json.dutyList ;
 			},
 			error: function (request, status, error) {
-				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				// alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 			}
 		});
 
 		return duties ;
+	}
+	
+	function getLogin( ){
+		$.ajax({
+			url: "/wanted/member/getLogin",
+			type: "get",
+			dataType: "json",
+			async: false,
+			success: function (json) {
+				 // console.log(JSON.stringify(json));
+				 if ( json.userid != ""){
+					
+				  let html = "<div class=\"profile\">";
+				  html += "<img src=\"/images/profile_default.png\" style=\"width: 28px; height: 28px; border-radius:50%;\"/>";
+				  html += "<div class=\"menu\" id=\"menu\">";
+				  html += "<ul>";
+				  html += "<li><a class='a-login' href=\"/wanted/member/memberInfo\">MY 원티드</a></li>";
+				  html += "<li><a>지원 현황</a></li>";
+				  html += "<li class=\"border-top\"><a class='a-login' href=\"/wanted/logout\">로그아웃</a></li>";
+				  html += "</ul>";
+				  html += "</div>";
+				  html += "</div>";
+
+				  $("li#usersign").html(html);
+				 }
+			},
+			error: function (request, status, error) {
+				// alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+		});
+
 	}
 	
 </script>
@@ -195,6 +230,12 @@
 		.profile:hover #menu {
 		  display: block;
 		} 
+		a.a-login{
+		font-size: 14px;
+    	color: #333;
+    	font-weight: 600;
+		
+		}
 	
 	
 </style>
@@ -214,9 +255,9 @@
 				    <!-- Dropdown -->
 				   <!-- margin 상 우 좌 하 -->
 				    <li style="margin: 10px 50px 10px 10px; ">
-				      	<a class="header-category border-right" href="#" data-toggle="dropdown" style="color: black;">
+				      	<a class="header-category border-right" href="/wanted" data-toggle="dropdown" style="color: black;">
 				        	<i class="fa-solid fa-bars"></i>
-				       		 <img  src="/resources/images/원티드로고.png" class="position-relative" style="width: 80px; margin-left:10px; top:-3px;"/>
+				       		 <img  src="/images/원티드로고.png" class="position-relative" style="width: 80px; margin-left:10px; top:-3px;"/>
 				      	</a>
 				      
 				      <div id="menu-list"class="dropdown-menu" aria-labelledby="navbardrop">
@@ -242,23 +283,19 @@
 				    	<button class="btn-search"><i class="fa-regular fa-bell"></i></button>
 				    </li>
 				    
-				    <li  style="margin: 10px 0px 10px 10px;">
+				    <li  id="usersign" style="margin: 10px 0px 10px 10px;">
 				    	
-				    	<div class="profile">
-						  <img src="<%= ctxPath%>/resources/images/원티드로고.png" style="width: 28px; height: 28px; border-radius:50%;"/>
-						  <div class="menu" id="menu">
-						    <ul>
-						      <li><a>MY 원티드</a></li>
-						      <li><a>지원 현황</a></li>
-						      <li class="border-top"><a>로그아웃</a></li>
-						    </ul>
-						  </div>
-						</div>
+				    	
+					    <%-- 로그인된 상태 --%>
+					    <p style="width: 150px; margin-bottom:0px;"><a class="a-login" href="/wanted/login">회원가입/로그인</a></p>
+					
+
+
 						
 				    </li>
 				    
 				    <li class="border-left text-center" style="margin: 10px 30px 10px 30px; padding-left:10px;">
-				      <a class="header-category" href="<%= ctxPath%>/" style="color: #666;  border-radius: 15px; border: 1px solid">기업서비스</a>
+				      <a class="header-category" href="/wanted/company/login" style="color: #666;  border-radius: 15px; border: 1px solid">기업서비스</a>
 				    </li>
 			  </ul>
 		</nav>

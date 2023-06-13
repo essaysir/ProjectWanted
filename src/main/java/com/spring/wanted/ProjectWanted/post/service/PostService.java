@@ -40,6 +40,22 @@ public class PostService implements InterPostService {
 		
 		return DutyList;
 	}
+
+	// region 데이터 불러오기
+	@Override
+	public List<Map<String, String>> getRegionList() {
+		List<Map<String, String>> RegionList = pdao.getRegionList();
+		
+		return RegionList;
+	}
+
+	// region_detail 데이터 불러오기
+	@Override
+	public List<Map<String, String>> getRegionDetailList(String region_code) {
+		List<Map<String, String>> RegionDetailList = pdao.getRegionDetailList(region_code);
+		
+		return RegionDetailList;
+	}
 	
 	
 	

@@ -1,5 +1,7 @@
 package com.spring.wanted.ProjectWanted.post.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -20,4 +22,5 @@ public class PostVO {
 	private	String viewcount;
 	private String pay_status;
 	
+	private MultipartFile attach;
 }

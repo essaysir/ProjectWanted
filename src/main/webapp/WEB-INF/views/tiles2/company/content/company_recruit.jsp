@@ -917,7 +917,7 @@
 				<div class="submit" id="submit"><p>등록</p></div>
 			</div>
 			<div class="content_body">
-				<form name="recruitFrm">
+				<form name="recruitFrm" enctype="multipart/form-data">
 					<div class="category">
 						<label class="con_title">직군선택</label>&nbsp;&nbsp;<span class="error">직군선택은 필수선택 사항입니다.</span><br>
 						<select class="job_select" id="job_select">
@@ -968,7 +968,7 @@
 					</div>
 					<div class="file">
 						<label class="con_title">구직상세이미지</label><br>
-						<input type="file" name="attach" id="attach" name="image"/>
+						<input type="file" name="attach" id="attach"/>
 					</div>
 					<div class="quality">
 						<label class="con_title">연   봉</label>&nbsp;&nbsp;<span class="error">연봉 입력은 필수입력 사항입니다.</span><span class="error2">연봉 입력은 숫자만 가능합니다.</span><br>
@@ -1036,12 +1036,6 @@
 					 <div class="data-result">
 										<ul id="resultList" style="padding-left:0px;"> 
 											
-													<input type="hidden" name="tech_code" class="tech_code" value="1"/>
-													<input type="hidden" name="tech_code" class="tech_code" value="2"/>
-													<input type="hidden" name="tech_code" class="tech_code" value="3"/>
-													<input type="hidden" name="tech_code" class="tech_code" value="4"/>
-													<input type="hidden" name="tech_code" class="tech_code" value="5"/>
-													<input type="hidden" name="tech_code" class="tech_code" value="6"/>
 										</ul>
 										
 					</div>

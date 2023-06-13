@@ -236,7 +236,7 @@ button {
 }
 
 .FilterInWdlist_container__CXp_u .FilterInWdlist_innerClassName__ZOJEQ .FilterInWdlist_SelectedButtonGroup__gHL3G .FilterInWdlist_filterButton__njVLF>span:last-of-type {
-    color: #36f!important;
+    color: #36f !important;
     font-weight: 600;
     margin-right: 0;
     overflow: hidden;
@@ -1086,6 +1086,18 @@ a, a:active, a:hover, a:visited {
     position: relative;
 }
 
+.Locations_column__Ibvto>ul>li>button.Locations_lastSelected__ZVHyy, .Locations_column__Ibvto>ul>li>button.Locations_selected__1YaAW {
+    color: #36f;
+    font-weight: 600;
+}
+
+.Locations_column__Ibvto>ul>li>button.Locations_currentParent__Yi84n {
+    background-color: #f6f8ff;
+    font-weight: 400;
+}
+
+/* region 조회 css 잘 안먹히면 수정해야하는 부분 */
+
 .Locations_container__hZ3Ul {
     display: flex;
 }
@@ -1134,6 +1146,11 @@ a, a:active, a:hover, a:visited {
     overflow: hidden;
 }
 
+.Locations_container__hZ3Ul .Locations_column__Ibvto>ul>li>button.Locations_lastSelected__ZVHyy, .Locations_container__hZ3Ul .Locations_column__Ibvto>ul>li>button.Locations_selected__1YaAW {
+    color: #36f;
+    font-weight: 600;
+}
+
 .Locations_container__hZ3Ul .Locations_column__Ibvto>h6 {
     font-size: 14px;
     font-weight: 500;
@@ -1170,7 +1187,7 @@ a, a:active, a:hover, a:visited {
 
 .SelectedLocations_selectedLocations__6PVR9 .SelectedLocations_listContainer__46isv .SelectedLocations_locationItem__8j9AK {
     display: inline-flex;
-    margin: 10px 6px 0 0;
+    margin: 10px 6px 0 6px;
     padding: 0 16px 0 15px;
     background: #fff;
     border: 1px solid #36f;
@@ -1181,6 +1198,25 @@ a, a:active, a:hover, a:visited {
     font-style: normal;
     letter-spacing: normal;
     color: #36f;
+}
+
+.Locations_empty__c0Xdq {
+	max-height: 230px;
+    min-height: 98px;
+    height: calc(100vh - 567px);
+    border: 1px solid #e1e2e3;
+    border-left: none;
+    font-size: 11px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: pre-line;
 }
 
 .SelectedLocations_selectedLocations__6PVR9>p {
@@ -1285,6 +1321,18 @@ sup {
   opacity: 0.3;
 }
 
+#slider-range > span:nth-child(2) {
+ 	left: 3%;
+    top: 2%;
+ }
+
+ #slider-range > span:nth-child(3) {
+ 	left: 101%;
+    top: 2%;
+ }
+ 
+
+
 .ui-slider-handle {
   background: #555;
   position: absolute;
@@ -1308,33 +1356,33 @@ sup {
   outline: none;
 }
 .ui-slider-handle:active {
-  cursor: grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
+  cursor: grabbing !important;
+  cursor: -moz-grabbing !important;
+  cursor: -webkit-grabbing !important;
 }
 
 .ui-state-active {
-  width: 22px;
+  width: 22px !important;
 }
 
 .range-wrapper {
-  position: absolute;
-  top: -50px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: absolute !important;
+  top: -50px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 }
 
 .range {
-  background: #fff;
-  white-space: nowrap;
-  border: 1px solid #d2d2d2;
-  border-radius: 2px;
-  font-size: 13px;
-  letter-spacing: 0.02em;
-  color: #555;
-  width: 150px;
-  z-index: 10;
-  position: relative;
+  background: #fff !important;
+  white-space: nowrap !important;
+  border: 1px solid #d2d2d2 !important;
+  border-radius: 2px !important;
+  font-size: 13px !important;
+  letter-spacing: 0.02em !important;
+  color: #555 !important;
+  width: 150px !important;
+  z-index: 10 !important;
+  position: relative !important;
 }
 .range:after {
   content: "";
@@ -1434,7 +1482,7 @@ sup {
 
 .YearsPopup_container___s3Uf {
     position: absolute;
-    width: 590px;
+    width: 680px;
     height: 210px;
     overflow: hidden;
     background-color: #fff;
@@ -1529,7 +1577,7 @@ sup {
     background-color: var(--button-color);
     -webkit-transition: opacity .2s ease;
     transition: opacity .2s ease;
-    will-change: opacity;
+    will-change: opacity !important;
 }
 
 
@@ -1695,6 +1743,14 @@ p {
     color: #36f;
     background-color: #fff;
     font-weight: 600;
+    height: 32px;
+    margin-right: 10px;
+    margin-bottom: 12px;
+    background: #f2f4f7;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 13px;
+    line-height: 16px;
 }
 
 .JobCategoryOverlay_JobCategoryOverlay__bottom__6Q_OM {
@@ -1722,11 +1778,6 @@ p {
     color: #c4c4c4;
 }
 
-.Button_Button__containedDisabled__qiqtc {
-    cursor: default;
-    background-color: #f4f4f5;
-    color: #c4c4c4;
-}
 
 .Button_Button__contained__toUI5, .Button_Button__containedPrimary__gFaT9 { /* 태그선택시 버튼태그 css */
     color: #fff;
@@ -2185,6 +2236,8 @@ section#skillSearch {
 
 
 
+
+
 </style>
 
 
@@ -2216,7 +2269,10 @@ section#skillSearch {
     	settingSearchSkill();
     	
     	// dutylist 관련 함수
-    	settingDutyList()
+    	settingDutyList();
+    	
+    	// 지역 조회 관련 함수
+    	settingRegionList();
     	
     	
     	// 슬릭 시작
@@ -2272,6 +2328,8 @@ section#skillSearch {
   	      $(this).data({
   	        'value': parseInt(ui.value)
   	      });
+  	      
+  	      
 
   	     
 
@@ -2284,7 +2342,14 @@ section#skillSearch {
   	          $('.range-alert').removeClass('active');
   	        }
   	      }
-  	    }
+  	      
+  	    
+	    
+  	      
+  		}
+  	  
+  
+  	
   	  });
 
   	  // Prevent the range container from moving the slider
@@ -2292,10 +2357,56 @@ section#skillSearch {
   	    event.stopPropagation();
   	  });
   	  
-  	  //
-       
+  	  $("span.Button_Button__interaction__kkYaa").on('click', function(){
+			confirmYear.call(this);				
+		});
 
     }); // end of document
+    
+    //경력 슬라이더
+    function confirmYear(){
+    	$("div.YearsPopup_container___s3Uf").css("display", "none");
+    	let minyear = document.querySelector("#slider-range > div > div > div.range > span:nth-child(1)").textContent;
+    	let maxyear = document.querySelector("#slider-range > div > div > div.range > span:nth-child(3)").textContent;    	
+    	
+    	//정규 표현식으로 숫자만 받음
+    	minyear = minyear.replace(/\D/g, '');
+    	maxyear = maxyear.replace(/\D/g, '');
+    	
+    	//alert(minyear);
+    	//alert(maxyear);
+    	html = "";
+    	html +='<input type="hidden" name="minyear" value="'+minyear+'"/>'
+    	html +='<input type="hidden" name="maxyear" value="'+maxyear+'"/>'
+    	
+    	$("div.sliderwrapper").append(html);
+    	
+    	
+    	html = "";
+    	if(minyear == 0 & maxyear == 10) {
+    		minyear = "신입";
+    		html += '<span class="ButtonDisplay_ButtonDisplay__4VTdg" style="color: #36f;">'+minyear+' ~ '+maxyear+'년 이상</span>'
+        }
+    	else if (maxyear == 10){
+    		html += '<span class="ButtonDisplay_ButtonDisplay__4VTdg" style="color: #36f;">'+minyear+'년 ~ '+maxyear+'년 이상</span>'
+        }
+    	
+    	else if (minyear == 0){
+    		minyear = "신입";
+    		html += '<span class="ButtonDisplay_ButtonDisplay__4VTdg" style="color: #36f;">'+minyear+' ~ '+maxyear+'년</span>'
+        }
+    	
+    	else {
+    		html += '<span class="ButtonDisplay_ButtonDisplay__4VTdg" style="color: #36f;">'+minyear+'년 ~ '+maxyear+'년</span>'
+        }
+    	
+    	
+    	let element = $("div.FilterInWdlist_yearFilterContainer__nX3TV > button > span.ButtonDisplay_ButtonDisplay__4VTdg");
+    	element.html(html);
+    }
+    
+    
+    
     
     //슬라이더 윗 버튼  
     function sliderfunc() {
@@ -2328,7 +2439,7 @@ section#skillSearch {
     	
     	
 		$.ajax({
-			url: "/wanted/getJobList",
+			url: "/wanted/post/getJobList",
 			type: "get",
 			dataType: "json",
 			success: function (json) {
@@ -2384,15 +2495,37 @@ section#skillSearch {
     	
     	$(document).on('click' , 'button.JobCategoryItem_JobCategoryItem__oUaZr' , function(){
     		selectDuty.call(this);
+    		
+    		if(duty_select_count > 0) {
+    			//console.log("gg")
+    			
+    			$("button#confirmDuty").removeClass("Button_Button__disabled__2eyyF");
+    			$("button#confirmDuty").removeClass("Button_Button__containedDisabled__qiqtc");
+    			$("button#confirmDuty").addClass("Button_Button__contained__toUI5");
+    			$("button#confirmDuty").addClass("Button_Button__containedPrimary__gFaT9");
+    		}
+    		
 		});
     	
     	$(document).on('click' , 'button.JobCategoryItem_clicked__cmZll' , function(){
     		cancelDuty.call(this);
+    		
+    		if(duty_select_count == 0) {
+    			//console.log("gg")
+    			
+    			$("button#confirmDuty").addClass("Button_Button__disabled__2eyyF");
+    			$("button#confirmDuty").addClass("Button_Button__containedDisabled__qiqtc");
+    			$("button#confirmDuty").removeClass("Button_Button__contained__toUI5");
+    			$("button#confirmDuty").removeClass("Button_Button__containedPrimary__gFaT9");
+    		}
+    		
 		});
     	
     	$(document).on('click', 'button#confirmDuty' , function(){
 			confirmDuty.call(this);				
-		})
+		}) 
+		
+		
     	
     	
     }
@@ -2405,37 +2538,61 @@ section#skillSearch {
 		duty_code = $(this).find('input').val();
 		
 		let  element = $(this);
-		//element.removeClass("JobCategoryItem_JobCategoryItem__oUaZr").addClass("JobCategoryItem_clicked__cmZll");
+		element.removeClass("JobCategoryItem_JobCategoryItem__oUaZr");
 		element.addClass("JobCategoryItem_clicked__cmZll");
 		
-		if  ( insert_count >= 5 ){
-			alert(" 최대 5개의 기술스택만 선택할 수 있습니다.");
+		if  ( duty_select_count >= 5 ){
+			alert(" 최대 5개의 직무만 선택할 수 있습니다.");
+			element.addClass("JobCategoryItem_JobCategoryItem__oUaZr");
+			element.removeClass("JobCategoryItem_clicked__cmZll");
+			
 			return false ; 
 		}
 		
 		duty_select_count++;
+		console.log(duty_select_count);
 	}
 	
 	function cancelDuty(){
 		
 		let  element = $(this);
-		//element.removeClass("JobCategoryItem_JobCategoryItem__oUaZr").addClass("JobCategoryItem_clicked__cmZll");
+		element.addClass("JobCategoryItem_JobCategoryItem__oUaZr");
 		element.removeClass("JobCategoryItem_clicked__cmZll");
 		
 		duty_select_count--;
+		//console.log(duty_select_count);
+		
 	}
-	
+	 
 	function confirmDuty() {
 		
+		let tech_code = [];
+	    $("input[name='tech_code']").each(function() {
+	        tech_code.push($(this).val());
+	    });
+		
+		let duty_names = $(".JobCategoryItem_clicked__cmZll").map(function() {
+							    return $(this).text();
+							}).get();
+		let duty_name = duty_names.join(", ");
+
+		$("span.JobCategory_JobCategory__btn__title__ixP9v").text(duty_name);
+		
+		dropdownfunc2();
 	}
 	
 	
 	
     
 	function getDutyList_post(job_code) {
+		
+		//job_code 가 들어간 input 태그 생성
+		html=""
+		html+="<input type='hidden' name="job_code"  value=' "+job_code+" '/>"
+		$("section.JobCategoryOverlay_JobCategoryOverlay__rkFLO").html(html); 
     	
     	  $.ajax({
-			url: "/wanted/getDutyList_post",
+			url: "/wanted/post/getDutyList_post",
 			type: "get",
 			data: {"job_code":job_code},
 			dataType: "json",
@@ -2456,8 +2613,9 @@ section#skillSearch {
 				}
 				html += '</div>'+
 						'</div>'+
-						'<div class="JobCategoryOverlay_JobCategoryOverlay__bottom__6Q_OM"><button id="confirmDuty" class="Button_Button__root__V1ie3 Button_Button__contained__toUI5 Button_Button__containedPrimary__gFaT9 Button_Button__containedSizeMedium__c2z9c Button_Button__containedDisabled__qiqtc Button_Button__disabled__2eyyF JobCategoryOverlay_JobCategoryOverlay__bottom__btn__GliIw" ><span class="Button_Button__label__1Kk0v">선택 완료하기</span></button></div>';
-				
+						'<div class="JobCategoryOverlay_JobCategoryOverlay__bottom__6Q_OM"><button id="confirmDuty" class="Button_Button__root__V1ie3 Button_Button__contained__toUI5 Button_Button__containedPrimary__gFaT9 Button_Button__containedSizeMedium__c2z9c JobCategoryOverlay_JobCategoryOverlay__bottom__btn__GliIw" ><span class="Button_Button__label__1Kk0v">선택 완료하기</span></button></div>';
+				/* Button_Button__containedDisabled__qiqtc  커서 막는 css */
+				/* Button_Button__disabled__2eyyF 클릭이벤트 막는 css */
 				$("section.JobCategoryOverlay_JobCategoryOverlay__rkFLO").html(html);
 
 			},
@@ -2473,9 +2631,191 @@ section#skillSearch {
 	
 	////////////////////////////////////////////////////////////////////////
 	
+	// 지역 조회 기능 구현
+	let region_select_count = 0;
+	function settingRegionList() {
+		getRegionList();
+		
+		//버튼 눌렀을때 추가
+		$(document).on('click' , '.modal_region_detail_button' , function(){
+			insertRegion.call(this);
+		});
+		
+		//지우기 기능
+		$(document).on('click' , 'li.SelectedLocations_locationItem__8j9AK' , function(){
+			deleteRegion.call(this);
+		});
+		//초기화
+		$(document).on('click' , 'button.LocationsPopup_ResetButton__Ko46W' , function(){
+			resetRegion.call(this);
+		});
+		
+		
+		//적용
+		
+	}
+	
+	
+	// 지역 조회
+	
+	function getRegionList() {
+    	
+    	
+		$.ajax({
+			url: "/wanted/post/getRegionList",
+			type: "get",
+			dataType: "json",
+			success: function (json) {
+				 //console.log(JSON.stringify(json));
+				let html = ""
+				 html += '<li><button type="button" class="modal_region_button Locations_selected__1YaAW Locations_lastSelected__ZVHyy Locations_currentParent__Yi84n">전국</button></li>';
+						
+						
+				for (let i = 0; i < json.RegionList.length; i++) {
+					 html += '<li>' +
+					 		 '<button type="button" onclick="getRegionDetailList(this, '+json.RegionList[i].region_code+')" class="modal_region_button">' +
+							 json.RegionList[i].region_name +
+							 '</button></li>' ; 
+							
+				}
+				
+				$("ul#modal_region").html(html);
+				
+
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+
+
+		});
+		
+	}// end of function getRegionList()
+	
+	
+	function getRegionDetailList(element, region_code) {
+		
+	    $('.Locations_lastSelected__ZVHyy').removeClass('Locations_lastSelected__ZVHyy');
+	    $('.Locations_selected__1YaAW').removeClass('Locations_selected__1YaAW');
+	    $('.Locations_currentParent__Yi84n').removeClass('Locations_currentParent__Yi84n');
+	    
+	    let total_region = $(element).text();
+	    $(element).addClass("Locations_lastSelected__ZVHyy");
+	    $(element).addClass("Locations_selected__1YaAW");
+	    $(element).addClass("Locations_currentParent__Yi84n");
+	    
+		
+		
+		
+		$.ajax({
+			url: "/wanted/post/getRegionDetailList",
+			type: "get",
+			data: {"region_code":region_code},
+			dataType: "json",
+			success: function (json) {
+				//console.log(JSON.stringify(json));
+				
+				let html = ""
+				html += ' <li><button type="button" class="modal_region_detail_button ">'+total_region+' 전체<input type="hidden" class="total_detail_code modal_region_detail_button" value="'+region_code+'"/></button></li>';
+						//Locations_selected__1YaAW 선택 css 일단 뺌
+						
+				for (let i = 0; i < json.RegionDetailList.length; i++) {
+					 html += '<li>' +
+					 		 '<button type="button" class="modal_region_detail_button" id="RegionDetail'+json.RegionDetailList[i].region_detail_code+'">' +
+							 json.RegionDetailList[i].region_detail_name +
+							 '<input type="hidden" class="modal_region_detail_button" value="'+json.RegionDetailList[i].region_detail_code+'"/>'+
+							 '</button></li>' ; 
+							
+				}
+				
+				$("ul#modal_region_detail").html(html);
+
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			} 
+
+
+		}); 
+		
+	}
+	
+	function insertRegion() {
+		let region_detail_name = ""; 
+		let region_detail_code = ""; 
+		
+		region_detail_name = $(this).text();
+		region_detail_code = $(this).find('input').val();
+		
+		//alert(region_detail_code);
+		
+		
+		
+		if  ( region_select_count >= 10 ){
+			alert(" 최대 10개의 지역만 선택할 수 있습니다.");
+			return false ; 
+		} // end of if 
+		
+		let  element = $(this);
+		//element.removeClass("JobCategoryItem_JobCategoryItem__oUaZr");
+		element.addClass("Locations_selected__1YaAW");
+		
+		let html = ""; 
+		html += '<li class="SelectedLocations_locationItem__8j9AK"><span>'+region_detail_name+'<input type="hidden" name="region_detail_code" value=" '+region_detail_code+' "/></span><button type="button" class="remove_region_button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24" style="color: #36f;">'+
+            	'<path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>'+
+           		'</svg></span></button></li>';
+		
+           		
+		$("ul.SelectedLocations_listContainer__46isv").append(html) ;
+		region_select_count ++ ; 
+		
+		
+	} // function insertRegion()
+	
+	function deleteRegion() {
+		// 삭제할 지역 항목의 부모 리스트 항목 선택
+	    let regionItem = $(this).closest("li.SelectedLocations_locationItem__8j9AK");
+
+	    // 상세지역 태그 선택
+	    let regionDetailTag = regionItem.find("input[name='region_detail_code']").val();
+	    let regionDetailTag2 = "#RegionDetail" + $.trim(String(regionDetailTag));
+	    //이렇게 해야지 아래서 적을 때 #RegionDetail 10 이런식으로 안나오고 제대로 붙어서 나옴
+	    //alert(regionDetailTag2);
+	    
+	    $(regionDetailTag2).removeClass("Locations_selected__1YaAW");
+	    // 지역 항목 삭제
+	    
+	    regionItem.remove();
+	    region_select_count -- ;
+	}// end of deleteRegion
+	
+	function resetRegion() {
+		//region 전체 버튼 선택
+		let element = $("#modal_region > li:nth-child(1) > button");
+		element.addClass("Locations_lastSelected__ZVHyy");
+		element.addClass("Locations_selected__1YaAW");
+		element.addClass("Locations_currentParent__Yi84n");
+		
+		$('.Locations_lastSelected__ZVHyy').removeClass('Locations_lastSelected__ZVHyy');
+	    $('.Locations_selected__1YaAW').removeClass('Locations_selected__1YaAW');
+	    $('.Locations_currentParent__Yi84n').removeClass('Locations_currentParent__Yi84n');
+	    
+	    //region_detail css 초기화
+	    $('.Locations_selected__1YaAW').removeClass('Locations_selected__1YaAW');
+	    
+	    // 선택된 모든 태그 삭제
+	    $("ul.SelectedLocations_listContainer__46isv").empty();
+
+		region_select_count = 0;
+	}
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////
+	
     function getPostList() {
 		$.ajax({
-			url: "/wanted/getPostList",
+			url: "/wanted/post/getPostList",
 			type: "get",
 			dataType: "json",
 			success: function (json) {
@@ -2823,23 +3163,93 @@ section#skillSearch {
 			$("button#skill").html('<span class="FilterButton_title__MNRKD">기술스택</span><span class="ButtonDisplay_ButtonDisplay__4VTdg"></span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path></svg>');
 		}
 		
-		
+		gofilter();
 		
 	}// END OF FUNCTION SECTIONADJUST
 	
 	// 기술스택 끝
     
+	function gofilter(){ 
+	
+	  	<%-- const filterFrm = document.post_filter_form;
+	  	searchFrm.method = "get";
+	  	searchFrm.action = "<%=request.getContextPath()%>/post/getPostList/" + "${requestScope.filter_condition_Map.category_no}/" + "${requestScope.filter_condition_Map.district_no}";
+	  	
+	  											/getPostList/{job_code}/{duty_code}/{region_code}/{region_detail_code}/{career}/{tech_code}
+	  	
+	  	filterFrm.submit(); --%>
+	  	
+	  	let tech_code = [];
+	    $("input[name='tech_code']").each(function() {
+	        tech_code.push($(this).val());
+	    });
+	  	
+	  	let html = "" ;
+		$.ajax({
+			url: "/wanted/getPostListWithFilters",
+			type: "get",
+			data: {"tech_code":tech_code},
+			dataType:"json",
+			success: function (result) {
+			   //  console.log(JSON.stringify(result));
+			
+			   
+			        
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+		});
+  
+ 	 }
+
+		function gofilter() { <%-- 검색하러가는 역할 --%>
+		
+		
+		    let tech_code = [];
+		    $("input[name='tech_code']").each(function() {
+		        tech_code.push($(this).val());
+		    });
+
+		    let duty_code = [];
+		    $("input[name='duty_code']").each(function() {
+		        duty_code.push($(this).val());
+		    });
+
+		    let data = {
+		        tech_code: tech_code,
+		        duty_code: duty_code
+		    };
+
+		    $.ajax({
+		        url: "/wanted/getPostListWithFilters",
+		        type: "post", // get방식으로 보내서 requestParam으로 받으려했는데 ajax get 방식은 배열 타입을 보낼 수없어서 변경 
+		        data: JSON.stringify(data),
+		        dataType: "json",
+		        contentType: "application/json",
+		        success: function(result) {
+		            // 요청 성공 시 처리
+		        },
+		        error: function(request, status, error) {
+		            // 요청 실패 시 처리
+		        }
+		    });
+		}
+		
+
 	
 </script>
 
 </head>
 <body>
+<!-- <form name="post_filter_form"> -->
 <div class="JobList_cn__t_THp container">
 
 	<!--        <input name="test" value="1" />
                 <input name="test" value="2" />
                 <input name="test" value="3" />
-                -->
+                	이렇게 넣으면 object로 되어서 다들어가고 그걸 다시 count 값만큼 받으면되고 그 다음에 경력 뭐시기 in 1 2 3 으로해서 다받아버리면 될듯
+                	아니면 이거 말고 영민님 코드처럼 아싸리 싹다 list로 받아서 넣어버려도 상관 없을듯.--> 
                 
 
 
@@ -2891,11 +3301,11 @@ section#skillSearch {
                 <div class="FilterInWdlist_container__CXp_u FilterInWdlist_FixedWithMainBar__i4ktA isLoggedIn">
                     <div class="FilterInWdlist_innerClassName__ZOJEQ">
                         <div class="FilterInWdlist_SelectedButtonGroup__gHL3G">
-                        	<button type="button" data-toggle="modal" data-target="#exampleModal" class="FilterButton_ButtonClassName__PWHFf FilterInWdlist_filterButton__njVLF" data-attribute-id="explore__filter__click" data-filter-name="region" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all">
+                        	<button type="button" data-toggle="modal" data-target="#exampleModal" class="FilterButton_ButtonClassName__PWHFf FilterInWdlist_filterButton__njVLF" >
                         		<span class="FilterButton_title__MNRKD">지역<span class="FilteredCount_filteredCount__3PCO5 FilterInWdlist_filteredCount__f825_">1</span></span><span class="ButtonDisplay_ButtonDisplay__4VTdg">한국</span></button>
                         
                         <div class="FilterInWdlist_yearFilterContainer__nX3TV">
-                        	<button type="button" onclick="sliderfunc()" class="FilterButton_ButtonClassName__PWHFf FilterInWdlist_filterButton__njVLF" data-attribute-id="explore__filter__click" data-filter-name="experience" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all"><span class="FilterButton_title__MNRKD">경력</span><span class="ButtonDisplay_ButtonDisplay__4VTdg">전체</span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg">
+                        	<button type="button" onclick="sliderfunc()" class="FilterButton_ButtonClassName__PWHFf FilterInWdlist_filterButton__njVLF" ><span class="FilterButton_title__MNRKD">경력</span><span class="ButtonDisplay_ButtonDisplay__4VTdg">전체</span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg">
                                     <path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path></svg>
                             </button>
                             
@@ -3026,30 +3436,21 @@ section#skillSearch {
 					            <div class="Locations_container__hZ3Ul">
 					                <div class="Locations_column__Ibvto">
 					                    <h6>지역</h6>
-					                    <ul>
-					                        <li><button type="button" class="">전국</button></li>
+					                    <ul id="modal_region">
+					                    <!--     <li><button type="button" class="">전국</button></li>
 					                        <li><button type="button" class="">서울</button></li>
 					                        <li><button type="button" class="">부산</button></li>
 					                        <li><button type="button" class="Locations_selected__1YaAW Locations_lastSelected__ZVHyy Locations_currentParent__Yi84n">대구</button></li>
-					                        <li><button type="button" class="">인천</button></li>
-					                        <li><button type="button" class="">광주</button></li>
-					                        <li><button type="button" class="">대전</button></li>
-					                        <li><button type="button" class="">울산</button></li>
-					                        <li><button type="button" class="">세종</button></li>
-					                        <li><button type="button" class="">경기</button></li>
-					                        <li><button type="button" class="">강원</button></li>
-					                        <li><button type="button" class="">충북</button></li>
-					                        <li><button type="button" class="">충남</button></li>
-					                        <li><button type="button" class="">전북</button></li>
-					                        <li><button type="button" class="">전남</button></li>
-					                        <li><button type="button" class="">경북</button></li>
 					                        <li><button type="button" class="">경남</button></li>
 					                        <li><button type="button" class="">제주</button></li>
+					                     -->
 					                    </ul>
 					                </div>
 					                <div class="Locations_column__Ibvto">
 					                    <h6>상세지역</h6>
-					                    <ul>
+					                    <ul id="modal_region_detail">
+					                    	<div class="Locations_empty__c0Xdq">지역을 선택하면<br>상세 지역을 확인할 수 있습니다.</div>
+					                    <!--     
 					                        <li><button type="button" class="">전체</button></li>
 					                        <li><button type="button" class="">남구</button></li>
 					                        <li><button type="button" class="">달서구</button></li>
@@ -3059,6 +3460,7 @@ section#skillSearch {
 					                        <li><button type="button" class="">수성구</button></li>
 					                        <li><button type="button" class="">중구</button></li>
 					                        <li><button type="button" class="">달성군</button></li>
+					                     -->
 					                    </ul>
 					                </div>
 					            </div>
@@ -3066,34 +3468,15 @@ section#skillSearch {
 					        <div class="CommonFooter_container__PQC4V LocationsPopup_footerContainer__49FsP LocationsPopup_hasSelectedLocationArea__Uicwe">
 					            <div class="SelectedLocations_selectedLocations__6PVR9">
 					                <ul class="SelectedLocations_listContainer__46isv">
+					                    <!-- 
 					                    <li class="SelectedLocations_locationItem__8j9AK"><span>대구 동구</span><button type="button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24">
 					                                    <path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>
 					                                </svg></span></button></li>
-					                    <li class="SelectedLocations_locationItem__8j9AK"><span>대구 달서구</span><button type="button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24">
-					                                    <path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>
-					                                </svg></span></button></li>
-					                    <li class="SelectedLocations_locationItem__8j9AK"><span>대구 달서구</span><button type="button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24">
-					                                    <path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>
-					                                </svg></span></button></li>
-		                                <li class="SelectedLocations_locationItem__8j9AK"><span>대구 달서구</span><button type="button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24">
-		                                    <path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>
-		                                </svg></span></button></li>
-		                                <li class="SelectedLocations_locationItem__8j9AK"><span>대구 달서구</span><button type="button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24">
-		                                    <path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>
-		                                </svg></span></button></li>
-		                                <li class="SelectedLocations_locationItem__8j9AK"><span>대구 달서구</span><button type="button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24">
-		                                    <path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>
-		                                </svg></span></button></li>
-		                                <li class="SelectedLocations_locationItem__8j9AK"><span>대구 달서구</span><button type="button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24">
-		                                    <path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>
-		                                </svg></span></button></li>
-		                                <li class="SelectedLocations_locationItem__8j9AK"><span>대구 달서구</span><button type="button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24">
-		                                    <path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>
-		                                </svg></span></button></li>
-					                                                       
+					                     -->
+		                                                                   
 					                </ul>
 					                
-					                <p>최대 15개까지 선택 가능합니다.</p>
+					                <p>최대 10개까지 선택 가능합니다.</p>
 					            </div><button class="CommonFooter_button__sCywr" type="submit" data-attribute-id="explore__filter__update" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all" data-filter-name="region" data-update-result="daegu.dong-gu">확인</button>
 					        </div>
 					    </div>
@@ -3246,6 +3629,7 @@ section#skillSearch {
         
     </div>
 </div>
+<!-- </form> -->
 </body>
 
 

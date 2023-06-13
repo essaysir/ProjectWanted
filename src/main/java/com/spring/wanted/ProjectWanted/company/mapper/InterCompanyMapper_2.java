@@ -46,8 +46,12 @@ public interface InterCompanyMapper_2 {
 	
 	//ajax로 연장상세페이지 띄우기
 	List<Map<String, String>> viewExtendPost(String post_code);
-
+	
+	//결제완료 후 deadline update하기
 	void updateExtendPost(String post_code);
+	
+	// 공고삭제를위한 하나의 공고 가져오기
+	PostVO getOneRecruit(String post_code);
 
 	
 
