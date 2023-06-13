@@ -26,6 +26,9 @@ public interface InterMemberService3 {
 	
 	// 프로필사진업데이트하기
 	int profileImageUpdate(MemberVO membervo, MultipartHttpServletRequest mrequest);
+	
+	// 회원탈퇴처리
+	int memberExit(String userid, MultipartHttpServletRequest mrequest);
 
 	
 

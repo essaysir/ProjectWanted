@@ -8,6 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -121,6 +124,35 @@ public class MemberService3 implements InterMemberService3 {
 		
 		return n;
 		
+	}
+	
+	//회원탈퇴 처리
+	@Override
+	public int memberExit(String userid, MultipartHttpServletRequest mrequest) {
+		
+		MemberVO membervo = mdao.getMemberImage(userid);
+		
+		HttpSession session = mrequest.getSession();
+		
+		String root = session.getServletContext().getRealPath("/").substring(0, 30);
+		
+		String path = root + "resources" + File.separator + "static" + File.separator + "images" + File.separator + "profile_image";
+		
+		String image = membervo.getProfile_image();
+		
+		if(!image.equals("profile_default.png")) {
+							
+			try {
+				fileManager.doFileDelete(image, path);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		int n = mdao.memberExit(userid);
+		
+		
+		return n;
 	}
 	
 
