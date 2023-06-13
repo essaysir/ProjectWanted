@@ -19,14 +19,46 @@
 	</select>
 
 	
-	<!-- resume_input 사용자로 부터 입력받은 값을 테이블에 저장하기 -->
+	<!-- resume_input 사용자로 부터 입력받은 값을 RESUME 테이블에 저장하기 -->
 	<insert id="insertResume" parameterType="com.spring.wanted.ProjectWanted.member.model.ResumeVO" useGeneratedKeys="true" keyColumn="resume_code" keyProperty="resume_code">
 		INSERT INTO tbl_resume(RESUME_CODE, FK_USERID, ISCOMPLETE, SUBJECT, INTRODUCE, UPLOADLINK)
-		values(seq_resume.nextval, #{fk_userid}, 1, #{subject}, #{introduce}, #{uploadLink})
+		values(seq_resume.nextval, #{fk_userid}, #{iscomplete}, #{subject}, #{introduce}, #{uploadlink})
 	</insert>
 	
+	<!-- resume_input 사용자로 부터 입력받은 값을 Language 테이블에 저장하기 -->
+	<insert id="insertLanguage" parameterType="com.spring.wanted.ProjectWanted.member.model.LanguageVO" useGeneratedKeys="true" keyColumn="language_code" keyProperty="language_code">
+		INSERT INTO tbl_language(LANGUAGE_CODE, FK_RESUME_CODE, FOR_LANG, CONTENT, LANG_DATE)
+		values(seq_language.nextval, #{fk_resume_code}, #{for_lang}, #{content}, #{lang_date})
+	</insert>
+	
+	<!-- resume_input 사용자로 부터 입력받은 값을 Reward 테이블에 저장하기 -->
+	<insert id="insertReward" parameterType="com.spring.wanted.ProjectWanted.member.model.RewardVO" useGeneratedKeys="true" keyColumn="reward_code" keyProperty="reward_code">
+	    INSERT INTO tbl_reward(REWARD_CODE, FK_RESUME_CODE, REWARD, CONTENT, REWARD_DATE)
+	    VALUES(seq_reward.nextval, #{fk_resume_code}, #{reward}, #{content}, #{reward_date})
+	</insert>
+	
+	<!-- resume_input 사용자로 부터 입력받은 값을 School 테이블에 저장하기 -->
+	<insert id="insertSchool" parameterType="com.spring.wanted.ProjectWanted.member.model.SchoolVO" useGeneratedKeys="true" keyColumn="school_code" keyProperty="school_code">
+	    INSERT INTO tbl_school(SCHOOL_CODE, FK_RESUME_CODE, SCHOOL, MAJOR, CONTENT, START_DATE, END_DATE)
+	    VALUES(seq_school.nextval, #{fk_resume_code}, #{school}, #{major}, #{content}, #{start_date}, #{end_date})
+	</insert>
+	
+	<!-- resume_input 사용자로 부터 입력받은 값을 Career 테이블에 저장하기 -->
+	<insert id="insertCareer" parameterType="com.spring.wanted.ProjectWanted.member.model.CareerVO" useGeneratedKeys="true" keyColumn="career_code" keyProperty="career_code">
+	    INSERT INTO tbl_school(CAREER_CODE, FK_RESUME_CODE, COMPANY, DEPARTMENT, START_DATE, END_DATE)
+	    VALUES(seq_career.nextval, #{fk_resume_code}, #{company}, #{department}, #{start_date}, #{end_date})
+	</insert>
 
+	<!-- resume_input 사용자로 부터 입력받은 값을 Performance 테이블에 저장하기 -->
+	<insert id="insertPerformance" parameterType="com.spring.wanted.ProjectWanted.member.model.PerformanceVO" useGeneratedKeys="true" keyColumn="perform_code" keyProperty="perform_code">
+	    INSERT INTO tbl_performance(PERFORM_CODE, FK_CAREER_CODE, FK_RESUME_CODE, START_DATE, END_DATE, PERFORMANCE, PERFROM_CONTENT)
+	    VALUES(seq_performance.nextval, #{fk_career_code}, #{fk_resume_code}, #{department}, #{start_date}, #{end_date}, #{perform_content})
+	</insert>
 
-
-
+	<!-- resume_input 사용자로 부터 입력받은 값을 MemberTech 테이블에 저장하기 -->
+	<insert id="insertMemberTech" parameterType="com.spring.wanted.ProjectWanted.member.model.MemberTechVO" useGeneratedKeys="true" keyColumn="member_tech_code" keyProperty="member_tech_code">
+	    INSERT INTO tbl_Member_Tech(MEMBER_TECH_CODE, FK_TECH_CODE, FK_USERID, FK_RESUME_CODE)
+	    VALUES(seq_member_tech.nextval, #{fk_tech_code}, #{fk_userid}, #{fk_resume_code})
+	</insert>
+	
 </mapper>

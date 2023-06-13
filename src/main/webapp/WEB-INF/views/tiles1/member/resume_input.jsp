@@ -459,7 +459,7 @@
 				success: function (result) {
 				   //  console.log(JSON.stringify(result));
 					// 버튼 추가를 위한 반복문
-				    $.each(result, function(index, skill) {
+				    $.each(result, function(index, skill) { 
 				        html += '<li class="li-skill">' +
 				                        '<button type="button" class="btn-skill" id="btn-skill-'+skill.tech_code+ '">' +
 				                            '<div class="div_skill">' +
@@ -895,7 +895,7 @@
 		
 		
 		// 작성 완료 버튼 클릭시 필수입력항목 유효성검사(공백 및 미작성만) 함수 
-		function insertResume(isComplete) {
+		function insertResume(iscomplete) {
 
 			// 필수입력사항이 모두 입력 됐는지 검사
 			$("input.required_input").each( (index, elmt) => {
@@ -937,7 +937,7 @@
 			var  skillInputs = document.getElementsByName("fk_Tech_Code");
 			
 			var MemberTechVO = {
-				fk_Tech_Code: skillInputs
+				fk_tech_code: skillInputs
 			};
 			
 			// 생성된 JSON 객체 확인
@@ -966,8 +966,8 @@
 
 			  // CareerVO 객체 생성
 			  var CareerVO = {
-			    start_careerDate: dateValue,
-			    end_careerDate: endValue,
+			    start_date: dateValue,
+			    end_date: endValue,
 			    company: companyValue,
 			    department: departmentValue
 			  };
@@ -1025,7 +1025,7 @@
 
 			// 입력된 input 태그들을 선택
 			var dateInputs = document.getElementsByName("lang_Date");
-			var contentInputs = document.getElementsByName("lang_content");
+			var contentInputs = document.getElementsByName("content");
 			var forLangInputs = document.getElementsByName("for_Lang");
 
 			// 입력된 값들을 반복하여 JSON 객체로 생성
@@ -1039,7 +1039,7 @@
 			  var LanguageVO = {
 			    lang_Date: dateValue,
 			    lang_content: contentValue,
-			    for_Lang: forLangValue
+			    for_lang: forLangValue
 			  };
 
 			  // LanguageVO 객체를 배열에 추가
@@ -1074,8 +1074,8 @@
 			
 			  // SchoolVO 객체 생성
 			  var SchoolVO = {
-			    start_shcoolDate: startValue,
-			    end_shcoolDate: endValue,
+				start_date: startValue,
+			    end_date: endValue,
 			    school: schoolValue,
 			    major: majorValue,
 			    content: contentValue
@@ -1127,26 +1127,33 @@
 			// 이력서 객체화(JSON)
 			var ResumeVO= 
 				  { 
-					  fk_userid :  "s1234@naver.com" , 
+					  fk_userid : fk_userid , 
 					  subject : $("input[name='subject']").val() , 
 					  introduce : $("textarea[name='introduce']").val(),
 					  uploadLink : $("textarea[name='uploadLink']").val(), 
 					  careervoList  : careerList , 
 					  schoolvoList : schoolList ,
-					  MemberTechVO : MemberTechVO ,
+					  member_techvoList : MemberTechVO ,
 					  rewardvoList : rewardList , 
-					  languagevoList :  languageList ,
-					  isComplete : isComplete
+					  languagevoList : languageList ,
+					  performancevoList : performanceList,
+					  iscomplete : iscomplete
 				  };
 				  
 			$.ajax({
-				url: "/wanted/myresume",
+				url: "/wanted/member/myresume",
 				type: "post",
 				async:"false",
 				contentType: "application/json; charset=utf-8", 
 				data: JSON.stringify(ResumeVO),
 				success: function (result) {
-					result.answer
+					if (response === "success") {
+						alert("이력서 작성이 왼료되었습니다.");
+						location.href = "<%= request.getContextPath() %>/wanted/member/myresume";
+					}
+					else {
+						alert("이력서 작성에 실패했습니다.");
+					}
 				},
 				error: function (request, status, err) {
 					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
@@ -1371,7 +1378,7 @@
 					   '  <div class="my-3" style="display:block; width : 60%">' +
 					   '    <input type="text" name="for_Lang" autocomplete="off" value="" placeholder="언어" style="width:80%; font-size:20px;"/>' +
 					   '    <button id="languageDel_btn'+languageDel_count+'" class="btn-delete" type="button" style="width:17%;">X</button>' +
-					   '    <input type="text" name="lang_content" value="" autocomplete="off" placeholder="세부사항" maxlength="255" style="width:100%; font-size:2opx;"/>' +
+					   '    <input type="text" name="content" value="" autocomplete="off" placeholder="세부사항" maxlength="255" style="width:100%; font-size:2opx;"/>' +
 					   '  </div>';
 			
 			$('div.addLanguage').append(html);
@@ -1476,47 +1483,37 @@
 						</button>
 					</div>	
 					
-					
 					<section id="skillSearch">
-								<div class="search-wrapper">
-									<input type="text" id="search-skill"  placeholder=" 보유 기술 스택을 검색해주세요" style=""/>
-									<button class="btn-search border-left" style="position : relative; top: -46px;  right: -482px;"><i class="fa-solid fa-magnifying-glass"></i></button>
-									<!-- 검색시 결과가 뜨도록 하는 곳 -->
-									
-									<div class="search-result">
-											<p class="search-answer-none"> 검색 결과가 없습니다.<br/>
-											한글 검색결과가 없는 경우 영어로 검색해보세요</p>	
-											<ul class="search-answer">
-											
-											</ul>
-											
-									</div>
-									
-									<h4 class="recommend">많이 쓰는 인기 기술스택을 추천해드려요</h4>
-									<!-- 버튼들이 들어가는 ul -->
-									<ul id="recommendList" style="padding-left:0px;"> 
-									</ul>
-					
-									<!--  선택한 것들이 들어가는 곳-->
-									<div class="data-input">
-										<ul id="insertList" style="padding-left:0px;"> 
-					
-										</ul>
-										
-									</div>
-									
-									<p class="recommend">·기술 스택은 최대 5개까지만 선택가능합니다.</p>
-								</div>
-								
-								<footer style="padding:10px;" class="border-top">
-								
-									<div style="text-align: right; margin-right: 10px; ">
-										<button type="button" id="section-cancle">취소</button>
-										<button type="button" id="section-adjust">적용하기</button>
-									</div>
-								
-								</footer>
+						<div class="search-wrapper">
+							<input type="text" id="search-skill"  placeholder=" 보유 기술 스택을 검색해주세요" style=""/>
+							<button class="btn-search border-left" style="position : relative; top: -46px;  right: -482px;"><i class="fa-solid fa-magnifying-glass"></i></button>
+							<!-- 검색시 결과가 뜨도록 하는 곳 -->
 							
+							<div class="search-result">
+								<p class="search-answer-none"> 검색 결과가 없습니다.<br/>
+								한글 검색결과가 없는 경우 영어로 검색해보세요</p>	
+								<ul class="search-answer"></ul>
+							</div>
+							
+							<h4 class="recommend">많이 쓰는 인기 기술스택을 추천해드려요</h4>
+							<!-- 버튼들이 들어가는 ul -->
+							<ul id="recommendList" style="padding-left:0px;"> 
+							</ul>
+			
+							<!--  선택한 것들이 들어가는 곳-->
+							<div class="data-input">
+								<ul id="insertList" style="padding-left:0px;"> 
+								</ul>
+							</div>
+							<p class="recommend">·기술 스택은 최대 5개까지만 선택가능합니다.</p>
+						</div>
+						
+						<footer style="padding:10px;" class="border-top">
+							<div style="text-align: right; margin-right: 10px; ">
+								<button type="button" id="section-cancle">취소</button>
+								<button type="button" id="section-adjust">적용하기</button>
+							</div>
+						</footer>
 					</section>
 					                         
 					<!--  적용하기 클릭 후 선택했던 값들이 들어가는 공간 -->                         
