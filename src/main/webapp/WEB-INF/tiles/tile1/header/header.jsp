@@ -84,7 +84,7 @@
 
 			},
 			error: function (request, status, error) {
-				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				// alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 			}
 
 
@@ -105,7 +105,7 @@
 				duties = json.dutyList ;
 			},
 			error: function (request, status, error) {
-				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				// alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 			}
 		});
 
@@ -119,14 +119,14 @@
 			dataType: "json",
 			async: false,
 			success: function (json) {
-				 console.log(JSON.stringify(json));
+				 // console.log(JSON.stringify(json));
 				 if ( json.userid != ""){
 					
 				  let html = "<div class=\"profile\">";
 				  html += "<img src=\"/images/profile_default.png\" style=\"width: 28px; height: 28px; border-radius:50%;\"/>";
 				  html += "<div class=\"menu\" id=\"menu\">";
 				  html += "<ul>";
-				  html += "<li><a class='a-login' href=\"/wanted/login\">MY 원티드</a></li>";
+				  html += "<li><a class='a-login' href=\"/wanted/member/memberInfo\">MY 원티드</a></li>";
 				  html += "<li><a>지원 현황</a></li>";
 				  html += "<li class=\"border-top\"><a class='a-login' href=\"/wanted/logout\">로그아웃</a></li>";
 				  html += "</ul>";
@@ -137,7 +137,7 @@
 				 }
 			},
 			error: function (request, status, error) {
-				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				// alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 			}
 		});
 
@@ -295,7 +295,7 @@
 				    </li>
 				    
 				    <li class="border-left text-center" style="margin: 10px 30px 10px 30px; padding-left:10px;">
-				      <a class="header-category" href="<%=ctxPath%>/wanted/company/login" style="color: #666;  border-radius: 15px; border: 1px solid">기업서비스</a>
+				      <a class="header-category" href="/wanted/company/login" style="color: #666;  border-radius: 15px; border: 1px solid">기업서비스</a>
 				    </li>
 			  </ul>
 		</nav>

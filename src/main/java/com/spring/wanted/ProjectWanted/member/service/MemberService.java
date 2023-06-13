@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.wanted.ProjectWanted.member.model.InterMemberDAO;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 @Service
 public class MemberService implements InterMemberService{
@@ -36,6 +37,13 @@ public class MemberService implements InterMemberService{
 	public void register(MemberVO mvo) {
 		mdao.register(mvo);
 	
+	}
+
+
+	@Override
+	public PostVO getPostVO(int post_code) {
+		PostVO pvo = mdao.getPostVO(post_code);
+		return pvo;
 	}
 	
 

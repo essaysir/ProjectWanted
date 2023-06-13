@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 @Mapper
 public interface InterMemberMapper {
@@ -17,4 +18,6 @@ public interface InterMemberMapper {
 	void register(MemberVO mvo); // 
 
 	CompanyVO login_comp(String username); // 스프링 시큐리티를 통한 기업 로그인 실행
+
+	PostVO getPostVO(int post_code);
 }

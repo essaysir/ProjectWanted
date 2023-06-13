@@ -65,6 +65,7 @@ public class MemberSecurityConfig  {
 	            http.authenticationProvider(memberAuthenticationProvider())
 	            .antMatcher("/wanted/member/**")
 	            .authorizeRequests()
+	            .antMatchers("/wanted/member/register").permitAll()
 	            .anyRequest().hasRole("USER")
 	            .and()
 	            .formLogin().loginPage("/wanted/login").loginProcessingUrl("/wanted/member/login/proc")

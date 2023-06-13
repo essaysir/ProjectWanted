@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 import com.spring.wanted.ProjectWanted.member.service.InterMemberService;
+import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 @RequestMapping(value="/wanted")
 @Controller
@@ -46,9 +47,9 @@ public class MemberController {
 			return view ;
 		}
 		
-		@PostMapping(value="/register")
+		@PostMapping(value="/member/register")
 		public String register(MemberVO mvo) {
-			// System.out.println(" 확인용 mvo : " + mvo );
+			System.out.println(" 확인용 mvo : " + mvo );
 			mvo.setPwd(passwordEncoder.encode(mvo.getPwd()));
 			
 			// System.out.println(mvo.getMobile());
@@ -56,7 +57,7 @@ public class MemberController {
 			
 			service.register(mvo);
 			
-			return "/ndex.tiles1";
+			return "redirect:/wanted/login";
 		}
 		
 		@GetMapping(value="/logout")
@@ -70,8 +71,11 @@ public class MemberController {
 		}
 		
 		//  회원 가입 페이지
-		@GetMapping(value="/detail")
-		public String login2() {
+		@GetMapping(value="/detail/{post_code}")
+		public String postDetail(@PathVariable int post_code , HttpServletRequest request) {
+				PostVO pvo = service.getPostVO(post_code);
+				System.out.println(" 확인용 pvo : " + pvo );
+				request.setAttribute("pvo", pvo);
 				return "post/detailPost.tiles1";
 		}
 }// END OF PUBLIC CLASS MEMEBERCONTROLLER
