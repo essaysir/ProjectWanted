@@ -3,6 +3,7 @@ package com.spring.wanted.ProjectWanted.post.model;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -60,6 +61,16 @@ public class PostDAO implements InterPostDAO {
 		List<Map<String, String>> RegionDetailList = mapper.getRegionDetailList(region_code);
 		
 		return RegionDetailList;
+	}
+
+	// 검색필터를 거친 공고리스트 불러오기
+	@Override
+	public List<Map<String, String>> getPostListWithFilters(List<String> job_code, List<String> duty_code,
+			List<String> tech_code) {
+		
+		List<Map<String, String>> PostList = mapper.getPostListWithFilters(job_code, duty_code, tech_code);
+		
+		return PostList;
 	}
 	
 }
