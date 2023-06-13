@@ -146,9 +146,9 @@ public class MemberController3 {
 		// 프로필사진 변경
 		@ResponseBody
 		@PostMapping(value = "/memberExit", produces = "text/plain;charset=UTF-8")		
-		public String memberExit(@RequestParam("userid") String userid, HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest mrequest) {
+		public String memberExit(@RequestParam("userid") String userid, HttpServletRequest request, HttpServletResponse response) {
 		    
-			int n = service.memberExit(userid, mrequest);
+			int n = service.memberExit(userid, request);
 
 			if (n==1) {
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication() ;

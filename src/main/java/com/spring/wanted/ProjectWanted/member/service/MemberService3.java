@@ -4,13 +4,11 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -128,11 +126,11 @@ public class MemberService3 implements InterMemberService3 {
 	
 	//회원탈퇴 처리
 	@Override
-	public int memberExit(String userid, MultipartHttpServletRequest mrequest) {
+	public int memberExit(String userid, HttpServletRequest request) {
 		
 		MemberVO membervo = mdao.getMemberImage(userid);
 		
-		HttpSession session = mrequest.getSession();
+		HttpSession session = request.getSession();
 		
 		String root = session.getServletContext().getRealPath("/").substring(0, 30);
 		
