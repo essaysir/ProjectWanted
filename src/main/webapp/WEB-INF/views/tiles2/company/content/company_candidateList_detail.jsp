@@ -11,22 +11,36 @@
 				<div id="buttonSection">
 					<%-- 정렬Frm 시작 --%>
 					<div class="col-auto">
-					     <button class="btn btn-primary" type="button" id="defaultOpen" onclick="sortNew()">지원 최신 순</button>
-					     <button class="btn btn-primary" type="button" onclick="sortPast()">지원 과거 순</button>
-					     <button class="btn btn-primary" type="button" onclick="sortSubject()">공고명 순</button>
+					     <button class="btn btn-primary" type="button" onclick="getCandidateList(3)">채용전 지원서</button>
 					</div>
 				    <%-- 정렬Frm 끝 --%>
 					<%-- 검색 Frm 시작 --%>
 					<div>
 					<form name="searchFrm" style="display: flex; font-size: 13pt;">
-				      <select name="searchType" id="searchType">
-				         <option value="subject">공고명</option>
-				         <option value="name">지원자명</option>
-				      </select>
-				      <input type="text" name="searchWord" id="searchWord" size="30" autocomplete="off" style="height: 35px;" /> 
-				      <input type="text" style="display: none;"/>
-				      <button type="button" id="search" class="btn btn-secondary btn-sm" onclick="goSearch()">검색</button>
-				   </form>
+					    <select name="searchType" id="searchType">
+					        <option value="subject">공고명</option>
+					        <option value="name">지원자명</option>
+					    </select>
+					    <input type="text" name="searchWord" id="searchWord" size="30" autocomplete="off" style="height: 35px;" /> 
+					    <input type="text" style="display: none;"/>
+					    <input type="hidden" id="status" />
+					    <input type="hidden" id="currentShowPageNo" />
+					    <input type="hidden" id="pageNo" />
+					    <input type="hidden" id="totalPage" />
+					    <button type="button" id="search" class="btn btn-secondary btn-sm" onclick='getCandidateList(
+							    document.getElementById("status").getAttribute("value"),
+							    document.getElementById("searchType").value,
+							    document.getElementById("searchWord").value,
+							    document.getElementById("currentShowPageNo").value,
+							    document.getElementById("pageNo").value,
+							    document.getElementById("totalPage").value)'>검색</button>
+					</form>
+
+				    
+				    <%-- 검색어 입력시 자동글 완성하기 
+				    <div id="displayList" style="border:solid 1px gray; border-top:0px; height:100px; margin-left:75px; margin-top:-1px; overflow:auto;">
+				    </div>
+				    --%>
 				   </div>
 				   <%-- 검색 Frm 끝 --%>
 				</div>	
@@ -45,9 +59,10 @@
 <c:if test="${not empty candidateList}">
 	<c:forEach items="${candidateList}" var="candidateList">
 		<tr style="height: 80px; text-align: center;">
+			
 			<td class="formList" style="width: 28%;">[&nbsp;${candidateList.post_subject}&nbsp;]</td>
 			<td class="formList" style="width: 10%;">${candidateList.name}</td>
-			<td class="formList" style="width: 27%;"><a href="/wanted/company/resume">${candidateList.resume_subject}</a></td>
+			<td class="formList" style="width: 27%;"><a href="resume?subject=${candidateList.resume_subject}">${candidateList.resume_subject}</a></td>
 			<td class="formList" style="width: 10%;">${candidateList.applydate}</td>
 			<c:choose>
 				<c:when test="${candidateList.status eq '합격'}">
@@ -72,10 +87,36 @@
 
 	</tbody>
 		</table>	
-	
+ 
 	<%-- 페이지바  --%>
-    <div id="pageBar" align="center" style="width: 70%; margin: 20px auto; ">
-		${pageBar}
-    </div>
+    <ul id="pageBar" >
+		<%-- [처음][이전] btn --%>
+		<li><button id="pageArrow" type="button" onclick="getCandidateList(${status},'1')"><i class="fa-solid fa-backward"></i></button></li>
+		<li><button id="pageArrow" type="button" onclick="getCandidateList(${status},${pageNo-1})"><i class="fa-solid fa-play fa-flip-both"></i></button></li>
+
+		<c:forEach var="pageNo" begin="${pageNo}" end="${totalPage}">
+		  <c:choose>
+		    <c:when test="${pageNo eq currentShowPageNo}">
+		      <li id="pageNo" style="text-align: center;">${pageNo}</li>
+		    </c:when>
+		    <c:otherwise>
+		      <li>
+		        <button id="pageBarNo" type="button" onclick="getCandidateList(${status},'${pageNo}')">${pageNo}</button>
+		      </li>
+		    </c:otherwise>
+		  </c:choose>
+		  <c:set var="loop" value="${loop + 1}" />
+		  <c:set var="pageNo" value="${pageNo + 1}" />
+		</c:forEach>
+		
+		<%-- [다음][마지막] btn --%>
+		<li><button id="pageArrow" type="button" onclick="getCandidateList(${status}, ${pageNo+1})"><i class="fa-solid fa-play"></i></button></li>
+		<li><button id="pageArrow" type="button" onclick="getCandidateList(${status},${totalPage})"><i class="fa-solid fa-backward fa-rotate-180"></i></button></li>
+	</ul>
+
+
+
+
+
 
 
