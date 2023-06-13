@@ -53,6 +53,11 @@
 		where userid = #{userid}		
 	</select>
 	
+	<delete id="memberExit">
+		delete from tbl_member
+		where userid = #{userid}
+	</delete>
+	
 
 
 </mapper>

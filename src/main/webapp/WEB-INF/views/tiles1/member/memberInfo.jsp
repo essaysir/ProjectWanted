@@ -361,12 +361,17 @@
 
 		checkInputValues();
 		
+		$("li#memberExit").click(function(){
+			window.location.href = "memberExit";
+		});
+		
 	});
 	
 	function pwdCheck(e){
 		
 		const target_val = $(e.target).val();
-				
+		var userid = $("input#userid").val();
+		
 		if(target_val.length == 0){
 			$('p#error_pwd1').hide();
 			$('p#error_pwd1').text("");
@@ -374,7 +379,7 @@
 		else{
 			$.ajax({
 				url: "pwdCheck",
-				data: {"inputPwd": $(e.target).val(), "userid": "leess"},
+				data: {"inputPwd": $(e.target).val(), "userid": userid},
 				type: "get",
 				success: function(result) {
 					
@@ -453,17 +458,17 @@
 	}// END OF FUNCTION PWDSAME()
 	
 	function checkInputValues() {
-	  const inputPwd1 = $('input#inputPwd1').val();
-	  const inputPwd2 = $('input#inputPwd2').val();
-	  const inputPwd3 = $('input#inputPwd3').val();
-	  const btnSubmit = $('button#pwdsubmit');
-
-	  if (inputPwd1 === '' || inputPwd2 === '' || inputPwd3 === '') {
-		btnSubmit.css("bakcground-color","gray")  
-	    btnSubmit.prop('disabled', true); // 버튼 비활성화
-	  } else {
-	    btnSubmit.prop('disabled', false); // 버튼 활성화
-	  }
+		  const inputPwd1 = $('input#inputPwd1').val();
+		  const inputPwd2 = $('input#inputPwd2').val();
+		  const inputPwd3 = $('input#inputPwd3').val();
+		  const btnSubmit = $('button#pwdsubmit');
+	
+		  if (inputPwd1 === '' || inputPwd2 === '' || inputPwd3 === '') {
+			btnSubmit.css("bakcground-color","gray")  
+		    btnSubmit.prop('disabled', true); // 버튼 비활성화
+		  } else {
+		    btnSubmit.prop('disabled', false); // 버튼 활성화
+		  }
 	}// end of function checkInputValues()
 	
 	function nameUpdate(){
@@ -604,6 +609,7 @@
 	            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 	        }
 	    });
+	    
 	}// end of function profile_imageUpdate
 	
 	
@@ -650,7 +656,7 @@
 						<li class="memin_li" data-toggle="modal" data-target="#passwdModal">
 							<p class="p_detail">비밀번호 변경</p><p class="p_item"></p><span><i class="fa-solid fa-chevron-right" style="color: #888;"></i></span>
 						</li>
-						<li class="memin_li">
+						<li class="memin_li" id="memberExit">
 							<p class="p_detail">회원탈퇴</p><p class="p_item"></p><span><i class="fa-solid fa-chevron-right" style="color: #888;"></i></span>
 						</li>
 					</ul>
