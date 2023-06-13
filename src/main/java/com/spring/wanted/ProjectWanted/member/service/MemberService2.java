@@ -20,26 +20,11 @@ public class MemberService2 implements InterMemberService2{
 	
 	// 이력서작성 페이지에서 입력 받은 데이터 insert 해주기
 	@Override
-	public void insertResume(ResumeVO resumevo) {
+	public int insertResume(ResumeVO resumevo) {
 		
-		// ResumeVO에서 데이터 받아오기
-		resumevo.getResume_Code();
-		resumevo.getFk_UserId();
-		resumevo.getIsComplete();
-		resumevo.getUploadFile();
-		resumevo.getSubject();
-		resumevo.getIntroduce();
-		resumevo.getUploadLink();
-		resumevo.getSkill();
+		int n  = mdao2.insertResume(resumevo);
 		
-		resumevo.getLanguagevoList();
-		resumevo.getRewardvoList();
-		resumevo.getSchoolvoList();
-		resumevo.getCareervoList();
-		resumevo.getMember_TechvoList();
-		resumevo.getPerformancevoList();
-		
-		mdao2.insertResume(resumevo);
+		return n;
 		
 	}
 	

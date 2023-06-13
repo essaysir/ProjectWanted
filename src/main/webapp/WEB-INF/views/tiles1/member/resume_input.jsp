@@ -895,7 +895,7 @@
 		
 		
 		// 작성 완료 버튼 클릭시 필수입력항목 유효성검사(공백 및 미작성만) 함수 
-		function insertResume() {
+		function insertResume(isComplete) {
 
 			// 필수입력사항이 모두 입력 됐는지 검사
 			$("input.required_input").each( (index, elmt) => {
@@ -1127,15 +1127,16 @@
 			// 이력서 객체화(JSON)
 			var ResumeVO= 
 				  { 
-					  fk_UserId :  "한오열" , 
+					  fk_userid :  "s1234@naver.com" , 
 					  subject : $("input[name='subject']").val() , 
-					  introduce : $("input[name='introduce']").val(),
+					  introduce : $("textarea[name='introduce']").val(),
 					  uploadLink : $("textarea[name='uploadLink']").val(), 
 					  careervoList  : careerList , 
 					  schoolvoList : schoolList ,
 					  MemberTechVO : MemberTechVO ,
 					  rewardvoList : rewardList , 
 					  languagevoList :  languageList ,
+					  isComplete : isComplete
 				  };
 				  
 			$.ajax({
@@ -1145,18 +1146,14 @@
 				contentType: "application/json; charset=utf-8", 
 				data: JSON.stringify(ResumeVO),
 				success: function (result) {
-					
+					result.answer
 				},
-				error: function (request, status, error) {
+				error: function (request, status, err) {
 					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 				}
 			});
 			
-		 	// 유효성 검사 후 최종 전송 확정
- 			const frm = document.resumeFrm;
-			frm.action = "/wanted/myresume";
-			frm.method = "post";
-			frm.submit();
+
 		    
 		}; // end of function insertResume()------------------------------
 		
@@ -1578,8 +1575,8 @@
 				</div>	
 				<p style="margin: 20px 20px  20px 5px; "><span id="totalLength"></span>/1300</p>
 				<p style="margin: 20px 20px  20px 10px; font-size: 13px; font-weight: bold;" id="message_bar"></p>
-				<button type="button" class="btn-blue save-temporary">임시 저장</button>
-				<button type="button" id="btn_resumeOk" class="btn-blue save" onclick="insertResume()" >작성 완료</button>
+				<button type="button" class="btn-blue save-temporary" onclick="insertResume(1)">임시 저장</button>
+				<button type="button" id="btn_resumeOk" class="btn-blue save" onclick="insertResume(2)" >작성 완료</button>
 			</div>
 		</div>
 

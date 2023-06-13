@@ -18,7 +18,13 @@
 		select duty_name from tbl_duty 
 	</select>
 
-
+	
+	<!-- resume_input 사용자로 부터 입력받은 값을 테이블에 저장하기 -->
+	<insert id="insertResume" parameterType="com.spring.wanted.ProjectWanted.member.model.ResumeVO" useGeneratedKeys="true" keyColumn="resume_code" keyProperty="resume_code">
+		INSERT INTO tbl_resume(RESUME_CODE, FK_USERID, ISCOMPLETE, SUBJECT, INTRODUCE, UPLOADLINK)
+		values(seq_resume.nextval, #{fk_userid}, 1, #{subject}, #{introduce}, #{uploadLink})
+	</insert>
+	
 
 
 
