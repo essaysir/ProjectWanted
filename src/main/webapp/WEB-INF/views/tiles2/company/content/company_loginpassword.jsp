@@ -328,7 +328,7 @@
 						</div>
 					</div >		
 					<!-- 다섯 번째 중간 틀 끝(wanted 제목이 있는 틀) -->
-					<form name="login" id="login_input" action="/login/proc" method="POST" >
+					<form name="login" id="login_input" action="/wanted/company/login/proc" method="POST" >
 						<div>
 							<div id="email_box">
 								<label>비밀번호</label>

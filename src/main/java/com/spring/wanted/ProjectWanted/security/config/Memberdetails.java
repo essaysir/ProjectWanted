@@ -16,7 +16,7 @@ import com.spring.wanted.ProjectWanted.member.model.InterMemberDAO;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 
 @Service
-public class Userdetails implements UserDetailsService {
+public class Memberdetails implements UserDetailsService {
 
 	@Autowired
 	public InterMemberDAO mdao ; 

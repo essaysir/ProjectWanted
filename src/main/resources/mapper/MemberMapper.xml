@@ -20,7 +20,10 @@
 			values ( #{userid} , #{pwd} , #{name} , #{nickname} , #{mobile} , '123.png' ,  0 ) 
 		</insert>
 
-
+		<select id="login_comp" parameterType="String" resultType="com.spring.wanted.ProjectWanted.company.model.CompanyVO">
+				select COMPANY_ID ,  SERIAL_NO , FK_REGION_DETAIL_CODE , PWD , NAME , DETAILS , EMP_COUNT , IMAGE , ADDRESSS , COMPANY_CODE 
+				from tbl_company where company_id = #{userid}
+		</select>
 
 
 
