@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class LanguageVO {
 
-	private int language_Code;
-    private int fk_Resume_Code;
-    private String for_Lang;
+	private int language_code;
+    private int fk_Resume_code;
+    private String for_lang;
     private String lang_content;
-    private String lang_Date;
+    private String lang_date;
 }
