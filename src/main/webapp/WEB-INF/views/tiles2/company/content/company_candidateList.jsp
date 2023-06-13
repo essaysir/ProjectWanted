@@ -120,7 +120,10 @@
    ul#pageBar {
 	  list-style:none; 
 	  display:flex; 
-	  border:solid 1px red;
+	  padding: 0 auto;
+	  justify-content: center;
+	  align-items: center;
+	  margin-top: 20px;
 	}
 
    #pageNo {
@@ -193,19 +196,30 @@
 
    
    <%-- 지원자List 불러오기 시작 --%>
-   function getCandidateList(status, orderBy) {
+   function getCandidateList(status,currentShowPageNo, searchType, searchWord, pageNo, totalPage, startRno, endRno) {
 	   $.ajax({
 	      url: "/wanted/company/getCandidateList",
-	      data: { status: status, orderBy: orderBy },
+	      data: { status: status,
+		          searchType: searchType,
+		          searchWord: searchWord,
+		          currentShowPageNo: currentShowPageNo,
+		          pageNo: pageNo,
+		          totalPage: totalPage,
+		          startRno: startRno,
+		          endRno: endRno
+		  		},
 	      async: true,
 	      type: "get",
 	      success: function(result) {
 	         if (result.trim() == 'false') {
 	            $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
-	         } else {
+	         } 
+	         else {
+	        	 
 	            $("div.tab").html(result);
-	         }
-	      },
+  
+	         } 
+	      }, 
 	      error: function(request, status, error) {
 	         alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 	      }
@@ -213,199 +227,49 @@
 	}
    <%-- 지원자List 불러오기 끝 --%>
    
-   
-
-	  
-   
 
    $(document).ready(function(){
 
+	     $("span.resume_subject").bind("mouseover", function(e){
+	    	 $(e.target).addClass("subjectStyle");    	 
+	     });
+	     
+	     $("span.resume_subject").bind("mouseout", function(e){
+	    	 $(e.target).removeClass("subjectStyle");    	 
+	     });
+	   
         $("input#searchWord").keyup(function(e){
          if(e.keyCode == 13){ // 엔터를 했을경우
-            goSearch();
+        	 getCandidateList();
          }
         });
         
         // 검색시 검색조건 및 검색어 유지시키기
         if( ${not empty requestScope.paraMap} ){
-           $("select#searchType").val("${requestScope.paraMap.searchType}");
-           $("input#searchWord").val("${requestScope.paraMap.searchWord}");
+            $("select#searchType").val("${requestScope.paraMap.searchType}");
+            $("input#searchWord").val("${requestScope.paraMap.searchWord}");
         }
-        
-        
-        <%-- === #107. 검색어 입력시 자동글 완성하기 2 === 
-        $("div#displayList").hide();
-        
-        $("input#searchWord").keyup(function(){ 
-           
-           const wordLength = $(this).val().trim().length;
-           
-           if(wordLength == 0){
-              $("div#displayList").hide();
-           }
-           else{
-              $.ajax({
-                 url:"/wanted/wordSearchShow",
-                 type:"get",
-                 data:{"searchType":$("select#searchType").val(),
-                      "searchWord":$("input#searchWord").val()},
-                 dataType:"json",
-                 success:function(json){
-                    console.log(JSON.stringify(json));
-                    /* json ==> [{"word":"java가 재미 있나요?"},{"word":"JSP 가 뭔가요?"},{"word":"Korea VS Japan 라이벌 축구대결"},{"word":"오라클 JAVA 를 배우고 싶어요"},{"word":"java가 쉽나요?"},{"word":"JAVAScript 가 뭔가요?"}]
-                       또는
-                       json ==> []
-                    */ 
 
-                    if(json.length > 0){
-                       // 검색된 데이터가 있는 경우
-                       
-                       let html = "";
-                       
-                       $.each(json, function(index, item){
-                          const word = item.word;
-                          
-                          const idx = word.toLowerCase().indexOf($("input#searchWord").val().toLowerCase());
-                          
-                          const len = $("input#searchWord").val().length;
-                          // 검색어(JaVa)의 길이 len 은 4 가 된다.
-                    /*      
-                          console.log("~~~~~ 시작 ~~~~~");
-                          console.log(word.substring(0, idx));      // 검색어(JaVa) 앞까지의 글자 ==> "오라클 "
-                          console.log(word.substring(idx, idx+len)); // 검색어(JaVa) 글자 ==> "JAVA"
-                          console.log(word.substring(idx+len));      // 검색어(JaVa) 글자 ==> " 를 배우고 싶어요"
-                          console.log("~~~~~ 끝 ~~~~~");
-                  */
-                          
-                          const result = word.substring(0, idx) + "<span style='color:blue;'>" + word.substring(idx, idx+len)+"</span>"+word.substring(idx+len);
-                          
-                          html += "<span style='cursor:pointer;' class='result'>" + result + "</span><br>";
-                          
-                       });// end of $.each(json, function(index, item){})-----------------------
-                       
-                       const input_width = $("input#searchWord").css("width"); // 검색결과 div 의 width 크기를 검색어 입력 input 태그의 width 와 일치시키기  
-                       
-                       $("div#displayList").css({"width":input_width});
-                       
-                       $("div#displayList").html(html);
-                       $("div#displayList").show();
-                    }
-                    
-                 },
-                 error: function(request, status, error){
-                        alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-                    }
-              });
-           }
-           
-        });// end of $("input#searchWord").keyup(function(){})---------------------
-        --%>
-        
-        <%-- === #113. 검색어 입력시 자동글 완성하기 8 === 
-        $(document).on("click", "span.result", function(){
-           const word = $(this).text();
-           $("input#searchWord").val(word); // 텍스트박스에 검색된 결과의 문자열을 입력해준다. 
-           $("div#displayList").hide();
-           goSearch();
-        });
-        --%>
-        
      });// end of $(document).ready(function(){})-------------------------------
 
      
-     // Function Declaration
-     function goSearch(){   
-    	 $.ajax({
-    	     url:"/wanted/getCandidateList",
-             data:{ status: status },
-             async:"true",
-             type:"get",
-             success:function(result) {
-                
-            	 var searchType = document.getElementById("searchType").value;
-                 var searchWord = document.getElementById("searchWord").value;
-                 
-                      $("div.tab").html(result);
 
-             },
-             error: function(request, status, error){
-                 alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-              }
-    	    });
-     }// end of function goSearch()--------------------- 
-     
-     
-     function sortNew() {
-    	   $.ajax({
-    	      url: "/wanted/company/getCandidateList",
-    	      data: { status: status, orderBy: "a.APPLYDATE DESC" },
-    	      async: true,
-    	      type: "get",
-    	      success: function(result) {
-    	         if (result.trim() == 'false') {
-    	            $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
-    	         } else {
-    	            $("div.tab").html(result);
-    	         }
-    	      },
-    	      error: function(request, status, error) {
-    	         alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-    	      }
-    	   });
-    }
-
-   	 function sortPast() {
-   		$.ajax({
-  	      url: "/wanted/company/getCandidateList",
-  	      data: { status: status, orderBy: "a.APPLYDATE ASC" },
-  	      async: true,
-  	      type: "get",
-  	      success: function(result) {
-  	         if (result.trim() == 'false') {
-  	            $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
-  	         } else {
-  	            $("div.tab").html(result);
-  	         }
-  	      },
-  	      error: function(request, status, error) {
-  	         alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-  	      }
-  	   });
-   	 }
-
-   	 function sortSubject() {
-   		$.ajax({
-    	      url: "/wanted/company/getCandidateList",
-    	      data: { status: status, orderBy: "SUBJECT ASC" },
-    	      async: true,
-    	      type: "get",
-    	      success: function(result) {
-    	         if (result.trim() == 'false') {
-    	            $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
-    	         } else {
-    	            $("div.tab").html(result);
-    	         }
-    	      },
-    	      error: function(request, status, error) {
-    	         alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-    	      }
-    	   });
-    	 }
-   
+ 
    
 </script>
 
 <body>
-
+	
    <button type="button" class="btn btn-success btn-sm" id="btnExcel">Excel파일로저장</button>
    
    <div class="listForm">
    <h3>전체 지원자 목록</h3>
 	<div class="tabTitle">
-		<button class="tablinks" id="defaultOpen" onclick="getCandidateList('0')">지원서 접수</button>
-	    <button class="tablinks" onclick="getCandidateList('1')" style="border-left: solid 2px #ddd; border-right: solid 2px #ddd;">합격</button>
-	    <button class="tablinks" onclick="getCandidateList('2')">불합격</button>
+		<button class="tablinks" id="defaultOpen" onclick='getCandidateList(0)'>지원서 접수</button>
+	    <button class="tablinks" onclick='getCandidateList(1)' style="border-left: solid 2px #ddd; border-right: solid 2px #ddd;">합격</button>
+	    <button class="tablinks" onclick='getCandidateList(2)'>불합격</button>
 	</div>
+	
    <div class="tab">
 
    		
@@ -413,9 +277,7 @@
    
       
    </div>
-</div>
-   
-
+   </div>
 
 </body>
 

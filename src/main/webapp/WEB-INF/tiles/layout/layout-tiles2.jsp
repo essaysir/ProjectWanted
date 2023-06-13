@@ -31,9 +31,6 @@
   <%-- *** ajax로 파일을 업로드할때 가장 널리 사용하는 방법 ==> ajaxForm *** --%>
   <script type="text/javascript" src="/js/jquery.form.min.js"></script>
   
-  <%-- 폰트 --%>
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css" /> 
-
   <style type="text/css">
 	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
 	

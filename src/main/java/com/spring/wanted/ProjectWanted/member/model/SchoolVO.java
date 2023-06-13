@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class SchoolVO {
 	
-    private int school_Code;
-    private int fk_Resume_Code;
+    private int school_code;
+    private int fk_resume_code;
     private String school;
     private String major;
     private String content;
-    private String start_Date;
-    private String end_Date;
+    private String start_date;
+    private String end_date;
 }

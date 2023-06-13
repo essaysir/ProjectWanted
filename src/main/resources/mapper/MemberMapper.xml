@@ -12,11 +12,23 @@
 
 		<select id="login" parameterType="String" resultType="com.spring.wanted.ProjectWanted.member.model.MemberVO">
 				select  userid , pwd , name , nickname , mobile , profile_image , resume_count 
-				from tbl_member 
+				from tbl_member  where userid = #{username}
+		</select>
+		
+		<insert id="register" parameterType="com.spring.wanted.ProjectWanted.member.model.MemberVO" >
+			insert into tbl_member ( userid , pwd , name , nickname , mobile , profile_image , resume_count )  
+			values ( #{userid} , #{pwd} , #{name} , #{nickname} , #{mobile} , '123.png' ,  0 ) 
+		</insert>
+
+		<select id="login_comp" parameterType="String" resultType="com.spring.wanted.ProjectWanted.company.model.CompanyVO">
+				select COMPANY_ID ,  SERIAL_NO , FK_REGION_DETAIL_CODE , PWD , NAME , DETAILS , EMP_COUNT , IMAGE , ADDRESSS , COMPANY_CODE 
+				from tbl_company where company_id = #{userid}
 		</select>
 
-
-
+		<select id="getPostVO" parameterType="int"  resultType="com.spring.wanted.ProjectWanted.post.model.PostVO">
+			select post_code , fk_company_id , fk_duty_code , career , subject , info , image , createday , salary , mainduty, quality , deadline ,viewcount, pay_status
+			from tbl_post where post_code = #{post_code}
+		</select>
 
 
 </mapper>

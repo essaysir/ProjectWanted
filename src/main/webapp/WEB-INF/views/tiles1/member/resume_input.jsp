@@ -373,7 +373,11 @@
 		    
 		    $('button#addLanguage_btn').on('click', addLanguage); // 외국어 추가 버튼 클릭시 동적으로 html을 추가해주는 함수를 직접 이벤트 핸들러로 전달하여 실행
 		    
-		    $(document).on('input', '[name^="year1"], [name^="year2"], [name^="month1"], [name^="month2"], [name^="hiddenYear1"], [name^="hiddenYear2"]', updateHiddenYears);
+		    $(document).on('input', '[name^="year"], [name^="month"], [name^="hiddenYear"]', function() {
+		    	  var index = $(this).attr('name').replace(/\D/g, ''); // 이름에서 숫자 부분 추출
+		    	  updateHiddenYears(index);
+		    });
+
 		    
 		    settingSearchSkill(); 	
     		// 해당 기능 사용법 
@@ -397,7 +401,7 @@
 		}); // END OF $(DOCUMENT).READY(FUNCTION()---------------------------
 
 		let career_count = 0; 
-		let achievementsDel_count = 0;
+		let performanceDel_count = 0;
 		let schoolDel_count = 0;	
 		let rewardDel_count = 0;	
 		let languageDel_count = 0;	
@@ -455,7 +459,7 @@
 				success: function (result) {
 				   //  console.log(JSON.stringify(result));
 					// 버튼 추가를 위한 반복문
-				    $.each(result, function(index, skill) {
+				    $.each(result, function(index, skill) { 
 				        html += '<li class="li-skill">' +
 				                        '<button type="button" class="btn-skill" id="btn-skill-'+skill.tech_code+ '">' +
 				                            '<div class="div_skill">' +
@@ -593,7 +597,7 @@
 						        '<button type="button" class="btn-delete">' +
 						          '<div class="div_insert_skill">' +
 						            tech_name +
-						            '<input type="hidden" id="insert-tech-code" value="'+tech_code+'"/>'+
+						            '<input type="hidden" name="fk_Tech_Code" id="insert-tech-code" value="'+tech_code+'"/>'+
 						            '<span style="margin-left:4px; margin-bottom:2px;">' +
 						              '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
 						                '<path d="M0.882988 0.151497L5.00001 4.26852L9.11705 0.151497C9.31905 -0.0504989 9.6465 -0.0504989 9.8485 0.151497C10.0505 0.35349 10.0505 0.680994 9.8485 0.882988L5.7315 5.00001L9.8485 9.11705C10.0505 9.31905 10.0505 9.6465 9.8485 9.8485C9.6465 10.0505 9.31905 10.0505 9.11705 9.8485L5.00001 5.7315L0.882988 9.8485C0.680994 10.0505 0.35349 10.0505 0.151497 9.8485C-0.0504989 9.6465 -0.0504989 9.31905 0.151497 9.11705L4.26852 5.00001L0.151497 0.882988C-0.0504989 0.680994 -0.0504989 0.35349 0.151497 0.151497C0.35349 -0.0504989 0.680994 -0.0504989 0.882988 0.151497Z" fill="currentColor"></path>' +
@@ -708,7 +712,7 @@
 		        hiddenYearInput2.value = year2Input.value + month2Input.value;
 		    }// end of for (var i = 1; i <= career_count; i++)--------------------------
 		  
-		    for (var i = 1; i <= achievementsDel_count; i++) {
+		    for (var i = 1; i <= performanceDel_count; i++) {
 		        var hiddenYearInput3 = document.getElementsByClassName('hiddenYear3' + i)[0];
 		        var hiddenYearInput4 = document.getElementsByClassName('hiddenYear4' + i)[0];
 
@@ -719,7 +723,7 @@
 		        var year4Input = document.getElementsByName('year4' + i)[0];
 		        var month4Input = document.getElementsByName('month4' + i)[0];
 		        hiddenYearInput4.value = year4Input.value + month4Input.value;
-		    } // end of for (var i = 1; i <= achievementsDel_count; i++)--------------
+		    } // end of for (var i = 1; i <= performanceDel_count; i++)--------------
 		  
 		  
 		    for (var i = 1; i <= schoolDel_count; i++) {
@@ -891,9 +895,9 @@
 		
 		
 		// 작성 완료 버튼 클릭시 필수입력항목 유효성검사(공백 및 미작성만) 함수 
-		function insertResume() {
+		function insertResume(iscomplete) {
 
-/* 			// 필수입력사항이 모두 입력 됐는지 검사
+			// 필수입력사항이 모두 입력 됐는지 검사
 			$("input.required_input").each( (index, elmt) => {
 				if($(elmt).val().trim() == "") {
 					alert("필수 입력사항을 모두 입력해주세요.");
@@ -918,16 +922,110 @@
 			}
 			else {
 			    $("span.error_comment").hide();
-			} */
+			} 
 			
 			/* const formData = $("form[name='resumeForm']").serialize();
 			console.log(formData); */
+			
+			
+		///////////////////////////////////CONTROLLER 로 데이터 보내기////////////////////////////////////////
+		
+			// #skill 선택 객체로 만들어주기 (JSON)
+			// 빈 배열 생성
+			
+			// 입력된 input 태그 선택
+			var  skillInputs = document.getElementsByName("fk_Tech_Code");
+			
+			var MemberTechVO = {
+				fk_tech_code: skillInputs
+			};
+			
+			// 생성된 JSON 객체 확인
+			console.log(MemberTechVO);
+			
+			
+			
+			
+			// #1.
+			// 빈 배열 생성
+			var careerList = [];
+
+			// 입력된 input 태그들을 선택
+			var dateInputs = document.getElementsByName("start_careerDate");
+			var endInputs = document.getElementsByName("end_careerDate");
+			var companyInputs = document.getElementsByName("company");
+			var departmentInputs = document.getElementsByName("department");
+
+			// 입력된 값들을 반복하여 JSON 객체로 생성
+			for (var i = 0; i < dateInputs.length; i++) {
+			  // 각 input 태그에서 값 가져오기
+			  var dateValue = dateInputs[i].value;
+			  var endValue = endInputs[i].value;
+			  var companyValue = companyInputs[i].value;
+			  var departmentValue = departmentInputs[i].value;
+
+			  // CareerVO 객체 생성
+			  var CareerVO = {
+			    start_date: dateValue,
+			    end_date: endValue,
+			    company: companyValue,
+			    department: departmentValue
+			  };
+
+			  // CareerVO 객체를 배열에 추가
+			  careerList.push(CareerVO);
+			}
+
+			// 생성된 JSON 객체 확인
+			console.log(careerList);
+			
+			
+			
+			
+			
+			// #2. 
+			// 빈 배열 생성
+			var performanceList = [];
+			
+			// 입력된 input 태그들을 선택
+			var performanceInputs = document.getElementsByName("performance");
+			var startDateInputs = document.getElementsByName("start_date_detail");
+			var endDateInputs = document.getElementsByName("end_date_detail");
+			var performContentInputs = document.getElementsByName("perform_content");
+			
+			// 입력된 값들을 반복하여 JSON 객체로 생성
+			for (var i = 0; i < performanceInputs.length; i++) {
+			  // 각 input 태그에서 값 가져오기
+			  var performanceValue = performanceInputs[i].value;
+			  var startDateValue = startDateInputs[i].value;
+			  var endDateValue = endDateInputs[i].value;
+			  var performContentValue = performContentInputs[i].value;
+			
+			  // PerformanceVO 객체 생성
+			  var PerformanceVO = {
+			    performance: performanceValue,
+			    start_date_detail: startDateValue,
+			    end_date_detail: endDateValue,
+			    perform_content: performContentValue
+			  };
+			
+			  // PerformanceVO 객체를 배열에 추가
+			  performanceList.push(PerformanceVO);
+			}
+			
+			// 생성된 JSON 객체 확인
+			console.log(performanceList);
+
+			
+			
+			
+			// #3. 
 			// 입력된 값들을 담을 빈 배열 생성
 			var languageList = [];
 
 			// 입력된 input 태그들을 선택
 			var dateInputs = document.getElementsByName("lang_Date");
-			var contentInputs = document.getElementsByName("lang_content");
+			var contentInputs = document.getElementsByName("content");
 			var forLangInputs = document.getElementsByName("for_Lang");
 
 			// 입력된 값들을 반복하여 JSON 객체로 생성
@@ -938,19 +1036,61 @@
 			  var forLangValue = forLangInputs[i].value;
 
 			  // LanguageVO 객체 생성
-			  var languageVO = {
+			  var LanguageVO = {
 			    lang_Date: dateValue,
 			    lang_content: contentValue,
-			    for_Lang: forLangValue
+			    for_lang: forLangValue
 			  };
 
 			  // LanguageVO 객체를 배열에 추가
-			  languageList.push(languageVO);
+			  languageList.push(LanguageVO);
 			}
 
 			// 생성된 JSON 객체 확인
 			console.log(languageList);
-
+			
+			
+			
+			
+			// #4.
+			// 빈 배열 생성
+			var schoolList = [];
+			
+			// 입력된 input 태그들을 선택
+			var startInputs = document.getElementsByName("start_shcoolDate");
+			var endInputs = document.getElementsByName("end_shcoolDate");
+			var schoolInputs = document.getElementsByName("school");
+			var majorInputs = document.getElementsByName("major");
+			var contentInputs = document.getElementsByName("content");
+			
+			// 입력된 값들을 반복하여 JSON 객체로 생성
+			for (var i = 0; i < startInputs.length; i++) {
+			  // 각 input 태그에서 값 가져오기
+			  var startValue = startInputs[i].value;
+			  var endValue = endInputs[i].value;
+			  var schoolValue = schoolInputs[i].value;
+			  var majorValue = majorInputs[i].value;
+			  var contentValue = contentInputs[i].value;
+			
+			  // SchoolVO 객체 생성
+			  var SchoolVO = {
+				start_date: startValue,
+			    end_date: endValue,
+			    school: schoolValue,
+			    major: majorValue,
+			    content: contentValue
+			  };
+			
+			  // SchoolVO 객체를 배열에 추가
+			  schoolList.push(SchoolVO);
+			}
+			
+			// 생성된 JSON 객체 확인
+			console.log(schoolList);
+			
+			// 학력 객체화(JSON)
+			
+			// #5.
 			// 입력된 값들을 담을 빈 배열 생성
 			var rewardList = [];
 
@@ -967,55 +1107,60 @@
 			  var contentValue = contentInputs[i].value;
 
 			  // RewardVO 객체 생성
-			  var rewardVO = {
+			  var RewardVO = {
 			    reward_Date: dateValue,
 			    reward: rewardValue,
 			    content: contentValue
 			  };
 
 			  // RewardVO 객체를 배열에 추가
-			  rewardList.push(rewardVO);
+			  rewardList.push(RewardVO);
 			}
 
 			// 생성된 JSON 객체 확인
 			console.log(rewardList);
 
-			// #5.
+			
+			
+			
+			// # 6.
+			// 이력서 객체화(JSON)
 			var ResumeVO= 
 				  { 
-					  fk_UserId :  "한오열" , 
+					  fk_userid : fk_userid , 
 					  subject : $("input[name='subject']").val() , 
-					  introduce : $("input[name='introduce']").val(),
+					  introduce : $("textarea[name='introduce']").val(),
 					  uploadLink : $("textarea[name='uploadLink']").val(), 
-					  languageList :  languageList ,
-					  rewardList : rewardList , 
-					  // schoolvo : schoolvoList , 
-					  //carrervo : carrervoList , 
-					  // member_Techvo  : member_TechvoList 
-				  }  ;
+					  careervoList  : careerList , 
+					  schoolvoList : schoolList ,
+					  member_techvoList : MemberTechVO ,
+					  rewardvoList : rewardList , 
+					  languagevoList : languageList ,
+					  performancevoList : performanceList,
+					  iscomplete : iscomplete
+				  };
 				  
 			$.ajax({
-				url: "/wanted/myresume",
+				url: "/wanted/member/myresume",
 				type: "post",
 				async:"false",
 				contentType: "application/json; charset=utf-8", 
 				data: JSON.stringify(ResumeVO),
 				success: function (result) {
-					
+					if (response === "success") {
+						alert("이력서 작성이 왼료되었습니다.");
+						location.href = "<%= request.getContextPath() %>/wanted/member/myresume";
+					}
+					else {
+						alert("이력서 작성에 실패했습니다.");
+					}
 				},
-				error: function (request, status, error) {
+				error: function (request, status, err) {
 					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 				}
 			});
 			
-			
-			
-			
-		 	// 유효성 검사 후 최종 전송 확정
-/* 			const frm = document.resumeFrm;
-			frm.action = "/wanted/myresume";
-			frm.method = "post";
-			frm.submit(); */
+
 		    
 		}; // end of function insertResume()------------------------------
 		
@@ -1040,12 +1185,12 @@
 			               '        <input type="text" name="year1'+career_count+'" value="" placeholder="YYYY" maxlength="4" style="width: 41px;">${fk_userid}</input>\n' +
 			               '        .\n' +
 			               '        <input type="text" name="month1'+career_count+'" value="" placeholder="MM" maxlength="2" style="width: 28px;" />\n' +
-			               '		<input type="hidden" name="start_Date" class="hiddenYear1'+career_count+'" value="">' +		
+			               '		<input type="hidden" name="start_careerDate" class="hiddenYear1'+career_count+'" value="">' +		
 			               '        &nbsp;- &nbsp;\n' +
 			               '        <input type="text" name="year2'+career_count+'" value="" placeholder="YYYY" maxlength="4" style="width: 41px;" />\n' +
 			               '        .\n' +
 			               '        <input type="text" name="month2'+career_count+'" value="" placeholder="MM" maxlength="2" style="width: 28px;" />\n' +
-			               '		<input type="hidden" name="end_Date" class="hiddenYear2'+career_count+'" value="">' +
+			               '		<input type="hidden" name="end_careerDate" class="hiddenYear2'+career_count+'" value="">' +
 			               '        <span style="color:#ff425f;">*</span>\n' + 
 			               '      </div>\n' +
 			               '    </div>\n' +
@@ -1053,8 +1198,8 @@
 			               '      <input type="text" name="company" placeholder="회사명" value="" style="width:80%; font-size:2opx;" />\n' +
 			               '      <button id="careerDel_btn'+career_count+'" class="btn-delete" type="button" style="width:17%;">X</button>\n' +
 			               '      <input type="text" name="department" placeholder="부서명/직책" value="" maxlength="255" style="width:100%; font-size:2opx;" />\n' +
-			               '      <button type="button" class="plushtml" style="border-bottom:0px;" onclick="addAchievements('+career_count+')" id="achievements_btn'+career_count+'">+주요 성과 추가</button>\n' +
-			               '	  <ul id="addAchievements'+career_count+'"></ul>\n' +	
+			               '      <button type="button" class="plushtml" style="border-bottom:0px;" onclick="addPerformance('+career_count+')" id="performance_btn'+career_count+'">+주요 성과 추가</button>\n' +
+			               '	  <ul id="addPerformance'+career_count+'"></ul>\n' +	
 			               '    </div>\n' +
 			               '  </div>\n' +
 			               '</li>';
@@ -1081,40 +1226,50 @@
 		
 		// 주요 성과 추가 추가버튼 클릭시 입력란 동적 생성해주는 함수(이벤트 위임 받아서 생성)
 		// #2.
-		function addAchievements(count) {
+		function addPerformance(count) {
 
-			achievementsDel_count ++;
+			performanceDel_count ++;
 			
-		  var html = '<li id="achievementsDel_range'+achievementsDel_count+'">\n' +
-				     '  <input type="text" name="content" autocomplete="off" value="" placeholder="주요성과" style="width:80%; font-size:16px;"/>\n' +
-				     '  <button id="achievementsDel_btn'+achievementsDel_count+'" class="btn-delete-detail" type="button" style="width:17%;">X</button>\n' +
-				     '  <input type="text" name="year3'+achievementsDel_count+'" value="" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:38px; font-size:14px;"/>\n' +
+		  var html = '<li id="performanceDel_range'+performanceDel_count+'">\n' +
+				     '  <input type="text" name="performance" autocomplete="off" value="" placeholder="주요성과" style="width:80%; font-size:16px;"/>\n' +
+				     '  <button id="performanceDel_btn'+performanceDel_count+'" class="btn-delete-detail" type="button" style="width:17%;">X</button>\n' +
+				     '  <input type="text" name="year3'+performanceDel_count+'" value="" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:38px; font-size:14px;"/>\n' +
 				     '  .\n' +
-				     '  <input type="text" name="month3'+achievementsDel_count+'" value="" autocomplete="off" placeholder="MM" maxlength="2" style="width:25px; font-size:14px;"/>\n' +
-				     '	<input type="hidden" name="start_date_detail" class="hiddenYear3'+achievementsDel_count+'" value="">' +	
+				     '  <input type="text" name="month3'+performanceDel_count+'" value="" autocomplete="off" placeholder="MM" maxlength="2" style="width:25px; font-size:14px;"/>\n' +
+				     '	<input type="hidden" name="start_date_detail" class="hiddenYear3'+performanceDel_count+'" value="">' +	
 				     '  &nbsp;- &nbsp;\n' +
-				     '  <input type="text" name="year4'+achievementsDel_count+'" value="" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:38px; font-size:14px;"/>\n' +
+				     '  <input type="text" name="year4'+performanceDel_count+'" value="" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:38px; font-size:14px;"/>\n' +
 				     '  .\n' +
-				     '  <input type="text" name="month4'+achievementsDel_count+'" value="" autocomplete="off" placeholder="MM" maxlength="2" style="width:25px; font-size:14px;"/>\n' +
-				     '	<input type="hidden" name="end_date_detail" class="hiddenYear4'+achievementsDel_count+'" value="">' +	
+				     '  <input type="text" name="month4'+performanceDel_count+'" value="" autocomplete="off" placeholder="MM" maxlength="2" style="width:25px; font-size:14px;"/>\n' +
+				     '	<input type="hidden" name="end_date_detail" class="hiddenYear4'+performanceDel_count+'" value="">' +	
 				     '  <div style="display:flex;"><textarea name="perform_content" placeholder="상세 업무 내용과 성과를 기입해주세요." style="border:none; flex-grow:1;"></textarea></div>\n' +
 				     '</li>';
 
 		  // HTML 코드를 <ul> 태그에 추가합니다.
-		  $('ul#addAchievements'+count).append(html);
+		  $('ul#addPerformance'+count).append(html);
 		  
-		  delAchievements(achievementsDel_count);
+		  delPerformance(performanceDel_count);
 			
 		  updateHiddenYears();
 		  
-		}; // end of function addAchievements()-----------------------------------
+		}; // end of function addPerformance()-----------------------------------
 		
 		
 		// 주요 성과 입력란 삭제함수
-		function delAchievements(achievementsDel_count) {
+		function delPerformance(performanceDel_count) {
 			
-			$("button#achievementsDel_btn"+achievementsDel_count).on('click', function() {
-	     	   $("#achievementsDel_range"+achievementsDel_count).remove();
+			$("button#performanceDel_btn"+performanceDel_count).on('click', function() {
+	     	   $("#performanceDel_range"+performanceDel_count).remove();
+	     	});
+			
+		}; // end of function delCareer()------------------------------------------------------- // end of function addPerformance()-----------------------------------
+		
+		
+		// 주요 성과 입력란 삭제함수
+		function delPerformance(performanceDel_count) {
+			
+			$("button#performanceDel_btn"+performanceDel_count).on('click', function() {
+	     	   $("#performanceDel_range"+performanceDel_count).remove();
 	     	});
 			
 		}; // end of function delCareer()-------------------------------------------------------
@@ -1131,16 +1286,16 @@
 			           '        <input type="text" name="year5'+schoolDel_count+'" value="" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:43px;"/>' +
 			           '        .' +
 			           '        <input type="text" name="month5'+schoolDel_count+'" value="" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;"/>' +
-			           '		<input type="hidden" name="start_Date" class="hiddenYear5'+schoolDel_count+'" value="">' +
+			           '		<input type="hidden" name="start_shcoolDate" class="hiddenYear5'+schoolDel_count+'" value="">' +
 			           '        &nbsp;- &nbsp;' +
 			           '        <input type="text" name="year6'+schoolDel_count+'" value="" autocomplete="off" placeholder="YYYY" maxlength="4" style="width:43px;"/>' +
 			           '        .' +
 			           '        <input type="text" name="month6'+schoolDel_count+'" value="" autocomplete="off" placeholder="MM" maxlength="2" style="width:30px;"/>' +
-			           '		<input type="hidden" name="end_Date" class="hiddenYear6'+schoolDel_count+'" value="">' +
+			           '		<input type="hidden" name="end_shcoolDate" class="hiddenYear6'+schoolDel_count+'" value="">' +
 			           '        <span style="color:#ff425f;">*</span>' +
 			           '      </div>' +
 			           '      <div class="my-3" style="display:block; width : 70%">' +
-			           '        <input type="text" name="end_Date" autocomplete="off" value="" placeholder="학교명" style="width:80%; font-size:20px;"/>' +
+			           '        <input type="text" name="school" autocomplete="off" value="" placeholder="학교명" style="width:80%; font-size:20px;"/>' +
 			           '        <button id="schoolDel_btn'+schoolDel_count+'" value="" class="btn-delete" type="button" style="width:17%;">X</button>' +
 			           '        <input type="text" name="major"  autocomplete="off" value="" placeholder="전공 및 학위 (ex: 경영학과 학사)" maxlength="255" style="width:100%; font-size:20px;"/>' +
 			           '        <input type="text" name="content" autocomplete="off" value="" placeholder="이수과목 또는 연구내용" maxlength="255" style="width:100%; font-size:14px;"/>' +
@@ -1223,7 +1378,7 @@
 					   '  <div class="my-3" style="display:block; width : 60%">' +
 					   '    <input type="text" name="for_Lang" autocomplete="off" value="" placeholder="언어" style="width:80%; font-size:20px;"/>' +
 					   '    <button id="languageDel_btn'+languageDel_count+'" class="btn-delete" type="button" style="width:17%;">X</button>' +
-					   '    <input type="text" name="lang_content" value="" autocomplete="off" placeholder="세부사항" maxlength="255" style="width:100%; font-size:2opx;"/>' +
+					   '    <input type="text" name="content" value="" autocomplete="off" placeholder="세부사항" maxlength="255" style="width:100%; font-size:2opx;"/>' +
 					   '  </div>';
 			
 			$('div.addLanguage').append(html);
@@ -1328,47 +1483,37 @@
 						</button>
 					</div>	
 					
-					
 					<section id="skillSearch">
-								<div class="search-wrapper">
-									<input type="text" id="search-skill"  placeholder=" 보유 기술 스택을 검색해주세요" style=""/>
-									<button class="btn-search border-left" style="position : relative; top: -46px;  right: -482px;"><i class="fa-solid fa-magnifying-glass"></i></button>
-									<!-- 검색시 결과가 뜨도록 하는 곳 -->
-									
-									<div class="search-result">
-											<p class="search-answer-none"> 검색 결과가 없습니다.<br/>
-											한글 검색결과가 없는 경우 영어로 검색해보세요</p>	
-											<ul class="search-answer">
-											
-											</ul>
-											
-									</div>
-									
-									<h4 class="recommend">많이 쓰는 인기 기술스택을 추천해드려요</h4>
-									<!-- 버튼들이 들어가는 ul -->
-									<ul id="recommendList" style="padding-left:0px;"> 
-									</ul>
-					
-									<!--  선택한 것들이 들어가는 곳-->
-									<div class="data-input">
-										<ul id="insertList" style="padding-left:0px;"> 
-					
-										</ul>
-										
-									</div>
-									
-									<p class="recommend">·기술 스택은 최대 5개까지만 선택가능합니다.</p>
-								</div>
-								
-								<footer style="padding:10px;" class="border-top">
-								
-									<div style="text-align: right; margin-right: 10px; ">
-										<button type="button" id="section-cancle">취소</button>
-										<button type="button" id="section-adjust">적용하기</button>
-									</div>
-								
-								</footer>
+						<div class="search-wrapper">
+							<input type="text" id="search-skill"  placeholder=" 보유 기술 스택을 검색해주세요" style=""/>
+							<button class="btn-search border-left" style="position : relative; top: -46px;  right: -482px;"><i class="fa-solid fa-magnifying-glass"></i></button>
+							<!-- 검색시 결과가 뜨도록 하는 곳 -->
 							
+							<div class="search-result">
+								<p class="search-answer-none"> 검색 결과가 없습니다.<br/>
+								한글 검색결과가 없는 경우 영어로 검색해보세요</p>	
+								<ul class="search-answer"></ul>
+							</div>
+							
+							<h4 class="recommend">많이 쓰는 인기 기술스택을 추천해드려요</h4>
+							<!-- 버튼들이 들어가는 ul -->
+							<ul id="recommendList" style="padding-left:0px;"> 
+							</ul>
+			
+							<!--  선택한 것들이 들어가는 곳-->
+							<div class="data-input">
+								<ul id="insertList" style="padding-left:0px;"> 
+								</ul>
+							</div>
+							<p class="recommend">·기술 스택은 최대 5개까지만 선택가능합니다.</p>
+						</div>
+						
+						<footer style="padding:10px;" class="border-top">
+							<div style="text-align: right; margin-right: 10px; ">
+								<button type="button" id="section-cancle">취소</button>
+								<button type="button" id="section-adjust">적용하기</button>
+							</div>
+						</footer>
 					</section>
 					                         
 					<!--  적용하기 클릭 후 선택했던 값들이 들어가는 공간 -->                         
@@ -1427,8 +1572,8 @@
 				</div>	
 				<p style="margin: 20px 20px  20px 5px; "><span id="totalLength"></span>/1300</p>
 				<p style="margin: 20px 20px  20px 10px; font-size: 13px; font-weight: bold;" id="message_bar"></p>
-				<button type="button" class="btn-blue save-temporary">임시 저장</button>
-				<button type="button" id="btn_resumeOk" class="btn-blue save" onclick="insertResume()" >작성 완료</button>
+				<button type="button" class="btn-blue save-temporary" onclick="insertResume(1)">임시 저장</button>
+				<button type="button" id="btn_resumeOk" class="btn-blue save" onclick="insertResume(2)" >작성 완료</button>
 			</div>
 		</div>
 

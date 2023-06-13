@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.wanted.ProjectWanted.common.mapper.InterCommonMapper;
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 
 @Repository
 public class CommonDAO implements InterCommonDAO{
@@ -30,6 +31,18 @@ public class CommonDAO implements InterCommonDAO{
 		List<Map<String,String>> skillList = mapper.searchSkill(input_val);
 		
 		return skillList;
+	}
+
+	@Override
+	public int checkUserid(String userid) {
+		int n = mapper.comp_checkUserid(userid);
+		
+		return n ;
+	}
+
+	@Override
+	public void register_comp(CompanyVO cvo) {
+			mapper.register_comp(cvo);
 	}
 	
 }
