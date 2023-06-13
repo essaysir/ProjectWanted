@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.wanted.ProjectWanted.post.model.FilterData;
 import com.spring.wanted.ProjectWanted.post.service.InterPostService;
 
 @RequestMapping("/wanted/post")
@@ -104,7 +106,7 @@ public class PostController {
 		return jsonobj.toString();
 		
 	}
-	
+	/*
 	@ResponseBody
 	@GetMapping(value = "/getPostListWithFilters", produces="text/plain;charset=UTF-8" )
 	public String getPostList(HttpServletRequest request,
@@ -133,22 +135,26 @@ public class PostController {
 		return jsonobj.toString();
 		
 	}
-	
+	*/
 	@ResponseBody
-	@GetMapping(value = "/getPostListWithFilters", produces="text/plain;charset=UTF-8" )
-	public String getPostListWithFilters(@RequestBody Map<String, List<String>> requestData) {
-		//int job_code = requestData.get("job_code");
-	    List<String> tech_code = requestData.get("tech_code");
-	    List<String> duty_code = requestData.get("duty_code");
+	@PostMapping(value = "/getPostListWithFilters", produces="text/plain;charset=UTF-8" )
+	public String getPostListWithFilters(@RequestBody FilterData filterData ) {
+		List<String> job_code = filterData.getJob_code();
+	    List<String> duty_code = filterData.getDuty_code();
+	    List<String> tech_code = filterData.getTech_code();
 	    
+	    System.out.println("하하");
+	    System.out.println(job_code);
 	    
+		System.out.println(duty_code);
+		System.out.println(tech_code);
 		
-		//List<Map<String, String>> PostList = service.getPostList(job_code, dutyCodes, region_code, region_detail_code, career, tech_code);
+		List<Map<String, String>> PostList = service.getPostListWithFilters(job_code, duty_code, tech_code);
 
 
 		JSONObject jsonobj = new JSONObject();
 		
-		//jsonobj.put("PostList", PostList);
+		jsonobj.put("PostList", PostList);
 		
 		return jsonobj.toString();
 	
@@ -158,3 +164,4 @@ public class PostController {
 	
 	
 }
+

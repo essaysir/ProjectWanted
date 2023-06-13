@@ -20,6 +20,9 @@ public interface InterPostService {
 	// region_detail 데이터 불러오기
 	List<Map<String, String>> getRegionDetailList(String region_code);
 
+	// 검색필터를 거친 공고리스트 불러오기
+	List<Map<String, String>> getPostListWithFilters(List<String> job_code, List<String> duty_code, List<String> tech_code);
+
 	
 
 }
