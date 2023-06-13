@@ -50,14 +50,13 @@ public class MemberController {
 		public String register(MemberVO mvo) {
 			// System.out.println(" 확인용 mvo : " + mvo );
 			mvo.setPwd(passwordEncoder.encode(mvo.getPwd()));
-			mvo.setMobile(passwordEncoder.encode(mvo.getMobile()));
 			
 			// System.out.println(mvo.getMobile());
 			// System.out.println(mvo.getPwd());
 			
 			service.register(mvo);
 			
-			return "/member/login.tiles1";
+			return "/ndex.tiles1";
 		}
 		
 		@GetMapping(value="/logout")

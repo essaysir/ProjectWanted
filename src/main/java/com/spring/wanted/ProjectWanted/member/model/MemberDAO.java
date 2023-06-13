@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.member.mapper.InterMemberMapper;
 
 @Component
@@ -35,6 +36,12 @@ public class MemberDAO implements InterMemberDAO {
 	@Override
 	public void register(MemberVO mvo) {
 		 mapper.register(mvo);
+	}
+
+	@Override
+	public CompanyVO login_comp(String username) {
+		CompanyVO cvo = mapper.login_comp(username);
+		return cvo;
 	}
 
 

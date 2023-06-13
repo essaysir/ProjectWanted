@@ -36,6 +36,10 @@
 			select count(*) from TBL_company where company_id = #{userid}
 		</select>
 
+		<insert id="register_comp" parameterType="com.spring.wanted.ProjectWanted.company.model.CompanyVO">
+			insert into tbl_company ( COMPANY_ID, SERIAL_NO , FK_REGION_DETAIL_CODE ,  PWD , NAME , DETAILS , EMP_COUNT ,  IMAGE , ADDRESSS ,  COMPANY_CODE )
+			values ( #{company_id} , #{serial_no} , 1 , #{pwd} , #{name} ,  '하이하이' , #{emp_count} , 'default.png' , ' 서울시 강남구' , seq_company.nextval )
+		</insert>
 
 
 </mapper>

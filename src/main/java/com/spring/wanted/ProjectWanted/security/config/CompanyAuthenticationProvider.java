@@ -7,13 +7,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+public class CompanyAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
-	private  Userdetails userDetailService ; 
+	private  Companydetails userDetailService ; 
 	@Autowired
 	private PasswordEncoder passwordEncoder ;
 	
@@ -22,17 +21,17 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String userid = authentication.getName(); // 유저 아이디 
-		System.out.println(" USERID : " + userid);
+		System.out.println(" CompanyProvider USERID : " + userid);
 		String pwd = (String)authentication.getCredentials() ; // 유저 비밀번호
 		
-		MemberContext memberContext =(MemberContext)userDetailService.loadUserByUsername(userid);
+		CompanyContext companyContext =(CompanyContext)userDetailService.loadUserByUsername(userid);
 		System.out.println(" 검증 구현 중 ~~~~~~~~~~~~~~");
-		System.out.println(memberContext.getAuthorities());
-		if ( ! passwordEncoder.matches(pwd, memberContext.getMemberVO().getPwd())) { 
+		System.out.println(companyContext.getAuthorities());
+		if ( ! passwordEncoder.matches(pwd, companyContext.getCompanyVO().getPwd())) { 
 				throw new BadCredentialsException(" 비밀번호가 일치하지 않습니다. ");
 		}
 		
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(memberContext.getMemberVO(),  null , memberContext.getAuthorities());
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(companyContext.getCompanyVO(),  null , companyContext.getAuthorities());
 		
 		return usernamePasswordAuthenticationToken ;
 	}

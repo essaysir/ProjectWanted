@@ -26,15 +26,21 @@ public class MemberSecurityConfig  {
 		 @Order(1)
 		 @Configuration
 		 public  static class CommonConfigurationAdapter{
-			 
+				@Bean    
+		    	public WebSecurityCustomizer MemberwebSecurityCustomizer1() {
+		    		        // 인증 및 인가 예외 Path URL        
+		    		    	return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+		    		    			.antMatchers( "/js/**" , "/images/**" , "/bootstrap-4.6.0-dist/**", "/jquery-ui-1.13.1.custom/**","/smarteditor/**" , "/OwlCarousel/**" );
+		    	}	 
 
 			 @Bean
 				public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 				  http.antMatcher("/wanted/*").authorizeRequests()
-				  .antMatchers("/wanted").permitAll()
+				  .antMatchers("/wanted", "/wanted/register").permitAll()
 				   .antMatchers("/wanted/login", "/wanted/checkUserid" , "/wanted/logout").permitAll()
 				  .anyRequest().authenticated();
 				  
+		            
 				  return http.build();
 			 }
 		 }
@@ -50,18 +56,19 @@ public class MemberSecurityConfig  {
     		    			.antMatchers( "/js/**" , "/images/**" , "/bootstrap-4.6.0-dist/**", "/jquery-ui-1.13.1.custom/**","/smarteditor/**" , "/OwlCarousel/**" );
     	}	 
 		@Bean 
-		public CustomAuthenticationProvider customAuthenticationProvider() {
-			return new CustomAuthenticationProvider(); 
+		public MemberAuthenticationProvider memberAuthenticationProvider() {
+			return new MemberAuthenticationProvider(); 
 		}
 		 @Bean
 		public SecurityFilterChain MemberfilterChain(HttpSecurity http) throws Exception {
-
-	            http.authenticationProvider(customAuthenticationProvider())
+			  	 
+	            http.authenticationProvider(memberAuthenticationProvider())
 	            .antMatcher("/wanted/member/**")
 	            .authorizeRequests()
 	            .anyRequest().hasRole("USER")
 	            .and()
-	            .formLogin().loginPage("/wanted/login").loginProcessingUrl("/wanted/member/login/proc").defaultSuccessUrl("/wanted", true)
+	            .formLogin().loginPage("/wanted/login").loginProcessingUrl("/wanted/member/login/proc")
+	            .defaultSuccessUrl("/wanted", true).permitAll()
 	            
 	            .and()
 	            .csrf().disable();
@@ -81,18 +88,22 @@ public class MemberSecurityConfig  {
     		    	return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
     		    			.antMatchers( "/js/**" , "/images/**" , "/bootstrap-4.6.0-dist/**", "/jquery-ui-1.13.1.custom/**","/smarteditor/**" , "/OwlCarousel/**" );
     	}	 
-	 
+ 		@Bean 
+ 		public CompanyAuthenticationProvider companyAuthenticationProvider() {
+ 			return new CompanyAuthenticationProvider(); 
+ 		}
 		 @Bean
 		public SecurityFilterChain CompanyfilterChain(HttpSecurity http) throws Exception {
 
-	            http
+	            http.authenticationProvider(companyAuthenticationProvider())
 	            .antMatcher("/wanted/company/**")
 	            .authorizeRequests()
-	            .antMatchers("/wanted/company/login", "/wanted/company/checkUserid").permitAll()
+	            .antMatchers("/wanted/company/login", "/wanted/company/checkUserid" , "/wanted/company/register").permitAll()
+	            .antMatchers("/wanted/company/getHeaderList", "/wanted/company/getDuty").permitAll()
 	            .anyRequest().hasRole("COMPANY")
 	            .and()
-	            .formLogin().loginPage("/wanted/company/login").loginProcessingUrl("/login/company/proc")
-	            .usernameParameter("username").passwordParameter("password").permitAll()
+	            .formLogin().loginPage("/wanted/company/login").loginProcessingUrl("/wanted/company/login/proc").permitAll()
+	            .defaultSuccessUrl("/wanted/company/jobPost", true)
 	            .and()
 	            .csrf().disable();			
 					return http.build();

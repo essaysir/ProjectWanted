@@ -134,25 +134,30 @@ public class PostController {
 		
 	}
 	
-	@ResponseBody
-	@GetMapping(value = "/getPostListWithFilters", produces="text/plain;charset=UTF-8" )
-	public String getPostListWithFilters(@RequestBody Map<String, List<String>> requestData) {
-		//int job_code = requestData.get("job_code");
-	    List<String> tech_code = requestData.get("tech_code");
-	    List<String> duty_code = requestData.get("duty_code");
-	    
-	    
-		
-		//List<Map<String, String>> PostList = service.getPostList(job_code, dutyCodes, region_code, region_detail_code, career, tech_code);
-
-
-		JSONObject jsonobj = new JSONObject();
-		
-		//jsonobj.put("PostList", PostList);
-		
-		return jsonobj.toString();
-	
-	}
+	/*
+	 * @ResponseBody
+	 * 
+	 * @GetMapping(value = "/getPostListWithFilters",
+	 * produces="text/plain;charset=UTF-8" ) public String
+	 * getPostListWithFilters(@RequestBody Map<String, List<String>> requestData) {
+	 * //int job_code = requestData.get("job_code"); List<String> tech_code =
+	 * requestData.get("tech_code"); List<String> duty_code =
+	 * requestData.get("duty_code");
+	 * 
+	 * 
+	 * 
+	 * //List<Map<String, String>> PostList = service.getPostList(job_code,
+	 * dutyCodes, region_code, region_detail_code, career, tech_code);
+	 * 
+	 * 
+	 * JSONObject jsonobj = new JSONObject();
+	 * 
+	 * //jsonobj.put("PostList", PostList);
+	 * 
+	 * return jsonobj.toString();
+	 * 
+	 * }
+	 */
 	
 	
 	

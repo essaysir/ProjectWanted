@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.spring.wanted.ProjectWanted.common.model.InterCommonDAO;
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 
 @Service
 public class CommonService implements InterCommonService {
@@ -40,7 +41,18 @@ public class CommonService implements InterCommonService {
 	@Override
 	public String checkUserid(String userid) {
 		int n = cdao.checkUserid(userid);
+		if ( n == 1 ) {	
 			return  "tiles2/company/content/company_loginpassword" ;
+		}
+		else {
+			return "tiles2/company/content/company_signup"; 
+		}
+		
+	}
+
+	@Override
+	public void register(CompanyVO cvo) {
+		cdao.register_comp(cvo);
 		
 	}
 

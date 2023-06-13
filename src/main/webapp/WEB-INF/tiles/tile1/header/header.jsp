@@ -10,7 +10,7 @@
 		
 		setMenuList();
 		setHeaderEvent();
-		
+		getLogin();
 
 		
 		
@@ -112,6 +112,37 @@
 		return duties ;
 	}
 	
+	function getLogin( ){
+		$.ajax({
+			url: "/wanted/member/getLogin",
+			type: "get",
+			dataType: "json",
+			async: false,
+			success: function (json) {
+				 console.log(JSON.stringify(json));
+				 if ( json.userid != ""){
+					
+				  let html = "<div class=\"profile\">";
+				  html += "<img src=\"/images/profile_default.png\" style=\"width: 28px; height: 28px; border-radius:50%;\"/>";
+				  html += "<div class=\"menu\" id=\"menu\">";
+				  html += "<ul>";
+				  html += "<li><a class='a-login' href=\"/wanted/login\">MY 원티드</a></li>";
+				  html += "<li><a>지원 현황</a></li>";
+				  html += "<li class=\"border-top\"><a class='a-login' href=\"/wanted/logout\">로그아웃</a></li>";
+				  html += "</ul>";
+				  html += "</div>";
+				  html += "</div>";
+
+				  $("li#usersign").html(html);
+				 }
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+		});
+
+	}
+	
 </script>
 
 
@@ -199,6 +230,12 @@
 		.profile:hover #menu {
 		  display: block;
 		} 
+		a.a-login{
+		font-size: 14px;
+    	color: #333;
+    	font-weight: 600;
+		
+		}
 	
 	
 </style>
@@ -246,33 +283,19 @@
 				    	<button class="btn-search"><i class="fa-regular fa-bell"></i></button>
 				    </li>
 				    
-				    <li  style="margin: 10px 0px 10px 10px;">
+				    <li  id="usersign" style="margin: 10px 0px 10px 10px;">
 				    	
 				    	
-				    <c:if test="${ empty userid}">
 					    <%-- 로그인된 상태 --%>
-					    <p style="width: 150px; margin-bottom:0px;"><a href="/wanted/login">회원가입/로그인</a></p>
-					</c:if>
+					    <p style="width: 150px; margin-bottom:0px;"><a class="a-login" href="/wanted/login">회원가입/로그인</a></p>
 					
-					<c:if test="${ not empty userid  }">
-						<div class="profile">
-								  <img src="/images/profile_default.png" style="width: 28px; height: 28px; border-radius:50%;"/>
-								  <div class="menu" id="menu">
-								    <ul>
-								      <li><a href="/wanted/login">MY 원티드</a></li>
-								      <li><a>지원 현황</a></li>
-								      <li class="border-top"><a href="/wanted/logout">로그아웃</a></li>
-								    </ul>
-								  </div>
 
-						</div>
-					</c:if>
 
 						
 				    </li>
 				    
 				    <li class="border-left text-center" style="margin: 10px 30px 10px 30px; padding-left:10px;">
-				      <a class="header-category" href="<%=ctxPath%>/wanted/login" style="color: #666;  border-radius: 15px; border: 1px solid">기업서비스</a>
+				      <a class="header-category" href="<%=ctxPath%>/wanted/company/login" style="color: #666;  border-radius: 15px; border: 1px solid">기업서비스</a>
 				    </li>
 			  </ul>
 		</nav>
