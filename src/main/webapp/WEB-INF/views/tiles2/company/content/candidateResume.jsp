@@ -52,7 +52,7 @@
 	  font-style: none;
 	  display: flex;
 	  justify-content: center;
-	  background: #184CED;
+	  background-color: #184CED;
 	  color: #fff;
 	  flex-wrap: wrap;
 	  width: max-content;
@@ -74,7 +74,7 @@
 	
 	.status_button1, .status_button2, .status_button3 {
 	 	position:relative;
-		width: 170px;
+		width: 150px;
 		height: 50px;
 		border-radius: 50px;
 		line-height: 45px;
@@ -107,6 +107,19 @@
 	}
 	
 	
+	button#myBtn {
+		position: fixed;
+		top: 800px;
+		left: 92%;
+		background-color: #91DFDA;
+		outline: none;
+		border: none;
+		width: 3%;
+		height: 6%;
+		border-radius: 10px;
+		font-size: 15pt;
+	}  
+
 	
 </style>
 
@@ -122,9 +135,6 @@
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		  
-
-		
 		
 </script>
 
@@ -132,7 +142,7 @@
 		
 		<div class="container my-5">
 			<h2 id="subject" class="form-control" style="margin: 50px 0 !important; height: 70px;">
-			이력서 제목
+			${subject}
 			</h2>
 
 			<h4 id="name" class="form-control">
@@ -140,7 +150,7 @@
 			</h4>
 
 			<h4 id="email" class="form-control">
-			이메일
+			${fk_UserId}
 			</h4>
 
 			<h4 id="mobile" class="form-control">
@@ -152,7 +162,7 @@
 				간단 소개글 
 			</div>
 			<div>
-				<p id="introduce" class="content"></p>
+				<p id="introduce" class="content">${introduce}</p>
 			</div>
 			
 			
@@ -199,7 +209,7 @@
 				스킬
 			</div>
 			<div id="skill" class="content" style="display: flex;">
-				<div class="skillList">java</div>
+				<div class="skillList">${skill}</div>
 				<div class="skillList">oracle</div>
 			</div>
 
@@ -247,7 +257,7 @@
 				링크
 			</div>
 			<div id="link" class="content">
-				<i class="fa-solid fa-desktop"></i><a href="#"></a>
+				<i class="fa-solid fa-desktop"></i><a href="#">${uploadLink}</a>
 			</div>
 				<!-- 추가된 링크 -->
 				<div class="addUploadLink">
@@ -256,16 +266,60 @@
 
 		</div>
 
-		<div class="container-fluid border-top fixed-bottom" style="padding: 5px 0;">
+		<div class="container-fluid border-top fixed-bottom" style="width: 100%; padding: 5px 0;">
 		
-			<div style="display:flex; width: 600px; float: right;">		
+			<div style="display:flex; width: 100%; float: right; justify-content: space-between;">		
+				<div style="margin-left: 4%;">
 				<button class="status_button3" type="button" onclick="javascript:history.back()"><span>지원자 목록</span></button>
+				</div>
+				
+				<div style="display: flex; align-items: center; padding-top: 10px;">
+				<h5 style="margin-left: 10px; width: max-content;"><i class="fa-solid fa-quote-left"></i>&nbsp;&nbsp;--- 공고에 관한 지원이력서 입니다.&nbsp;&nbsp;<i class="fa-solid fa-quote-right"></i></h5>
+				</div>
+				
+				<div style="margin-right: 4%;">
 				<button class="status_button1" type="button" onclick="updateStatus_1()"><span>합 격</span></button>
 				<button class="status_button2" type="button" onclick="updateStatus_2()"><span>불 합 격</span></button>
+				</div>
 			</div>
 			
 		</div>
 
-
-
 </form>
+
+
+	<nav>
+	<!-- to Top btn 끝 -->
+	<div class="myfixed div_table">
+	   	<div id="div_table_cell">  
+	   		<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa-solid fa-arrow-up" style="color: #ffffff;"></i></button>
+	   	</div>
+	</div> 
+	<!-- to Top btn 끝 -->
+	</nav>
+
+<script>
+
+	$("button#myBtn").hide();
+
+	window.onload = function() {
+		// Get the button
+		let mybutton = document.getElementById("myBtn");
+		window.onscroll = function() {scrollFunction()};
+		function scrollFunction() {
+		  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+		    mybutton.style.display = "block";
+		  } 
+		  else {
+		    mybutton.style.display = "none";
+		  }
+		}
+	}
+	// button 클릭시, 화면상단으로 스크롤
+	function topFunction() {
+	  window.scrollTo({top:0, behavior:'smooth'});
+	};
+	
+</script>
+	
+	
