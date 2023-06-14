@@ -54,7 +54,7 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	public void insertRecruit(PostVO postvo, MultipartHttpServletRequest mrequest) {
 		
 		MultipartFile attach = postvo.getAttach();
-		System.out.println(attach.getOriginalFilename());
+		//System.out.println(attach.getOriginalFilename());
 		if(!attach.isEmpty() ) {
 			
 			HttpSession session = mrequest.getSession();
@@ -64,8 +64,8 @@ public class CompanyService_2 implements InterCompanyService_2 {
 			
 			String newFileName = "";
 			
-			System.out.println("root" + root);
-			System.out.println("path" + path);
+			//System.out.println("root" + root);
+			//System.out.println("path" + path);
 			
 			byte[] bytes = null;
 			
@@ -76,7 +76,7 @@ public class CompanyService_2 implements InterCompanyService_2 {
 				String OriginalFilename = attach.getOriginalFilename();
 				
 				newFileName = fileManager.doFileUpload(bytes, OriginalFilename, path);
-				System.out.println("newFileName" + newFileName);
+				//System.out.println("newFileName" + newFileName);
 				postvo.setImage(newFileName);
 				
 			} catch ( Exception e ) {
@@ -91,6 +91,39 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	
 	@Override
 	public void insertRecruitSkil(PostVO postvo, List<String> techcode, MultipartHttpServletRequest mrequest) {
+		
+		MultipartFile attach = postvo.getAttach();
+		//System.out.println(attach.getOriginalFilename());
+		if(!attach.isEmpty() ) {
+			
+			HttpSession session = mrequest.getSession();
+			String root = session.getServletContext().getRealPath("/").substring(0, 30);
+			
+			String path = root + "resources" + File.separator + "static" + File.separator + "images" + File.separator + "post_image";
+			
+			String newFileName = "";
+			
+			//System.out.println("root" + root);
+			//System.out.println("path" + path);
+			
+			byte[] bytes = null;
+			
+			try {
+				
+				bytes = attach.getBytes();
+				
+				String OriginalFilename = attach.getOriginalFilename();
+				
+				newFileName = fileManager.doFileUpload(bytes, OriginalFilename, path);
+				//System.out.println("newFileName" + newFileName);
+				postvo.setImage(newFileName);
+				
+			} catch ( Exception e ) {
+				e.printStackTrace();
+			}
+			 
+		}
+		
 		cdao.insertRecruitSkil(postvo, techcode);
 		
 	}

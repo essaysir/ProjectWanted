@@ -7,23 +7,24 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_1;
+import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 
 @RequestMapping("/wanted/company")
@@ -51,6 +52,8 @@ public class CompanyController_1 {
 	// 회사 지원자List 페이지
 	@GetMapping("/candidateList")
 	public String viewCandidateList() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
 		return "company/company_candidateList.tiles2";
 	}
 	
@@ -58,20 +61,22 @@ public class CompanyController_1 {
 	
 	// 회사 지원자List 불러오기
 	@GetMapping(value = "/getCandidateList")
-	public String candidateList(HttpServletRequest request, Model model){
-
+	public ModelAndView candidateList(HttpServletRequest request, Model model,
+								@RequestParam(value="searchType", required = false) String searchType,
+								@RequestParam(value="searchWord", required = false) String searchWord
+								){
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
+		
+		ModelAndView mav = new ModelAndView();
+		
 		Map<String, String> paraMap = new HashMap<>();
 		String status = request.getParameter("status");
+		String currentPage =request.getParameter("currentShowPageNo");
+		
 		paraMap.put("status", status);
 
-		List<Map<String,String>> candidateList = service.candidateList(paraMap);
-		
-
-		String searchType = request.getParameter("searchType");
-		String searchWord = request.getParameter("searchWord");
-		String str_currentShowPageNo = request.getParameter("currentShowPageNo");
-		
-		
 		if(searchType == null || (!"subject".equals(searchType) && !"name".equals(searchType) )) {
 			searchType = "";
 		}
@@ -79,43 +84,33 @@ public class CompanyController_1 {
 		if(searchWord == null || "".equals(searchWord) || searchWord.trim().isEmpty() ) {
 			searchWord = "";
 		}
+		if(currentPage == null) {
+			currentPage = "1";
+		}
 		
 		paraMap.put("searchType", searchType);
 		paraMap.put("searchWord", searchWord);
 
-
 		int totalCount = service.getTotalCount(paraMap);       // 총 게시물 건수
         int sizePerPage = 7;       							   // 한 페이지당 보여줄 게시물 건수 
-        int currentShowPageNo = 1; 							   // 현재 보여주는 페이지번호로서, 초기치로는 1페이지로 설정함.
+        int currentShowPageNo = Integer.parseInt(currentPage); 					// 현재 보여주는 페이지번호로서, 초기치로는 1페이지로 설정함.
         int totalPage = 0;         							   // 총 페이지수(웹브라우저상에서 보여줄 총 페이지 개수, 페이지바)
-
         
-        totalCount = service.getTotalCount(paraMap);
         totalPage = (int) Math.ceil((double)totalCount/sizePerPage);
-        
-        
-        if (str_currentShowPageNo != null) {
-            try {
-                currentShowPageNo = Integer.parseInt(str_currentShowPageNo);
-                if (currentShowPageNo < 1 || currentShowPageNo > Math.ceil((double) totalCount / sizePerPage)) {
-                    currentShowPageNo = 1;
-                }
-            } catch (NumberFormatException e) {
-                currentShowPageNo = 1;
-            }
-        }
-        
-        int startRno = 0; 
-        int endRno = 0; 
-        
-        startRno = ((currentShowPageNo - 1) * sizePerPage) + 1;
-        endRno = startRno + sizePerPage - 1;
-        
+        	
+		if(currentShowPageNo < 1 || currentShowPageNo > totalPage) {
+			currentShowPageNo = 1;
+		}
+     
+        int startRno = ((currentShowPageNo - 1) * sizePerPage) + 1;
+        int endRno = startRno + sizePerPage - 1;
+
         paraMap.put("startRno", String.valueOf(startRno));
         paraMap.put("endRno", String.valueOf(endRno));
         
-        candidateList = service.listhSearchWithPaging(paraMap);
-        
+        System.out.println(paraMap);
+        List<Map<String,String>> candidateList = service.listhSearchWithPaging(paraMap);
+ 
         // 검색어 유지
         if (!"".equals(searchType) && !"".equals(searchWord)) {
             model.addAttribute("searchType", searchType);
@@ -127,103 +122,92 @@ public class CompanyController_1 {
         int loop = 1;
         int pageNo = ((currentShowPageNo - 1)/blockSize) * blockSize + 1;
         
-        String pageBar = "<ul id='pageBar'>";
-        String url = "/company/candidateList";
-      
-        // === [맨처음][이전] 만들기 === //
-        pageBar += "<li><button type='button' id='pageArrow' onclick='location.href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo=1'><i class=\"fa-solid fa-backward\"></i></button></li>";
-        pageBar += "<li><button type='button' id='pageArrow' onclick='location.href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+(pageNo-1)+"'><i class=\"fa-solid fa-play fa-flip-both\"></i></button></li>";
-
-      
-        while( !(loop > blockSize || pageNo > totalPage) ) {
-         
-           if(pageNo == currentShowPageNo) {
-              pageBar += "<li id='pageNo'>"+pageNo+"</li>";  
-           }
-           else {
-              pageBar += "<li><button type='button' id='pageBarNo' onclick='location.href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'>"+pageNo+"</button></li>"; 
-           }
-         
-           loop++;
-           pageNo++;
-        }// end of while-----------------------
-        
-        // === [다음][마지막] 만들기 === //
-        pageBar += "<li><button type='button' id='pageArrow' onclick='location.href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+pageNo+"'><i class=\"fa-solid fa-play\"></i></button></li>";
-        pageBar += "<li><button type='button' id='pageArrow' onclick='location.href='"+url+"?searchType="+searchType+"&searchWord="+searchWord+"&currentShowPageNo="+totalPage+"'><i class=\"fa-solid fa-forward\"></i></button></li>";
-
-	    pageBar += "</ul>";
+	    request.setAttribute("currentShowPageNo", currentShowPageNo);
+	    request.setAttribute("pageNo", pageNo);     
+	    request.setAttribute("status", status);
+	    request.setAttribute("totalPage", totalPage);   
+	    request.setAttribute("startRno", startRno);   
+	    request.setAttribute("endRno", endRno);   
+	    request.setAttribute("candidateList", candidateList); // 요건 리스트
 	    
+	    Map<String, Integer> paraMap2 = new HashMap<>();
+	    paraMap2.put("currentShowPageNo", currentShowPageNo);
+	    paraMap2.put("pageNo", pageNo);
+	    paraMap2.put("totalPage", totalPage);
+	    paraMap2.put("startRno", startRno);
+	    paraMap2.put("endRno", endRno);
 	    
-	    request.setAttribute("pageBar", pageBar); 
-//	    String gobackURL = MyUtil.getCurrentURL(request);
-	    request.setAttribute("candidateList", candidateList);
+	    mav.addObject("paraMap2",paraMap2);
+	    mav.addObject("candidateList", candidateList);
+	    mav.setViewName("tiles2/company/content/company_candidateList_detail");
+	    
+	    System.out.println(candidateList);
     
-		return "tiles2/company/content/company_candidateList_detail";
+		return mav;
 	}
 
-	
-/*	
-	@ResponseBody 
-	@GetMapping(value = "/company/wordSearchShow", produces = "text/plain;charset=UTF-8")
-	public String wordSearchShow(HttpServletRequest request) {
-		
-		String searchType = request.getParameter("searchType");
-		String searchWord = request.getParameter("searchWord");
+/*
+	@GetMapping(value = "/wanted/wordSearchShow")
+	@ResponseBody
+	public List<Map<String, String>> wordSearchShow(@RequestParam("searchType") String searchType,
+	                                                @RequestParam("searchWord") String searchWord) {
 
-		Map<String, String> paraMap = new HashMap<>();
-		paraMap.put("searchType", searchType);
-		paraMap.put("searchWord", searchWord);
+	    Map<String, String> paraMap = new HashMap<>();
+	    paraMap.put("searchType", searchType);
+	    paraMap.put("searchWord", searchWord);
 
-		String json = service.wordSearchShow(paraMap);
-		
-		return json;
+	    List<Map<String, String>> wordSearchShow = service.wordSearchShow(paraMap);
+
+	    return wordSearchShow;
 	}
 */
 	
-	
 
-	// 지원자 이력서 페이지
+	// 지원자 이력서 페이지 
 	@GetMapping(value = "/resume")
-	public String viewResume() {
-		return "/resume/candidateResume.tiles1";
-	}
-	
-	// 지원자 이력서  가져오기
-	@ResponseBody 
-	@PostMapping(value = "/getResume", produces = "text/plain;charset=UTF-8")
-	public String candidateResume(HttpServletRequest request){
-		
-		Map<String, String> paraMap = new HashMap<>();
-		String resume_Code = request.getParameter("resume_Code");
-		paraMap.put("resume_Code", resume_Code);
-
-		List<Map<String,String>> candidateResume = service.candidateResume(paraMap);
-		
-		return "/resume/candidateResume.tiles1";
+	public String viewResume(HttpServletRequest request,
+							 @RequestParam("subject") String subject){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
+		return "company/candidateResume.tiles2";
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+	// 지원자 이력서 데이터 가져오기
+	@PostMapping(value = "/apply_resume")
+	public String getApplyResume (HttpServletRequest request) {
+		
+		List<ResumeVO> resumeContent = service.getApplyResume();
+		request.setAttribute("resumeContent", resumeContent);
+		
+		return "tiles2/company/content/candidateResume";
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 회사 지원통계(차트) 페이지
-	@GetMapping(value = "/company_chart")
-	public ModelAndView company_statistics(ModelAndView mav){
-		mav.setViewName("company/company_chart.tiles2");
-		return mav;
+	@GetMapping(value = "/chart")
+	public String company_chart(){
+
+		return "company/company_chart.tiles2";
+	}
+	
+	
+	@ResponseBody
+	@PostMapping(value = "/viewChart")
+	public String chart(){
+
+		return "";
 	}
 	
 	

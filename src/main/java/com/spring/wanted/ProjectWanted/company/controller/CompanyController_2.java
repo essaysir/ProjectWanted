@@ -1,11 +1,10 @@
 package com.spring.wanted.ProjectWanted.company.controller;
 
-import java.io.File;
+
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
-
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_2;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
@@ -50,7 +46,7 @@ public class CompanyController_2 {
 		
 			
 			if(techcode != null && techcode.size() > 0) {
-				//service.insertRecruitSkil(postvo, techcode, mrequest);
+				service.insertRecruitSkil(postvo, techcode, mrequest);
 			} else {				
 				service.insertRecruit(postvo, mrequest);
 			}
@@ -232,6 +228,13 @@ public class CompanyController_2 {
 		
 		return jsonobj.toString();
 	}
+	
+	@GetMapping(value="/login")
+	public String Login() {
+	
+		return "tiles2/company/content/company_login";
+	}
+	
 	//===============================SJS끝==================================
 
 }

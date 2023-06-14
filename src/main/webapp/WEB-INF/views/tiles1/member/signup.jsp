@@ -70,11 +70,11 @@
 		border: solid 1px #e1e2e3;
 		border-radius: 5px;
 		width: 35%;
-	    height: 98%;
+	    height: 130%;
 	    margin: 0 auto;
 	    display: flex;
 		position: absolute;
-	    top: 50%;
+	    top: 62%;
 	    left: 50%;
 	    transform: translate(-50%, -50%);
   		flex-direction: column;
@@ -153,7 +153,7 @@
     }
     
     
-    input#email_input:not(:focus), input#name_input:not(:focus), input#pwd_input:not(:focus), input#pwd2_input:not(:focus), input#what_input:not(:focus), input#what2_input:not(:focus), input#certification_input:not(:focus){ /* 커서 올라가기 전 */
+    input#email_input:not(:focus), input.name_input:not(:focus), input#pwd_input:not(:focus), input#pwd2_input:not(:focus), input#what_input:not(:focus), input#what2_input:not(:focus), input#certification_input:not(:focus){ /* 커서 올라가기 전 */
 	
 		margin: 0 0 10px;
 		padding: 0 12px;
@@ -168,11 +168,11 @@
     	font-weight: 400;
 	}
 	
-	input#email_input::placeholder, input#name_input::placeholder, input#pwd_input::placeholder, input#pwd2_input::placeholder, input#what_input::placeholder, input#what2_input::placeholder, input#certification_input::placeholder { /* 커서 올라가기 전 placeholder 색상 변경 */
+	input#email_input::placeholder, input.name_input::placeholder, input#pwd_input::placeholder, input#pwd2_input::placeholder, input#what_input::placeholder, input#what2_input::placeholder, input#certification_input::placeholder { /* 커서 올라가기 전 placeholder 색상 변경 */
 		color: #e1e2e3;
 	}
 	
-	input#email_input:focus, input#name_input:focus, input#pwd_input:focus, input#pwd2_input:focus, input#what_input:focus, input#what2_input:focus, input#certification_input:focus { /* 커서 올라간 후 */
+	input#email_input:focus, input.name_input:focus, input#pwd_input:focus, input#pwd2_input:focus, input#what_input:focus, input#what2_input:focus, input#certification_input:focus { /* 커서 올라간 후 */
 	
 		margin: 0 0 10px;
 		padding: 0 12px;
@@ -261,16 +261,150 @@
    		padding: 0;
 	
 	}
+	button.certify{
+		color: #36f !important; 
+		background-color:  #fff !important;
+	    font-size: 16px !important ; 
+	    font-weight: 600 ; 
+	    border: 1px #e1e2e3 solid !important ;
+	}
 	
     
 </style>
 
 <script type="text/javascript">	
-			 $(document).ready(function() {
-				  $(".is_agree_check").click(function() {
-				    $(this).toggleClass("checked");
-		  });
-		});
+		let username_flag = false ;
+		let certification_flag = false ;
+		let password_flag =false ; 
+		
+		$(document).ready(function() {
+			$("p#username-warning").hide();		  
+			$("p#mobile-warning").hide();		  
+			
+			$("button#register").on('click', register );
+				  
+			$("input#name_input").on('input', checkName);
+			$("input#pwd_input").on('input', checkPassword);
+			$("input#pwd2_input").on('input', checkPassword);
+			$("input#what_input").on('input',checkMobile);
+			$("button#certification").on('click', SendMessage);	  
+			$("button#access").on('click' , access(0));
+			$("button#fake_certification").on('click', access(1))
+		
+		}); // END OF  $(DOCUMENT).READY(FUNCTION() 
+		
+				
+		function checkName (){
+			const regExp = /^[가-힣]{2,6}$/ ; 
+			const bool = regExp.test( $(this).val() );
+			
+			if ( !bool ){
+				username_flag = false ; 
+				$("p#username-warning").show();
+			}
+			else{
+				username_flag = true ; 
+				$("p#username-warning").hide();
+			}
+			
+		} // end of function checkName
+		
+		function SendMessage(){
+			$.ajax({
+				url: "/send-one",
+				type: "post",
+				async:"false", 
+				data: {"mobile": $('input#what_input').val()} ,
+				success: function (result) {
+					// console.log(result.randomNo);
+					// console.log(JSON.stringify(result));
+					$("input#randomNo").val(result.randomNo);
+					
+					
+				},
+				error: function (request, status, error) {
+					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				}
+				
+				
+			});
+			
+			
+		} // END OF FUNCTION SENDMESSAGE
+		
+		function checkMobile(){
+			const regExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+			const bool = regExp.test( $(this).val() );
+			
+			// 버튼 요소 가져오기
+			const button = document.getElementById('certification');
+			
+			if ( !bool){
+				$("p#mobile-warning").show();
+				$("button#certification").removeClass("certify");
+				// 버튼 활성화
+				button.disabled = true;
+
+			}
+			else{
+				$("p#mobile-warning").hide();
+				$("button#certification").addClass("certify");
+				// 버튼 활성화
+				button.disabled = false;
+			}
+			
+			
+		}// end of function checkMobile
+		function checkPassword(){
+			if ( $("input#pwd_input").val() == $("input#pwd2_input").val() ){
+				password_flag = true  ;
+			}
+			else{
+				password_flag = false ; 
+			}
+			
+		}// function checkPassword
+		
+		function access(type){
+			if ( type == 0  ){
+					if ( $("input#randomNo").val() == $("input#certification_input").val() ){
+						certification_flag = true ;
+					}
+					else{
+						certification_flag = false ; 				
+					}
+			}
+			else{
+				certification_flag = true ; 
+			}
+			
+			
+		}// function of access 
+		
+		function register(){
+			if (username_flag == false ){
+				alert("이름은 3글자에서 5글자 한글만 가능합니다.");
+				return ; 
+			}
+			if (certification_flag == false ){
+				alert("휴대폰 인증을 해주셔야 합니다.");
+				return ; 
+			}
+			if (password_flag == false ){
+				alert("비밀번호가 일치하지 않습니다.");
+				return ; 
+			}
+			
+			
+			const registerFrm = document.login_input;
+			registerFrm.action="/wanted/member/register"; 
+			registerFrm.method ="post"; 
+			registerFrm.submit();
+		
+		} // end of function register 		
+				
+			 
+			 
 </script>
 
 
@@ -301,33 +435,48 @@
 				</div>		
 				<!-- 네 번째 중간 틀 끝(제목이 있는 틀) -->
 				<div id="signup_innerFrm">
-					<form id="login_input">
+					<form id="login_input" name="login_input">
 					<div id="signup_innerFrm2">
 						<div id="email_box">
 							<label>이메일</label>
-							<input type="email" id="email_input" placeholder="자바스크립트로 로그인창에서 받아온 입력값 가져오기" name="email" />
+							<input name="userid" type="email" id="email_input" value="${userid}" name="userid" readonly/>
 						</div>
 						<div id="username_box">
 							<label>이름</label>
-							<input type="text" id="name_input" placeholder="이름을 입력해주세요." name="username" required />
-						</div>	
-						<div class="certification_box"><label>휴대폰인증</label></div>
-						<div class="certification_box">
-							<input type="text" id="what_input" placeholder="(예시)01012345678" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" />
-							<button type="submit" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 90px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
+							<input name="name" type="text" class="name_input" id="name_input" placeholder="이름을 입력해주세요." />
+							<p  id="username-warning" style="color: red; font-weight: 400; text-align: left; font-size: 12px; margin: 0 10px 0 0;">이름은 한글 2글자에서 6글자만 가능합니다.</p>
+							
 						</div>
-						<div class="certification_box"><label>이메일 인증</label></div>
+						<div id="username_box">
+							<label>별명</label>
+							<input name="nickname" class="name_input" type="text" placeholder="이름을 입력해주세요." name="username"  />
+						</div>		
+						 <div class="certification_box"><label>휴대폰인증</label></div>
+						<div class="certification_box">
+							<input name="mobile" type="text" id="what_input" placeholder="(예시)01012345678" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" />
+							<button id="certification" type="button" disabled style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 120px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
+							<input type="text"  id="certification_input" placeholder="인증번호를 입력해주세요." style="background-color: #f2f4f7;" />
+							<input type="hidden" id="randomNo" />
+							<p  id="mobile-warning" style="color: red; font-weight: 400; text-align: left; font-size: 12px; margin: 0 10px 0 0;">휴대폰 번호는 EX)00012345678 방식으로 입력해주세요</p>
+							<button id="fake_certification" type="button" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 120px; height: 50px; font-size: 10px; color: #888888;">가짜 인증완료</button>
+							<button id="access" type="button"  style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 120px; height: 50px; font-size: 10px; color: #888888;">인증완료</button>
+								
+						</div> 
+						
+						<%-- <div class="certification_box"><label>이메일 인증</label></div>
 						<div class="certification_box">	
-							<input type="text" id="what2_input" placeholder="자바스크립트로 로그인창에서 받아온 입력값 가져오기" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" />
+							<input type="text" id="what2_input" value="${userid}" style="width: 375px; margin-right: 20px; background-color: #f2f4f7;" readonly />
 							<button type="submit" style="text-align: center ; border: none; border-radius: 10px; background-color: #f2f4f7; width: 90px; height: 50px; font-size: 10px; color: #888888;">인증번호 받기</button>
 						</div>
 						<div class="certification_check">
-							<input type="text" id="certification_input" placeholder="인증번호를 입력해주세요." style="background-color: #f2f4f7;" />
+							
 						</div>
-						<div id="pwd_box">
+						 --%>
+						 
+						 <div id="pwd_box">
 							<label>비밀번호</label>
-							<input type="text" id="pwd_input" placeholder="비밀번호를 입력해주세요." name="pwd" required />
-							<input type="password" id="pwd2_input" placeholder="비밀번호를 다시 한번 입력해주세요." name="pwd" required />
+							<input name="pwd" type="password" id="pwd_input" placeholder="비밀번호를 입력해주세요."   />
+							<input type="password" id="pwd2_input" placeholder="비밀번호를 다시 한번 입력해주세요." />
 							<p style="color: #888888; font-weight: 400; text-align: left; font-size: 12px; margin: 0 10px 0 0;">영문 대소문자, 숫자, 특수문자, 3가지 이상으로 조합해 8자 이상 16자 이하로 입력해주세요.</p>
 						</div>		
 						<div id="is_agree_all_box" class="is_agree_box">
@@ -362,10 +511,10 @@
 							<a href="https://id.wanted.jobs/privacy/ko" style="color: #888888; line-height: 22px; text-align: right; padding-left: 271.3px;">자세히</a>
 						</div>
 						<div>
-							<button style="background-color: #f2f4f7; border: none; cursor: pointer; color: #ccc; width: 100%; height: 50px; min-height: 50px; border-radius: 25px; font-size: 16px; margin-bottom: 10px; margin-top: 30px;">가입하기</button>
+							<button type="button" id="register"  style="background-color: #36f; border: 1px #e1e2e3 solid; cursor: pointer; color:#fff ; width: 100%; height: 50px; min-height: 50px; border-radius: 25px; font-size: 16px; margin-bottom: 10px; margin-top: 30px;">가입하기</button>
 						</div>
 					</div>
-						
+
 					</form>
 				</div>
 			</div>

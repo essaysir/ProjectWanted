@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ==== #29. mapper 기본설정 ==== -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- ==== #29. 루트 엘리먼트 & 네임스페이스 설정(프로젝트 전체내에서 유일해야 한다.) ==== -->
+<!--  mapper 의 namespace(네임스페이스)가 중복되면, 작동하지 않는다. -->
+<mapper namespace="com.spring.wanted.ProjectWanted.member.mapper.InterMemberMapper3">
+	
+	<resultMap type="HashMap" id="getMemberInfo_Map">
+		<result property="userid" 			column="userid" 		javaType="String" />
+		<result property="pwd" 				column="pwd" 			javaType="String" />
+		<result property="name" 			column="name" 			javaType="String" />
+		<result property="nickname" 		column="nickname" 		javaType="String" />
+		<result property="mobile" 			column="mobile"			javaType="String" />
+		<result property="profile_image" 	column="profile_image"	javaType="String" />
+		<result property="resume_count" 	column="resume_count"	javaType="String" />
+	</resultMap>
+	<select id="getMemberInfo" resultMap="getMemberInfo_Map">
+		select userid, pwd, name, nickname, mobile, profile_image, resume_count
+		from tbl_member
+		where userid = #{userid}		
+	</select>
+	
+	<update id="nameUpdate" parameterType="HashMap">
+		update tbl_member set name = #{name}
+		where userid = #{userid}
+	</update>
+	
+	<update id="nickUpdate" parameterType="HashMap">
+		update tbl_member set nickname = #{nickname}
+		where userid = #{userid}
+	</update>
+	
+	<select id="getPasswd" parameterType="String" resultType="String">
+		select pwd
+		from tbl_member
+		where userid = #{userid}		
+	</select>
+	
+	<update id="passwdUpdate" parameterType="HashMap">
+		update tbl_member set pwd = #{pwd}
+		where userid = #{userid}
+	</update>
+		
+	<update id="profileImageUpdate" parameterType="com.spring.wanted.ProjectWanted.member.model.MemberVO">
+		update tbl_member set profile_image = #{profile_image}
+		where userid = #{userid}
+	</update>
+		
+	<select id="getMemberImage" parameterType="String" resultType="com.spring.wanted.ProjectWanted.member.model.MemberVO">
+		select userid, pwd, name, nickname, mobile, profile_image, resume_count
+		from tbl_member
+		where userid = #{userid}		
+	</select>
+	
+	<delete id="memberExit">
+		delete from tbl_member
+		where userid = #{userid}
+	</delete>
+	
+
+
+</mapper>
