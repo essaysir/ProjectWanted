@@ -51,5 +51,11 @@ public class MemberDAO implements InterMemberDAO {
 		return pvo ;
 	}
 
+	@Override
+	public CompanyVO getCompanyVO(int post_code) {
+		CompanyVO cvo = mapper.getCompanyVO(post_code);
+		return cvo ;
+	}
+
 
 }

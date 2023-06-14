@@ -3,6 +3,7 @@ package com.spring.wanted.ProjectWanted.member.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 import com.spring.wanted.ProjectWanted.member.service.InterMemberService;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
@@ -74,8 +77,23 @@ public class MemberController {
 		@GetMapping(value="/detail/{post_code}")
 		public String postDetail(@PathVariable int post_code , HttpServletRequest request) {
 				PostVO pvo = service.getPostVO(post_code);
+				CompanyVO cvo = service.getCompanyVO(post_code);
 				System.out.println(" 확인용 pvo : " + pvo );
 				request.setAttribute("pvo", pvo);
+				System.out.println(" 확인용 cvo : " + cvo );
+				request.setAttribute("cvo", cvo);
 				return "post/detailPost.tiles1";
 		}
+		
+		// Detail JobPost 
+		@ResponseBody
+		@PostMapping(value="/member/apply")
+		public String apply() {
+			Authentication authenticate = SecurityContextHolder.getContext().getAuthentication();
+			System.out.println(" 확인용 auth : " + authenticate);
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("authenticate", authenticate);
+			return jsonObj.toString() ;
+		}
+		
 }// END OF PUBLIC CLASS MEMEBERCONTROLLER

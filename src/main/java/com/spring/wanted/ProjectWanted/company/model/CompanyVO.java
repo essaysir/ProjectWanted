@@ -19,8 +19,13 @@ public class CompanyVO {
 		private String details ; 
 		private int emp_count ; 
 		private String image ;
-		private String address ;
-	
+		private String addresss ;
+		
+		/////////////////////////////////////////////////////
+		// SELECT 하기 위한 용도 
+		private String region_name ;
+		private String region_detail_name ;
+		
 	
 	
 }

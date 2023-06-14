@@ -17,7 +17,7 @@
 		
 		<insert id="register" parameterType="com.spring.wanted.ProjectWanted.member.model.MemberVO" >
 			insert into tbl_member ( userid , pwd , name , nickname , mobile , profile_image , resume_count )  
-			values ( #{userid} , #{pwd} , #{name} , #{nickname} , #{mobile} , '123.png' ,  0 ) 
+			values ( #{userid} , #{pwd} , #{name} , #{nickname} , #{mobile} , 'profile_default.png' ,  0 ) 
 		</insert>
 
 		<select id="login_comp" parameterType="String" resultType="com.spring.wanted.ProjectWanted.company.model.CompanyVO">
@@ -28,6 +28,22 @@
 		<select id="getPostVO" parameterType="int"  resultType="com.spring.wanted.ProjectWanted.post.model.PostVO">
 			select post_code , fk_company_id , fk_duty_code , career , subject , info , image , createday , salary , mainduty, quality , deadline ,viewcount, pay_status
 			from tbl_post where post_code = #{post_code}
+		</select>
+		
+		<select id="getCompanyVO" parameterType="int" resultType="com.spring.wanted.ProjectWanted.company.model.CompanyVO">
+				select C.name , C.details ,C.EMP_COUNT , C.ADDRESSS , C.IMAGE , R.REGION_NAME , D.REGION_DETAIL_NAME 
+				from
+				(
+				select post_code , fk_company_id , subject 
+				from tbl_post 
+				where post_code = #{post_code}
+				)P
+				join tbl_company C
+				ON P.fk_company_id = C.COMPANY_ID
+				join tbl_region_detail D
+				ON C.FK_REGION_DETAIL_CODE = D.REGION_DETAIL_CODE
+				JOIN TBL_REGION R
+				ON D.FK_REGION_CODE = R.REGION_CODE
 		</select>
 
 
