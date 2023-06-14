@@ -5,9 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_2;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
@@ -23,19 +30,28 @@ import com.spring.wanted.ProjectWanted.post.model.PostVO;
 public class CompanyController_2 {
 	
 	private final InterCompanyService_2 service ; 
-
+	
+	private final PasswordEncoder passwordEncoder ;
+	
 	@Autowired
-	public CompanyController_2(InterCompanyService_2 service ) {
+	public CompanyController_2(InterCompanyService_2 service, PasswordEncoder passwordEncoder) {
 	 this.service = service ;
+	 this.passwordEncoder = passwordEncoder ;
 	}
 	
 	// job_select에필요한 값 가져오기	
 	@GetMapping(value="/recruit")
 	public String recruit(HttpServletRequest request){
 		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CompanyVO mvo = (CompanyVO)authentication.getPrincipal();
+		String company_id = mvo.getCompany_id();
+		
 		List<Map<String, String>> JobList = service.getJobList();
 		
 		request.setAttribute("JobList", JobList);
+		request.setAttribute("company_id", company_id);
+		
 		
 		return "company/company_recruit.tiles2";
 	}
@@ -72,12 +88,14 @@ public class CompanyController_2 {
 	// 채용공고관리페이지 띄우기
 	@GetMapping(value="/jobPost")
 	public String jobPost(HttpServletRequest request) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CompanyVO mvo = (CompanyVO)authentication.getPrincipal();
+		String company_id = mvo.getCompany_id();
 		
-		String id = "test_wanted";
-		
-		int totalPost = service.getTotalPost(id);
+		int totalPost = service.getTotalPost(company_id);
 		
 		request.setAttribute("totalPost", totalPost);
+		request.setAttribute("company_id", company_id);
 				
 		return "company/company_jobPost.tiles2";
 	}
@@ -215,6 +233,149 @@ public class CompanyController_2 {
 		
 		return "redirect:jobPost";
 	}
+	
+	// 멤버 정보가져오기
+	@GetMapping(value="/companyInfo")
+	public String getCompanyInfo(HttpServletRequest request) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CompanyVO mvo = (CompanyVO)authentication.getPrincipal();
+		String company_id = mvo.getCompany_id();
+					
+		List<Map<String,String>> companyinfo = service.getCompanyInfo(company_id);
+		
+		request.setAttribute("companyinfo", companyinfo);
+		
+		return "company/companyInfo.tiles2";
+		
+	}
+	
+	// 이름업데이트하기
+	@ResponseBody
+	@GetMapping(value="/nameUpdate", produces = "text/plain;charset=UTF-8")
+	public String nameUpdate(@RequestParam Map<String, String> paraMap){
+					
+		int n = service.nameUpdate(paraMap);
+		
+	    if (n==1) {
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+
+	}
+	
+	// 닉네임업데이트하기
+	@ResponseBody
+	@GetMapping(value="/nickUpdate", produces = "text/plain;charset=UTF-8")
+	public String nickUpdate(@RequestParam Map<String, String> paraMap){
+					
+		int n = service.nickUpdate(paraMap); 
+		
+	    if (n==1) {
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+
+	}
+	
+	//비밀번호 일치 여부
+	@ResponseBody
+	@GetMapping(value="/pwdCheck", produces = "text/plain;charset=UTF-8")
+	public String pwdCheck(HttpServletRequest request, @RequestParam Map<String, String> paraMap){
+		
+		String inputPwd = paraMap.get("inputPwd");
+		
+		String company_id = paraMap.get("company_id");
+		
+		String passwd = service.getPasswd(company_id);
+		
+		  if ( passwordEncoder.matches(inputPwd, passwd )) {
+	        return "success";
+	    } else {
+	        return "fail";		        
+	    }
+
+	}
+	
+	// 비밀번호업데이트하기
+	@ResponseBody
+	@GetMapping(value="/passwdUpdate", produces = "text/plain;charset=UTF-8")
+	public String passwdUpdate(@RequestParam Map<String, String> paraMap){
+					
+		int n = service.passwdUpdate(paraMap); 
+		
+	    if (n==1) {
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+
+	}
+	
+	// 프로필사진 변경
+	@ResponseBody
+	@PostMapping(value = "/profileImageUpdate", produces = "text/plain;charset=UTF-8")		
+	public String profileImageUpdate(CompanyVO companyvo, MultipartHttpServletRequest mrequest) {
+	    // membervo를 사용하여 필요한 데이터 처리
+
+	    // attach 파일을 사용하여 프로필 사진 업데이트 처리
+		int n = service.profileImageUpdate(companyvo, mrequest);
+
+		if (n==1) {
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+	}
+	
+	@GetMapping(value = "/companyExit")
+	public String companyExit(HttpServletRequest request) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CompanyVO mvo = (CompanyVO)authentication.getPrincipal();
+		String company_id = mvo.getCompany_id();
+		
+		List<Map<String,String>> companyinfo = service.getCompanyInfo(company_id);
+		
+		request.setAttribute("companyinfo", companyinfo);
+		
+		return "company/companyExit.tiles2";
+	}
+	
+	// 프로필사진 변경
+	@ResponseBody
+	@PostMapping(value = "/companyExit", produces = "text/plain;charset=UTF-8")		
+	public String companyExit(@RequestParam("company_id") String company_id, HttpServletRequest request, HttpServletResponse response) {
+	    
+		int n = service.companyExit(company_id, request);
+
+		if (n==1) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication() ;
+			if  ( authentication != null ) {
+				new SecurityContextLogoutHandler().logout(request, response, authentication);
+			}
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+	}
+	
+	// 회사상세이미지 업로드
+	@ResponseBody
+	@PostMapping(value = "/companyDetailImageUpload", produces = "text/plain;charset=UTF-8")		
+	public String companyDetailImageUpload(MultipartHttpServletRequest mrequest) {
+	    // membervo를 사용하여 필요한 데이터 처리
+
+	    // attach 파일을 사용하여 프로필 사진 업데이트 처리
+		int n = service.companyDetailImageUpload( mrequest);
+
+		if (n==1) {
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+	}
+	
 	
 	//===============================SJS시작==================================
 	@ResponseBody

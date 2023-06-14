@@ -110,7 +110,7 @@
                     <a class="menu" href="/wanted/company/candidateList">전체지원자관리</a>
                     <a class="menu" href="/wanted/company/jobPost">채용공고관리</a>
                     <a class="menu" href="#">회사정보</a>
-                    <a class="menu" href="#">계정관리</a>
+                    <a class="menu" href="/wanted/company/companyInfo">계정관리</a>
                     <a class="menu" href="/wanted/company/chart">지원통계</a>
                     <a class="menu" href="/wanted/logout">로그아웃</a>
                 </li>

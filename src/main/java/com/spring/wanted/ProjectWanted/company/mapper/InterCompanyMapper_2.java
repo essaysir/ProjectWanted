@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 @Mapper
@@ -21,7 +22,7 @@ public interface InterCompanyMapper_2 {
 	void insertTech(Map<String, String> paraMap);
 	
 	// 채용공고관리페이지 띄우기
-	int getTotalPost(String id);
+	int getTotalPost(String company_id);
 	
 	//ajax로 Post호출하기
 	List<Map<String, String>> getPost(Map<String, String> paraMap);
@@ -53,7 +54,30 @@ public interface InterCompanyMapper_2 {
 	// 공고삭제를위한 하나의 공고 가져오기
 	PostVO getOneRecruit(String post_code);
 
+	//멤버정보가져오기
+	List<Map<String, String>> getCompanyInfo(String company_id);
 	
+	//이름업데이트하기
+	int nameUpdate(Map<String, String> paraMap);
+	
+	//닉네임업데이트하기
+	int nickUpdate(Map<String, String> paraMap);
+	
+	//패스워드가져오기	
+	String getPasswd(String company_id);
+	
+	//패스워드 업데이트하기
+	int passwdUpdate(Map<String, String> paraMap);
+	
+	// 프로필사진업데이트하기
+	int profileImageUpdate(CompanyVO companyvo);
+	
+	// 원래프로필이미지 가져오기
+	// 탈퇴를 위한 회원프로필사진가져오기
+	CompanyVO getCompanyImage(String company_id);
+	
+	// 회원탈퇴하기
+	int companyExit(String company_id);
 
 	
 

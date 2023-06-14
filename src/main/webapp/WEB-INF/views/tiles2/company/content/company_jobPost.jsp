@@ -223,6 +223,10 @@
 		color: #184CED;
 	}
 	
+	input#company_id{
+		display: none;
+	}
+	
 
 </style>
 <script type="text/javascript">
@@ -247,10 +251,12 @@
 	
 	function displayPost(start){
 		
+		var company_id = $("input#company_id").val();
+		
 		$.ajax({
 			url: "getPost",
 			type: "post",
-			data:{ "fk_company_id":"test_wanted",
+			data:{ "fk_company_id":company_id,
 				   "start":start,
 				   "len":lenPost},
 			dataType:"json",
@@ -478,9 +484,12 @@
 	<div class="jp_content" id="jp_content">
 	</div>
 	<div class="jp_bottom">
-		<button class="btnPost" id="btnPost" type="button">더보기</button>
 		<span id="totalPost">${requestScope.totalPost}</span>
 		<span id="countPost">0</span>
+		<c:if test="${requestScope.totalPost  > 0 }">
+			<button class="btnPost" id="btnPost" type="button">더보기</button>
+		</c:if>
+		<input type="hidden" name="company_id" id="company_id" value="${requestScope.company_id}" readonly></input>
 	</div>
 </div>
 

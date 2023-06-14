@@ -1,5 +1,7 @@
 package com.spring.wanted.ProjectWanted.company.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,6 @@ public class CompanyVO {
 		private String image ;
 		private String address ;
 	
-	
+		private MultipartFile attach;
 	
 }
