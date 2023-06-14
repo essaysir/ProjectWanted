@@ -312,7 +312,7 @@ public class CompanyService_2 implements InterCompanyService_2 {
 			
 			String image = companyvo.getImage();
 			
-			if(!image.equals("profile_default.png")) {
+			if(!image.equals("default.png")) {
 								
 				try {
 					fileManager.doFileDelete(image, path);
