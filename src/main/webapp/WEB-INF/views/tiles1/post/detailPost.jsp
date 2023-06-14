@@ -194,7 +194,7 @@
 			    border-radius: 5px;
 			    background-color: #f3f5f8;		
 		}
-		h5.warning_h5{
+		h5.warning_h5 , span.warning_h5{
 			margin: 0 20px;
 		    font-size: 12px;
 		    font-weight: 700;
@@ -223,6 +223,13 @@
 	    background-color: #36f;
 	    border: none;
 		}	
+		div.wanted-ai{
+			margin-top: 10px;
+			background-color: #f3f5f8;
+    		padding: 8px 12px 7px;
+		
+		
+		}
  </style>   
  <script src="
 https://cdn.jsdelivr.net/npm/swiper@9.3.2/swiper-bundle.min.js
@@ -240,19 +247,24 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 
  <script type="text/javascript">
  		$(document).ready(function(){
- 		// 지도를 담을 영역의 DOM 레퍼런스
+ 			$("button#btn_apply").on("click", apply ) ; // 지원하기 클릭시 
+ 			func_geocoder('${cvo.addresss}');
+ 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 			// 카카오맵 시작 
+ 			
+ 			// 지도를 담을 영역의 DOM 레퍼런스
 		     var mapContainer = document.getElementById('map');
 		     
 		     // 지도를 생성할때 필요한 기본 옵션
 		     var options = {
-		           center: new kakao.maps.LatLng(37.556513150417395, 126.91951995383943), // 지도의 중심좌표. 반드시 존재해야함.
+		           center: new kakao.maps.LatLng($("input#lat").val(), $("input#lng").val()), // 지도의 중심좌표. 반드시 존재해야함.
 		           <%--
 		           우리동네:37.54132509455122	126.86307478730826
 		           학원:37.556513150417395	126.91951995383943
 		               center 에 할당할 값은 kakao.maps.LatLng 클래스를 사용하여 생성한다.
 		               kakao.maps.LatLng 클래스의 2개 인자값은 첫번째 파라미터는 위도(latitude)이고, 두번째 파라미터는 경도(longitude)이다.
 		           --%>
-		           level: 7  // 지도의 레벨(확대, 축소 정도). 숫자가 클수록 축소된다. 4가 적당함.
+		           level: 4  // 지도의 레벨(확대, 축소 정도). 숫자가 클수록 축소된다. 4가 적당함.
 		     
 		     };
 		     
@@ -286,9 +298,9 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 		         // 마커가 표시될 위치를 geolocation으로 얻어온 현위치의 위.경도 좌표로 한다   
 		         var locPosition = new kakao.maps.LatLng(latitude, longitude);
 
-		         // 마커이미지를 기본이미지를 사용하지 않고 다른 이미지로 사용할 경우의 이미지 주소 
-		           var imageSrc = 'http://localhost:9090/MyMVC/images/pointerGreen.png'; 
-
+			       // 마커이미지를 기본이미지를 사용하지 않고 다른 이미지로 사용할 경우의 이미지 주소 
+		           // var imageSrc = 'http://localhost:9090/MyMVC/images/pointerGreen.png'; 
+				
 		           // 마커이미지의 크기 
 		          var imageSize = new kakao.maps.Size(34, 39);
 		           
@@ -403,7 +415,41 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 		   // ================== 지도에 클릭 이벤트를 등록하기 끝======================= //
  			
  		}); // END OF $(DOCUMENT).READY(FUNCTION()
-			
+		
+ 		function apply(){
+ 			$.ajax({
+ 				url: "/wanted/member/apply",
+ 				type: "post",
+ 				dataType: "json",
+ 				async: false,
+ 				success: function (json) {
+ 					  console.log(JSON.stringify(json));
+ 					
+ 					 
+ 				},
+ 				error: function (request, status, error) {
+ 					// alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+ 				}	
+ 				
+ 				
+ 				
+ 				
+ 			}); // END OF $.AJAX 
+ 		}// END OF FUNCTION APPLY 
+ 		
+ 		function func_geocoder(address) {
+ 		   // 주소-좌표 변환 객체를 생성합니다
+ 		   var geocoder = new kakao.maps.services.Geocoder();
+
+ 		   geocoder.addressSearch(address, function(result, status) {
+
+ 			   if (status === kakao.maps.services.Status.OK) {
+ 				    // 주소가 정상적으로 검색이 완료됐으면
+ 			    	$("input#lat").val(result[0].y); // result[0].y ==> 위도
+ 			    	$("input#lng").val(result[0].x); // result[0].x ==> 경도
+ 			    } 
+ 			}); 
+ 		}// function func_geocoder(address) {
  </script>
  
 
@@ -430,9 +476,9 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 		<div class="container-custom">
 				<h2 class="title" style="margin-bottom:10px;">${pvo.subject}</h2>
 				
-				<span class="bold-span"><a>올이브이</a></span>
+				<span class="bold-span"><a>${cvo.name}</a></span>
 				<span class="green-span border">응답률 매우 높음</span>
-				<span class="gray-span border-left">서울.강남</span>
+				<span class="gray-span border-left">${cvo.region_name }.${cvo.region_detail_name}</span>
 				<br>
 				<button class="tag_button" style="margin-top:20px;">#유연근무</button>
 				<button class="tag_button">#스타트업</button>
@@ -440,7 +486,7 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 				<button class="tag_button">#IT, 컨텐츠</button>
 				
 				<h6 class="sub_title">회사소개</h6>
-				<p></p>
+				<p>${pvo.info}</p>
 				<h6 class="sub_title">주요 업무</h6>
 				<p>${pvo.mainduty }</p>
 				<h6 class="sub_title">자격요건</h6>
@@ -458,7 +504,9 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 				</div>
 				<br/>
 				<div style="margin-bottom:15px;">
-				<span class="header-span">근무지역</span> <span class="body-span">서울 금천로 가산디지털2로 98</span>
+				<span class="header-span">근무지역</span> <span class="body-span">${cvo.addresss} </span>
+						<input type="hidden" id="lat"  value=""/>
+						<input type="hidden" id="lng" value="" />
 				</div>
 				
 				 <div id="map" style="width:100%; height:277px;"></div>
@@ -468,7 +516,7 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 				 	<div class="div-logo" style="background-image: url(/images/profile_default.png)">
 				 	</div>
 					<div style="margin-right: 294px;">
-						<h5>이지스엔터프라이즈</h5>
+						<h5>${cvo.name}</h5>
 						<h6>IT, 컨텐츠</h6>
 					</div>
 					
@@ -489,12 +537,20 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 		
 		</div>			
 
-	<div class="border fixed-top" style="background-color: #fff;  width: 330px; height: 340px; top:70px ; left: 1330px;">
+	<div class="border fixed-top" style="background-color: #fff;  width: 330px; height: 340px; top:70px ; left: 1330px;padding: 24px 20px; z-index: 1;">
 			
-			<div class="" style="display:flex; margin: 15px;   ">	
+			<div class="" style="text-align:center; margin: 15px;   ">	
 				
-				<button type="button" class="btn-blue save-temporary">북마크하기</button>
-				<button type="button" id="btn_resumeOk" class="btn-blue save"  >지원 하기</button>
+				<button type="button" class="btn-blue save-temporary" style="width:90%;">북마크하기</button>
+				<br/>
+				<button type="button" id="btn_apply" class="btn-blue save" style="width:90%;"  >지원 하기</button>
+			</div>
+			
+			<div class="wanted-ai" >
+			<img aria-label="wantedai-logo" src="https://static.wanted.co.kr/images/ai/logo-wantedai.png" width="70" alt="logo-wantedai" height="13" style="margin-bottom: 3px;">
+			<span class="warning_h5" style="margin-left : 5px;">합격예측</span><br/>
+			<span class="warning_h5">서류 합격률이 궁금하다면?</span>
+			
 			</div>
 	</div>
 

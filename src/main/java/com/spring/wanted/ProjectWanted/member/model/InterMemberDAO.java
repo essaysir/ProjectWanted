@@ -16,4 +16,6 @@ public interface InterMemberDAO {
 	CompanyVO login_comp(String username); // 회사 회원 로그인 설정
 
 	PostVO getPostVO(int post_code); // POST_DETAIL 정보가져오기
+
+	CompanyVO getCompanyVO(int post_code); // COMPANY_VO 가져오기
 }

@@ -20,4 +20,6 @@ public interface InterMemberMapper {
 	CompanyVO login_comp(String username); // 스프링 시큐리티를 통한 기업 로그인 실행
 
 	PostVO getPostVO(int post_code);
+
+	CompanyVO getCompanyVO(int post_code);
 }

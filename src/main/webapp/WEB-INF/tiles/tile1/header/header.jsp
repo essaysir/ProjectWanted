@@ -122,8 +122,8 @@
 				 // console.log(JSON.stringify(json));
 				 if ( json.userid != ""){
 					
-				  let html = "<div class=\"profile\">";
-				  html += "<img src=\"/images/profile_default.png\" style=\"width: 28px; height: 28px; border-radius:50%;\"/>";
+				  let html = "<div class=\"profile\" style='z-index: 99;'>";
+				  html += "<img src=\"/images/profile_image/"+json.image+"\" style=\"width: 28px; height: 28px; border-radius:50%;\"/>";
 				  html += "<div class=\"menu\" id=\"menu\">";
 				  html += "<ul>";
 				  html += "<li><a class='a-login' href=\"/wanted/member/memberInfo\">MY 원티드</a></li>";

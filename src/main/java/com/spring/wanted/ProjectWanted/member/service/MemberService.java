@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.member.model.InterMemberDAO;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
@@ -44,6 +45,13 @@ public class MemberService implements InterMemberService{
 	public PostVO getPostVO(int post_code) {
 		PostVO pvo = mdao.getPostVO(post_code);
 		return pvo;
+	}
+
+
+	@Override
+	public CompanyVO getCompanyVO(int post_code) {
+		CompanyVO cvo = mdao.getCompanyVO(post_code);
+		return cvo;
 	}
 	
 

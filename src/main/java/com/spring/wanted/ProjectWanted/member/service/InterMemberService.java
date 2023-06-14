@@ -2,6 +2,7 @@ package com.spring.wanted.ProjectWanted.member.service;
 
 import java.util.List;
 
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
@@ -12,4 +13,6 @@ public interface InterMemberService {
 	void register(MemberVO mvo); // 회원가입 하기 
 
 	PostVO getPostVO(int post_code);
+
+	CompanyVO getCompanyVO(int post_code); 
 }

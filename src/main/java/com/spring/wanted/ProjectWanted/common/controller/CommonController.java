@@ -46,6 +46,7 @@ public class CommonController {
 			MemberVO mvo = (MemberVO)authentication.getPrincipal();
 			System.out.println("확인용 mvo "+mvo);
 			jsonObj.append("userid", mvo.getUserid());
+			jsonObj.append("image", mvo.getProfile_image());
 		}
 
 		return jsonObj.toString();
