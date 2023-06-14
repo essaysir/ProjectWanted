@@ -367,7 +367,7 @@ public class CompanyController_2 {
 	    // membervo를 사용하여 필요한 데이터 처리
 
 	    // attach 파일을 사용하여 프로필 사진 업데이트 처리
-		int n = service.companyDetailImageUpload( mrequest);
+		int n = service.companyDetailImageUpload(mrequest);
 
 		if (n==1) {
 	        return "success";

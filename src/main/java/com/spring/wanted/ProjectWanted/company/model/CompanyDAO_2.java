@@ -247,5 +247,32 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 		int n = mapper.companyExit(company_id);
 		return n;
 	}
+	
+	// 회사상세이미지 업로드
+	@Override
+	public int companyDetailImageUpload(Map<String, String> paraMap) {
+		int n = mapper.companyDetailImageUpload(paraMap);
+		return n;
+	}
+	
+	// 회사상세테이블에 존재하는지, 
+	@Override
+	public int countDetailImage(String company_id) {
+		int n = mapper.countDetailImage(company_id);
+		
+		return n ;
+	}
+
+	@Override
+	public void deleteCompanyImage(String company_id) {
+		mapper.deleteCompanyImage(company_id);
+	}
+
+	@Override
+	public List<String> getDetailImageName(String company_id) {
+		List<String> detailImageName = mapper.getDetailImageName(company_id);
+		
+		return detailImageName;
+	}
 
 }

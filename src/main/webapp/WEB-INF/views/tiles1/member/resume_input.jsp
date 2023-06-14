@@ -342,7 +342,8 @@
 <script type="text/javascript">
 
 		$(document).ready(function(){
-			
+			var fk_userid = '<%= request.getAttribute("fk_userid") %>';
+			console.log(fk_userid);
 			preventEnter(); // 엔터 전송 방지 함수 실행
 		    
 		    checkResume(); // 글자수 게이지바 함수 실행
@@ -936,10 +937,18 @@
 			// 입력된 input 태그 선택
 			var  skillInputs = document.getElementsByName("fk_Tech_Code");
 			
+			for ( var i=0 ; )
 			var MemberTechVO = {
 				fk_tech_code: skillInputs
 			};
-			
+			for (var i = 0; i < skillInputs.length; i++) {
+				  // 각 input 태그에서 값 가져오기
+				  var dateValue = skillInputs[i].value;
+
+				  // MemberTechVO 객체 생성
+				  var MemberTechVO = {
+					fk_tech_code: dateValue
+				  };
 			// 생성된 JSON 객체 확인
 			console.log(MemberTechVO);
 			
@@ -1127,7 +1136,7 @@
 			// 이력서 객체화(JSON)
 			var ResumeVO= 
 				  { 
-					  fk_userid : fk_userid , 
+					  fk_userid : "${mvo.userid}" , 
 					  subject : $("input[name='subject']").val() , 
 					  introduce : $("textarea[name='introduce']").val(),
 					  uploadLink : $("textarea[name='uploadLink']").val(), 
@@ -1139,24 +1148,24 @@
 					  performancevoList : performanceList,
 					  iscomplete : iscomplete
 				  };
-				  
+		 	console.log(ResumeVO);	  
 			$.ajax({
 				url: "/wanted/member/myresume",
 				type: "post",
 				async:"false",
 				contentType: "application/json; charset=utf-8", 
 				data: JSON.stringify(ResumeVO),
-				success: function (result) {
-					if (response === "success") {
+				success: function (response) {
+					if (response.result === "success") {
 						alert("이력서 작성이 왼료되었습니다.");
-						location.href = "<%= request.getContextPath() %>/wanted/member/myresume";
+						location.href = "/wanted/member/myresume";
 					}
 					else {
 						alert("이력서 작성에 실패했습니다.");
 					}
 				},
 				error: function (request, status, err) {
-					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + err);
 				}
 			});
 			
@@ -1182,7 +1191,7 @@
 			               '  <div style="display:flex; flex-direction: row">\n' +
 			               '    <div style="width: 20%; display: flex; flex-direction: row;">\n' +
 			               '      <div class="my-3" style="display: block; width: 100%; margin-right: 10px; flex-grow: 1;">\n' +
-			               '        <input type="text" name="year1'+career_count+'" value="" placeholder="YYYY" maxlength="4" style="width: 41px;">${fk_userid}</input>\n' +
+			               '        <input type="text" name="year1'+career_count+'" value="" placeholder="YYYY" maxlength="4" style="width: 41px;"></input>\n' +
 			               '        .\n' +
 			               '        <input type="text" name="month1'+career_count+'" value="" placeholder="MM" maxlength="2" style="width: 28px;" />\n' +
 			               '		<input type="hidden" name="start_careerDate" class="hiddenYear1'+career_count+'" value="">' +		
@@ -1416,19 +1425,19 @@
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" value="" name="name" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  <input type="text" value="${mvo.name}" name="name" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
 				  placeholder="이름(필수)" >
 				  <span class="error_comment" id="name_error" style="display: none;"></span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" value="" name="email" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  <input type="text" value="${mvo.userid}" name="email" class="required_input form-control" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
 				  placeholder="이메일(필수) EX) wanted@wanted.com" >
 				  <span class="error_comment" id="email_error" style="display: none;"></span>
 				</div>
 				
 				<div class="input-group input-group-sm input-div">
-				  <input type="text" value="" name="contact" class="required_input form-control noborder" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
+				  <input type="text" value="${mvo.mobile}" name="contact" class="required_input form-control noborder" autocomplete="off" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
 				  placeholder="연락처(필수) EX) 01012345678" style="color: #3b3d40; font-size : 14px; " >
 				  <span class="error_comment" id="contact_error" style="display: none;"></span>
 				</div>

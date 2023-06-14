@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -23,10 +24,12 @@ import com.spring.wanted.ProjectWanted.post.model.PostVO;
 public class CompanyService_2 implements InterCompanyService_2 {
 	
 	private final InterCompanyDAO_2 cdao;
+	private final PasswordEncoder passwordEncoder ;
 	
 	@Autowired
-	public CompanyService_2(InterCompanyDAO_2 cdao) {
+	public CompanyService_2(InterCompanyDAO_2 cdao, PasswordEncoder passwordEncoder) {
 		this.cdao = cdao;
+		this.passwordEncoder = passwordEncoder ;
 	}
 	
 	@Autowired
@@ -279,6 +282,11 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	//패스워드 업데이트하기
 	@Override
 	public int passwdUpdate(Map<String, String> paraMap) {
+		
+		String pwd = passwordEncoder.encode(paraMap.get("pwd"));
+		
+		paraMap.put("pwd", pwd);
+		
 		int n = cdao.passwdUpdate(paraMap);
 		return n;
 	}
@@ -367,11 +375,81 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		
 		return n;
 	}
-
+	
+	// 회사상세이미지 업로드
 	@Override
 	public int companyDetailImageUpload(MultipartHttpServletRequest mrequest) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int n = 0 ;
+		
+		String company_id = mrequest.getParameter("company_id");
+		
+		int count= cdao.countDetailImage(company_id);
+		
+		int attachCount = Integer.parseInt(mrequest.getParameter("attachCount"));
+		
+		List<MultipartFile> attachs = mrequest.getFiles("attach");
+			
+		HttpSession session = mrequest.getSession();
+		String root = session.getServletContext().getRealPath("/").substring(0, 30);
+		
+		String path = root + "resources" + File.separator + "static" + File.separator + "images" + File.separator + "company_detail_image";
+		
+		String newFileName = "";	
+		
+		if( count > 0 ) {
+			
+			List<String> detailImageName = cdao.getDetailImageName(company_id);
+			
+			for(int i= 0 ; i<count; i++) {
+				String image = detailImageName.get(i);
+				
+				try {
+					fileManager.doFileDelete(image, path);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+			cdao.deleteCompanyImage(company_id);
+		}
+		
+			
+		for(int i=0; i<attachCount; i++) {
+			
+			MultipartFile attach = attachs.get(i);
+		
+			byte[] bytes = null;
+			
+			try {
+				
+				bytes = attach.getBytes();
+				
+				String OriginalFilename = attach.getOriginalFilename();
+				
+				newFileName = fileManager.doFileUpload(bytes, OriginalFilename, path);
+				//System.out.println("newFileName" + newFileName);
+				
+				Map<String, String> paraMap = new HashMap<>();
+				
+				paraMap.put("image_name", newFileName);
+				paraMap.put("fk_company_id", company_id);
+				
+				n = cdao.companyDetailImageUpload(paraMap);
+				
+				
+			} catch ( Exception e ) {
+				e.printStackTrace();
+			}	
+			
+			
+        								 
+        }
+		
+		
+		
+		return n;
 	}
 	
 }
