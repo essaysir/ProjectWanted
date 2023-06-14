@@ -78,9 +78,9 @@ public class MemberController {
 		public String postDetail(@PathVariable int post_code , HttpServletRequest request) {
 				PostVO pvo = service.getPostVO(post_code);
 				CompanyVO cvo = service.getCompanyVO(post_code);
-				System.out.println(" 확인용 pvo : " + pvo );
+				// System.out.println(" 확인용 pvo : " + pvo );
 				request.setAttribute("pvo", pvo);
-				System.out.println(" 확인용 cvo : " + cvo );
+				// System.out.println(" 확인용 cvo : " + cvo );
 				request.setAttribute("cvo", cvo);
 				return "post/detailPost.tiles1";
 		}
@@ -90,9 +90,13 @@ public class MemberController {
 		@PostMapping(value="/member/apply")
 		public String apply() {
 			Authentication authenticate = SecurityContextHolder.getContext().getAuthentication();
-			System.out.println(" 확인용 auth : " + authenticate);
+			MemberVO mvo = (MemberVO)authenticate.getPrincipal();
+			// System.out.println(" 확인용 auth : " + authenticate);
+			System.out.println(" 확인용 mvo : " + mvo);
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("authenticate", authenticate);
+			jsonObj.put("mvo", mvo);
+			
 			return jsonObj.toString() ;
 		}
 		

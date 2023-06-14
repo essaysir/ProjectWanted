@@ -227,8 +227,13 @@
 			margin-top: 10px;
 			background-color: #f3f5f8;
     		padding: 8px 12px 7px;
-		
-		
+		}
+		h2.apply_h2{
+		text-align: center;
+	    font-size: 16px;
+	    font-weight: 600;
+	    color: #333;
+	    line-height: 22px;
 		}
  </style>   
  <script src="
@@ -247,7 +252,7 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 
  <script type="text/javascript">
  		$(document).ready(function(){
- 			$("button#btn_apply").on("click", apply ) ; // 지원하기 클릭시 
+ 			$("button#btn_apply").on("click", apply) ; // 지원하기 클릭시 
  			func_geocoder('${cvo.addresss}');
  			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  			// 카카오맵 시작 
@@ -428,12 +433,8 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  					 
  				},
  				error: function (request, status, error) {
- 					// alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+ 					 alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
  				}	
- 				
- 				
- 				
- 				
  			}); // END OF $.AJAX 
  		}// END OF FUNCTION APPLY 
  		
@@ -454,18 +455,18 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  
 
  
-				<!--  왼쪽 BODY  시작  -->
+			<!--  왼쪽 BODY  시작  -->
 			<div class="main_top_carousel container" style="margin-top:20px; ">
 			    <div class="my-1">
 			        <div class="owl-carousel owl-theme">
 			            <div class="item" style="text-align: left;">
-			                <img style="height: 100%;" src="/images/main_image/계약서.jpg">
+			                <img style="height: 100%;" src="/images/company_detail_image/계약서.jpg">
 			            </div>
 			            <div class="item" style="text-align: left;">
-			                <img style="height: 100%;" src="/images/main_image/월급복권.jpg">
+			                <img style="height: 100%;" src="/images/company_detail_image/월급복권.jpg">
 			            </div>
 			            <div class="item" style="text-align: left;">
-			                <img style="height: 100%;" src="/images/main_image/휴대폰결제.jpg">
+			                <img style="height: 100%;" src="/images/company_detail_image/휴대폰결제.jpg">
 			            </div>
 			        </div>
 			    </div>
@@ -540,6 +541,12 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 	<div class="border fixed-top" style="background-color: #fff;  width: 330px; height: 340px; top:70px ; left: 1330px;padding: 24px 20px; z-index: 1;">
 			
 			<div class="" style="text-align:center; margin: 15px;   ">	
+			<h2 class="apply_h2">지원하기</h2>	
+			
+			</div>
+	</div>
+
+			<div class="" style="text-align:center; margin: 15px;   ">	
 				
 				<button type="button" class="btn-blue save-temporary" style="width:90%;">북마크하기</button>
 				<br/>
@@ -552,9 +559,6 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 			<span class="warning_h5">서류 합격률이 궁금하다면?</span>
 			
 			</div>
-	</div>
-
-
 
 
 
