@@ -43,6 +43,25 @@
 
 </style>
 
+<!-- Pie chart -->
+<script src="/Highcharts-10.3.1/code/highcharts.js"></script>
+<script src="/Highcharts-10.3.1/code/modules/exporting.js"></script>
+<script src="/Highcharts-10.3.1/code/modules/export-data.js"></script>
+<script src="/Highcharts-10.3.1/code/modules/accessibility.js"></script>
+
+<!-- Basic line Chart -->
+<script src="/Highcharts-10.3.1/code/modules/series-label.js"></script>
+
+<!-- column-drilldown Chart -->
+<script src="/Highcharts-10.3.1/code/modules/data.js"></script>
+<script src="/Highcharts-10.3.1/code/modules/drilldown.js"></script>
+ 
+<figure>
+</figure>
+
+<script type="text/javascript">
+
+</script>
 
 	
 	<div class="listForm">
