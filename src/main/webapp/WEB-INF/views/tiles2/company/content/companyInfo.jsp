@@ -626,12 +626,13 @@
 	
 	function companyDetailImageUpload(){
 		
-		//const frm = document.companyfrm;
-	    var dataArr = $("form[name='companyfrm']").serializeArray();
+		const frm = document.profile_imageFrm;
+	    var formData = new FormData(frm);
 	    
-	    console.log(dataArr);
+	    var company_id = $("input#company_id").val();
+	    formData.append("company_id", company_id);
 	    
-	  /*   $.ajax({
+	    $.ajax({
 	        url: "companyDetailImageUpload",
 	        type: "POST",
 	        data: formData,
@@ -648,7 +649,7 @@
 	        error: function(request, status, error) {
 	            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 	        }
-	    }); */
+	    });
 		
 	}
 	
@@ -705,10 +706,11 @@
 					<p class="sctitle">회사 상세 이미지</p>
 					<p class="scsub">회사 상세이미지를 관리할 수 있습니다.</p>
 				<form name="companyfrm">	
-					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
-					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
-					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
-					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach0" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach1" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach2" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach3" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="hidden" name="attachCount" id="attachCount" value="4"/>
 				</form>	
 					<button type="button" class="companybtn_submit" id="companyDetailImageUpload" onclick="companyDetailImageUpload()">업로드</button>
 				</section>
