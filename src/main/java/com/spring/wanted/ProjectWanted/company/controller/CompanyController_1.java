@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,8 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
@@ -169,7 +172,7 @@ public class CompanyController_1 {
 		return "company/candidateResume.tiles2";
 	}
 
-	
+
 	// 지원자 이력서 데이터 가져오기
 	@PostMapping(value = "/apply_resume")
 	public String getApplyResume (HttpServletRequest request) {
@@ -179,11 +182,7 @@ public class CompanyController_1 {
 		
 		return "tiles2/company/content/candidateResume";
 	}
-	
-	
-	// 지원자 이력서 데이터에 필요한 memberTech 가져오기
-	
-	
+
 
 	
 	
@@ -201,6 +200,14 @@ public class CompanyController_1 {
 	public String company_chart(){
 
 		return "company/company_chart.tiles2";
+	}
+	
+	
+	@ResponseBody
+	@PostMapping(value = "/viewChart")
+	public String chart(){
+
+		return "";
 	}
 	
 	
