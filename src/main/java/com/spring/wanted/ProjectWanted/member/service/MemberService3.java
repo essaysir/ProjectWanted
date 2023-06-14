@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -20,10 +21,12 @@ import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 public class MemberService3 implements InterMemberService3 {
 	
 	private final InterMemberDAO3 mdao ;
-
+	private final PasswordEncoder passwordEncoder ;
+	
 	@Autowired
-	public MemberService3(InterMemberDAO3 mdao) {
+	public MemberService3(InterMemberDAO3 mdao, PasswordEncoder passwordEncoder) {
 		this.mdao = mdao;
+		this.passwordEncoder = passwordEncoder ;
 	}
 	
 	@Autowired
@@ -64,6 +67,11 @@ public class MemberService3 implements InterMemberService3 {
 	//패스워드 업데이트하기
 	@Override
 	public int passwdUpdate(Map<String, String> paraMap) {
+		
+		String pwd = passwordEncoder.encode(paraMap.get("pwd"));
+		
+		paraMap.put("pwd", pwd);
+		
 		int n = mdao.passwdUpdate(paraMap);
 		return n;
 	}

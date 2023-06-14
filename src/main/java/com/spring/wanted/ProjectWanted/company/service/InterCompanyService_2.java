@@ -73,6 +73,6 @@ public interface InterCompanyService_2 {
 	// 회원탈퇴처리
 	int companyExit(String company_id, HttpServletRequest request);
 
-	int companyDetailImageUpload(MultipartHttpServletRequest mrequest);
+	int companyDetailImageUpload(Map<String, String> paraMap, MultipartHttpServletRequest mrequest);
 
 }

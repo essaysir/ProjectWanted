@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -23,10 +24,12 @@ import com.spring.wanted.ProjectWanted.post.model.PostVO;
 public class CompanyService_2 implements InterCompanyService_2 {
 	
 	private final InterCompanyDAO_2 cdao;
+	private final PasswordEncoder passwordEncoder ;
 	
 	@Autowired
-	public CompanyService_2(InterCompanyDAO_2 cdao) {
+	public CompanyService_2(InterCompanyDAO_2 cdao, PasswordEncoder passwordEncoder) {
 		this.cdao = cdao;
+		this.passwordEncoder = passwordEncoder ;
 	}
 	
 	@Autowired
@@ -279,6 +282,11 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	//패스워드 업데이트하기
 	@Override
 	public int passwdUpdate(Map<String, String> paraMap) {
+		
+		String pwd = passwordEncoder.encode(paraMap.get("pwd"));
+		
+		paraMap.put("pwd", pwd);
+		
 		int n = cdao.passwdUpdate(paraMap);
 		return n;
 	}
@@ -369,8 +377,19 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	}
 
 	@Override
-	public int companyDetailImageUpload(MultipartHttpServletRequest mrequest) {
-		// TODO Auto-generated method stub
+	public int companyDetailImageUpload(Map<String, String> paraMap, MultipartHttpServletRequest mrequest) {
+			
+		String company_id = paraMap.get("company_id");
+		
+		int attachCount = Integer.parseInt(paraMap.get("attachCount"));
+		
+		for(int i=0; i<attachCount; i++) {
+        	
+        								 // pnum은 위에서 채번해온 제품번호이다.
+        }
+		
+		
+		
 		return 0;
 	}
 	
