@@ -135,7 +135,7 @@ public class PostController {
 		return jsonobj.toString();
 		
 	}
-
+	*/
 	@ResponseBody
 	@PostMapping(value = "/getPostListWithFilters", produces="text/plain;charset=UTF-8" )
 	public String getPostListWithFilters(@RequestBody FilterData filterData ) {
@@ -159,7 +159,6 @@ public class PostController {
 		return jsonobj.toString();
 	
 	}
-
 	
 	
 	
