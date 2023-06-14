@@ -3,6 +3,8 @@ package com.spring.wanted.ProjectWanted.member.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
@@ -26,6 +28,9 @@ public interface InterMemberService3 {
 	
 	// 프로필사진업데이트하기
 	int profileImageUpdate(MemberVO membervo, MultipartHttpServletRequest mrequest);
+	
+	// 회원탈퇴처리
+	int memberExit(String userid, HttpServletRequest request);
 
 	
 

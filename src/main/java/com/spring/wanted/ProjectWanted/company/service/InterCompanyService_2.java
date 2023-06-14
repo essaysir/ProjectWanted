@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 public interface InterCompanyService_2 {
@@ -22,7 +23,7 @@ public interface InterCompanyService_2 {
 	void insertRecruitSkil(PostVO postvo, List<String> techcode, MultipartHttpServletRequest mrequest);
 	
 	// 채용공고관리페이지 띄우기
-	int getTotalPost(String id);
+	int getTotalPost(String company_id);
 	
 	//ajax로 Post호출하기
 	String getPost(Map<String, String> paraMap);
@@ -50,5 +51,28 @@ public interface InterCompanyService_2 {
 	
 	//결제완료 후 deadline update하기
 	void updateExtendPost(String post_code);
+	
+	// 멤버 정보가져오기
+	List<Map<String, String>> getCompanyInfo(String company_id);
+	
+	// 이름업데이트하기
+	int nameUpdate(Map<String, String> paraMap);
+	
+	// 닉네임업데이트하기
+	int nickUpdate(Map<String, String> paraMap);
+	
+	//비밀번호 일치 여부
+	String getPasswd(String company_id);
+	
+	// 패스워드 업데이트하기
+	int passwdUpdate(Map<String, String> paraMap);
+	
+	// 프로필사진업데이트하기
+	int profileImageUpdate(CompanyVO companyvo, MultipartHttpServletRequest mrequest);
+	
+	// 회원탈퇴처리
+	int companyExit(String company_id, HttpServletRequest request);
+
+	int companyDetailImageUpload(MultipartHttpServletRequest mrequest);
 
 }

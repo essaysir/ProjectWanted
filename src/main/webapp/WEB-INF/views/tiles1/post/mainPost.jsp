@@ -2387,6 +2387,20 @@ section#skillSearch {
     		minyear = "신입";
     		html += '<span class="ButtonDisplay_ButtonDisplay__4VTdg" style="color: #36f;">'+minyear+' ~ '+maxyear+'년 이상</span>'
         }
+    	
+    	else if (minyear == maxyear) {
+    		if(minyear == 0){
+    			minyear = "신입";
+    			html += '<span class="ButtonDisplay_ButtonDisplay__4VTdg" style="color: #36f;">'+minyear+'</span>'
+    		}
+    		else if(maxyear == 10){
+    			html += '<span class="ButtonDisplay_ButtonDisplay__4VTdg" style="color: #36f;">'+minyear+'년 이상</span>'
+    		}
+    		else {
+    			html += '<span class="ButtonDisplay_ButtonDisplay__4VTdg" style="color: #36f;">'+minyear+'년</span>'
+    		}
+    	}
+    	
     	else if (maxyear == 10){
     		html += '<span class="ButtonDisplay_ButtonDisplay__4VTdg" style="color: #36f;">'+minyear+'년 ~ '+maxyear+'년 이상</span>'
         }
@@ -2446,21 +2460,16 @@ section#skillSearch {
 				// console.log(JSON.stringify(json));
 				let html = "" //"<section role='navigation' id='myDropdown' class='dropdown-content JobGroupOverlay_JobGroupOverlay__ZEs7N isKR'>";
 				 html += " <ul> "
-						+ "<li><a href='/wanted/mainPost' class='JobGroupOverlay_JobGroupOverlay__all__1x5HT'>전체</a></li>";
+						+ "<li><a href='/wanted/post/mainPost' class='JobGroupOverlay_JobGroupOverlay__all__1x5HT'>전체</a></li>";
 						
 						
 				for (let i = 0; i < json.JobList.length; i++) {
 					 // console.log(json.JobList[i].job_name);
 					 // console.log(json.JobList[i].job_code);
 					 html += "<li>" +
-							"<a onclick='getDutyList_post("+json.JobList[i].job_code+")' class='JobGroupItem_JobGroupItem__xXzAi'>" + //<input type='hidden'  value=' "+json.JobList[i].job_code+" '/>
+							"<a onclick='job_code_gofilter("+json.JobList[i].job_code+"); getDutyList_post("+json.JobList[i].job_code+")' class='JobGroupItem_JobGroupItem__xXzAi'>" + //<input type='hidden'  value=' "+json.JobList[i].job_code+" '/>
 							json.JobList[i].job_name +
 							"</a></li>" ; 
-					
-					/* html += "<li>" +
-							"<a href='/wanted/getPostList?"+json.JobList[i].job_code+"' class='JobGroupItem_JobGroupItem__xXzAi'>" +
-							json.JobList[i].job_name +
-							"</a></li>" ;  */		
 							
 				}
 				html += "</ul>"
@@ -2477,6 +2486,15 @@ section#skillSearch {
 		});
 		
 	}// end of function getJobList()
+	
+	function job_code_gofilter(job_code){
+		alert(job_code);
+		let html = "";
+			html+='<input type="hidden" name="job_code" value="'+job_code+'"/>';
+			$("li#job_code_gofilter").html(html);
+
+		gofilter();
+	}
     
     
 	// joblist 선택된 값의 dutylist 가져오기
@@ -2565,11 +2583,17 @@ section#skillSearch {
 	}
 	 
 	function confirmDuty() {
-		
-		let tech_code = [];
-	    $("input[name='tech_code']").each(function() {
-	        tech_code.push($(this).val());
-	    });
+	 	let html =""; // input 태그들 초기화 시켜주고
+	 	$("li#duty_code_gofilter").html(html);
+		$(".JobCategoryItem_clicked__cmZll").each(function() { //각각의 값을 받아서 input 태그로 생성
+		    let duty_value = $(this).children().attr("value");
+		    /* let duty_input = $("<input>").attr("type", "hidden").attr("name", "duty_code").val(duty_value); */
+		    /* $(this).append(duty_input); */
+		    html += '<input type="hidden" name="duty_code" value="' + duty_value + '"/>';
+		});
+
+		$("li#duty_code_gofilter").html(html);
+
 		
 		let duty_names = $(".JobCategoryItem_clicked__cmZll").map(function() {
 							    return $(this).text();
@@ -2579,6 +2603,8 @@ section#skillSearch {
 		$("span.JobCategory_JobCategory__btn__title__ixP9v").text(duty_name);
 		
 		dropdownfunc2();
+		
+		gofilter();
 	}
 	
 	
@@ -2586,11 +2612,6 @@ section#skillSearch {
     
 	function getDutyList_post(job_code) {
 		
-		//job_code 가 들어간 input 태그 생성
-		html=""
-		html+="<input type='hidden' name="job_code"  value=' "+job_code+" '/>"
-		$("section.JobCategoryOverlay_JobCategoryOverlay__rkFLO").html(html); 
-    	
     	  $.ajax({
 			url: "/wanted/post/getDutyList_post",
 			type: "get",
@@ -2598,7 +2619,7 @@ section#skillSearch {
 			dataType: "json",
 			success: function (json) {
 				//console.log(JSON.stringify(json));
-				let html = ""
+		 	 let html = '';
 				 html += '<div class="JobCategoryOverlay_JobCategoryOverlay__top__RppY3">'+
 				 		 '<p class="JobCategoryOverlay_JobCategoryOverlay__top__title__3tneN">직무를 선택해 주세요. (최대 5개 선택 가능)</p>'+
 				 		 '<div class="JobCategoryOverlay_JobCategoryOverlay__top__list__amyf6">'+
@@ -2625,6 +2646,8 @@ section#skillSearch {
 
 
 		}); 
+    	  
+
     }
     
 	
@@ -2650,9 +2673,10 @@ section#skillSearch {
 			resetRegion.call(this);
 		});
 		
-		
 		//적용
-		
+		$(document).on('click' , 'button.CommonFooter_button__sCywr' , function(){
+			confirmRegion.call(this);
+		});
 	}
 	
 	
@@ -2809,6 +2833,10 @@ section#skillSearch {
 		region_select_count = 0;
 	}
 	
+	function confirmRegion() {
+		
+	}
+	
 	
 	
 	////////////////////////////////////////////////////////////////////////
@@ -2913,7 +2941,7 @@ section#skillSearch {
 			                        '<button type="button" class="btn-skill" id="btn-skill-'+skill.tech_code+ '">' +
 			                            '<div class="div_skill">' +
 			                                skill.tech_name +
-			                                '<input type="hidden" name="tech_code" value=" '+skill.tech_code+' "/> '+
+			                                '<input type="hidden" class="tech_code" value="'+skill.tech_code+'"/> '+
 			                                '<span style="margin-left:4px; margin-bottom:2px; ">' +
 			                                    '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
 			                                        '<path d="M4.59459 4.59459V0.405405C4.59459 0.181506 4.7761 0 5 0C5.2239 0 5.40541 0.181506 5.40541 0.405405V4.59459H9.59459C9.81849 4.59459 10 4.7761 10 5C10 5.2239 9.81849 5.40541 9.59459 5.40541H5.40541V9.59459C5.40541 9.81849 5.2239 10 5 10C4.7761 10 4.59459 9.81849 4.59459 9.59459V5.40541H0.405405C0.181506 5.40541 0 5.2239 0 5C0 4.7761 0.181506 4.59459 0.405405 4.59459H4.59459Z" fill="#bbbbbb"></path>' +
@@ -3051,7 +3079,7 @@ section#skillSearch {
 					        '<button type="button" class="btn-delete">' +
 					          '<div class="div_insert_skill">' +
 					            tech_name +
-					            '<input type="hidden" id="insert-tech-code" value="'+tech_code+'"/>'+
+					            '<input type="hidden" id="insert-tech-code" name="tech_code" value="'+tech_code+'"/>'+
 					            '<span style="margin-left:4px; margin-bottom:2px;">' +
 					              '<svg xmlns="https://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">' +
 					                '<path d="M0.882988 0.151497L5.00001 4.26852L9.11705 0.151497C9.31905 -0.0504989 9.6465 -0.0504989 9.8485 0.151497C10.0505 0.35349 10.0505 0.680994 9.8485 0.882988L5.7315 5.00001L9.8485 9.11705C10.0505 9.31905 10.0505 9.6465 9.8485 9.8485C9.6465 10.0505 9.31905 10.0505 9.11705 9.8485L5.00001 5.7315L0.882988 9.8485C0.680994 10.0505 0.35349 10.0505 0.151497 9.8485C-0.0504989 9.6465 -0.0504989 9.31905 0.151497 9.11705L4.26852 5.00001L0.151497 0.882988C-0.0504989 0.680994 -0.0504989 0.35349 0.151497 0.151497C0.35349 -0.0504989 0.680994 -0.0504989 0.882988 0.151497Z" fill="currentColor"></path>' +
@@ -3163,75 +3191,80 @@ section#skillSearch {
 			$("button#skill").html('<span class="FilterButton_title__MNRKD">기술스택</span><span class="ButtonDisplay_ButtonDisplay__4VTdg"></span><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path></svg>');
 		}
 		
-		gofilter();
+		
+		gofilter(); // 버튼 눌러서 아작스로 필터링 이후 포스팅 공개  
 		
 	}// END OF FUNCTION SECTIONADJUST
 	
 	// 기술스택 끝
     
-	function gofilter(){ 
 	
-	  	<%-- const filterFrm = document.post_filter_form;
-	  	searchFrm.method = "get";
-	  	searchFrm.action = "<%=request.getContextPath()%>/post/getPostList/" + "${requestScope.filter_condition_Map.category_no}/" + "${requestScope.filter_condition_Map.district_no}";
-	  	
-	  											/getPostList/{job_code}/{duty_code}/{region_code}/{region_detail_code}/{career}/{tech_code}
-	  	
-	  	filterFrm.submit(); --%>
-	  	
-	  	let tech_code = [];
-	    $("input[name='tech_code']").each(function() {
-	        tech_code.push($(this).val());
-	    });
-	  	
-	  	let html = "" ;
-		$.ajax({
-			url: "/wanted/getPostListWithFilters",
-			type: "get",
-			data: {"tech_code":tech_code},
-			dataType:"json",
-			success: function (result) {
-			   //  console.log(JSON.stringify(result));
-			
-			   
-			        
-			},
-			error: function (request, status, error) {
-				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-			}
-		});
-  
- 	 }
+	
 
 		function gofilter() { <%-- 검색하러가는 역할 --%>
 		
-		
-		    let tech_code = [];
-		    $("input[name='tech_code']").each(function() {
-		        tech_code.push($(this).val());
+			/* let job_code = $("input[name='job_code']").val(); */
+			let job_code = [];
+		    $("input[name='job_code']").each(function() {
+		    	job_code.push($(this).val());
 		    });
-
+			
+			
 		    let duty_code = [];
 		    $("input[name='duty_code']").each(function() {
 		        duty_code.push($(this).val());
 		    });
 
+		    let tech_code = [];
+		    $("input[name='tech_code']").each(function() {
+		        tech_code.push($(this).val());
+		    });
+
+		    
 		    let data = {
-		        tech_code: tech_code,
-		        duty_code: duty_code
+		    	job_code : job_code,
+		    	duty_code: duty_code,
+		        tech_code: tech_code
+		        
 		    };
 
+		    html = "";
+		    $("div.List_List_container__JnQMS").html(html);
 		    $.ajax({
-		        url: "/wanted/getPostListWithFilters",
+		        url: "/wanted/post/getPostListWithFilters",
 		        type: "post", // get방식으로 보내서 requestParam으로 받으려했는데 ajax get 방식은 배열 타입을 보낼 수없어서 변경 
 		        data: JSON.stringify(data),
 		        dataType: "json",
 		        contentType: "application/json",
-		        success: function(result) {
-		            // 요청 성공 시 처리
+		        success: function(json) {
+		            //alert("하하하");
+						 html += " <ul id='job-list'> ";
+								
+								
+						for (let i = 0; i < json.PostList.length; i++) {
+							//console.log(json.PostList[i].SUBJECT);
+							// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
+							html += "<li>" +
+									"<div class='Card_className__u5rsb'><a href='/postdetail/"+json.PostList[i].post_code+"' class='' >" +
+									"<header style='background-image: "+json.PostList[i].image+" '></header>" +
+									"<div class='body'>"+
+									"<div class='job-card-position'>"+json.PostList[i].subject+"</div>"+
+									"<div class='job-card-company-name'>"+json.PostList[i].name+"</div>"+
+									"<div class='Tooltip_container__AvBvM'><button class='Tooltip_label__P9FMp' type='button'>"+
+									"<div class='ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP'><span>응답률 매우 높음</span></div>"+
+									"<div class='Tooltip_tooltipContent__6exdr'>지원 후 응답받을 확률이 95% 이상입니다.</div>"+
+									"</button></div>"+
+									"<div class='job-card-company-location'>"+json.PostList[i].region_name+"<span class='addressDot'>.</span><span>"+json.PostList[i].region_detail_name+"</span></div>"+
+									"</div></a></div></li>"
+							
+									
+						}
+						html += "</ul>"
+						
+						$("div.List_List_container__JnQMS").html(html);
 		        },
 		        error: function(request, status, error) {
-		            // 요청 실패 시 처리
+		        	alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
 		        }
 		    });
 		}
@@ -3242,7 +3275,7 @@ section#skillSearch {
 
 </head>
 <body>
-<!-- <form name="post_filter_form"> -->
+
 <div class="JobList_cn__t_THp container">
 
 	<!--        <input name="test" value="1" />
@@ -3477,7 +3510,7 @@ section#skillSearch {
 					                </ul>
 					                
 					                <p>최대 10개까지 선택 가능합니다.</p>
-					            </div><button class="CommonFooter_button__sCywr" type="submit" data-attribute-id="explore__filter__update" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all" data-filter-name="region" data-update-result="daegu.dong-gu">확인</button>
+					            </div><button class="CommonFooter_button__sCywr" type="button" data-attribute-id="explore__filter__update" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all" data-filter-name="region" data-update-result="daegu.dong-gu">확인</button>
 					        </div>
 					    </div>
 					    <div role="presentation" class="Modal_modalOverlay__1sCXi false"></div>
@@ -3628,8 +3661,14 @@ section#skillSearch {
         </div>
         
     </div>
+    <div style="display: none;">
+	    <ul> <!-- input 태그를 넣기 어중간한 것들 따로 이렇게 정리 -->
+	    	<li id="job_code_gofilter"></li>
+	    	<li id="duty_code_gofilter"></li>
+	    </ul>
+    </div>
 </div>
-<!-- </form> -->
+
 </body>
 
 

@@ -56,6 +56,18 @@ public class PostService implements InterPostService {
 		
 		return RegionDetailList;
 	}
+
+	// 검색필터를 거친 공고리스트 불러오기
+	@Override
+	public List<Map<String, String>> getPostListWithFilters(List<String> job_code, List<String> duty_code,
+			List<String> tech_code) {
+		
+		List<Map<String, String>> PostList = pdao.getPostListWithFilters(job_code, duty_code, tech_code);
+		
+		return PostList;
+	}
+	
+	
 	
 	
 	

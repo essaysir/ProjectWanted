@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,9 +41,7 @@ public class MemberController3 {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			MemberVO mvo = (MemberVO)authentication.getPrincipal();
 			String userid = mvo.getUserid();
-			
-			System.out.println("확인용 userid " +userid);
-			
+						
 			List<Map<String,String>> memberinfo = service.getMemberInfo(userid);
 			
 			request.setAttribute("memberinfo", memberinfo);
@@ -113,6 +113,8 @@ public class MemberController3 {
 		    }
 
 		}
+		
+		// 프로필사진 변경
 		@ResponseBody
 		@PostMapping(value = "/profileImageUpdate", produces = "text/plain;charset=UTF-8")		
 		public String profileImageUpdate(MemberVO membervo, MultipartHttpServletRequest mrequest) {
@@ -127,6 +129,38 @@ public class MemberController3 {
 		        return "fail";
 		    }
 		}
+		
+		@GetMapping(value = "/memberExit")
+		public String memberExit(HttpServletRequest request) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			MemberVO mvo = (MemberVO)authentication.getPrincipal();
+			String userid = mvo.getUserid();
+			
+			List<Map<String,String>> memberinfo = service.getMemberInfo(userid);
+			
+			request.setAttribute("memberinfo", memberinfo);
+			
+			return "member/memberExit.tiles1";
+		}
+		
+		// 프로필사진 변경
+		@ResponseBody
+		@PostMapping(value = "/memberExit", produces = "text/plain;charset=UTF-8")		
+		public String memberExit(@RequestParam("userid") String userid, HttpServletRequest request, HttpServletResponse response) {
+		    
+			int n = service.memberExit(userid, request);
+
+			if (n==1) {
+				Authentication authentication = SecurityContextHolder.getContext().getAuthentication() ;
+				if  ( authentication != null ) {
+					new SecurityContextLogoutHandler().logout(request, response, authentication);
+				}
+		        return "success";
+		    } else {
+		        return "fail";
+		    }
+		}
+		
 	
 	
 }

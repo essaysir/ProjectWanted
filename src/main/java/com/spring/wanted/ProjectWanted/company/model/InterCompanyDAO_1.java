@@ -3,6 +3,8 @@ package com.spring.wanted.ProjectWanted.company.model;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
+
 public interface InterCompanyDAO_1 {
 
 	// 회사 지원자List 불러오기
@@ -14,10 +16,26 @@ public interface InterCompanyDAO_1 {
 	// 검색기능
 	List<Map<String, String>> listSearchWithPaging(Map<String, String> paraMap);
 
-	// 지원자 이력서  가져오기
-	List<Map<String, String>> getResume(Map<String, String> paraMap);
+	List<Map<String, String>> wordList(Map<String, String> paraMap);
+
+	// 지원자 이력서 데이터 가져오기
+	List<ResumeVO> resumeContent();
+
 	
-//	List<String> wordSearchShow(Map<String, String> paraMap);
+
+
+
+
+	
+
+
+
+	
+
+
+
+	
+
 
 	
 	

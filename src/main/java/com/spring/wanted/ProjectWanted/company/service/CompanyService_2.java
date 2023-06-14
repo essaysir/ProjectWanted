@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.spring.wanted.ProjectWanted.common.common.FileManager;
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.company.model.InterCompanyDAO_2;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
@@ -130,8 +131,8 @@ public class CompanyService_2 implements InterCompanyService_2 {
 	
 	// 채용공고관리페이지 띄우기
 	@Override
-	public int getTotalPost(String id) {
-		int totalPost = cdao.getTotalPost(id);
+	public int getTotalPost(String company_id) {
+		int totalPost = cdao.getTotalPost(company_id);
 		
 		return totalPost;
 	}
@@ -241,6 +242,136 @@ public class CompanyService_2 implements InterCompanyService_2 {
 
 		cdao.updateExtendPost(post_code);
 		
+	}
+	
+	//멤버 정보가져오기
+	@Override
+	public List<Map<String, String>> getCompanyInfo(String company_id) {
+		
+		List<Map<String, String>> companyInfo = cdao.getCompanyInfo(company_id);
+		
+		return companyInfo;
+	}
+	
+	//이름 업데이트하기
+	@Override
+	public int nameUpdate(Map<String, String> paraMap) {
+		int n = cdao.nameUpdate(paraMap);
+		return n;
+	}
+	
+	//이름 업데이트하기
+	@Override
+	public int nickUpdate(Map<String, String> paraMap) {
+		int n = cdao.nickUpdate(paraMap);
+		return n;
+	}
+	
+	// 비밀번호 가져오기
+	@Override
+	public String getPasswd(String company_id) {
+		
+		String getPasswd = cdao.getPasswd(company_id);
+		
+		return getPasswd;
+	}
+
+	//패스워드 업데이트하기
+	@Override
+	public int passwdUpdate(Map<String, String> paraMap) {
+		int n = cdao.passwdUpdate(paraMap);
+		return n;
+	}
+	
+	// 프로필사진업데이트하기
+	@Override
+	public int profileImageUpdate(CompanyVO companyvo, MultipartHttpServletRequest mrequest) {
+		
+		MultipartFile attach = companyvo.getAttach();
+		String company_id = companyvo.getCompany_id();
+		//System.out.println(attach.getOriginalFilename());
+		if(!attach.isEmpty() ) {
+			
+			HttpSession session = mrequest.getSession();
+			
+			String root = session.getServletContext().getRealPath("/").substring(0, 30);
+			
+			String path = root + "resources" + File.separator + "static" + File.separator + "images" + File.separator + "company_profile";
+			
+			String newFileName = "";
+			
+			companyvo = cdao.getCompanyImage(company_id);
+			
+			String image = companyvo.getImage();
+			
+			if(!image.equals("profile_default.png")) {
+								
+				try {
+					fileManager.doFileDelete(image, path);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			//System.out.println("root" + root);
+			//System.out.println("path" + path);
+			byte[] bytes = null;
+			
+			try {
+				
+				bytes = attach.getBytes();
+				
+				String OriginalFilename = attach.getOriginalFilename();
+				
+				newFileName = fileManager.doFileUpload(bytes, OriginalFilename, path);
+				//System.out.println("newFileName" + newFileName);
+				companyvo.setImage(newFileName);
+				
+			} catch ( Exception e ) {
+				e.printStackTrace();
+			}
+			 
+		}
+		
+		int n = cdao.profileImageUpdate(companyvo);
+		
+		return n;
+		
+	}
+	
+	//회원탈퇴 처리
+	@Override
+	public int companyExit(String company_id, HttpServletRequest request) {
+		
+		CompanyVO companyvo = cdao.getCompanyImage(company_id);
+		
+		HttpSession session = request.getSession();
+		
+		String root = session.getServletContext().getRealPath("/").substring(0, 30);
+		
+		String path = root + "resources" + File.separator + "static" + File.separator + "images" + File.separator + "company_profile";
+		
+		String image = companyvo.getImage();
+		
+		if(!image.equals("profile_default.png")) {
+							
+			try {
+				fileManager.doFileDelete(image, path);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		int n = cdao.companyExit(company_id);
+		
+		
+		return n;
+	}
+
+	@Override
+	public int companyDetailImageUpload(MultipartHttpServletRequest mrequest) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

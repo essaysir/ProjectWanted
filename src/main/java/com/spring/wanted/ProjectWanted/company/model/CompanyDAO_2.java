@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.wanted.ProjectWanted.common.common.FileManager;
 import com.spring.wanted.ProjectWanted.company.mapper.InterCompanyMapper_2;
+import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 @Component
@@ -83,8 +84,8 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 	
 	// 채용공고관리페이지 띄우기
 	@Override
-	public int getTotalPost(String id) {
-		int totalPost = mapper.getTotalPost(id);
+	public int getTotalPost(String company_id) {
+		int totalPost = mapper.getTotalPost(company_id);
 		
 		return totalPost;
 	}
@@ -181,6 +182,70 @@ public class CompanyDAO_2 implements InterCompanyDAO_2 {
 		PostVO oneRecruit = mapper.getOneRecruit(post_code);
 		
 		return oneRecruit;
+	}
+
+	//멤버정보가져오기
+	@Override
+	public List<Map<String, String>> getCompanyInfo(String company_id) {
+		List<Map<String, String>> companyInfo = mapper.getCompanyInfo(company_id);
+		
+		return companyInfo;
+	}
+	
+	//이름업데이트하기
+	@Override
+	public int nameUpdate(Map<String, String> paraMap) {
+		
+		int n = mapper.nameUpdate(paraMap);
+		
+		return n;
+	}
+	
+	//닉네임업데이트하기
+	@Override
+	public int nickUpdate(Map<String, String> paraMap) {
+		
+		int n = mapper.nickUpdate(paraMap);
+		
+		return n;
+	}
+	
+	//패스워드가져오기
+	@Override
+	public String getPasswd(String company_id) {
+		
+		String getPasswd = mapper.getPasswd(company_id);
+		
+		return getPasswd;
+	}
+	
+	//패스워드 업데이트하기
+	@Override
+	public int passwdUpdate(Map<String, String> paraMap) {
+		int n = mapper.passwdUpdate(paraMap);
+		return n;
+	}
+	
+	// 프로필사진업데이트하기
+	@Override
+	public int profileImageUpdate(CompanyVO companyvo) {
+
+		int n = mapper.profileImageUpdate(companyvo);
+		return n;
+	}
+	
+	// 원래프로필이미지 가져오기
+	@Override
+	public CompanyVO getCompanyImage(String company_id) {
+		CompanyVO companyImage = mapper.getCompanyImage(company_id);
+		return companyImage;
+	}
+	
+	// 회원탈퇴하기
+	@Override
+	public int companyExit(String company_id) {
+		int n = mapper.companyExit(company_id);
+		return n;
 	}
 
 }

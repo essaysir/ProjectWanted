@@ -76,7 +76,13 @@ public class MemberDAO3 implements InterMemberDAO3 {
 		MemberVO memberImage = mapper.getMemberImage(userid);
 		return memberImage;
 	}
-
+	
+	// 회원탈퇴하기
+	@Override
+	public int memberExit(String userid) {
+		int n = mapper.memberExit(userid);
+		return n;
+	}
 	
 
 }

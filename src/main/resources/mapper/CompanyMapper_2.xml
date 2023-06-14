@@ -31,11 +31,11 @@
 	<insert id="insertRecruit" parameterType="com.spring.wanted.ProjectWanted.post.model.PostVO" useGeneratedKeys="true" keyColumn="post_code" keyProperty="post_code">
 		<if test='image == null'>
 		insert into tbl_post(POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE, VIEWCOUNT, PAY_STATUS) 
-		values(SEQ_POST.nextval, 'test_wanted', #{fk_duty_code}, #{career}, #{subject}, #{info}, #{createday}, #{salary}, #{mainduty}, #{quality}, #{deadline}, default, 0)
+		values(SEQ_POST.nextval, #{fk_company_id}, #{fk_duty_code}, #{career}, #{subject}, #{info}, #{createday}, #{salary}, #{mainduty}, #{quality}, #{deadline}, default, 0)
 		</if>
 		<if test='image != null'>
 			insert into tbl_post(POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, IMAGE, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE, VIEWCOUNT, PAY_STATUS) 
-		values(SEQ_POST.nextval, 'test_wanted', #{fk_duty_code}, #{career}, #{subject}, #{info}, #{image}, #{createday}, #{salary}, #{mainduty}, #{quality}, #{deadline}, default, 0)
+		values(SEQ_POST.nextval, #{fk_company_id}, #{fk_duty_code}, #{career}, #{subject}, #{info}, #{image}, #{createday}, #{salary}, #{mainduty}, #{quality}, #{deadline}, default, 0)
 		</if>
 	</insert>
 	
@@ -47,7 +47,7 @@
 	<select id="getTotalPost" parameterType="String" resultType="int">
 		select count(*)
 		from tbl_post
-		where fk_company_id = #{id}
+		where fk_company_id = #{company_id}
 	</select>
 	<!-- //ajax로 Post호출하기 -->
 	<resultMap type="HashMap" id="getPost_Map">
@@ -72,6 +72,7 @@
 		    on p.fk_duty_code = D.duty_code
 		    JOIN tbl_job J
 		    on D.fk_job_code = J.job_code
+		    where fk_company_id = #{fk_company_id}
 		) V
 		where RNO between #{start} and #{end}
 	</select>
@@ -173,5 +174,58 @@
 		on D.fk_job_code = J.job_code
 		where post_code = #{post_code}	
 	</select>
+	
+	<!-- ////////////////////////////////////////////////////////////////// -->
+	
+	<resultMap type="HashMap" id="getCompanyInfo_Map">
+		<result property="company_id" 	column="company_id" 	javaType="String" />
+		<result property="pwd" 			column="pwd" 			javaType="String" />
+		<result property="name" 		column="name" 			javaType="String" />
+		<result property="details" 		column="details" 		javaType="String" />
+		<result property="serial_no" 	column="serial_no"		javaType="String" />
+		<result property="image" 		column="image"			javaType="String" />
+	</resultMap>
+	<select id="getCompanyInfo" resultMap="getCompanyInfo_Map">
+		select company_id, pwd, name, details, serial_no, image
+		from tbl_company
+		where company_id = #{company_id}		
+	</select>
+	
+	<update id="nameUpdate" parameterType="HashMap">
+		update tbl_company set name = #{name}
+		where company_id = #{company_id}
+	</update>
+	
+	<update id="nickUpdate" parameterType="HashMap">
+		update tbl_company set details = #{details}
+		where company_id = #{company_id}
+	</update>
+	
+	<select id="getPasswd" parameterType="String" resultType="String">
+		select pwd
+		from tbl_company
+		where company_id = #{company_id}		
+	</select>
+	
+	<update id="passwdUpdate" parameterType="HashMap">
+		update tbl_company set pwd = #{pwd}
+		where company_id = #{company_id}
+	</update>
+		
+	<update id="profileImageUpdate" parameterType="com.spring.wanted.ProjectWanted.company.model.CompanyVO">
+		update tbl_company set image = #{image}
+		where company_id = #{company_id}
+	</update>
+		
+	<select id="getCompanyImage" parameterType="String" resultType="com.spring.wanted.ProjectWanted.company.model.CompanyVO">
+		select company_id, pwd, name, details, serial_no, image
+		from tbl_company
+		where company_id = #{company_id}		
+	</select>
+	
+	<delete id="companyExit">
+		delete from tbl_company
+		where company_id = #{company_id}
+	</delete>
 	
 </mapper>

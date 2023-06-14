@@ -7,12 +7,12 @@ import lombok.Data;
 @Data
 public class CareerVO {
 
-	private int career_Code;
-    private int fk_Resume_Code;
+	private int career_code;
+    private int fk_resume_code;
     private String company;
     private String department;
-    private String start_Date;
-    private String end_Date;
+    private String start_date;
+    private String end_date;
     
     private List<PerformanceVO> performancevoList;
     
