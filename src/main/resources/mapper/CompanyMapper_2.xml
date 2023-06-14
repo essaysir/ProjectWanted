@@ -228,4 +228,26 @@
 		where company_id = #{company_id}
 	</delete>
 	
+	<insert id="companyDetailImageUpload" parameterType="HashMap">
+		insert into tbl_detail_image(image_code, fk_company_id, image_name)
+		values(seq_image_code.nextval, #{fk_company_id}, #{image_name})
+	</insert>
+	
+	<select id="countDetailImage" parameterType="String" resultType="int">
+		select count(*)
+		from TBL_DETAIL_IMAGE
+		where fk_company_id = #{company_id}
+	</select>
+	
+	<delete id="deleteCompanyImage">
+		delete from TBL_DETAIL_IMAGE
+		where fk_company_id = #{company_id}
+	</delete>
+	
+	<select id="getDetailImageName" parameterType="String" resultType="String">
+		select image_name
+		from TBL_DETAIL_IMAGE
+		where fk_company_id = #{company_id}
+	</select>
+	
 </mapper>

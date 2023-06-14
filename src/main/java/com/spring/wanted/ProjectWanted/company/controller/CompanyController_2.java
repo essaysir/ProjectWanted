@@ -363,11 +363,11 @@ public class CompanyController_2 {
 	// 회사상세이미지 업로드
 	@ResponseBody
 	@PostMapping(value = "/companyDetailImageUpload", produces = "text/plain;charset=UTF-8")		
-	public String companyDetailImageUpload(@RequestParam Map<String, String> paraMap, MultipartHttpServletRequest mrequest) {
+	public String companyDetailImageUpload(MultipartHttpServletRequest mrequest) {
 	    // membervo를 사용하여 필요한 데이터 처리
 
 	    // attach 파일을 사용하여 프로필 사진 업데이트 처리
-		int n = service.companyDetailImageUpload(paraMap, mrequest);
+		int n = service.companyDetailImageUpload(mrequest);
 
 		if (n==1) {
 	        return "success";
