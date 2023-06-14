@@ -2,14 +2,15 @@ package com.spring.wanted.ProjectWanted.member.controller;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 import com.spring.wanted.ProjectWanted.member.service.InterMemberService2;
 
@@ -29,6 +30,10 @@ public class MemberController2 {
 	@GetMapping(value = "/wanted/member/myresume")
 	public String resume_inputLoad() {
 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		MemberVO mvo = (MemberVO) authentication.getPrincipal();
+		
+		System.out.println(mvo);
 		return "/member/resume_input.tiles1";
 	}
 	
