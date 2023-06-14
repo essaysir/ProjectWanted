@@ -78,6 +78,18 @@ public interface InterCompanyMapper_2 {
 	
 	// 회원탈퇴하기
 	int companyExit(String company_id);
+	
+	// 회사상세이미지 업로드
+	int companyDetailImageUpload(Map<String, String> paraMap);
+	
+	// 회사상세테이블에 존재하는지, 
+	int countDetailImage(String company_id);
+	
+	// 삭제하기
+	void deleteCompanyImage(String company_id);
+	
+	// 존재한다면 존재하는 파일들의 이름 가져오기
+	List<String> getDetailImageName(String company_id);
 
 	
 

@@ -375,22 +375,81 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		
 		return n;
 	}
-
+	
+	// 회사상세이미지 업로드
 	@Override
-	public int companyDetailImageUpload(Map<String, String> paraMap, MultipartHttpServletRequest mrequest) {
+	public int companyDetailImageUpload(MultipartHttpServletRequest mrequest) {
+		
+		int n = 0 ;
+		
+		String company_id = mrequest.getParameter("company_id");
+		
+		int count= cdao.countDetailImage(company_id);
+		
+		int attachCount = Integer.parseInt(mrequest.getParameter("attachCount"));
+		
+		List<MultipartFile> attachs = mrequest.getFiles("attach");
 			
-		String company_id = paraMap.get("company_id");
+		HttpSession session = mrequest.getSession();
+		String root = session.getServletContext().getRealPath("/").substring(0, 30);
 		
-		int attachCount = Integer.parseInt(paraMap.get("attachCount"));
+		String path = root + "resources" + File.separator + "static" + File.separator + "images" + File.separator + "company_detail_image";
 		
+		String newFileName = "";	
+		
+		if( count > 0 ) {
+			
+			List<String> detailImageName = cdao.getDetailImageName(company_id);
+			
+			for(int i= 0 ; i<count; i++) {
+				String image = detailImageName.get(i);
+				
+				try {
+					fileManager.doFileDelete(image, path);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+			cdao.deleteCompanyImage(company_id);
+		}
+		
+			
 		for(int i=0; i<attachCount; i++) {
-        	
-        								 // pnum은 위에서 채번해온 제품번호이다.
+			
+			MultipartFile attach = attachs.get(i);
+		
+			byte[] bytes = null;
+			
+			try {
+				
+				bytes = attach.getBytes();
+				
+				String OriginalFilename = attach.getOriginalFilename();
+				
+				newFileName = fileManager.doFileUpload(bytes, OriginalFilename, path);
+				//System.out.println("newFileName" + newFileName);
+				
+				Map<String, String> paraMap = new HashMap<>();
+				
+				paraMap.put("image_name", newFileName);
+				paraMap.put("fk_company_id", company_id);
+				
+				n = cdao.companyDetailImageUpload(paraMap);
+				
+				
+			} catch ( Exception e ) {
+				e.printStackTrace();
+			}	
+			
+			
+        								 
         }
 		
 		
 		
-		return 0;
+		return n;
 	}
 	
 }

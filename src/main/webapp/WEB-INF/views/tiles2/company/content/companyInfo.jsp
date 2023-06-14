@@ -626,7 +626,7 @@
 	
 	function companyDetailImageUpload(){
 		
-		const frm = document.profile_imageFrm;
+		const frm = document.companyfrm;
 	    var formData = new FormData(frm);
 	    
 	    var company_id = $("input#company_id").val();
@@ -706,11 +706,11 @@
 					<p class="sctitle">회사 상세 이미지</p>
 					<p class="scsub">회사 상세이미지를 관리할 수 있습니다.</p>
 				<form name="companyfrm">	
-					<input type="file" name="attach0" id="attach" style="margin-bottom: 20px;"></input><br>
-					<input type="file" name="attach1" id="attach" style="margin-bottom: 20px;"></input><br>
-					<input type="file" name="attach2" id="attach" style="margin-bottom: 20px;"></input><br>
-					<input type="file" name="attach3" id="attach" style="margin-bottom: 20px;"></input><br>
-					<input type="hidden" name="attachCount" id="attachCount" value="4"/>
+					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="hidden" name="attachCount" id="attachCount" value="4" readonly/>
 				</form>	
 					<button type="button" class="companybtn_submit" id="companyDetailImageUpload" onclick="companyDetailImageUpload()">업로드</button>
 				</section>
