@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.wanted.ProjectWanted.company.model.InterCompanyDAO_1;
+import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 
 @Service
 public class CompanyService_1 implements InterCompanyService_1 {
@@ -29,51 +30,59 @@ public class CompanyService_1 implements InterCompanyService_1 {
 	}
 	
 	
-	// 지원자List 페이징
+	// 지원자List 페이징 위한 게시글 전체개수
 	@Override
 	public int getTotalCount(Map<String, String> paraMap) {
 		int n = cdao.getTotalCount(paraMap);
 		return n;
 	}
 
-
-
-
-	// 지원자 이력서  가져오기
-	@Override
-	public List<Map<String, String>> candidateResume(Map<String, String> paraMap) {
-		List<Map<String, String>> candidateResume = cdao.getResume(paraMap);
-		return null;
-	}
-
-
-	@Override
+	
+	// 지원자List with 검색 및 페이징
+	@Override 
 	public List<Map<String, String>> listhSearchWithPaging(Map<String, String> paraMap) {
 		List<Map<String, String>> candidateList = cdao.listSearchWithPaging(paraMap); 
 		return candidateList;
 	}
 	
-	
-/*	
-	@Override 
-	public String wordSearchShow(Map<String, String> paraMap) {
-		List<String> wordList =  cdao.wordSearchShow(paraMap);
-		
-		JSONArray jsonArr = new JSONArray(); // []
-		
-		if(wordList != null) {
-			for(String word : wordList) {
-				JSONObject jsonObj = new JSONObject();
-				jsonObj.put("word", word);
-				
-				jsonArr.put(jsonObj);
-			}// end of for----------------------------
-		}
-		
-		return jsonArr.toString();
+
+	// 검색 자동완성
+	@Override
+	public List<Map<String, String>> wordSearchShow(Map<String, String> paraMap) {
+		List<Map<String, String>> wordSearchShow = cdao.wordList(paraMap);
+		return wordSearchShow;
 	}
 
-*/
+
+	// 지원자 이력서 데이터 가져오기
+	@Override
+	public List<ResumeVO> getApplyResume() {
+		List<ResumeVO> getApplyResume = cdao.resumeContent();
+		return getApplyResume;
+	}
+
+
+
+
+
+	
+	
+	
+	
+	
+
+
+	
+
+
+
+	
+
+
+
+
+	
+
 
 
 
