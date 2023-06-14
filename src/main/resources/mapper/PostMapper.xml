@@ -158,7 +158,7 @@
 		on A.fk_region_detail_code = B.region_detail_code
 		join duty_with C
 		on A.fk_duty_code = C.duty_code
-		join post_tech_with D
+		left join post_tech_with D
 		on A.post_code = D.fk_post_code
 		where 1=1
 		 and TO_CHAR(createday, 'yy/mm/dd') &lt; TO_CHAR(sysdate+1, 'yy/mm/dd')
