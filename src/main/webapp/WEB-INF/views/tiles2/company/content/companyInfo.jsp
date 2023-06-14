@@ -49,7 +49,7 @@
 	
 	.scnum4{
 		width: 600px;
-		height: 280px;
+		height: 380px;
 		margin-bottom: 30px;
 		padding: 0 20px;
 		border: solid 1px #999;
@@ -114,7 +114,7 @@
 	    line-height: 38px;
 	    margin-top: 15px;
 	    margin-bottom: 0px;
-	    width: 240px;		
+	    width:100%;		
 	}
 	
 	.memin_ul {
@@ -264,6 +264,20 @@
 		color: #fff;
 	}
 	
+	.companybtn_submit{
+		height: 50px;
+    	min-height: 50px;
+   	 	border-radius: 25px;
+		font-size: 16px;
+		margin-bottom: 10px;
+		cursor: pointer;
+		background-color: #36f;
+		border: none;
+    	width: 560px;
+    	padding: 0px 32px;
+		color: #fff;
+	}
+	
 	.btn_submit:disabled {
   		background-color: #f2f4f7;
   		color: #ccc;
@@ -360,7 +374,7 @@
 		checkInputValues();
 		
 		$("li#memberExit").click(function(){
-			window.location.href = "memberExit";
+			window.location.href = "companyExit";
 		});
 		
 	});
@@ -368,7 +382,7 @@
 	function pwdCheck(e){
 		
 		const target_val = $(e.target).val();
-		var userid = $("input#userid").val();
+		var company_id = $("input#company_id").val();
 		
 		if(target_val.length == 0){
 			$('p#error_pwd1').hide();
@@ -377,7 +391,7 @@
 		else{
 			$.ajax({
 				url: "pwdCheck",
-				data: {"inputPwd": $(e.target).val(), "userid": userid},
+				data: {"inputPwd": $(e.target).val(), "company_id": company_id},
 				type: "get",
 				success: function(result) {
 					
@@ -471,10 +485,10 @@
 	
 	function nameUpdate(){
 		var newName = $('#name').val();
-		var userid = $("input#userid").val();
+		var company_id = $("input#company_id").val();
 		$.ajax({
 			url:"nameUpdate",
-			data:{"name": newName, "userid": userid},
+			data:{"name": newName, "company_id": company_id},
 			type:"get",
 			success: function(result) {
 				
@@ -496,15 +510,15 @@
 	
 	function nickUpdate(){
 		
-	var newNickName = $('#nickname').val();
-	var userid = $("input#userid").val();
+	var newDetails = $('#details').val();
+	var company_id = $("input#company_id").val();
 	
-	if(newNickName.length > 10 ){
+	if(newDetails.length > 10 ){
 		alert("닉네임은 10글자 이내로만 만들수있습니다.")
 	}else{
 		$.ajax({
 			url:"nickUpdate",
-			data:{"nickname": newNickName, "userid": userid},
+			data:{"newDetails": newDetails, "company_id": company_id},
 			type:"get",
 			success: function(result) {
 				
@@ -535,10 +549,10 @@
 			
 			var newPasswd = $('#inputPwd3').val();
 
-			var userid = $("input#userid").val();
+			var company_id = $("input#company_id").val();
 			$.ajax({
 				url:"passwdUpdate",
-				data:{"pwd": newPasswd, "userid": userid},
+				data:{"pwd": newPasswd, "company_id": company_id},
 				type:"get",
 				success: function(result) {
 					
@@ -610,20 +624,48 @@
 	    
 	}// end of function profile_imageUpdate
 	
+	function companyDetailImageUpload(){
+		
+		//const frm = document.companyfrm;
+	    var dataArr = $("form[name='companyfrm']").serializeArray();
+	    
+	    console.log(dataArr);
+	    
+	  /*   $.ajax({
+	        url: "companyDetailImageUpload",
+	        type: "POST",
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        success: function(result) {
+	            if (result === "success") {
+	                alert("회사 상세이미지가 성공적으로 업로드 되었습니다.");
+	                location.reload();
+	            } else {
+	                alert("회사 상세이미지 업로드 실패");
+	            }
+	        },
+	        error: function(request, status, error) {
+	            alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+	        }
+	    }); */
+		
+	}
+	
 	
 </script>
 
 <body>
 	<div class="miMain_frame">
 		<div class="miMain_content">
-			<c:forEach  var="map" items="${requestScope.memberinfo}">
+			<c:forEach  var="map" items="${requestScope.companyinfo}">
 				<section class="scnum1">
 					<form name="profile_imageFrm" enctype="multipart/form-data">
 					<div class="profile_img">
-						<img width="80" height="80" src="/images/profile_image/${map.profile_image}">
+						<img width="80" height="80" src="/images/company_profile/${map.image}">
 						<label class="pencil_icon">						
 							<input type="file" name="attach" id="attach" style="display:none;" onchange="previewImage(event)"></input>
-							<input type="hidden" name="userid" id="userid" value="${map.userid}" readonly></input>						
+							<input type="hidden" name="company_id" id="company_id" value="${map.company_id}" readonly></input>						
 						<i class="fa-solid fa-pencil" style="color: #ffffff;"></i></label>
 					</div>
 					</form>
@@ -634,16 +676,16 @@
 					<p class="scsub">서비스에서 사용하는 내 계정 정보를 관리할 수 있습니다.</p>
 					<ul class="memin_ul">
 						<li class="memin_fli">
-							<p class="p_detail">이메일</p><p class="p_email">${map.userid}</p>
+							<p class="p_detail">이메일</p><p class="p_email">${map.company_id}</p>
 						</li>
 						<li class="memin_li" data-toggle="modal" data-target="#nameModal">
 							<p class="p_detail">이름</p><p class="p_item">${map.name}</p><span><i class="fa-solid fa-chevron-right" style="color: #888;"></i></span>
 						</li>
 						<li class="memin_li" data-toggle="modal" data-target="#nickModal">
-							<p class="p_detail">닉네임</p><p class="p_item">${map.nickname}</p><span><i class="fa-solid fa-chevron-right" style="color: #888;"></i></span>
+							<p class="p_detail">회사상세</p><p class="p_item">${map.details}</p><span><i class="fa-solid fa-chevron-right" style="color: #888;"></i></span>
 						</li>
 						<li class="memin_li" data-toggle="modal" data-target="#phoneModal">
-							<p class="p_detail">휴대폰 번호</p><p class="p_item">${map.mobile}</p><span><i class="fa-solid fa-chevron-right" style="color: #888;"></i></span>
+							<p class="p_detail">사업자번호</p><p class="p_item">${map.serial_no}</p><span><i class="fa-solid fa-chevron-right" style="color: #888;"></i></span>
 						</li>
 					</ul>
 				</section>
@@ -660,13 +702,22 @@
 					</ul>
 				</section>
 				<section class="scnum4">
+					<p class="sctitle">회사 상세 이미지</p>
+					<p class="scsub">회사 상세이미지를 관리할 수 있습니다.</p>
+				<form name="companyfrm">	
+					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
+				</form>	
+					<button type="button" class="companybtn_submit" id="companyDetailImageUpload" onclick="companyDetailImageUpload()">업로드</button>
 				</section>
 			</c:forEach>
 		</div>
 	</div>
 	
 	<!-- NameModal 구성 요소는 현재 페이지 상단에 표시되는 대화 상자/팝업 창입니다. -->
-	<c:forEach  var="modalMap" items="${requestScope.memberinfo}">
+	<c:forEach  var="modalMap" items="${requestScope.companyinfo}">
 		<div class="modal fade" id="nameModal">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -700,14 +751,14 @@
 		      
 		      <!-- Modal header -->
 		      <div class="modal-header">
-		        <h5 class="modal-title">닉네임</h5>
+		        <h5 class="modal-title">회사상세</h5>
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
 		      </div>
 		      
 		      <!-- Modal body -->
 		      <div class="modal-body">
 		        	<div class="inputArea">
-		        		<input type="text" placeholder="별명을 입력해주세요." name="nickname" id="nickname" class="modaltext" value="${modalMap.nickname}">
+		        		<input type="text" placeholder="별명을 입력해주세요." name="nickname" id="nickname" class="modaltext" value="${modalMap.details}">
 		        	</div>
 		      </div>
 		      
@@ -727,7 +778,7 @@
 		      
 		      <!-- Modal header -->
 		      <div class="modal-header">
-		        <h5 class="modal-title">휴대폰 번호</h5>
+		        <h5 class="modal-title">사업자번호</h5>
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
 		      </div>
 		      
@@ -736,7 +787,7 @@
 		        <form class="phonefrm">
 		        	<div class="inputArea">
 		        		<div class="phoneFrame">
-		        			<input type="text" placeholder="(예시) 01013245768" name="mobile" data-testid="Input_mobile" class="phoneInput" value="${modalMap.mobile}" readonly />
+		        			<input type="text" placeholder="(예시) 01013245768" name="mobile" data-testid="Input_mobile" class="phoneInput" value="${modalMap.serial_no}" readonly />
 		        			<button type="button" data-testid="Button" class="changePhone"><span class="changePhonetext">번호 변경</span></button>
 		        		</div>
 		        		<div class="phoneFrame">

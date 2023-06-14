@@ -918,6 +918,7 @@
 			</div>
 			<div class="content_body">
 				<form name="recruitFrm" enctype="multipart/form-data">
+					<input type="hidden" name="fk_company_id" id="fk_company_id" value="${requestScope.company_id}" readonly></input>
 					<div class="category">
 						<label class="con_title">직군선택</label>&nbsp;&nbsp;<span class="error">직군선택은 필수선택 사항입니다.</span><br>
 						<select class="job_select" id="job_select">

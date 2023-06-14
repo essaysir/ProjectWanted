@@ -28,8 +28,5 @@ public interface InterMemberDAO3 {
 	
 	// 회원탈퇴하기
 	int memberExit(String userid);
-	
-	// 탈퇴를 위한 회원프로필사진가져오기
-	MemberVO getOneMember(String userid);
 
 }
