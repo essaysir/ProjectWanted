@@ -18,6 +18,11 @@ public interface InterCommonMapper {
 
 	void register_comp(CompanyVO cvo); // 회사 회원가입
 
+	//int getRegionDetailCodeByNames(String regionName, String regionDetailName);
+	// 
+
+	int getRegionDetailCodeByNames(CompanyVO cvo);
+
 	
 
 }

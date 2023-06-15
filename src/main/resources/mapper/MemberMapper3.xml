@@ -58,6 +58,15 @@
 		where userid = #{userid}
 	</delete>
 	
+	<select id="getMyresume" parameterType="String" resultType="com.spring.wanted.ProjectWanted.member.model.ResumeVO">
+		select resume_code, complete_date,
+		case when length(subject) > 6 then substr(subject, 1, 6) || '...'
+                else subject
+           end AS subject
+		from tbl_resume
+		where fk_userid = #{fk_userid}
+	</select>
+	
 
 
 </mapper>

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.spring.wanted.ProjectWanted.member.model.CareerVO;
 import com.spring.wanted.ProjectWanted.member.model.LanguageVO;
 import com.spring.wanted.ProjectWanted.member.model.MemberTechVO;
+import com.spring.wanted.ProjectWanted.member.model.MemberVO;
 import com.spring.wanted.ProjectWanted.member.model.PerformanceVO;
 import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 import com.spring.wanted.ProjectWanted.member.model.RewardVO;
@@ -30,23 +31,30 @@ public interface InterCompanyMapper_1 {
 	List<Map<String, String>> wordList(Map<String, String> paraMap);
 
 
-	// 지원자 이력서 가져오기
-	int getApplyResume(ResumeVO resumevo);
-	void getLanguage(LanguageVO languageVO);
-	void getReward(RewardVO rewardVO);
-	void getSchool(SchoolVO schoolVO);
-	void getCareer(CareerVO careerVO);
-	void getPerformance(PerformanceVO performancevo);
-	void getMemberTech(MemberTechVO memberTechVO);
+	// ==== 지원자 이력서 가져오기 ==== //
+	int getResumeCode(String subject);	// 이력서 코드
+	
+	ResumeVO getApplyResume(int resumeCode);	// 이력서 내용
 
+	List<CareerVO> getCareer(int resumeCode);
 
+	List<LanguageVO> getLanguage(int resumeCode);
+
+	List<RewardVO> getReward(int resumeCode);
+
+	List<SchoolVO> getSchool(int resumeCode);
+
+	List<PerformanceVO> getPerformance(int resumeCode);
+
+	List<MemberTechVO> getMemberTech(int resumeCode);
+	
 	
 
-	
-	// 지원자 이력서 가져오기
-//	List<ResumeVO> getApplyResume();
 
-	
+
+
+
+
 	
 
 
