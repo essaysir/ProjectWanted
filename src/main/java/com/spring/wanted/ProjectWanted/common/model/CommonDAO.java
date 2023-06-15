@@ -42,7 +42,28 @@ public class CommonDAO implements InterCommonDAO{
 
 	@Override
 	public void register_comp(CompanyVO cvo) {
-			mapper.register_comp(cvo);
+		
+		String addresss = cvo.getAddresss();
+		String[] addressParts = addresss.split(" ");
+		
+	    if (addressParts.length >= 2) {
+	        String region_name = addressParts[0];
+	        String region_detail_name = addressParts[1];
+	        cvo.setRegion_name(region_name);
+	        cvo.setRegion_detail_name(region_detail_name);
+	       
+	        System.out.println(region_name);
+	        System.out.println(region_detail_name);
+	        
+	        int region_detail_code = mapper.getRegionDetailCodeByNames(cvo);
+	        System.out.println(" 확인용 region" + region_detail_code);
+	        cvo.setFk_region_detail_code(region_detail_code);
+	    } else {
+	    	throw new IllegalArgumentException("Invalid address format: " + addresss);
+	    }
+
+		mapper.register_comp(cvo);
 	}
+	
 	
 }
