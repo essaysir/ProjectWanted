@@ -196,7 +196,8 @@
 
    
    <%-- 지원자List 불러오기 시작 --%>
-   function getCandidateList(status,currentShowPageNo, searchType, searchWord, pageNo, totalPage, startRno, endRno) {
+   function getCandidateList(status, currentShowPageNo, searchType, searchWord, pageNo, totalPage, startRno, endRno) {
+	   
 	   $.ajax({
 	      url: "/wanted/company/getCandidateList",
 	      data: { status: status,
@@ -211,14 +212,12 @@
 	      async: true,
 	      type: "get",
 	      success: function(result) {
-	         if (result.trim() == 'false') {
-	            $("div.tab").html('<td class="formList" colspan="5" style="font-weight: bold; text-align: center;">지원자가 존재하지 않습니다.</td>');
-	         } 
-	         else {
-	        	 
-	            $("div.tab").html(result);
-  
-	         } 
+	         
+	    	 console.log(searchType);
+	    	 console.log(searchWord);
+	         console.log(result);
+
+	         $("div.tab").html(result);
 	      }, 
 	      error: function(request, status, error) {
 	         alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
@@ -226,29 +225,28 @@
 	   });
 	}
    <%-- 지원자List 불러오기 끝 --%>
-   
 
    $(document).ready(function(){
-
-	     $("span.resume_subject").bind("mouseover", function(e){
+		
+	     $("span.resume_subject").bind("mouseover", function(event){
 	    	 $(e.target).addClass("subjectStyle");    	 
 	     });
 	     
-	     $("span.resume_subject").bind("mouseout", function(e){
+	     $("span.resume_subject").bind("mouseout", function(event){
 	    	 $(e.target).removeClass("subjectStyle");    	 
 	     });
 	   
-        $("input#searchWord").keyup(function(e){
-         if(e.keyCode == 13){ // 엔터를 했을경우
-        	 getCandidateList();
-         }
-        });
+	     $(document).on("keydown", '#searchWord' ,function(e){
+	    	    if (e.keyCode === 13) { // 13은 Enter 키의 keyCode입니다.
+	    	    	// getCandidateList()
+	    	    	// 추가로 수행할 작업을 여기에 작성합니다.
+	    	    }
+	    });
+        
         
         // 검색시 검색조건 및 검색어 유지시키기
-        if( ${not empty requestScope.paraMap} ){
-            $("select#searchType").val("${requestScope.paraMap.searchType}");
-            $("input#searchWord").val("${requestScope.paraMap.searchWord}");
-        }
+            $("select#searchType").val("${requestScope.searchType}");
+            $("input#searchWord").val("${requestScope.searchWord}");
 
      });// end of $(document).ready(function(){})-------------------------------
 
