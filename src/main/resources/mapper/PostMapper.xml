@@ -71,7 +71,7 @@
 		<result property="career" 					column="career" 				javaType="String" />
 		<result property="subject" 					column="subject" 				javaType="String" />
 		<result property="info" 					column="info" 					javaType="String" />
-		<result property="image" 					column="image" 					javaType="String" />
+		<result property="image" 					column="image"					javaType="String" />
 		<result property="createday" 				column="createday" 				javaType="String" />
 		<result property="salary" 					column="salary" 				javaType="String" />
 		<result property="mainduty" 				column="mainduty" 				javaType="String" />
@@ -79,26 +79,55 @@
 		<result property="deadline" 				column="deadline" 				javaType="String" />
 		<result property="viewcount" 				column="viewcount" 				javaType="String" />
 		<result property="pay_status" 				column="pay_status" 			javaType="String" />
+		<result property="image_name" 				column="image_name" 			javaType="String" />
 	</resultMap>
 	<select id="getPostList" resultMap="getPostList_Map"> 
 		WITH 
 		region_with AS
-		(select fk_region_code, region_name, region_detail_code, region_detail_name
+		(select fk_region_code, region_code, region_name, region_detail_code, region_detail_name
 		from tbl_region A join tbl_region_detail B
 		on A.region_code = B.fk_region_code),
+		
 		company_post_with AS
-		(select   company_id, fk_region_detail_code, name, company_code, POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, D.IMAGE AS IMAGE, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE, VIEWCOUNT, PAY_STATUS
+		(select   company_id, fk_region_detail_code, name, company_code, POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, C.IMAGE AS IMAGE, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE, VIEWCOUNT, PAY_STATUS
 		from tbl_company C join tbl_post D
 		on C.company_id = D.fk_company_id
-		where PAY_STATUS = '1')
+		where PAY_STATUS = '1'
+		),
 		
-		select company_id, fk_region_detail_code, name, company_code, fk_region_code, region_name, region_detail_code, region_detail_name,
-			   POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, IMAGE, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE,
-			   VIEWCOUNT, PAY_STATUS
+		detail_image_with AS
+		(select fk_company_id, substr(LISTAGG(image_name, ','), instr(LISTAGG(image_name, ','), ',', -1)+1) AS image_name
+		from tbl_company A join tbl_detail_image B
+		on A.company_id = B.fk_company_id
+		group by fk_company_id),
+		
+		duty_with AS
+		(select duty_code, job_code, duty_name
+		from tbl_duty A join tbl_job B
+		on A.fk_job_code = B.job_code),
+		
+		post_tech_with AS
+		(select fk_post_code, LISTAGG(tech_code, ',') AS tech_code
+		from tbl_post_tech A join tbl_tech B
+		on A.fk_tech_code = B.tech_code
+		group by fk_post_code)
+		
+		select company_id, region_detail_code, name, company_code, region_code, region_name,
+		      region_detail_code, region_detail_name, post_code, duty_code,
+		      career, subject, info, image, createday, salary, mainduty, quality, deadline,
+		      viewcount, pay_status, job_code, tech_code, image_name
 		from company_post_with A join region_with B
 		on A.fk_region_detail_code = B.region_detail_code
-		where TO_CHAR(createday, 'yy/mm/dd') &lt; TO_CHAR(sysdate+1, 'yy/mm/dd')
-		 and TO_CHAR(deadline, 'yy/mm/dd') >= TO_CHAR(sysdate, 'yy/mm/dd')
+		join duty_with C
+		on A.fk_duty_code = C.duty_code
+		left join post_tech_with D
+		on A.post_code = D.fk_post_code
+		left join detail_image_with E
+		on A.fk_company_id = E.fk_company_id
+		where 1=1
+		AND TO_CHAR(createday, 'yy/mm/dd') &lt; TO_CHAR(sysdate+1, 'yy/mm/dd')
+		AND TO_CHAR(deadline, 'yy/mm/dd') >= TO_CHAR(sysdate, 'yy/mm/dd')
+		ORDER BY post_code desc
 	</select>
 
 	<!-- 검색필터를 거친 공고리스트 불러오기 -->
@@ -125,19 +154,27 @@
 		<result property="deadline" 				column="deadline" 				javaType="String" />
 		<result property="viewcount" 				column="viewcount" 				javaType="String" />
 		<result property="pay_status" 				column="pay_status" 			javaType="String" />
+		<result property="image_name" 				column="image_name" 			javaType="String" />
 	</resultMap>
 	<select id="getPostListWithFilters" resultMap="getPostListWithFilters_Map" parameterType="java.util.List">
 		WITH 
 		region_with AS
-		(select fk_region_code, region_name, region_detail_code, region_detail_name
+		(select fk_region_code, region_code, region_name, region_detail_code, region_detail_name
 		from tbl_region A join tbl_region_detail B
 		on A.region_code = B.fk_region_code),
 		
 		company_post_with AS
-		(select   company_id, fk_region_detail_code, name, company_code, POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, D.IMAGE AS IMAGE, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE, VIEWCOUNT, PAY_STATUS
+		(select   company_id, fk_region_detail_code, name, company_code, POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, C.IMAGE AS IMAGE, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE, VIEWCOUNT, PAY_STATUS
 		from tbl_company C join tbl_post D
 		on C.company_id = D.fk_company_id
+		where PAY_STATUS = '1'
 		),
+		
+		detail_image_with AS
+		(select fk_company_id, substr(LISTAGG(image_name, ','), instr(LISTAGG(image_name, ','), ',', -1)+1) AS image_name
+		from tbl_company A join tbl_detail_image B
+		on A.company_id = B.fk_company_id
+		group by fk_company_id),
 		
 		duty_with AS
 		(select duty_code, job_code, duty_name
@@ -150,19 +187,21 @@
 		on A.fk_tech_code = B.tech_code
 		group by fk_post_code)
 		
-		select company_id, fk_region_detail_code, name, company_code, fk_region_code, region_name,
-		      region_detail_code, region_detail_name, post_code, fk_company_id, fk_duty_code,
+		select company_id, region_detail_code, name, company_code, region_code, region_name,
+		      region_detail_code, region_detail_name, post_code, duty_code,
 		      career, subject, info, image, createday, salary, mainduty, quality, deadline,
-		      viewcount, pay_status, job_code
+		      viewcount, pay_status, job_code, tech_code, image_name
 		from company_post_with A join region_with B
 		on A.fk_region_detail_code = B.region_detail_code
 		join duty_with C
 		on A.fk_duty_code = C.duty_code
 		left join post_tech_with D
 		on A.post_code = D.fk_post_code
+		left join detail_image_with E
+		on A.fk_company_id = E.fk_company_id
 		where 1=1
-		 and TO_CHAR(createday, 'yy/mm/dd') &lt; TO_CHAR(sysdate+1, 'yy/mm/dd')
-		 and TO_CHAR(deadline, 'yy/mm/dd') >= TO_CHAR(sysdate, 'yy/mm/dd')
+		AND TO_CHAR(createday, 'yy/mm/dd') &lt; TO_CHAR(sysdate+1, 'yy/mm/dd')
+		AND TO_CHAR(deadline, 'yy/mm/dd') >= TO_CHAR(sysdate, 'yy/mm/dd')
 
 		<if test="job_code != null and job_code.size() > 0">
             AND job_code IN
@@ -203,7 +242,7 @@
             </foreach>
             )
         </if>
-        
+        ORDER BY post_code desc
         
 	</select>
 
