@@ -16,6 +16,8 @@ public class ResumeVO {
     private String name ; 
     private String mobile ;
     private String complete_date ;
+    
+    private String post_subject;
 
     // join insert
     

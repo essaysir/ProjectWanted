@@ -112,6 +112,13 @@ public class CompanyDAO_1 implements InterCompanyDAO_1 {
 	}
 
 
+	@Override
+	public ApplyVO getStatus(int resumeCode) {
+		ApplyVO status = mapper.getStatus(resumeCode);
+		return status;
+	}
+
+
 
 
 

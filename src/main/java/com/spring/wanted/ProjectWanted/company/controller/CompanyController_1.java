@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.wanted.ProjectWanted.company.model.ApplyVO;
 import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_1;
 import com.spring.wanted.ProjectWanted.member.model.CareerVO;
@@ -115,7 +116,6 @@ public class CompanyController_1 {
         paraMap.put("startRno", String.valueOf(startRno));
         paraMap.put("endRno", String.valueOf(endRno));
         
-        System.out.println(paraMap);
         List<Map<String,String>> candidateList = service.listhSearchWithPaging(paraMap);
  
         // 검색어 유지
@@ -148,8 +148,6 @@ public class CompanyController_1 {
 	    mav.addObject("candidateList", candidateList);
 	    mav.addObject("searchWord" , searchWord); 
 	    mav.addObject("searchType" , searchType);
-	    System.out.println(" 확인용 searchWord: "+searchWord);
-	    System.out.println(" 확인용 searchType: "+searchType);
 	    
 	    mav.setViewName("tiles2/company/content/company_candidateList_detail");
 	    
@@ -175,7 +173,7 @@ public class CompanyController_1 {
 */
 	
 
-	// 지원자 이력서 페이지 
+	// 지원자 이력서 읽고 합불 결과주기
 	@GetMapping(value = "/resume")
 	public String viewResume(HttpServletRequest request, Model model,
 							 @RequestParam("subject") String subject){
@@ -184,9 +182,9 @@ public class CompanyController_1 {
 		String company_id = cvo.getCompany_id();
 
 		int resumeCode = service.getResumeCode(subject);
-		System.out.println(" 확인용 resumeCode : " + resumeCode);
 		int fk_resumeCode = resumeCode;
 		
+		ApplyVO apply = service.getStatus(resumeCode);
 		ResumeVO resume = service.getApplyResume(resumeCode);
 		List<CareerVO> career = service.getCareer(resumeCode);
 		List<RewardVO> reward = service.getReward(resumeCode);
@@ -195,19 +193,16 @@ public class CompanyController_1 {
 		List<PerformanceVO> performance = service.getPerformance(resumeCode);
 		List<MemberTechVO> memberTech = service.getMemberTech(resumeCode);
 		
-		System.out.println("resume : "+ resume );
-		System.out.println("career : "+ career );
-		System.out.println(" reward : "+ reward );
-		System.out.println(" language : "+ language );
-		System.out.println("school  : "+ school );
-		System.out.println(" performance : "+ performance );
-		System.out.println(" memberTech : "+ memberTech );
+		System.out.println("apply : " + apply);
+		System.out.println("resume : " + resume);
+		System.out.println("career : " + career);
+		System.out.println("reward : " + reward);
+		System.out.println("language : " + language);
+		System.out.println("school : " + school);
+		System.out.println("performance : " + performance);
+		System.out.println("memberTech : " + memberTech);
 		
-		
-//		String Fk_userid =resume.getFk_userid();		
-//		System.out.println("userid" + userid);
-
-		
+		model.addAttribute("apply", apply);
 		model.addAttribute("resume", resume);
 		model.addAttribute("career", career);
 		model.addAttribute("reward", reward);
@@ -220,19 +215,6 @@ public class CompanyController_1 {
 	}
 
 
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	// 회사 지원통계(차트) 페이지
 	@GetMapping(value = "/chart")
@@ -240,6 +222,7 @@ public class CompanyController_1 {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
 		String company_id = cvo.getCompany_id();
+		
 		return "company/company_chart.tiles2";
 	}
 	

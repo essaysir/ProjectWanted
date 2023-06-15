@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.wanted.ProjectWanted.company.model.ApplyVO;
 import com.spring.wanted.ProjectWanted.company.model.InterCompanyDAO_1;
 import com.spring.wanted.ProjectWanted.member.model.CareerVO;
 import com.spring.wanted.ProjectWanted.member.model.LanguageVO;
@@ -115,6 +116,13 @@ public class CompanyService_1 implements InterCompanyService_1 {
 	public List<MemberTechVO> getMemberTech(int resumeCode) {
 		List<MemberTechVO> memberTech = cdao.getMemberTech(resumeCode);
 		return memberTech;
+	}
+
+
+	@Override
+	public ApplyVO getStatus(int resumeCode) {
+		ApplyVO status = cdao.getStatus(resumeCode);
+		return status;
 	}
 
 
