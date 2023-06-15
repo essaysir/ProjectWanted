@@ -2,8 +2,14 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+$(document).ready(function(){
+	alert("헤헤헤");
 
 
+});
+
+</script>
 		<table class="containerTitle">
 
 		<thead>
@@ -16,24 +22,18 @@
 				    <%-- 정렬Frm 끝 --%>
 					<%-- 검색 Frm 시작 --%>
 					<div>
-					<form name="searchFrm" style="display: flex; font-size: 13pt;">
+					<form name="searchFrm" style="display: flex; font-size: 13pt;" value="${searchWord}">
 					    <select name="searchType" id="searchType">
 					        <option value="subject">공고명</option>
 					        <option value="name">지원자명</option>
 					    </select>
-					    <input type="text" name="searchWord" id="searchWord" size="30" autocomplete="off" style="height: 35px;" /> 
+					    <input type="text" name="searchWord" id="searchWord" size="30" autocomplete="off" style="height: 35px;"  placeholder="검색어를 입력하세요."  value="${searchWord}"/> 
 					    <input type="text" style="display: none;"/>
-					    <input type="hidden" id="status" />
-					    <input type="hidden" id="currentShowPageNo" />
-					    <input type="hidden" id="pageNo" />
-					    <input type="hidden" id="totalPage" />
-					    <button type="button" id="search" class="btn btn-secondary btn-sm" onclick='getCandidateList(
-							    document.getElementById("status").getAttribute("value"),
-							    document.getElementById("searchType").value,
-							    document.getElementById("searchWord").value,
-							    document.getElementById("currentShowPageNo").value,
-							    document.getElementById("pageNo").value,
-							    document.getElementById("totalPage").value)'>검색</button>
+					    <input type="hidden" id="searchType" name="searchType" />
+					    <input type="hidden" id="searchWord" name="searchWord" />
+					    
+ 					    <button type="submit" id="search" class="btn btn-secondary btn-sm" onclick="getCandidateList(${status}, ${currentShowPageNo}, $('select#searchType').val() , $('input#searchWord').val(), ${pageNo}, ${totalPage}, ${startRno}, ${endRno})">검색</button>
+					
 					</form>
 
 				    
@@ -101,7 +101,7 @@
 		    </c:when>
 		    <c:otherwise>
 		      <li>
-		        <button id="pageBarNo" type="button" onclick="getCandidateList(${status},'${pageNo}')">${pageNo}</button>
+		        <button id="pageBarNo" type="button" onclick="getCandidateList(${status},${pageNo})">${pageNo}</button>
 		      </li>
 		    </c:otherwise>
 		  </c:choose>
@@ -111,7 +111,7 @@
 		
 		<%-- [다음][마지막] btn --%>
 		<li><button id="pageArrow" type="button" onclick="getCandidateList(${status}, ${pageNo+1})"><i class="fa-solid fa-play"></i></button></li>
-		<li><button id="pageArrow" type="button" onclick="getCandidateList(${status},${totalPage})"><i class="fa-solid fa-backward fa-rotate-180"></i></button></li>
+		<li><button id="pageArrow" type="button" onclick="getCandidateList(${status}, ${totalPage})"><i class="fa-solid fa-backward fa-rotate-180"></i></button></li>
 	</ul>
 
 

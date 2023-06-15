@@ -1,14 +1,11 @@
 package com.spring.wanted.ProjectWanted.company.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,8 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_1;
+import com.spring.wanted.ProjectWanted.member.model.CareerVO;
+import com.spring.wanted.ProjectWanted.member.model.LanguageVO;
+import com.spring.wanted.ProjectWanted.member.model.MemberTechVO;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+import com.spring.wanted.ProjectWanted.member.model.PerformanceVO;
 import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
+import com.spring.wanted.ProjectWanted.member.model.RewardVO;
+import com.spring.wanted.ProjectWanted.member.model.SchoolVO;
 
 @RequestMapping("/wanted/company")
 @Controller
@@ -54,6 +57,7 @@ public class CompanyController_1 {
 	public String viewCandidateList() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
+		String company_id = cvo.getCompany_id();
 		return "company/company_candidateList.tiles2";
 	}
 	
@@ -65,14 +69,17 @@ public class CompanyController_1 {
 								@RequestParam(value="searchType", required = false) String searchType,
 								@RequestParam(value="searchWord", required = false) String searchWord
 								){
-		
+		 System.out.println("searchType : " + searchType);
+		// System.out.println("searchWord : " + searchWord);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
 		
 		ModelAndView mav = new ModelAndView();
 		
 		Map<String, String> paraMap = new HashMap<>();
+		paraMap.put("fk_company_id", cvo.getCompany_id());
 		String status = request.getParameter("status");
+
 		String currentPage =request.getParameter("currentShowPageNo");
 		
 		paraMap.put("status", status);
@@ -112,7 +119,7 @@ public class CompanyController_1 {
         List<Map<String,String>> candidateList = service.listhSearchWithPaging(paraMap);
  
         // 검색어 유지
-        if (!"".equals(searchType) && !"".equals(searchWord)) {
+        if (!"".equals(searchType) || !"".equals(searchWord)) {
             model.addAttribute("searchType", searchType);
             model.addAttribute("searchWord", searchWord);
         }
@@ -127,7 +134,7 @@ public class CompanyController_1 {
 	    request.setAttribute("status", status);
 	    request.setAttribute("totalPage", totalPage);   
 	    request.setAttribute("startRno", startRno);   
-	    request.setAttribute("endRno", endRno);   
+	    request.setAttribute("endRno", endRno);      
 	    request.setAttribute("candidateList", candidateList); // 요건 리스트
 	    
 	    Map<String, Integer> paraMap2 = new HashMap<>();
@@ -139,6 +146,11 @@ public class CompanyController_1 {
 	    
 	    mav.addObject("paraMap2",paraMap2);
 	    mav.addObject("candidateList", candidateList);
+	    mav.addObject("searchWord" , searchWord); 
+	    mav.addObject("searchType" , searchType);
+	    System.out.println(" 확인용 searchWord: "+searchWord);
+	    System.out.println(" 확인용 searchType: "+searchType);
+	    
 	    mav.setViewName("tiles2/company/content/company_candidateList_detail");
 	    
 	    System.out.println(candidateList);
@@ -165,23 +177,50 @@ public class CompanyController_1 {
 
 	// 지원자 이력서 페이지 
 	@GetMapping(value = "/resume")
-	public String viewResume(HttpServletRequest request,
+	public String viewResume(HttpServletRequest request, Model model,
 							 @RequestParam("subject") String subject){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
+		String company_id = cvo.getCompany_id();
+
+		int resumeCode = service.getResumeCode(subject);
+		System.out.println(" 확인용 resumeCode : " + resumeCode);
+		int fk_resumeCode = resumeCode;
+		
+		ResumeVO resume = service.getApplyResume(resumeCode);
+		List<CareerVO> career = service.getCareer(resumeCode);
+		List<RewardVO> reward = service.getReward(resumeCode);
+		List<LanguageVO> language = service.getLanguage(resumeCode);
+		List<SchoolVO> school = service.getSchool(resumeCode);
+		List<PerformanceVO> performance = service.getPerformance(resumeCode);
+		List<MemberTechVO> memberTech = service.getMemberTech(resumeCode);
+		
+		System.out.println("resume : "+ resume );
+		System.out.println("career : "+ career );
+		System.out.println(" reward : "+ reward );
+		System.out.println(" language : "+ language );
+		System.out.println("school  : "+ school );
+		System.out.println(" performance : "+ performance );
+		System.out.println(" memberTech : "+ memberTech );
+		
+		
+//		String Fk_userid =resume.getFk_userid();		
+//		System.out.println("userid" + userid);
+
+		
+		model.addAttribute("resume", resume);
+		model.addAttribute("career", career);
+		model.addAttribute("reward", reward);
+		model.addAttribute("language", language);
+		model.addAttribute("school", school);
+		model.addAttribute("performance", performance);
+		model.addAttribute("memberTech", memberTech);
+		
 		return "company/candidateResume.tiles2";
 	}
 
 
-	// 지원자 이력서 데이터 가져오기
-	@PostMapping(value = "/apply_resume")
-	public String getApplyResume (HttpServletRequest request) {
-		
-		List<ResumeVO> resumeContent = service.getApplyResume();
-		request.setAttribute("resumeContent", resumeContent);
-		
-		return "tiles2/company/content/candidateResume";
-	}
+
 
 
 	
@@ -198,17 +237,13 @@ public class CompanyController_1 {
 	// 회사 지원통계(차트) 페이지
 	@GetMapping(value = "/chart")
 	public String company_chart(){
-
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
+		String company_id = cvo.getCompany_id();
 		return "company/company_chart.tiles2";
 	}
 	
-	
-	@ResponseBody
-	@PostMapping(value = "/viewChart")
-	public String chart(){
 
-		return "";
-	}
 	
 	
 	

@@ -142,19 +142,19 @@
 		
 		<div class="container my-5">
 			<h2 id="subject" class="form-control" style="margin: 50px 0 !important; height: 70px;">
-			${subject}
+			${resume.subject}
 			</h2>
 
 			<h4 id="name" class="form-control">
-			이름
+			${resume.name}
 			</h4>
 
 			<h4 id="email" class="form-control">
-			${fk_UserId}
+			${resume.fk_userid}
 			</h4>
 
 			<h4 id="mobile" class="form-control">
-			연락처
+			${resume.mobile}
 			</h4>
 			
 			
@@ -162,26 +162,28 @@
 				간단 소개글 
 			</div>
 			<div>
-				<p id="introduce" class="content">${introduce}</p>
+				<p id="introduce" class="content" style="font-size: 13pt;">${resume.introduce}</p>
 			</div>
 			
 			
 			<div class="resume-header" style="margin-top:60px;">
 				경력
 			</div>
-			<div id="career" class="content">
-			<table>
-				<tr style="display: flex;">
-					<td id="date"><h6>시작날짜</h6>&nbsp;-&nbsp;<h6>종료날짜</h6></td>
-					<td id="company" style="display: block !important;">
-					<h5>경력(회사명)</h5><h6>부서명/직책</h6>
-					<h6 style="margin: 20px;"><i class="fa-solid fa-user-tie"></i> 주요성과  </h6>
-					<div id="date" style="margin-left: 20px;"><h6>시작날짜</h6>&nbsp;-&nbsp;<h6>종료날짜</h6></div>
-					<h6 style="margin-left: 20px;">경력 상세 기술서</h6>
-					</td>
-				</tr>
-			</table>	
-			</div>						
+			<c:forEach var="career" items="${career}"  varStatus="status">
+				<div id="career" class="content">
+				<table>
+					<tr style="display: flex;">
+						<td id="date"><h6>${career.start_date}</h6>&nbsp;-&nbsp;<h6>${career.end_date}</h6></td>
+						<td id="company" style="display: block !important;">
+							<h5>${career.company}</h5><h6>${career.department}</h6>
+							<h6 style="margin: 20px;"><i class="fa-solid fa-user-tie"></i> 주요성과  </h6>
+							<div id="date" style="margin-left: 20px;"><h6>시작날짜</h6>&nbsp;-&nbsp;<h6>종료날짜</h6></div>
+							<h6 style="margin-left: 20px;">경력 상세 기술서</h6>
+						</td>
+					</tr>
+				</table>	
+				</div>
+		</c:forEach>							
 				<!-- 추가된 경력 -->
 				<ul id="addCareer"></ul>
 
@@ -189,47 +191,52 @@
 			<div class="resume-header" style="margin-top:60px;">
 				학력 
 			</div>
-			<div id="school" class="content">
-			<table>
-				<tr style="display: flex;">
-					<td id="date"><h6>시작날짜</h6>&nbsp;-&nbsp;<h6>종료날짜</h6></td>
-					<td id="company" style="display: block !important;">
-					<h5>학교명</h5><h6>전공 및 학위</h6>
-					<h6 style="margin: 20px;"><i class="fa-solid fa-graduation-cap"></i> 이수과목 또는 연구내용</h6>
-					<p style="margin-left: 20px;">이수과목 또는 연구내용 기술서</p>
-					</td>
-				</tr>
-			</table>
-			</div>		
-
+			<c:forEach items="${school}" var="school" varStatus="status">
+		        <div id="school" class="content">
+		            <table>
+		                <tr style="display: flex;">
+		                    <td id="date"><h6>${school.start_date}</h6>&nbsp;-&nbsp;<h6>${school.end_date}</h6></td>
+		                    <td id="company" style="display: block !important;">
+		                        <h5>${school.school}</h5><h6>${school.major}</h6>
+		                        <h6 style="margin: 20px;"><i class="fa-solid fa-graduation-cap"></i> 이수과목 또는 연구내용</h6>
+		                        <p style="margin-left: 20px;">이수과목 또는 연구내용 기술서</p>
+		                    </td>
+		                </tr>
+		            </table>
+		        </div>
+		</c:forEach>
+			
 			<div class="addSchool"></div>
 			
 			
 			<div class="resume-header" style="margin-top:60px;">
 				스킬
 			</div>
-			<div id="skill" class="content" style="display: flex;">
-				<div class="skillList">${skill}</div>
-				<div class="skillList">oracle</div>
-			</div>
+			
+				<div id="skill" class="content" style="display: flex;">
+					<div class="skillList">${skill}</div>
+					<div class="skillList">oracle</div>
+				</div>
 
 			
 			
 			<div class="resume-header" style="margin-top:60px;">
 				수상 및 기타
 			</div>
-			<div id="award" class="content">
-				<table>
-				<tr style="display: flex;">
-					<td id="date"><h6>수상날짜</h6></td>
-					<td id="company" style="display: block !important;">
-					<h5>활동명</h5>
-					<h6 style="margin: 20px;"><i class="fa-solid fa-medal"></i> 세부사항</h6>
-					<p style="margin-left: 20px;">세부사항 기술서</p>
-					</td>
-				</tr>
-			</table>
-			</div>
+			<c:forEach items="${reward}" var="reward" varStatus="status">
+				<div id="award" class="content">
+					<table>
+					<tr style="display: flex;">
+						<td id="date"><h6>${reward.reward_date}</h6></td>
+						<td id="company" style="display: block !important;">
+							<h5>${reward.reward}</h5>
+							<h6 style="margin: 20px;"><i class="fa-solid fa-medal"></i> 세부사항</h6>
+							<p style="margin-left: 20px;">세부사항 기술서</p>
+						</td>
+					</tr>
+				</table>
+				</div>
+			</c:forEach>	
 				<!-- 추가된 수상 및 기타  -->
 				<div class="addReward"></div>
 			
@@ -237,18 +244,20 @@
 			<div class="resume-header" style="margin-top:60px;">
 				외국어
 			</div>
-			<div id="language" class="content">
-				<table>
-				<tr style="display: flex;">
-					<td id="date"><h6>취득날짜</h6></td>
-					<td id="company" style="display: block !important;">
-					<h5>언어</h5>
-					<h6 style="margin: 20px;"><i class="fa-solid fa-comment"></i> 세부사항</h6>
-					<p style="margin-left: 20px;">세부사항 기술서</p>
-					</td>
-				</tr>
-			</table>
-			</div>
+			<c:forEach items="${language}" var="language" varStatus="status">
+				<div id="language" class="content">
+					<table>
+					<tr style="display: flex;">
+						<td id="date"><h6>${language.lang_date}</h6></td>
+						<td id="company" style="display: block !important;">
+							<h5>${language.for_lang}</h5>
+							<h6 style="margin: 20px;"><i class="fa-solid fa-comment"></i> 세부사항</h6>
+							<p style="margin-left: 20px;">세부사항 기술서</p>
+						</td>
+					</tr>
+				</table>
+				</div>
+			</c:forEach>	
 				<!-- 추가된 외국어 -->
 				<div class="addLanguage"></div>
 
@@ -257,7 +266,7 @@
 				링크
 			</div>
 			<div id="link" class="content">
-				<i class="fa-solid fa-desktop"></i><a href="#">${uploadLink}</a>
+				<i class="fa-solid fa-desktop"></i><a href="#">${resume.uploadLink}</a>
 			</div>
 				<!-- 추가된 링크 -->
 				<div class="addUploadLink">
