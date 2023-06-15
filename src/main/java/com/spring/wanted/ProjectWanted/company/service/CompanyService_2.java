@@ -312,7 +312,7 @@ public class CompanyService_2 implements InterCompanyService_2 {
 			
 			String image = companyvo.getImage();
 			
-			if(!image.equals("profile_default.png")) {
+			if(!image.equals("default.png")) {
 								
 				try {
 					fileManager.doFileDelete(image, path);
@@ -388,7 +388,7 @@ public class CompanyService_2 implements InterCompanyService_2 {
 		
 		int attachCount = Integer.parseInt(mrequest.getParameter("attachCount"));
 		
-		List<MultipartFile> attachs = mrequest.getFiles("attach");
+		List<MultipartFile> attachs = mrequest.getFiles("attach2");
 			
 		HttpSession session = mrequest.getSession();
 		String root = session.getServletContext().getRealPath("/").substring(0, 30);

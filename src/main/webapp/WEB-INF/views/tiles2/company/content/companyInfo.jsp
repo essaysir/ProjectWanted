@@ -284,6 +284,12 @@
   		cursor: inherit;
 	}
 	
+	.companybtn_submit:disabled {
+  		background-color: #f2f4f7;
+  		color: #ccc;
+  		cursor: inherit;
+	}
+	
 	.changePhone{
 		height: 50px;
     	min-height: 50px;
@@ -376,6 +382,13 @@
 		$("li#memberExit").click(function(){
 			window.location.href = "companyExit";
 		});
+		
+		
+		$('input[name="attach2"]').on('change', checkFileInputs);
+		
+		$("#companyDetailImageUpload").prop('disabled', true);
+		
+		
 		
 	});
 	
@@ -653,6 +666,19 @@
 		
 	}
 	
+	function checkFileInputs() {
+		  var fileInputs = document.getElementsByName("attach2");
+		  var uploadButton = document.getElementById("companyDetailImageUpload");
+
+		  for (var i = 0; i < fileInputs.length; i++) {
+		    if (fileInputs[i].value === "") {
+		      uploadButton.disabled = true;
+		      return;
+		    }
+		  }
+ 			
+		  uploadButton.disabled = false;
+		}
 	
 </script>
 
@@ -706,10 +732,10 @@
 					<p class="sctitle">회사 상세 이미지</p>
 					<p class="scsub">회사 상세이미지를 관리할 수 있습니다.</p>
 				<form name="companyfrm">	
-					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
-					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
-					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
-					<input type="file" name="attach" id="attach" style="margin-bottom: 20px;"></input><br>
+					<input type="file" name="attach2" id="attach2" style="margin-bottom: 20px;" onchange="checkFileInputs()"></input><br>
+					<input type="file" name="attach2" id="attach2" style="margin-bottom: 20px;" onchange="checkFileInputs()"></input><br>
+					<input type="file" name="attach2" id="attach2" style="margin-bottom: 20px;" onchange="checkFileInputs()"></input><br>
+					<input type="file" name="attach2" id="attach2" style="margin-bottom: 20px;" onchange="checkFileInputs()"></input><br>
 					<input type="hidden" name="attachCount" id="attachCount" value="4" readonly/>
 				</form>	
 					<button type="button" class="companybtn_submit" id="companyDetailImageUpload" onclick="companyDetailImageUpload()">업로드</button>
