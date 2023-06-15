@@ -18,4 +18,6 @@ public interface InterMemberDAO {
 	PostVO getPostVO(int post_code); // POST_DETAIL 정보가져오기
 
 	CompanyVO getCompanyVO(int post_code); // COMPANY_VO 가져오기
+
+	List<String> getImageList(String company_id);
 }

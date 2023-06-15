@@ -12,7 +12,7 @@
 
  		
  		
- 			.main_top_carousel{
+ 	.main_top_carousel{
 		height: 500px;
 		width:100%;
 	}

@@ -22,4 +22,7 @@ public interface InterMemberMapper {
 	PostVO getPostVO(int post_code);
 
 	CompanyVO getCompanyVO(int post_code);
+
+	List<String> getImageList(String company_id);
+	
 }

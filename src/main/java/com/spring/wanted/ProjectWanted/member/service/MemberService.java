@@ -53,6 +53,13 @@ public class MemberService implements InterMemberService{
 		CompanyVO cvo = mdao.getCompanyVO(post_code);
 		return cvo;
 	}
+
+
+	@Override
+	public List<String> getImageList(String company_id) {
+		List<String> imageList = mdao.getImageList(company_id);
+		return imageList ;
+	}
 	
 
 
