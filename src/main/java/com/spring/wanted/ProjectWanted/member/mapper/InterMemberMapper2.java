@@ -1,6 +1,8 @@
 package com.spring.wanted.ProjectWanted.member.mapper;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.wanted.ProjectWanted.member.model.CareerVO;
@@ -16,17 +18,17 @@ public interface InterMemberMapper2 {
 
 	int insertResume(ResumeVO resumevo);
 
-	void insertLanguage(LanguageVO languageVO);
+	int insertLanguage(LanguageVO languageVO);
 
-	void insertReward(RewardVO rewardVO);
+	int insertReward(RewardVO rewardVO);
 
-	void insertSchool(SchoolVO schoolVO);
+	int insertSchool(SchoolVO schoolVO);
 
-	void insertCareer(CareerVO careerVO);
+	int insertCareer(CareerVO careerVO);
 
-	void insertMemberTech(MemberTechVO memberTechVO);
+	int insertMemberTech(MemberTechVO memberTechVO);
 
-	void insertPerformance(PerformanceVO performancevo);
+	int insertPerformance(PerformanceVO performVO);
 
 
 

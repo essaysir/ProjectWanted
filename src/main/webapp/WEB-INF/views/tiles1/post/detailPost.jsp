@@ -12,7 +12,7 @@
 
  		
  		
- 			.main_top_carousel{
+ 	.main_top_carousel{
 		height: 500px;
 		width:100%;
 	}
@@ -227,9 +227,125 @@
 			margin-top: 10px;
 			background-color: #f3f5f8;
     		padding: 8px 12px 7px;
-		
+		}
+		h2.apply_h2{
+		text-align: center;
+	    font-size: 16px;
+	    font-weight: 600;
+	    color: #333;
+	    line-height: 22px;
+		}
+		button#back{
+		    font-size: 16px;
+		    font-weight: 600;
+		    color: #999;
+			border: 0;
+	  		  background: none;
+		    cursor: pointer;
+		}
+		div#violet{
+		    background: #eff1fb;
+		    text-align: center;
+		    padding: 17px 20px;
+		    font-size: 13px;
+		    line-height: 1.25;
+		    letter-spacing: -.7px;
+		}
+		div#violet p:first-child {
+			    font-weight: 700;
+    			margin-bottom: 4px
+		}
+		div#violet p:last-child {
+			    font-weight: 500;
+    			margin-bottom: 4px
+		}
+		h3.apply_title{
+		    border-left: 2px solid #258bf7;
+		    padding-left: 20px;
+		    margin: 0 -20px;
+		    font-size: 16px;
+		    font-weight: 600;
+		    line-height: 22px;
+		}
+		h4.apply_menu{
+		    line-height: 50px;
+		    font-size: 16px;
+		    font-weight: 600;
+		    width: 80px;
+  			color: #333;
+		    float: left;
+		}
+		div#apply_resume input[type="text"]{
+		    background-color: #fff;
+ 		   color: #333;
+		    width: calc(100% - 80px);
+		    height: 50px;
+		    padding: 0;
+		    border: none;
+		    border-bottom: 1px solid #e1e2e3;
+		    line-height: 50px;
+		    font-size: 16px;
+		    font-weight: 600;
+		}
+		input.apply_checkbox{
+			width:24px; 
+			height: 24px ; 
+			margin : 17px ; 
 		
 		}
+		div.resume_container{
+		width: 100%;
+	    height: 60px;
+	    border: 1px solid #ececec;
+	    border-radius: 5px;
+	    margin-bottom: 10px;
+		}
+		p.resume_name{
+		    font-weight: 600;
+		    text-align: left;
+			color: rgb(51, 51, 51) ;
+			font-size: 14px; 
+			margin-bottom : 0px ;
+		}
+		span.resume_matchup{
+		    height: 22.5px;
+		    padding: 1px 5px;
+		    border-radius: 2px;
+		    word-break: keep-all;
+				color: #8958fa;
+		    margin-left: 6px;
+		    background: #f8f5ff;
+		    font-size:  11px ;
+		    font-weight: 700;
+		}
+		p.resume_lang{
+		    font-size: 11px;
+		    font-weight: 500;
+		    line-height: 20px;
+		    letter-spacing: normal;
+		    text-align: left;
+		    color: #333;
+		}
+		div.selected{
+		    border: 1px solid #36f !important;
+		}
+		button.write_resume{
+		    width: 100%;
+		    height: 50px;
+		    text-align: center;
+		    border-radius: 25px;
+		    border: 1px solid #e1e2e3;
+		    background-color: #fff;
+		    font-size: 14px;
+		    font-weight: 600;
+		    line-height: 50px;
+		    letter-spacing: normal;
+		    color: #666;
+		}
+		
+		
+		
+		
  </style>   
  <script src="
 https://cdn.jsdelivr.net/npm/swiper@9.3.2/swiper-bundle.min.js
@@ -247,7 +363,7 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 
  <script type="text/javascript">
  		$(document).ready(function(){
- 			$("button#btn_apply").on("click", apply ) ; // 지원하기 클릭시 
+ 			$("button#btn_apply").on("click", apply) ; // 지원하기 클릭시 
  			func_geocoder('${cvo.addresss}');
  			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  			// 카카오맵 시작 
@@ -428,12 +544,8 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  					 
  				},
  				error: function (request, status, error) {
- 					// alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+ 					 alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
  				}	
- 				
- 				
- 				
- 				
  			}); // END OF $.AJAX 
  		}// END OF FUNCTION APPLY 
  		
@@ -454,18 +566,18 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  
 
  
-				<!--  왼쪽 BODY  시작  -->
+			<!--  왼쪽 BODY  시작  -->
 			<div class="main_top_carousel container" style="margin-top:20px; ">
 			    <div class="my-1">
 			        <div class="owl-carousel owl-theme">
 			            <div class="item" style="text-align: left;">
-			                <img style="height: 100%;" src="/images/main_image/계약서.jpg">
+			                <img style="height: 100%;" src="/images/company_detail_image/계약서.jpg">
 			            </div>
 			            <div class="item" style="text-align: left;">
-			                <img style="height: 100%;" src="/images/main_image/월급복권.jpg">
+			                <img style="height: 100%;" src="/images/company_detail_image/월급복권.jpg">
 			            </div>
 			            <div class="item" style="text-align: left;">
-			                <img style="height: 100%;" src="/images/main_image/휴대폰결제.jpg">
+			                <img style="height: 100%;" src="/images/company_detail_image/휴대폰결제.jpg">
 			            </div>
 			        </div>
 			    </div>
@@ -537,7 +649,7 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 		
 		</div>			
 
-	<div class="border fixed-top" style="background-color: #fff;  width: 330px; height: 340px; top:70px ; left: 1330px;padding: 24px 20px; z-index: 1;">
+	<div class="border fixed-top" style="background-color: #fff;  width: 330px; height: 340px; top:70px ; left: 1330px;padding: 24px 20px; z-index: 1; border-radius: 3px;">
 			
 			<div class="" style="text-align:center; margin: 15px;   ">	
 				
@@ -554,10 +666,85 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 			</div>
 	</div>
 
+			
+	<div class="border fixed-top" style="background-color: #fff;  width: 330px; min-height: 390px;
+    max-height: 540px; top:70px ; left: 1330px; z-index: 2; border-radius: 3px; overflow-y: auto;">
+			
+		<div class="border-bottom" style="text-align:center; display: flex; height: 50px;  padding : 14px 15px; justify-content: space-between;">	
+			<h2 class="apply_h2" style="margin-left: 115px; ">지원하기</h2>	
+			<button id="back">뒤로</button>
+		</div>
+		
+		<div class="container-fluid border-bottom" id="violet">
+				<p>주요 업무 내용을 한 번 더 확인해 주세요.</p>
+				<p>직무와 맞는 포지션일수록 서류합격률이 높아져요!</p>
+		</div>
+		
+		<div class="container-fluid" id="apply_resume" style="padding: 20px 20px 0;">
+			<h3 class="apply_title">지원 정보</h3>
+			<br/>
+			<label>
+				<h4 class="apply_menu">이름</h4>
+				<input type="text" name="name" value="손주선"/>
+			</label>
+			
+			<label style="both:clear;">
+				<h4 class="apply_menu">이메일</h4>
+				<input type="text" name="email" value="sonjs7554@naver.com"/>
+			</label>
+			
+			<label style="both:clear;">
+				<h4 class="apply_menu">휴대폰</h4>
+				<input type="text" name="mobile" value="01075543049"/>
+			</label>
+			<h3 class="apply_title" style="both:clear;">첨부 파일</h3>
+			
+			<ul style="list-style : none ; padding: 0 ; margin-top: 20px; ">
+				<li>
+					<div class="selected resume_container" style="display: flex;">
+					
+					<input type="checkbox" class="apply_checkbox"/>
+						
+						<div style="display: flex; flex-direction: column ; ">
+							<p class="resume_name" style="margin-top: 6px; ">손주선1 <span class="resume_matchup">매치업</span> </p>
+							<p class="resume_lang">한국어 <span class="resume_status">작성완료</span></p>
+						</div>
+						<a style="margin-left : 85px;  margin-top: 13px; ">
+						<svg width="10" height="10" viewBox="0 0 12 12"><path fill="currentColor" d="M3.345 9.72a.75.75 0 0 0 1.06 1.06l4.25-4.25a.75.75 0 0 0 0-1.06l-4.25-4.25a.75.75 0 0 0-1.06 1.06L7.065 6l-3.72 3.72z"></path></svg>
+						</a>
+					</div>
+				</li>
 
+				<li>
+					<div class="unselected resume_container" style="display: flex;">
+					
+					<input type="checkbox" class="apply_checkbox"/>
+						
+					<div style="display: flex; flex-direction: column ; ">
+							<p class="resume_name" style="margin-top: 6px; ">손주선1 <span class="resume_matchup">매치업</span> </p>
+							<p class="resume_lang">한국어 <span class="resume_status">작성완료</span></p>
+						</div>
+						<a style="margin-left : 85px;  margin-top: 13px; ">
+						<svg width="10" height="10" viewBox="0 0 12 12"><path fill="currentColor" d="M3.345 9.72a.75.75 0 0 0 1.06 1.06l4.25-4.25a.75.75 0 0 0 0-1.06l-4.25-4.25a.75.75 0 0 0-1.06 1.06L7.065 6l-3.72 3.72z"></path></svg>
+						</a>
+					</div>
+					<div>
+						<button  type="button" class="write_resume">새 이력서 작성</button>
+						<p style="font-size:14px; margin-top : 30px; ">원티드 이력서로 지원하면 최종 합격률이 40% 높아집니다.</p>
+						<button type="button" class="resume">제출하기</button>
+					</div>
+				</li>
+			
+			</ul>
+		</div>			
+		
+		
+		
+		
+		
+	</div>
 
-
-
+	
 
 
 

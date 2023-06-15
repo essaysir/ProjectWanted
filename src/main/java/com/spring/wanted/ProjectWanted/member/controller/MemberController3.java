@@ -103,7 +103,7 @@ public class MemberController3 {
 		@ResponseBody
 		@GetMapping(value="/passwdUpdate", produces = "text/plain;charset=UTF-8")
 		public String passwdUpdate(@RequestParam Map<String, String> paraMap){
-						
+			
 			int n = service.passwdUpdate(paraMap); 
 			
 		    if (n==1) {

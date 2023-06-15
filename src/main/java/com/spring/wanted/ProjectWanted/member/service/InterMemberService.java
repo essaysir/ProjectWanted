@@ -14,5 +14,7 @@ public interface InterMemberService {
 
 	PostVO getPostVO(int post_code);
 
-	CompanyVO getCompanyVO(int post_code); 
+	CompanyVO getCompanyVO(int post_code);
+
+	List<String> getImageList(String company_id);  // Detail 페이지에 쓰기 위한 List
 }

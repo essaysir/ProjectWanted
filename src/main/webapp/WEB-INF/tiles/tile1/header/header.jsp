@@ -268,7 +268,7 @@
 				      <a class="header-category" href="#" style="color: black;">채용</a>
 				    </li>
 				    <li style="margin: 10px 0px 10px 10px;">
-				      <a class="header-category" href="#" style="color: black;">이력서</a>
+				      <a class="header-category" href="/wanted/resume" style="color: black;">이력서</a>
 				    </li>
 				    <li style="margin: 10px 0px 10px 10px;">
 				      <a class="header-category" href="#" style="color: black;">커뮤니티</a>

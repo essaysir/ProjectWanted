@@ -1,5 +1,7 @@
 package com.spring.wanted.ProjectWanted.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -78,10 +80,13 @@ public class MemberController {
 		public String postDetail(@PathVariable int post_code , HttpServletRequest request) {
 				PostVO pvo = service.getPostVO(post_code);
 				CompanyVO cvo = service.getCompanyVO(post_code);
-				System.out.println(" 확인용 pvo : " + pvo );
+				List<String> imageList = service.getImageList(cvo.getCompany_id());
+				
+				// System.out.println(" 확인용 pvo : " + pvo );
 				request.setAttribute("pvo", pvo);
-				System.out.println(" 확인용 cvo : " + cvo );
+				// System.out.println(" 확인용 cvo : " + cvo );
 				request.setAttribute("cvo", cvo);
+				request.setAttribute("imageList", imageList);
 				return "post/detailPost.tiles1";
 		}
 		
@@ -90,9 +95,13 @@ public class MemberController {
 		@PostMapping(value="/member/apply")
 		public String apply() {
 			Authentication authenticate = SecurityContextHolder.getContext().getAuthentication();
-			System.out.println(" 확인용 auth : " + authenticate);
+			MemberVO mvo = (MemberVO)authenticate.getPrincipal();
+			// System.out.println(" 확인용 auth : " + authenticate);
+			System.out.println(" 확인용 mvo : " + mvo);
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("authenticate", authenticate);
+			jsonObj.put("mvo", mvo);
+			
 			return jsonObj.toString() ;
 		}
 		

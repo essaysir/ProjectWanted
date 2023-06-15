@@ -92,5 +92,10 @@ public class CommonController {
 		
 		return "redirect:/wanted/company/login";
 	}
+	
+	@GetMapping(value="/resume")
+	public String resume_list() {
+		return "/resume/resume_info.tiles1";
+	}
 
 }
