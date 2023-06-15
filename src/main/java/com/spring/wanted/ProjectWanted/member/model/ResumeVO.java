@@ -12,7 +12,10 @@ public class ResumeVO {
     private int iscomplete;
     private String subject;
     private String introduce;
-    private String uploadlink;
+    private String uploadLink;
+    private String name ; 
+    private String mobile ;
+    private String complete_date ;
 
     // join insert
     

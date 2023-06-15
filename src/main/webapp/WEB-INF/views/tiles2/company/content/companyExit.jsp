@@ -5,6 +5,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>        
     
 <style type="text/css">
+
+	div#mySide {
+		border-right: solid 1px #ddd;
+	}
+	
 	.exitOutLine{
 		display: flex;
 		justify-content: center;

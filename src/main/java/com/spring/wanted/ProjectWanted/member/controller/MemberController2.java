@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,23 +41,29 @@ public class MemberController2 {
 		
 		
 		System.out.println(mvo);
-		return "/member/resume_input.tiles1";
+		return "/resume/resume_input.tiles1";
 	}
 	
 	
 	// 이력서 작성 페이지의 작성된 이력서 DB에 저장하기
+	@ResponseBody
 	@PostMapping(value = "/member/myresume")
 	public String resume_input(@RequestBody ResumeVO resumevo) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		System.out.println(gson.toJson(resumevo));
-		System.out.println(" 확인용 resumevo : " + resumevo);
+		// System.out.println(" 확인용 resumevo : " + resumevo);
+		// System.out.println(" 확인용 careervo : " + resumevo.getCareervoList());
+		String introduce = resumevo.getIntroduce().replace("\r\n", "<br/>");
+		introduce = introduce.replace("\n", "<br/>");
 		
-	    
+		resumevo.setIntroduce(introduce);
+		
+		System.out.println(gson.toJson(resumevo));
        int n = service2.insertResume(resumevo); // 이력서 insert 처리해주는 메소드 생성
 	    
 	    JSONObject json = new JSONObject();
 	    
-	    if (n == 2) {
+	    if (n == 1) {
+	    	System.out.println(" 성공이다");
 	        json.put("result", "success");
 	    }
 	    else {

@@ -521,7 +521,14 @@ function employmentFunction() {
 function gominFunction() {
 	  alert('버튼이 클릭되었습니다!');
 	
-	}	
+	}
+function gomyprofile() {
+	
+	window.location.href = "/wanted/member/memberInfo";
+	// 스프링 시큐리티를 고려해서 ajax 로 getLogin() 하려했으나
+	// mvo만 받는 거니 
+	
+}
 
 </script>
 
@@ -568,8 +575,8 @@ function gominFunction() {
 		</div>
 	</div>
 	<div class="main_two_select">
-		<button type="button" class="select_one" onclick="location.href='#'">내 프로필</button>
-		<button type="button" class="select_two" onclick="location.href='#'">아무거나</button>
+		<button type="button" class="select_one" onclick="gomyprofile()">내 프로필</button>
+		<button type="button" class="select_two" onclick="location.href='#'">매치업</button>
 	</div>
 	<div class="main_company">
 		<div class="company_carousel1">

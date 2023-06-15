@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.spring.wanted.ProjectWanted.common.common.FileManager;
 import com.spring.wanted.ProjectWanted.member.model.InterMemberDAO3;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 
 @Service
 public class MemberService3 implements InterMemberService3 {
@@ -159,6 +160,15 @@ public class MemberService3 implements InterMemberService3 {
 		
 		
 		return n;
+	}
+	
+	// 멤버가 작성한 이력서 가져오기
+	@Override
+	public List<ResumeVO> getMyresume(String fk_userid) {
+		
+		List<ResumeVO> resumeList = mdao.getMyresume(fk_userid);
+		
+		return resumeList;
 	}
 	
 

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 import com.spring.wanted.ProjectWanted.member.service.InterMemberService3;
 
 @RequestMapping(value="/wanted/member")
@@ -159,6 +160,20 @@ public class MemberController3 {
 		    } else {
 		        return "fail";
 		    }
+		}
+		
+		// 채용공고관리페이지 띄우기
+		@GetMapping(value="/myResume")
+		public String getMyresume(HttpServletRequest request) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			MemberVO mvo = (MemberVO)authentication.getPrincipal();
+			String fk_userid = mvo.getUserid();
+						
+			List<ResumeVO> resumeList = service.getMyresume(fk_userid);
+			System.out.println("확인용 resume :" +resumeList);
+			request.setAttribute("resumeList", resumeList);
+			//return "redirect:/wanted"; 
+			return "member/resume_list.tiles1";
 		}
 		
 	

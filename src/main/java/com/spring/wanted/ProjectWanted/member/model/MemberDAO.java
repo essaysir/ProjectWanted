@@ -57,5 +57,11 @@ public class MemberDAO implements InterMemberDAO {
 		return cvo ;
 	}
 
+	@Override
+	public List<String> getImageList(String company_id) {
+		List<String> imageList = mapper.getImageList(company_id);
+		return imageList ;
+	}
+
 
 }

@@ -277,10 +277,17 @@
 					$.each(json, function(index, item){
 							
 							var post_code = item.post_code;
+							
+							const maxLength = 12; // 일정 글자수
+							let subject = item.subject; // 대상 텍스트
+
+							if (subject.length > maxLength) {
+								subject = subject.slice(0, maxLength) + "...";
+							}
 						
 						    html += "<div class='jcard'>"
 								 	+ "<div class='jcard_topL'>"
-								 		+ "<h5>"+item.subject+"</h5>"
+								 		+ "<h5>"+subject+"</h5>"
 								 		+ "<p>신규지원서 0건<span style='color: gray;'>/전체 0건</span></p>"
 								 		+ "<p style='color: gray;'>#"+item.job_name+"</p>"
 								 		+ "<p>결제 상태&nbsp;&nbsp;";
