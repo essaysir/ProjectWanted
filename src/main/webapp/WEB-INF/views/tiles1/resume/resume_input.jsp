@@ -1131,6 +1131,8 @@
 			var ResumeVO= 
 				  { 
 					  fk_userid : "${mvo.userid}" , 
+					  name : $("input[name='name']").val() ,
+					  mobile :  $("input[name='contact']").val(), 
 					  subject : $("input[name='subject']").val() , 
 					  introduce : $("textarea[name='introduce']").val(),
 					  uploadLink : $("textarea[name='uploadLink']").val(), 

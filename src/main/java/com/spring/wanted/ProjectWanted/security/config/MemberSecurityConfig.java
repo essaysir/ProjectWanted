@@ -37,7 +37,7 @@ public class MemberSecurityConfig  {
 				public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 				  http.antMatcher("/wanted/*").authorizeRequests()
 				  .antMatchers("/wanted", "/wanted/register").permitAll()
-				   .antMatchers("/wanted/login", "/wanted/checkUserid" , "/wanted/logout" , "/wanted/getSkill" , "/wanted/resume").permitAll()
+				   .antMatchers("/wanted/login", "/wanted/checkUserid" , "/wanted/logout" , "/wanted/getSkill" ).permitAll()
 				  .anyRequest().authenticated();
 				  
 		            
@@ -65,7 +65,7 @@ public class MemberSecurityConfig  {
 	            http.authenticationProvider(memberAuthenticationProvider())
 	            .antMatcher("/wanted/member/**")
 	            .authorizeRequests()
-	            .antMatchers("/wanted/member/register").permitAll()
+	            .antMatchers("/wanted/member/register" , "/wanted/member/apply").permitAll()
 	            .anyRequest().hasRole("USER")
 	            .and()
 	            .formLogin().loginPage("/wanted/login").loginProcessingUrl("/wanted/member/login/proc")

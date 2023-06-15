@@ -13,6 +13,9 @@ public class ResumeVO {
     private String subject;
     private String introduce;
     private String uploadLink;
+    private String name ; 
+    private String mobile ;
+    private String complete_date ;
 
     // join insert
     

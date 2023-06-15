@@ -31,7 +31,7 @@
 		</select>
 		
 		<select id="getCompanyVO" parameterType="int" resultType="com.spring.wanted.ProjectWanted.company.model.CompanyVO">
-				select C.name , C.details ,C.EMP_COUNT , C.ADDRESSS , C.IMAGE , R.REGION_NAME , D.REGION_DETAIL_NAME 
+				select C.company_id , C.name , C.details ,C.EMP_COUNT , C.ADDRESSS , C.IMAGE , R.REGION_NAME , D.REGION_DETAIL_NAME 
 				from
 				(
 				select post_code , fk_company_id , subject 
@@ -45,6 +45,10 @@
 				JOIN TBL_REGION R
 				ON D.FK_REGION_CODE = R.REGION_CODE
 		</select>
-
+		
+		<select id="getImageList" parameterType="String">
+			select image_name , fk_company_id from tbl_detail_image
+			where fk_company_id = #{company_id}
+		</select>
 
 </mapper>
