@@ -9,4 +9,6 @@ public class MemberTechVO {
     private int fk_tech_code;
     private String fk_userid;
     private int fk_resume_code;
+    
+    private String fk_tech_name;
 }

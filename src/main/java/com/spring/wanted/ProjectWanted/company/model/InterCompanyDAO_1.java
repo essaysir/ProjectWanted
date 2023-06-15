@@ -42,6 +42,8 @@ public interface InterCompanyDAO_1 {
 
 	List<MemberTechVO> getMemberTech(int resumeCode);
 
+	ApplyVO getStatus(int resumeCode);
+
 
 
 	

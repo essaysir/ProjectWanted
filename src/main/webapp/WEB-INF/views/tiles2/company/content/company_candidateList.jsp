@@ -227,7 +227,7 @@
    <%-- 지원자List 불러오기 끝 --%>
 
    $(document).ready(function(){
-		
+	
 	     $("span.resume_subject").bind("mouseover", function(event){
 	    	 $(e.target).addClass("subjectStyle");    	 
 	     });

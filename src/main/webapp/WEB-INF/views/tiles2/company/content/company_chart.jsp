@@ -56,29 +56,28 @@
 <script src="/Highcharts-10.3.1/code/modules/data.js"></script>
 <script src="/Highcharts-10.3.1/code/modules/drilldown.js"></script>
  
-<figure>
-</figure>
-
 <script type="text/javascript">
 
 </script>
 
 	
-	<div class="listForm">
-	<h3>지원통계</h3>
-		<table class="containerTitle">
-		
-			<tr style="height: 40px;"></tr>
-			<tr>
-				<th class="formTitle"></th>
-				<th class="formTitle"></th>
-				<th class="formTitle"></th>
-				<th class="formTitle"></th>
-			</tr>
-			<tr>
-				<td colspan="4"></td>
-			</tr>
-		</table>
-	</div>
+<div class="chartFrm">
+<div style="width: 80%; min-height: 1100px; margin:auto; ">
+
+	<h3>지원 통계 현황</h3>
+	<form name="searchFrm" style="margin: 20px 0 50px 0; ">
+      <select name="searchType" id="searchType" style="height: 30px;">
+         <option value="">항목을 선택하세요</option>
+         <option value="salary">직무별 경력별 평균연봉</option>
+      </select>
+   </form>
+   
+   <div id="chart_container"></div>
+   <div id="table_container" style="margin: 40px 0 0 0;"></div>
+</div>	
+</div>
+
+
+
 
 

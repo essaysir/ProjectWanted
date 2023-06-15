@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.spring.wanted.ProjectWanted.company.model.ApplyVO;
 import com.spring.wanted.ProjectWanted.member.model.CareerVO;
 import com.spring.wanted.ProjectWanted.member.model.LanguageVO;
 import com.spring.wanted.ProjectWanted.member.model.MemberTechVO;
@@ -47,6 +48,8 @@ public interface InterCompanyMapper_1 {
 	List<PerformanceVO> getPerformance(int resumeCode);
 
 	List<MemberTechVO> getMemberTech(int resumeCode);
+
+	ApplyVO getStatus(int resumeCode);
 	
 	
 
