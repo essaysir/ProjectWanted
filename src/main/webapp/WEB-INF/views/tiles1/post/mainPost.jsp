@@ -9,6 +9,23 @@
 
 <style>
 
+    #header-search > div > div > nav > ul {
+		border-bottom: solid 1px #f2f2f2;
+	    display: flex;
+	    list-style: none;
+	    padding-left: 0;
+	    flex-direction: row;
+	    align-items: baseline;
+	    margin-block-start: -1em;
+	    margin-block-end: 1em;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 40px;
+	}
+	
+	#usersign > p > a {
+		color: black;
+	}
     
     .JobList_cn__t_THp {
     background: #fff;
@@ -965,7 +982,7 @@ a, a:active, a:hover, a:visited {
     background-color: #fff;
     position: absolute;
     overflow: hidden;
-    top: 25%;
+    top: 350px;/* 25%; */
     left: 50%;
     width: 100%;
     max-width: 500px;
@@ -2358,13 +2375,15 @@ section#skillSearch {
   	  });
   	  
   	  $("span.Button_Button__interaction__kkYaa").on('click', function(){
-			confirmYear.call(this);				
+  			insertYear.call(this);				
 		});
 
     }); // end of document
     
     //경력 슬라이더
-    function confirmYear(){
+    insert_minyear = "";
+    insert_maxyear = "";
+    function insertYear(){
     	$("div.YearsPopup_container___s3Uf").css("display", "none");
     	let minyear = document.querySelector("#slider-range > div > div > div.range > span:nth-child(1)").textContent;
     	let maxyear = document.querySelector("#slider-range > div > div > div.range > span:nth-child(3)").textContent;    	
@@ -2372,6 +2391,9 @@ section#skillSearch {
     	//정규 표현식으로 숫자만 받음
     	minyear = minyear.replace(/\D/g, '');
     	maxyear = maxyear.replace(/\D/g, '');
+    	
+    	insert_minyear = minyear;
+    	insert_maxyear = maxyear;
     	
     	//alert(minyear);
     	//alert(maxyear);
@@ -2419,7 +2441,16 @@ section#skillSearch {
     	element.html(html);
     }
     
-    
+    function confirmYear(){
+    	let html = "";
+    	
+    	html += '<input type="hidden" name="career" value="'+insert_minyear+'"/>';
+    	html += '<input type="hidden" name="career" value="'+insert_maxyear+'"/>';
+    	$("li#career_gofilter").html(html);
+    	
+    	gofilter();
+    	
+    }
     
     
     //슬라이더 윗 버튼  
@@ -2740,7 +2771,7 @@ section#skillSearch {
 				//console.log(JSON.stringify(json));
 				
 				let html = ""
-				html += ' <li><button type="button" class="modal_region_detail_button ">'+total_region+' 전체<input type="hidden" class="total_detail_code modal_region_detail_button" value="'+region_code+'"/></button></li>';
+				html += ' <li><button type="button" class="modal_region_detail_button ">'+total_region+' 전체<input type="hidden" name=""region_code" class="total_detail_code modal_region_detail_button" value="'+region_code+'"/></button></li>';
 						//Locations_selected__1YaAW 선택 css 일단 뺌
 						
 				for (let i = 0; i < json.RegionDetailList.length; i++) {
@@ -2785,7 +2816,7 @@ section#skillSearch {
 		element.addClass("Locations_selected__1YaAW");
 		
 		let html = ""; 
-		html += '<li class="SelectedLocations_locationItem__8j9AK"><span>'+region_detail_name+'<input type="hidden" name="region_detail_code" value=" '+region_detail_code+' "/></span><button type="button" class="remove_region_button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24" style="color: #36f;">'+
+		html += '<li class="SelectedLocations_locationItem__8j9AK"><span>'+region_detail_name+'<input type="hidden" name="region_detail_code" value="'+region_detail_code+'"/></span><button type="button" class="remove_region_button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24" style="color: #36f;">'+
             	'<path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>'+
            		'</svg></span></button></li>';
 		
@@ -2834,7 +2865,8 @@ section#skillSearch {
 	}
 	
 	function confirmRegion() {
-		
+		$("span.IconButton_IconButton__interaction__I48Mv").trigger('click'); 
+		gofilter();
 	}
 	
 	
@@ -2851,13 +2883,13 @@ section#skillSearch {
 				let html = ""
 				 html += " <ul id='job-list'> ";
 						
-						
+				
 				for (let i = 0; i < json.PostList.length; i++) {
 					//console.log(json.PostList[i].SUBJECT);
 					// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
 					html += "<li>" +
-							"<div class='Card_className__u5rsb'><a href='/postdetail/"+json.PostList[i].post_code+"' class='' >" +
-							"<header style='background-image: "+json.PostList[i].image+" '></header>" +
+							"<div class='Card_className__u5rsb'><a href='/wanted/detail/"+json.PostList[i].post_code+"' class='' >" +
+							"<header style='background-image: url(/images/main_image/20230611210219419510749139400.jpg)'></header>" +
 							"<div class='body'>"+
 							"<div class='job-card-position'>"+json.PostList[i].subject+"</div>"+
 							"<div class='job-card-company-name'>"+json.PostList[i].name+"</div>"+
@@ -3214,7 +3246,17 @@ section#skillSearch {
 		    $("input[name='duty_code']").each(function() {
 		        duty_code.push($(this).val());
 		    });
+		    
+		    let region_detail_code = [];
+		    $("input[name='region_detail_code']").each(function() {
+		    	region_detail_code.push($(this).val());
+		    });
 
+		    let career = [];
+		    $("input[name='career']").each(function() {
+		    	career.push($(this).val());
+		    });
+		    
 		    let tech_code = [];
 		    $("input[name='tech_code']").each(function() {
 		        tech_code.push($(this).val());
@@ -3224,6 +3266,8 @@ section#skillSearch {
 		    let data = {
 		    	job_code : job_code,
 		    	duty_code: duty_code,
+		    	region_detail_code: region_detail_code,
+		    	career: career,
 		        tech_code: tech_code
 		        
 		    };
@@ -3245,7 +3289,7 @@ section#skillSearch {
 							//console.log(json.PostList[i].SUBJECT);
 							// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
 							html += "<li>" +
-									"<div class='Card_className__u5rsb'><a href='/postdetail/"+json.PostList[i].post_code+"' class='' >" +
+									"<div class='Card_className__u5rsb'><a href='/wanted/detail/"+json.PostList[i].post_code+"' class='' >" +
 									"<header style='background-image: "+json.PostList[i].image+" '></header>" +
 									"<div class='body'>"+
 									"<div class='job-card-position'>"+json.PostList[i].subject+"</div>"+
@@ -3363,7 +3407,7 @@ section#skillSearch {
 								<footer class="Footer_Footer__xQYVu">
 								    <div class="Footer_Footer__btnBox__U8lwy">
 									    <button class="Button_Button__root__V1ie3 Button_Button__text__GCOTx Button_Button__textAssistive__Dx57x Button_Button__textSizeSmall__VSAkQ Footer_Footer__btnBox__cancle__Kf9Kv"><span class="Button_Button__label__1Kk0v">취소</span><span class="Button_Button__interaction__kkYaa"></span></button>
-									    <button class="Button_Button__root__V1ie3 Button_Button__text__GCOTx Button_Button__textPrimary__hcFzK Button_Button__textSizeSmall__VSAkQ " data-attribute-id="explore__filter__update" data-job-category-id="518" data-job-category="IT" data-job-role-id="873,10110" data-job-role="Web Developer,Software Engineer" data-filter-name="experience" data-update-result="-1"><span class="Button_Button__label__1Kk0v" style="color: #36f;;">적용하기</span><span class="Button_Button__interaction__kkYaa"></span></button>
+									    <button class="Button_Button__root__V1ie3 Button_Button__text__GCOTx Button_Button__textPrimary__hcFzK Button_Button__textSizeSmall__VSAkQ " onclick="confirmYear()"><span class="Button_Button__label__1Kk0v" style="color: #36f;;">적용하기</span><span class="Button_Button__interaction__kkYaa"></span></button>
 									</div>
 								</footer>
 							
@@ -3665,6 +3709,8 @@ section#skillSearch {
 	    <ul> <!-- input 태그를 넣기 어중간한 것들 따로 이렇게 정리 -->
 	    	<li id="job_code_gofilter"></li>
 	    	<li id="duty_code_gofilter"></li>
+	    	<li id="region_code_gofilter"></li>
+	    	<li id="career_gofilter"></li>
 	    </ul>
     </div>
 </div>
