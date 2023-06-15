@@ -30,6 +30,7 @@
   <%-- *** ajax로 파일을 업로드할때 가장 널리 사용하는 방법 ==> ajaxForm *** --%>
   <script type="text/javascript" src="/js/jquery.form.min.js"></script>
 
+
 </head>
 <body>
 	<div id="mycontainer">

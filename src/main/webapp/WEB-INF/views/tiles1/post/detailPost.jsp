@@ -377,6 +377,29 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  		$(document).ready(function(){
  			$("button#btn_apply").on("click", apply) ; // 지원하기 클릭시 
  			$("button#back").on("click" , back );
+ 			$(document).on("click" , '#real_apply' , applyPost );
+ 			$(document).on('change', '.apply_checkbox', function() {
+ 				  if ($(this).is(':checked')) {
+ 				    // 체크박스가 체크되었을 때 수행할 작업
+ 				    // console.log('체크박스가 체크되었습니다.');
+ 				    var parentDiv = $(this).closest('div.resume_container');
+					parentDiv.addClass("selected"); // 선택된 DIV 의 CSS 를 변경해주려는 경우
+					parentDiv.removeClass("unselected");
+					//console.log(parentDiv);
+					//console.log(parentDiv.html());
+					var resume_code = parentDiv.find("input#resume_code").val();
+					$("input#selected_resume_code").val(resume_code);
+ 				  } 
+ 				  else {
+ 				    // 체크박스가 해제되었을 때 수행할 작업
+ 				    // console.log('체크박스가 해제되었습니다.');
+ 				   var parentDiv = $(this).closest('div.resume_container');
+					parentDiv.addClass("unselected");
+					parentDiv.removeClass("selected");
+					$("input#selected_resume_code").val(-999);
+ 				  }
+ 				});
+
  			func_geocoder('${cvo.addresss}');
  			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  			// 카카오맵 시작 
@@ -562,6 +585,8 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  		}// function func_geocoder(address) {
  		function back(){
  			$("div#div_apply_adjust").hide();
+ 			$("div#apply_resume").html("");
+			 
  		} // END OF FUNCTION BACK()
  		
  		function apply(){
@@ -572,11 +597,59 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  				async: false,
  				success: function (json) {
 					  // alert("하하하");  					
- 					  // console.log(JSON.stringify(json));
+ 					   // console.log(json);
  					 if ( json.userid == "anonymousUser"){
  						location.href = "/wanted/login" ;
  					 }
  					 else{
+ 						var html = '';
+						
+ 						html += '<h3 class="apply_title">지원 정보</h3>';
+ 						html += '<br/>';
+ 						html += '<label>';
+ 						html += '   <h4 class="apply_menu">이름</h4>';
+ 						html += '<input disabled type="text" name="name" value="' + json.name + '"/>';
+ 						html += '</label>';
+ 						html += '<label style="both:clear;">';
+ 						html += '   <h4 class="apply_menu">이메일</h4>';
+ 						html += '   <input disabled type="text" name="email" value="'+json.email+'"/>';
+ 						html += '</label>';
+ 						html += '<label style="both:clear;">';
+ 						html += '   <h4 class="apply_menu">휴대폰</h4>';
+ 						html += '   <input disabled type="text" name="mobile" value="'+json.mobile+'"/>';
+ 						html += '</label>';
+ 						html += '<h3 class="apply_title" style="both:clear;">첨부 파일</h3>';
+ 						html += '<ul style="list-style : none ; padding: 0 ; margin-top: 20px; ">';
+ 						for (let rvo of json.resumeList){
+ 							
+ 						html += '   <li>';
+ 						html += '      <div class="unselected resume_container" style="display: flex;">';
+ 						html += '         <input type="checkbox" class="apply_checkbox"/>';
+ 						html += '         <div style="display: flex; flex-direction: column ; ">';
+ 						html += '            <p class="resume_name" style="margin-top: 6px; ">'+rvo.subject+'<span class="resume_matchup">매치업</span> </p>';
+ 						html += '            <p class="resume_lang">'+rvo.complete_date+	' <span class="resume_status">작성완료</span></p>';
+ 						html += '           <input type="hidden"  id="resume_code" name="resume_code" value="'+rvo.resume_code+'"    />              '
+ 					 	html += '         </div>';
+ 						html += '         <a style="margin-left : 85px;  margin-top: 13px; href="/wanted/member/myresume/'+rvo.resume_code+'" ">';
+ 						html += '            <svg width="10" height="10" viewBox="0 0 12 12"><path fill="currentColor" d="M3.345 9.72a.75.75 0 0 0 1.06 1.06l4.25-4.25a.75.75 0 0 0 0-1.06l-4.25-4.25a.75.75 0 0 0-1.06 1.06L7.065 6l-3.72 3.72z"></path></svg>';
+ 						html += '         </a>';
+ 						html += '      </div>';
+ 						html += '   </li>';
+
+ 						}
+ 						html += '</ul>';
+ 						html += '<div style="margin-bottom: 20px;">';
+ 						html += '   <button type="button" class="write_resume" onclick="window.location.href=\'/wanted/member/myresume\'">새 이력서 작성</button>';
+ 						html += '   <p style="font-size:14px; margin-top : 30px; ">원티드 이력서로 지원하면 최종 합격률이 40% 높아집니다.</p>';
+ 						html += '   <button type="button" class="apply_resume" id="real_apply">제출하기</button>';
+ 						html +='    <input type="hidden" id="selected_resume_code" />    '
+ 						html += '</div>';
+
+ 						 // console.log(html);
+
+
+ 						$("div#apply_resume").html(html);
+ 					 
  					 	$("div#div_apply_adjust").show();
  					 }
  					 
@@ -586,6 +659,40 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  				}	
  			}); // END OF $.AJAX 
  		}// END OF FUNCTION APPLY 
+ 		
+ 		function applyPost(){
+			let post_code = '${pvo.post_code}';
+			let company_id = '${pvo.fk_company_id}'
+			// console.log(post_code);
+ 		  	let jsonData = { resume_code : $("input#selected_resume_code").val() , 
+					fk_company_id : company_id ,
+					fk_post_code : post_code } ; 
+ 			$.ajax({
+ 				url: "/wanted/member/apply",
+ 				type: "post",
+				contentType: "application/json",			
+ 				data : JSON.stringify(jsonData) ,
+ 				dataType: "json",
+ 				async: false,
+ 				success: function (json) {
+					  // alert("하하하");  					
+ 					  // console.log(json);
+					  if ( json.result == "fail"){
+						alert("이력서 지원이 실패했습니다.");
+					  }
+					  else{
+						location.href="/wanted";	
+					  }
+ 				
+ 					 
+ 				},
+ 				error: function (request, status, error) {
+ 					 // alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+ 				}	
+ 			}); // END OF $.AJAX   */
+ 		
+ 			
+ 		}
  </script>
  
 
@@ -625,8 +732,8 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 				<p>${pvo.mainduty }</p>
 				<h6 class="sub_title">자격요건</h6>
 				<p>${pvo.quality }</p>
-				<h6 class="sub_title">기술스택.툴</h6>
-				<button class="skill_button" style="margin-top:20px;">React</button>
+				<h6 class="sub_title" style="margin-bottom:20px;">기술스택.툴</h6>
+				<button class="skill_button" >React</button>
 				<button class="skill_button">Node.js</button>
 				<button class="skill_button">PHP</button>
 				<button class="skill_button">React Native</button>
@@ -647,9 +754,9 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 				 <div id="latlngResult"></div>
 				 
 				 <section class="comp_section">
-				 	<div class="div-logo" style="background-image: url(/images/profile_default.png)">
+				 	<div class="div-logo" style="background-image: url(/images/company_profile/${cvo.image})">
 				 	</div>
-					<div style="margin-right: 294px;">
+					<div style="margin-right: 405px;">
 						<h5>${cvo.name}</h5>
 						<h6>IT, 컨텐츠</h6>
 					</div>
@@ -703,61 +810,7 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 		</div>
 		
 		<div class="container-fluid" id="apply_resume" style="padding: 20px 20px 0; ">
-			<h3 class="apply_title">지원 정보</h3>
-			<br/>
-			<label>
-				<h4 class="apply_menu">이름</h4>
-				<input disabled type="text" name="name" value="손주선"/>
-			</label>
-			
-			<label style="both:clear;">
-				<h4 class="apply_menu">이메일</h4>
-				<input disabled type="text" name="email" value="sonjs7554@naver.com"/>
-			</label>
-			
-			<label style="both:clear;">
-				<h4 class="apply_menu">휴대폰</h4>
-				<input disabled type="text" name="mobile" value="01075543049"/>
-			</label>
-			<h3 class="apply_title" style="both:clear;">첨부 파일</h3>
-			
-			<ul style="list-style : none ; padding: 0 ; margin-top: 20px; ">
-				<li>
-					<div class="selected resume_container" style="display: flex;">
-					
-					<input type="checkbox" class="apply_checkbox"/>
-						
-						<div style="display: flex; flex-direction: column ; ">
-							<p class="resume_name" style="margin-top: 6px; ">손주선1 <span class="resume_matchup">매치업</span> </p>
-							<p class="resume_lang">한국어 <span class="resume_status">작성완료</span></p>
-						</div>
-						<a style="margin-left : 85px;  margin-top: 13px; ">
-						<svg width="10" height="10" viewBox="0 0 12 12"><path fill="currentColor" d="M3.345 9.72a.75.75 0 0 0 1.06 1.06l4.25-4.25a.75.75 0 0 0 0-1.06l-4.25-4.25a.75.75 0 0 0-1.06 1.06L7.065 6l-3.72 3.72z"></path></svg>
-						</a>
-					</div>
-				</li>
-
-				<li>
-					<div class="unselected resume_container" style="display: flex;">
-					
-					<input type="checkbox" class="apply_checkbox"/>
-						
-					<div style="display: flex; flex-direction: column ; ">
-							<p class="resume_name" style="margin-top: 6px; ">손주선1 <span class="resume_matchup">매치업</span> </p>
-							<p class="resume_lang">한국어 <span class="resume_status">작성완료</span></p>
-						</div>
-						<a style="margin-left : 85px;  margin-top: 13px; ">
-						<svg width="10" height="10" viewBox="0 0 12 12"><path fill="currentColor" d="M3.345 9.72a.75.75 0 0 0 1.06 1.06l4.25-4.25a.75.75 0 0 0 0-1.06l-4.25-4.25a.75.75 0 0 0-1.06 1.06L7.065 6l-3.72 3.72z"></path></svg>
-						</a>
-					</div>
-					<div>
-						<button  type="button" class="write_resume">새 이력서 작성</button>
-						<p style="font-size:14px; margin-top : 30px; ">원티드 이력서로 지원하면 최종 합격률이 40% 높아집니다.</p>
-						<button type="button" class="apply_resume">제출하기</button>
-					</div>
-				</li>
-			
-			</ul>
+		
 		</div>			
 		
 		

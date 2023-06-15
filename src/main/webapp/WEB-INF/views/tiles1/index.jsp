@@ -21,6 +21,11 @@
 		margin-top: 25px;
 		width:100%;
 	}
+	
+	a, a:active, a:hover, a:visited {
+	    color: #999;
+	    text-decoration: none;
+	}
 
 /*------------------------------------탑 캐러셀 시작------------------------------*/	
 	
@@ -511,23 +516,34 @@
 		font-size: 14px;
 	}
 	
+	
 </style>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+	$("#myButton").removeAttr("disabled"); // disabled 속성이 제거되지 않아서 따로 지정
+
+});	
+
 function employmentFunction() {
-	  alert('버튼이 클릭되었습니다!');
+	window.location.href = "/wanted/post/mainPost";
 	}
 	
-function gominFunction() {
+/* function gominFunction() {
 	  alert('버튼이 클릭되었습니다!');
 	
-	}
+	} */
 function gomyprofile() {
 	
 	window.location.href = "/wanted/member/memberInfo";
 	// 스프링 시큐리티를 고려해서 ajax 로 getLogin() 하려했으나
 	// mvo만 받는 거니 
 	
+}
+
+function goregister() {
+	window.location.href = "/wanted/login";
 }
 
 </script>
@@ -563,17 +579,17 @@ function gomyprofile() {
 		</div>
 		<div class="mr-b">
 			<h3 class="mr-h3">회원가입하면 포지션을 추천해드려요.</h3>
-			<button type="button">지금 시작하기</button>
+			<button type="button" id="myButton" onclick="goregister()">지금 시작하기</button>
 		</div>
 	</div>
-	<div class="main_gomin" style="background-image: url('/images/main_image/banner-back-pc-jobsfeed.png'); background-size: cover;"
+	<!-- <div class="main_gomin" style="background-image: url('/images/main_image/banner-back-pc-jobsfeed.png'); background-size: cover;"
 			onclick="gominFunction()">
 		<div class="gomin_content">
 		<p class="gomin_p">내 연차에 이 연봉 괜찮은가? 궁금할 땐</p>
 		<img class="gomin" src="/images/main_image/gomin.png">
 		<strong class="gomin_st">커리어 중간점검</strong>		
 		</div>
-	</div>
+	</div> -->
 	<div class="main_two_select">
 		<button type="button" class="select_one" onclick="gomyprofile()">내 프로필</button>
 		<button type="button" class="select_two" onclick="location.href='#'">매치업</button>
@@ -643,8 +659,8 @@ function gomyprofile() {
 				<div class="company2-next"><i class="fas fa-chevron-circle-right"></i></div>
 				<h2 class="company_title">
 					<a href="#" class="">
-						#연봉이 최고의 복지
-						<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F634f02e0-9f6e-11ec-b909-0242ac120002.png&amp;w=75&amp;q=75" alt="user tag icon">
+						#퇴사율 10% 이하
+						<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F7d3cdb3c-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="퇴사율 10% 이하">
 					</a>
 				<span>회사를 소개합니다</span>
 				</h2>

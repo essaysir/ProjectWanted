@@ -1,9 +1,11 @@
 package com.spring.wanted.ProjectWanted.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 public interface InterMemberService {
@@ -17,4 +19,9 @@ public interface InterMemberService {
 	CompanyVO getCompanyVO(int post_code);
 
 	List<String> getImageList(String company_id);  // Detail 페이지에 쓰기 위한 List
+
+	List<ResumeVO> getResumeList(String userid);
+
+	int apply(Map<String, String> paraMap); 
+
 }

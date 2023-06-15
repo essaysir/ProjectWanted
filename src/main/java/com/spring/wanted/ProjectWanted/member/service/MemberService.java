@@ -1,6 +1,7 @@
 package com.spring.wanted.ProjectWanted.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.member.model.InterMemberDAO;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 @Service
@@ -60,6 +62,25 @@ public class MemberService implements InterMemberService{
 		List<String> imageList = mdao.getImageList(company_id);
 		return imageList ;
 	}
+
+
+	@Override
+	public List<ResumeVO> getResumeList(String userid) {
+		List<ResumeVO> resumeList = mdao.getResumeList(userid);
+		return resumeList ;
+	}
+
+
+	@Override
+	public int apply(Map<String, String> paraMap) {
+		int n = mdao.apply(paraMap);
+		return n ;
+	}
+
+
+	
+
+
 	
 
 

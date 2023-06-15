@@ -11,6 +11,9 @@
 		setMenuList();
 		setHeaderEvent();
 		getLogin();
+		$("image#header-logo").click(function(){
+			window.location.href = "/wanted";
+		});
 
 		
 		
@@ -257,7 +260,7 @@
 				    <li style="margin: 10px 50px 10px 10px; ">
 				      	<a class="header-category border-right" href="/wanted" data-toggle="dropdown" style="color: black;">
 				        	<i class="fa-solid fa-bars"></i>
-				       		 <img  src="/images/원티드로고.png" class="position-relative" style="width: 80px; margin-left:10px; top:-3px;"/>
+				       		<img id="header-logo"  src="/images/원티드로고.png" class="position-relative" style="width: 80px; margin-left:10px; top:-3px;"/>
 				      	</a>
 				      
 				      <div id="menu-list"class="dropdown-menu" aria-labelledby="navbardrop">
@@ -265,16 +268,16 @@
 				 		</div>
 				 		
 				    <li style="margin: 10px 0px 10px 10px;">
-				      <a class="header-category" href="#" style="color: black;">채용</a>
+				      <a class="header-category" href="/wanted/post/mainPost" style="color: black; font-weight: 800;">채용</a>
 				    </li>
 				    <li style="margin: 10px 0px 10px 10px;">
-				      <a class="header-category" href="/wanted/resume" style="color: black;">이력서</a>
+				      <a class="header-category" href="/wanted/resume" style="color: black; font-weight: 800;">이력서</a>
 				    </li>
 				    <li style="margin: 10px 0px 10px 10px;">
-				      <a class="header-category" href="#" style="color: black;">커뮤니티</a>
+				      <a class="header-category" href="#" style="color: black; font-weight: 800;">커뮤니티</a>
 				    </li>
 				    <li style="margin: 10px 0px 10px 10px;">
-				      <a class="header-category" href="#" style="color: black;">통계</a>
+				      <a class="header-category" href="#" style="color: black; font-weight: 800;">통계</a>
 				    </li>
 				    <li  style="margin: 10px 0px 10px 10px;">
 				    	<button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>

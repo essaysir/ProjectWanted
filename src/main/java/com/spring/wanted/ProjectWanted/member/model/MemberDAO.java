@@ -1,6 +1,7 @@
 package com.spring.wanted.ProjectWanted.member.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -61,6 +62,18 @@ public class MemberDAO implements InterMemberDAO {
 	public List<String> getImageList(String company_id) {
 		List<String> imageList = mapper.getImageList(company_id);
 		return imageList ;
+	}
+
+	@Override
+	public List<ResumeVO> getResumeList(String userid) {
+		List<ResumeVO> resumeList = mapper.getResumeList(userid);
+		return resumeList ;
+	}
+
+	@Override
+	public int apply(Map<String, String> paraMap) {
+		int n = mapper.apply(paraMap);
+		return n;
 	}
 
 
