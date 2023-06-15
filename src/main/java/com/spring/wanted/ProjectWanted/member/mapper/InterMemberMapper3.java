@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 
 @Mapper
 public interface InterMemberMapper3 {
@@ -34,5 +35,8 @@ public interface InterMemberMapper3 {
 	
 	// 회원탈퇴하기
 	int memberExit(String userid);
+	
+	// 멤버가 작성한 이력서 가져오기
+	List<ResumeVO> getMyresume(String fk_userid);
 
 }

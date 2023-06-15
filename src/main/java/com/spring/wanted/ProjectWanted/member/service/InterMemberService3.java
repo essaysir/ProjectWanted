@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 
 public interface InterMemberService3 {
 	
@@ -31,6 +32,9 @@ public interface InterMemberService3 {
 	
 	// 회원탈퇴처리
 	int memberExit(String userid, HttpServletRequest request);
+	
+	// 멤버가 작성한 이력서 가져오기
+	List<ResumeVO> getMyresume(String fk_userid);
 
 	
 
