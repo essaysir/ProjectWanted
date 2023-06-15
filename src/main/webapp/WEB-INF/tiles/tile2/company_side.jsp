@@ -51,7 +51,7 @@
 	}
 
 	div.name {
-		height: 50px;
+		height: 60px;
 		font-size: 28px;
 		font-weight: bold;
 		position:  relative;

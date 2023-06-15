@@ -6,6 +6,10 @@
 
 <style type="text/css">
 	
+	div#mySide {
+		border-right: solid 1px #ddd;
+	}
+	
 	.miMain_frame{
 		display: flex;
 		justify-content: center;
