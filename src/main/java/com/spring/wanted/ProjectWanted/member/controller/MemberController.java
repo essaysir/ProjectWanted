@@ -92,16 +92,19 @@ public class MemberController {
 		
 		// Detail JobPost 
 		@ResponseBody
-		@PostMapping(value="/member/apply")
+		@GetMapping(value="/member/apply")
 		public String apply() {
-			Authentication authenticate = SecurityContextHolder.getContext().getAuthentication();
-			MemberVO mvo = (MemberVO)authenticate.getPrincipal();
-			// System.out.println(" 확인용 auth : " + authenticate);
-			System.out.println(" 확인용 mvo : " + mvo);
 			JSONObject jsonObj = new JSONObject();
-			jsonObj.put("authenticate", authenticate);
-			jsonObj.put("mvo", mvo);
-			
+			Authentication authenticate = SecurityContextHolder.getContext().getAuthentication();
+			System.out.println(" 확인용 authentication " + authenticate);
+			System.out.println(" 확인용 authenticationPrincipal " + authenticate.getPrincipal());
+			if ( authenticate.getPrincipal() != "anonymousUser") { // 로그인을 한 경우
+				  MemberVO mvo = (MemberVO)authenticate.getPrincipal();
+				  jsonObj.put("mvo", mvo) ;
+			}
+			else { // 로그인을 안한 경우 
+				jsonObj.put("userid", authenticate.getPrincipal());
+			}
 			return jsonObj.toString() ;
 		}
 		

@@ -21,8 +21,8 @@
 	
 	<!-- resume_input 사용자로 부터 입력받은 값을 RESUME 테이블에 저장하기 -->
 	<insert id="insertResume"  parameterType="com.spring.wanted.ProjectWanted.member.model.ResumeVO" useGeneratedKeys="true" keyColumn="resume_code" keyProperty="resume_code">
-		INSERT INTO tbl_resume(RESUME_CODE, FK_USERID, ISCOMPLETE, SUBJECT, INTRODUCE, UPLOADLINK)
-		values(seq_resume.nextval, #{fk_userid}, #{iscomplete}, #{subject}, #{introduce}, #{uploadLink})
+		INSERT INTO tbl_resume(RESUME_CODE, FK_USERID, ISCOMPLETE, SUBJECT, INTRODUCE, UPLOADLINK , NAME , MOBILE , COMPLETE_DATE )
+		values(seq_resume.nextval, #{fk_userid}, #{iscomplete}, #{subject}, #{introduce}, #{uploadLink} , #{name} , #{mobile} , sysdate )
 	</insert>
 	<!-- resume_input 사용자로 부터 입력받은 값을 Career 테이블에 저장하기 -->
 	<insert id="insertCareer" parameterType="com.spring.wanted.ProjectWanted.member.model.CareerVO" useGeneratedKeys="true" keyColumn="career_code" keyProperty="career_code">

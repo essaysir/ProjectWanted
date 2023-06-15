@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
  <style type="text/css">
 		h2.title{
@@ -342,6 +343,17 @@
 		    letter-spacing: normal;
 		    color: #666;
 		}
+		button.apply_resume{
+			width: 100%;
+		    height: 50px;
+		    background: #36f;
+		    color: #fff;
+		    font-size: 16px;
+		    font-weight: 600;
+		    border-radius: 25px;
+		    border : none ;
+		}
+		
 		
 		
 		
@@ -364,6 +376,7 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  <script type="text/javascript">
  		$(document).ready(function(){
  			$("button#btn_apply").on("click", apply) ; // 지원하기 클릭시 
+ 			$("button#back").on("click" , back );
  			func_geocoder('${cvo.addresss}');
  			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  			// 카카오맵 시작 
@@ -532,22 +545,7 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  			
  		}); // END OF $(DOCUMENT).READY(FUNCTION()
 		
- 		function apply(){
- 			$.ajax({
- 				url: "/wanted/member/apply",
- 				type: "post",
- 				dataType: "json",
- 				async: false,
- 				success: function (json) {
- 					  console.log(JSON.stringify(json));
- 					
- 					 
- 				},
- 				error: function (request, status, error) {
- 					 alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
- 				}	
- 			}); // END OF $.AJAX 
- 		}// END OF FUNCTION APPLY 
+ 		
  		
  		function func_geocoder(address) {
  		   // 주소-좌표 변환 객체를 생성합니다
@@ -562,6 +560,32 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  			    } 
  			}); 
  		}// function func_geocoder(address) {
+ 		function back(){
+ 			$("div#div_apply_adjust").hide();
+ 		} // END OF FUNCTION BACK()
+ 		
+ 		function apply(){
+ 			$.ajax({
+ 				url: "/wanted/member/apply",
+ 				type: "get",
+ 				dataType: "json",
+ 				async: false,
+ 				success: function (json) {
+					  // alert("하하하");  					
+ 					  // console.log(JSON.stringify(json));
+ 					 if ( json.userid == "anonymousUser"){
+ 						location.href = "/wanted/login" ;
+ 					 }
+ 					 else{
+ 					 	$("div#div_apply_adjust").show();
+ 					 }
+ 					 
+ 				},
+ 				error: function (request, status, error) {
+ 					 // alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+ 				}	
+ 			}); // END OF $.AJAX 
+ 		}// END OF FUNCTION APPLY 
  </script>
  
 
@@ -570,16 +594,14 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 			<div class="main_top_carousel container" style="margin-top:20px; ">
 			    <div class="my-1">
 			        <div class="owl-carousel owl-theme">
-			            <div class="item" style="text-align: left;">
-			                <img style="height: 100%;" src="/images/company_detail_image/계약서.jpg">
+			        	<c:forEach var="item" items="${imageList}">
+						    <!-- 반복할 내용 -->
+						    <div class="item" style="text-align: left;">
+			                <img style="height: 100%;" src="/images/company_detail_image/${item}">
+			            	</div>
+						</c:forEach>
+			            
 			            </div>
-			            <div class="item" style="text-align: left;">
-			                <img style="height: 100%;" src="/images/company_detail_image/월급복권.jpg">
-			            </div>
-			            <div class="item" style="text-align: left;">
-			                <img style="height: 100%;" src="/images/company_detail_image/휴대폰결제.jpg">
-			            </div>
-			        </div>
 			    </div>
 			</div>
 
@@ -667,12 +689,12 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 	</div>
 
 			
-	<div class="border fixed-top" style="background-color: #fff;  width: 330px; min-height: 390px;
-    max-height: 540px; top:70px ; left: 1330px; z-index: 2; border-radius: 3px; overflow-y: auto;">
+	<div class="border fixed-top" id="div_apply_adjust"style="background-color: #fff;  width: 330px; min-height: 390px;
+    max-height: 540px; top:70px ; left: 1330px; z-index: 2; border-radius: 3px; overflow-y: auto; display:none;">
 			
 		<div class="border-bottom" style="text-align:center; display: flex; height: 50px;  padding : 14px 15px; justify-content: space-between;">	
 			<h2 class="apply_h2" style="margin-left: 115px; ">지원하기</h2>	
-			<button id="back">뒤로</button>
+			<button type="button" id="back">뒤로</button>
 		</div>
 		
 		<div class="container-fluid border-bottom" id="violet">
@@ -680,22 +702,22 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 				<p>직무와 맞는 포지션일수록 서류합격률이 높아져요!</p>
 		</div>
 		
-		<div class="container-fluid" id="apply_resume" style="padding: 20px 20px 0;">
+		<div class="container-fluid" id="apply_resume" style="padding: 20px 20px 0; ">
 			<h3 class="apply_title">지원 정보</h3>
 			<br/>
 			<label>
 				<h4 class="apply_menu">이름</h4>
-				<input type="text" name="name" value="손주선"/>
+				<input disabled type="text" name="name" value="손주선"/>
 			</label>
 			
 			<label style="both:clear;">
 				<h4 class="apply_menu">이메일</h4>
-				<input type="text" name="email" value="sonjs7554@naver.com"/>
+				<input disabled type="text" name="email" value="sonjs7554@naver.com"/>
 			</label>
 			
 			<label style="both:clear;">
 				<h4 class="apply_menu">휴대폰</h4>
-				<input type="text" name="mobile" value="01075543049"/>
+				<input disabled type="text" name="mobile" value="01075543049"/>
 			</label>
 			<h3 class="apply_title" style="both:clear;">첨부 파일</h3>
 			
@@ -731,7 +753,7 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 					<div>
 						<button  type="button" class="write_resume">새 이력서 작성</button>
 						<p style="font-size:14px; margin-top : 30px; ">원티드 이력서로 지원하면 최종 합격률이 40% 높아집니다.</p>
-						<button type="button" class="resume">제출하기</button>
+						<button type="button" class="apply_resume">제출하기</button>
 					</div>
 				</li>
 			
