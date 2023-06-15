@@ -41,7 +41,7 @@ public class CommonDAO implements InterCommonDAO{
 	}
 
 	@Override
-	public void register_comp(CompanyVO cvo) {
+	public void register_comp(CompanyVO cvo) { 
 		
 		String addresss = cvo.getAddresss();
 		String[] addressParts = addresss.split(" ");
