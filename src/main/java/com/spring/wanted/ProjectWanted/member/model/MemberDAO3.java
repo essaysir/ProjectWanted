@@ -84,5 +84,14 @@ public class MemberDAO3 implements InterMemberDAO3 {
 		return n;
 	}
 	
+	// 멤버가 작성한 이력서 가져오기
+	@Override
+	public List<ResumeVO> getMyresume(String fk_userid) {
+		
+		List<ResumeVO> resumeList = mapper.getMyresume(fk_userid);
+		
+		return resumeList;
+	}
+	
 
 }

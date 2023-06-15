@@ -28,5 +28,8 @@ public interface InterMemberDAO3 {
 	
 	// 회원탈퇴하기
 	int memberExit(String userid);
+	
+	// 멤버가 작성한 이력서 가져오기
+	List<ResumeVO> getMyresume(String fk_userid);
 
 }
