@@ -2251,7 +2251,12 @@ section#skillSearch {
 /* 기술스택 css 끝 */	
 
 
-
+/* 태그 필터 css */
+	.TagListItem_selected__k3d9Q {
+		border: 1px solid #36f;
+	    color: #36f;
+	    font-weight: 600;
+	}
 
 
 
@@ -2290,6 +2295,9 @@ section#skillSearch {
     	
     	// 지역 조회 관련 함수
     	settingRegionList();
+    	
+    	// 회사 태그 관련 함수
+    	selectCompanytag();
     	
     	
     	// 슬릭 시작
@@ -2873,48 +2881,7 @@ section#skillSearch {
 	
 	////////////////////////////////////////////////////////////////////////
 	
-    function getPostList() {
-		$.ajax({
-			url: "/wanted/post/getPostList",
-			type: "get",
-			dataType: "json",
-			success: function (json) {
-				 //console.log(JSON.stringify(json));
-				let html = ""
-				 html += " <ul id='job-list'> ";
-						
-				
-				for (let i = 0; i < json.PostList.length; i++) {
-					//console.log(json.PostList[i].SUBJECT);
-					// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
-					html += "<li>" +
-							"<div class='Card_className__u5rsb'><a href='/wanted/detail/"+json.PostList[i].post_code+"' class='' >" +
-							"<header style='background-image: url(/images/main_image/20230611210219419510749139400.jpg)'></header>" +
-							"<div class='body'>"+
-							"<div class='job-card-position'>"+json.PostList[i].subject+"</div>"+
-							"<div class='job-card-company-name'>"+json.PostList[i].name+"</div>"+
-							"<div class='Tooltip_container__AvBvM'><button class='Tooltip_label__P9FMp' type='button'>"+
-							"<div class='ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP'><span>응답률 매우 높음</span></div>"+
-							"<div class='Tooltip_tooltipContent__6exdr'>지원 후 응답받을 확률이 95% 이상입니다.</div>"+
-							"</button></div>"+
-							"<div class='job-card-company-location'>"+json.PostList[i].region_name+"<span class='addressDot'>.</span><span>"+json.PostList[i].region_detail_name+"</span></div>"+
-							"</div></a></div></li>"
-					
-							
-				}
-				html += "</ul>"
-				
-				$("div.List_List_container__JnQMS").html(html);
-
-
-			},
-			error: function (request, status, error) {
-				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-			}
-
-
-		});
-	}
+   
     
     
     
@@ -3231,8 +3198,69 @@ section#skillSearch {
 	// 기술스택 끝
     
 	
+	//////////////////////////////////////////////////////////
 	
+	function selectCompanytag() {
+		
+		$(".TagListItem_TagListItem__3aCT9").click(function(){
+			$(".TagListItem_selected__k3d9Q").removeClass("TagListItem_selected__k3d9Q");
+			$(this).addClass("TagListItem_selected__k3d9Q");
+			
+		})
+		
+	
+	} 
+	
+	
+	
+	
+	
+	//////////////////////////////////////////////////////////
 
+		 function getPostList() {
+			$.ajax({
+				url: "/wanted/post/getPostList",
+				type: "get",
+				dataType: "json",
+				success: function (json) {
+					 //console.log(JSON.stringify(json));
+					let html = ""
+					 html += " <ul id='job-list'> ";
+							
+					
+					for (let i = 0; i < json.PostList.length; i++) {
+						//console.log(json.PostList[i].SUBJECT);
+						// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
+						html += "<li>" +
+								"<div class='Card_className__u5rsb'><a href='/wanted/detail/"+json.PostList[i].post_code+"' class='' >" +
+								"<header style='background-image: url(/images/company_detail_image/"+json.PostList[i].image_name+")'></header>" +
+								"<div class='body'>"+
+								"<div class='job-card-position'>"+json.PostList[i].subject+"</div>"+
+								"<div class='job-card-company-name'>"+json.PostList[i].name+"</div>"+
+								"<div class='Tooltip_container__AvBvM'><button class='Tooltip_label__P9FMp' type='button'>"+
+								"<div class='ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP'><span>응답률 매우 높음</span></div>"+
+								"<div class='Tooltip_tooltipContent__6exdr'>지원 후 응답받을 확률이 95% 이상입니다.</div>"+
+								"</button></div>"+
+								"<div class='job-card-company-location'>"+json.PostList[i].region_name+"<span class='addressDot'>.</span><span>"+json.PostList[i].region_detail_name+"</span></div>"+
+								"</div></a></div></li>"
+						
+								
+					}
+					html += "</ul>"
+					
+					$("div.List_List_container__JnQMS").html(html);
+	
+	
+				},
+				error: function (request, status, error) {
+					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				}
+	
+	
+			});
+		}
+	
+	
 		function gofilter() { <%-- 검색하러가는 역할 --%>
 		
 			/* let job_code = $("input[name='job_code']").val(); */
@@ -3290,7 +3318,7 @@ section#skillSearch {
 							// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
 							html += "<li>" +
 									"<div class='Card_className__u5rsb'><a href='/wanted/detail/"+json.PostList[i].post_code+"' class='' >" +
-									"<header style='background-image: "+json.PostList[i].image+" '></header>" +
+									"<header style='background-image: url(/images/company_detail_image/"+json.PostList[i].image_name+")'></header>" +
 									"<div class='body'>"+
 									"<div class='job-card-position'>"+json.PostList[i].subject+"</div>"+
 									"<div class='job-card-company-name'>"+json.PostList[i].name+"</div>"+
@@ -3322,14 +3350,6 @@ section#skillSearch {
 
 <div class="JobList_cn__t_THp container">
 
-	<!--        <input name="test" value="1" />
-                <input name="test" value="2" />
-                <input name="test" value="3" />
-                	이렇게 넣으면 object로 되어서 다들어가고 그걸 다시 count 값만큼 받으면되고 그 다음에 경력 뭐시기 in 1 2 3 으로해서 다받아버리면 될듯
-                	아니면 이거 말고 영민님 코드처럼 아싸리 싹다 list로 받아서 넣어버려도 상관 없을듯.--> 
-                
-
-
     <article role="navigation" class="CategoryNavbar_Container__MvZaR">
         <div class="CategoryNavbar_Body__1rM4_">
             <div class="dropdown">
@@ -3337,16 +3357,8 @@ section#skillSearch {
                             <path fill="#767676" fill-rule="nonzero" d="M2.28 3.22a.75.75 0 0 0-1.06 1.06l4.25 4.25a.75.75 0 0 0 1.06 0l4.25-4.25a.75.75 0 0 0-1.06-1.06L6 6.94 2.28 3.22z"></path>
                         </svg></span></button>
             	 <section role="navigation" id="myDropdown" class="dropdown-content JobGroupOverlay_JobGroupOverlay__ZEs7N isKR">
-            	<!--	<ul>
-				     	<li><a href="/wdlist" class="JobGroupOverlay_JobGroupOverlay__all__1x5HT" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="all" data-job-category="all">전체</a></li>
-				        <li><a href="/wdlist/518" class="JobGroupItem_JobGroupItem__xXzAi active" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="518" data-job-category="IT">개발</a></li>
-				        <li><a href="/wdlist/507" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="507" data-job-category="Management &amp; Business">경영·비즈니스</a></li>
-				        <li><a href="/wdlist/523" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="523" data-job-category="Marketing &amp; Advertising">마케팅·광고</a></li>
-				        <li><a href="/wdlist/511" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="511" data-job-category="Design">디자인</a></li>
-				        <li><a href="/wdlist/530" class="JobGroupItem_JobGroupItem__xXzAi" aria-label="" data-attribute-id="jobCategory__click" data-job-category-id="530" data-job-category="Sales">영업</a></li>
 
-				    </ul>-->
-				</section> 
+				 </section> 
             </div>            
                         
             <div class="JobCategory_JobCategory__uTt2E">
@@ -3355,17 +3367,7 @@ section#skillSearch {
                         </svg></span></button>
             	
             	<section class="JobCategoryOverlay_JobCategoryOverlay__rkFLO" role="navigation">
-				    <!-- <div class="JobCategoryOverlay_JobCategoryOverlay__top__RppY3">
-				        <p class="JobCategoryOverlay_JobCategoryOverlay__top__title__3tneN">직무를 선택해 주세요. (최대 5개 선택 가능)</p>
-				        <div class="JobCategoryOverlay_JobCategoryOverlay__top__list__amyf6">
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">개발 전체</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">웹 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">서버 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">안드로이드 개발자</button>
-					        <button type="button" class="JobCategoryItem_JobCategoryItem__oUaZr">CIO,Chief Information Officer</button>
-				        </div>
-				    </div>
-				     <div class="JobCategoryOverlay_JobCategoryOverlay__bottom__6Q_OM"><button class="Button_Button__root__V1ie3 Button_Button__contained__toUI5 Button_Button__containedPrimary__gFaT9 Button_Button__containedSizeMedium__c2z9c Button_Button__containedDisabled__qiqtc Button_Button__disabled__2eyyF JobCategoryOverlay_JobCategoryOverlay__bottom__btn__GliIw" ><span class="Button_Button__label__1Kk0v">선택 완료하기</span></button></div>-->
+				
 				</section> 
             		            
             </div>
@@ -3476,18 +3478,17 @@ section#skillSearch {
                                         </button>
                                         <ul style="display: none;">
                                             <li><button name="job.latest_order" type="button" data-attribute-id="explore__sort__update" data-sort-kind="latest" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all">최신순</button></li>
-                                            <li><button name="job.compensation_order" type="button" data-attribute-id="explore__sort__update" data-sort-kind="reward" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all">보상금순</button></li>
-                                            <li><button name="job.popularity_order" type="button" data-attribute-id="explore__sort__update" data-sort-kind="popular" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all">인기순</button></li>
                                         </ul>
                                     </div>
-                                    <div class="Selector_mobileIcon__iorZE"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg">
+                                    <!-- <div class="Selector_mobileIcon__iorZE"><svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="https://www.w3.org/2000/svg">
                                             <path d="M7.33334 0.494202C7.85691 0.494202 8.14842 1.1611 7.82205 1.61224L4.50038 6.20371C4.25071 6.54882 3.77503 6.54971 3.5243 6.20554L0.179295 1.61408C-0.149094 1.16332 0.14211 0.494202 0.666672 0.494202H7.33334Z" fill="#333"></path>
-                                        </svg></div><select class="Selector_mobileSelect__vtRFB">
+                                        </svg></div>
+                                      <select class="Selector_mobileSelect__vtRFB">
                                         <option value="company.response_rate_order" data-attribute-id="explore__sort__update" data-sort-kind="responseRate" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all">응답률순</option>
                                         <option value="job.latest_order" data-attribute-id="explore__sort__update" data-sort-kind="latest" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all">최신순</option>
                                         <option value="job.compensation_order" data-attribute-id="explore__sort__update" data-sort-kind="reward" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all">보상금순</option>
                                         <option value="job.popularity_order" data-attribute-id="explore__sort__update" data-sort-kind="popular" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all">인기순</option>
-                                    </select>
+                                    </select> -->
                                 </div>
                             </div>
                         </div>
@@ -3514,30 +3515,14 @@ section#skillSearch {
 					                <div class="Locations_column__Ibvto">
 					                    <h6>지역</h6>
 					                    <ul id="modal_region">
-					                    <!--     <li><button type="button" class="">전국</button></li>
-					                        <li><button type="button" class="">서울</button></li>
-					                        <li><button type="button" class="">부산</button></li>
-					                        <li><button type="button" class="Locations_selected__1YaAW Locations_lastSelected__ZVHyy Locations_currentParent__Yi84n">대구</button></li>
-					                        <li><button type="button" class="">경남</button></li>
-					                        <li><button type="button" class="">제주</button></li>
-					                     -->
+
 					                    </ul>
 					                </div>
 					                <div class="Locations_column__Ibvto">
 					                    <h6>상세지역</h6>
 					                    <ul id="modal_region_detail">
 					                    	<div class="Locations_empty__c0Xdq">지역을 선택하면<br>상세 지역을 확인할 수 있습니다.</div>
-					                    <!--     
-					                        <li><button type="button" class="">전체</button></li>
-					                        <li><button type="button" class="">남구</button></li>
-					                        <li><button type="button" class="">달서구</button></li>
-					                        <li><button type="button" class="Locations_selected__1YaAW Locations_lastSelected__ZVHyy">동구</button></li>
-					                        <li><button type="button" class="">북구</button></li>
-					                        <li><button type="button" class="">서구</button></li>
-					                        <li><button type="button" class="">수성구</button></li>
-					                        <li><button type="button" class="">중구</button></li>
-					                        <li><button type="button" class="">달성군</button></li>
-					                     -->
+
 					                    </ul>
 					                </div>
 					            </div>
@@ -3545,11 +3530,7 @@ section#skillSearch {
 					        <div class="CommonFooter_container__PQC4V LocationsPopup_footerContainer__49FsP LocationsPopup_hasSelectedLocationArea__Uicwe">
 					            <div class="SelectedLocations_selectedLocations__6PVR9">
 					                <ul class="SelectedLocations_listContainer__46isv">
-					                    <!-- 
-					                    <li class="SelectedLocations_locationItem__8j9AK"><span>대구 동구</span><button type="button"><span class="SvgIcon_SvgIcon__root__8vwon"><svg class="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 24 24">
-					                                    <path d="M5.93289 4.6068C5.56201 4.33162 5.03569 4.36219 4.69935 4.69853C4.32938 5.0685 4.32938 5.66834 4.69935 6.03831L10.6611 12L4.69935 17.9617L4.60763 18.0679C4.33244 18.4388 4.36302 18.9651 4.69935 19.3015L4.80561 19.3932C5.17649 19.6684 5.7028 19.6378 6.03914 19.3015L12.0009 13.3402L17.9626 19.3015L18.0688 19.3932C18.4397 19.6684 18.966 19.6378 19.3023 19.3015C19.6723 18.9315 19.6723 18.3317 19.3023 17.9617L13.3406 12L19.3023 6.03831L19.3941 5.93206C19.6693 5.56118 19.6387 5.03487 19.3023 4.69853L19.1961 4.6068C18.8252 4.33162 18.2989 4.36219 17.9626 4.69853L12.0009 10.6598L6.03914 4.69853L5.93289 4.6068Z"></path>
-					                                </svg></span></button></li>
-					                     -->
+					                   
 		                                                                   
 					                </ul>
 					                
@@ -3567,46 +3548,77 @@ section#skillSearch {
                                 <div class="slick-list">
                                     <div class="slick-track" style="width: 2968px; opacity: 1; transform: translate3d(0px, 0px, 0px);">
                                         <div data-index="0" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Competitive Salary" style="background: rgb(242, 251, 245);">연봉이 최고의 복지<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F634f02e0-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="연봉이 최고의 복지"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Competitive Salary" style="background: rgb(242, 251, 245);">연봉이 최고의 복지<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F634f02e0-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="연봉이 최고의 복지">
+                                           		<input type="hidden" name="tag_name" value="연봉업계평균이상"/>
+                                           		<input type="hidden" name="tag_name" value="연봉상위5%"/>
+                                           		<input type="hidden" name="tag_name" value="연봉상위10%"/>
+                                           	</button></div>
                                         </div>
                                         <div data-index="1" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Work From Home" style="background: rgb(243, 249, 254);">재택근무<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F5d873f3a-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="재택근무"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Work From Home" style="background: rgb(243, 249, 254);">편한 출퇴근<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F5d873f3a-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="재택근무">
+                                            	<input type="hidden" name="tag_name" value="택시비지원"/>
+                                            	<input type="hidden" name="tag_name" value="차량지원"/>
+                                            	<input type="hidden" name="tag_name" value="재택근무"/>
+                                            </button></div>
                                         </div>
                                         <div data-index="2" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Low Turnover Rate" style="background: rgb(243, 242, 251);">퇴사율 10% 이하<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F7d3cdb3c-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="퇴사율 10% 이하"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Low Turnover Rate" style="background: rgb(243, 242, 251);">퇴사율 10% 이하<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F7d3cdb3c-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="퇴사율 10% 이하">
+                                            	<input type="hidden" name="tag_name" value="퇴사율5%이하"/>
+                                            	<input type="hidden" name="tag_name" value="퇴사율10%이하"/>
+                                            </button></div>
                                         </div>
                                         <div data-index="3" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Fast Growing" style="background: rgb(246, 248, 238);">급성장 중<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F37dacf86-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="급성장 중"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Fast Growing" style="background: rgb(246, 248, 238);">성장 중<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F37dacf86-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="급성장 중">
+                                            	<input type="hidden" name="tag_name" value="인원성장" />
+                                            	<input type="hidden" name="tag_name" value="인원급성장" />
+                                            </button></div>
                                         </div>
                                         <div data-index="4" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Military exempt" style="background: rgb(247, 242, 249);">병역특례<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F6eda33d2-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="병역특례"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Military exempt" style="background: rgb(247, 242, 249);">병역특례<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F6eda33d2-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="병역특례">
+                                            	<input type="hidden" name="tag_name" value="산업기능요원" />
+                                            	<input type="hidden" name="tag_name" value="전문연구요원" />
+                                            </button></div>
                                         </div>
                                         <div data-index="5" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Less than 50 employees" style="background: rgb(238, 250, 249);">50인 이하️<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F3a965d18-c524-11ec-901c-acde48001122.png&amp;w=50&amp;q=75" alt="50인 이하️"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Less than 50 employees" style="background: rgb(238, 250, 249);">50인 이하️<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F3a965d18-c524-11ec-901c-acde48001122.png&amp;w=50&amp;q=75" alt="50인 이하️">
+                                            	<input type="hidden" name="tag_name" value="50명이하" />
+                                            </button></div>
                                         </div>
                                         <div data-index="6" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="50+ employees" style="background: rgb(239, 241, 251);">50인 이상️<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F4cec3244-c524-11ec-901c-acde48001122.png&amp;w=50&amp;q=75" alt="50인 이상️"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="50+ employees" style="background: rgb(239, 241, 251);">50인 이상️<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F4cec3244-c524-11ec-901c-acde48001122.png&amp;w=50&amp;q=75" alt="50인 이상️">
+                                            	<input type="hidden" name="tag_name" value="51~300명" />
+                                            	<input type="hidden" name="tag_name" value="301~1000명" />
+                                            	<input type="hidden" name="tag_name" value="1001명이상" />
+                                            </button></div>
                                         </div>
                                         <div data-index="7" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="+ 5 yrs of experience" style="background: rgb(242, 251, 245);">업력 5년 이상<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F45bb9794-c524-11ec-901c-acde48001122.png&amp;w=50&amp;q=75" alt="업력 5년 이상"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="+ 5 yrs of experience" style="background: rgb(242, 251, 245);">업력 5년 이상<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F45bb9794-c524-11ec-901c-acde48001122.png&amp;w=50&amp;q=75" alt="업력 5년 이상">
+                                            	<input type="hidden" name="tag_name" value="설립5년이상" />
+                                            	<input type="hidden" name="tag_name" value="설립10년이상" />
+                                            </button></div>
                                         </div>
                                         <div data-index="8" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Flexible Hours" style="background: rgb(243, 249, 254);">유연근무<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F827f6146-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="유연근무"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Flexible Hours" style="background: rgb(243, 249, 254);">유연근무<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F827f6146-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="유연근무">
+                                            	<input type="hidden" name="tag_name" value="유연근무" />
+                                            </button></div>
                                         </div>
                                         <div data-index="9" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Unlimited PTO" style="background: rgb(243, 242, 251);">자유로운 휴가<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F68dadb80-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="자유로운 휴가"></button></div>
-                                        </div>
-                                        <div data-index="10" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Bonuses" style="background: rgb(246, 248, 238);">일한만큼 받는 보상<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F472333e8-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="일한만큼 받는 보상"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Unlimited PTO" style="background: rgb(243, 242, 251);">자유로운 휴가<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F68dadb80-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="자유로운 휴가">
+                                            	<input type="hidden" name="tag_name" value="자유로운휴가" />
+                                            </button></div>
                                         </div>
                                         <div data-index="11" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Company Culture" style="background: rgb(247, 242, 249);">수평적 문화<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F78563d98-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="수평적 문화"></button></div>
-                                        </div>
-                                        <div data-index="12" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Emerging Industry" style="background: rgb(238, 250, 249);">요즘 뜨는 산업<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F4e1b135a-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="요즘 뜨는 산업"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Company Culture" style="background: rgb(247, 242, 249);">수평적 문화<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F78563d98-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="수평적 문화">
+                                            	<input type="hidden" name="tag_name" value="수평적문화" />
+                                            </button></div>
                                         </div>
                                         <div data-index="13" class="slick-slide" tabindex="-1" aria-hidden="true" style="outline: none;">
-                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Free Meals" style="background: rgb(239, 241, 251);">식사·간식 제공<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F53ca893e-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="식사·간식 제공"></button></div>
+                                            <div><button type="button" class="TagListItem_TagListItem__3aCT9" data-attribute-id="userTag__filter__click" data-kind="add" data-tag="Free Meals" style="background: rgb(239, 241, 251);">식사·간식 제공<img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ftags%2F53ca893e-9f6e-11ec-b909-0242ac120002.png&amp;w=50&amp;q=75" alt="식사·간식 제공">
+                                            	<input type="hidden" name="tag_name" value="조식제공" />
+                                            	<input type="hidden" name="tag_name" value="중식제공" />
+                                            	<input type="hidden" name="tag_name" value="음료" />
+                                            	<input type="hidden" name="tag_name" value="간식" />
+                                            </button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -3626,7 +3638,7 @@ section#skillSearch {
                     <div class="slick-slider Featured_slider__Bnaji lessThanFive nextDisabled slick-initialized">
                         <div class="slick-list">
                             <div class="slick-track" id="slick-track-second" style="width: 1075px; opacity: 1; transform: translate3d(0px, 0px, 0px);">
-                                <div data-index="0" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline: none; width: 215px; height: 28%;">
+                                <div data-index="0" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline: none; width: 211px; height: 28%;">
                                     <div><a href="/company/8040" class="Featured_sliderItem__FY8yb"     style="color: #000;" aria-label="featured company card link" data-attribute-id="company__click" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all" data-company-id="8040" data-company-name="트리플콤마(골드스푼)" data-ad-id="46436" data-marketing-case="topPicks">
                                             <header>
                                                 <div class="companyBg undefined" style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F8040%2F5wemaaq53ybzu6dt__400_400.jpg&amp;w=400&amp;q=75&quot;);"></div>
@@ -3662,36 +3674,31 @@ section#skillSearch {
                                             </footer>
                                         </a></div>
                                 </div>
-
-                                <div data-index="2" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none; width: 211px; height: 28%;">
-                                    <div><a href="/company/40226" class="Featured_sliderItem__FY8yb" style="color: #000;" aria-label="featured company card link" data-attribute-id="company__click" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all" data-company-id="40226" data-company-name="한국모바일결제" data-ad-id="46522" data-marketing-case="topPicks">
-                                            <header>
-                                                <div class="companyBg undefined" style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F40226%2Fodywsqyqiimi0qub__400_400.jpg&amp;w=400&amp;q=75&quot;);"></div>
-                                            </header>
-                                            <footer>
-                                                <div class="logoCircle undefined" style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fwdes%2F0_5.3b58ebe7.jpg&amp;w=100&amp;q=75&quot;); background-size: contain; background-color: rgb(255, 255, 255);"></div>
-                                                <h4>한국모바일결제</h4>
-                                                <h5>13개 포지션</h5>
-                                            </footer>
-                                        </a></div>
-                                </div>
-
-                                <div data-index="2" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none; width: 211px; height: 28%;">
-                                    <div><a href="/company/40226" class="Featured_sliderItem__FY8yb" style="color: #000;" aria-label="featured company card link" data-attribute-id="company__click" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all" data-company-id="40226" data-company-name="한국모바일결제" data-ad-id="46522" data-marketing-case="topPicks">
-                                            <header>
-                                                <div class="companyBg undefined" style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F40226%2Fodywsqyqiimi0qub__400_400.jpg&amp;w=400&amp;q=75&quot;);"></div>
-                                            </header>
-                                            <footer>
-                                                <div class="logoCircle undefined" style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fwdes%2F0_5.3b58ebe7.jpg&amp;w=100&amp;q=75&quot;); background-size: contain; background-color: rgb(255, 255, 255);"></div>
-                                                <h4>한국모바일결제</h4>
-                                                <h5>13개 포지션</h5>
-                                            </footer>
-                                        </a></div>
-                                </div>
-
-                               
-                                
-                            </div>
+								<div data-index="3" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none; width: 211px; height: 28%;">
+                                	<div><a href="/company/4417" class="Featured_sliderItem__FY8yb" aria-label="featured company card link" data-attribute-id="company__click" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all" data-company-id="4417" data-company-name="퓨쳐위즈(Futurewiz)" data-ad-id="46672" data-marketing-case="topPicks">
+								        <header>
+								            <div class="companyBg undefined" style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F4417%2Fitxvgpnk1ojwof9w__400_400.jpg&amp;w=400&amp;q=75&quot;);"></div>
+								        </header>
+								        <footer>
+								            <div class="logoCircle undefined" style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fwdes%2F0_5.cc7617af.jpg&amp;w=100&amp;q=75&quot;); background-size: contain; background-color: rgb(255, 255, 255);"></div>
+								            <h4>퓨쳐위즈(Futurewiz)</h4>
+								            <h5>5개 포지션</h5>
+								        </footer>
+								    </a></div>
+								</div>
+							    <div data-index="0" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline: none; width: 211px; height: 28%;">
+							        <div><a href="/company/79" class="Featured_sliderItem__FY8yb" aria-label="featured company card link" data-attribute-id="company__click" data-job-category-id="518" data-job-category="IT" data-job-role-id="all" data-job-role="all" data-company-id="79" data-company-name="원티드랩" data-ad-id="47289" data-marketing-case="topPicks">
+							                <header>
+							                    <div class="companyBg undefined" style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F79%2Fno3ey0e5mjbismfq__400_400.jpg&amp;w=400&amp;q=75&quot;);"></div>
+							                </header>
+							                <footer>
+							                    <div class="logoCircle undefined" style="background-image: url(&quot;https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fwdes%2F0_5.cc473dbf.jpg&amp;w=100&amp;q=75&quot;); background-size: contain; background-color: rgb(255, 255, 255);"></div>
+							                    <h4>원티드랩</h4>
+							                    <h5>6개 포지션</h5>
+							                </footer>
+							            </a></div>
+							    </div>
+								
                         </div>
                     </div>
                 </div>
