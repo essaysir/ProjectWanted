@@ -240,9 +240,9 @@ $(document).ready(function(){
 		<div id='resumeBox'>
 			<div style='height: 77px; margin-top: 35px;'>
 				<div class='container mt-3' id='circle' style='background-color: #3366FF;'>
-					  <a href='#' data-toggle='tooltip' title='원티드 이력서로 지원 시 일반 이력서보다<br>서류 합격률이 2배 높아집니다.'><div class='ResumeList_ResumeList_addItem_icon__yfHFj'><svg style='position:relative; padding: 26px; color: #FFF;' viewBox='0 0 16 16' fill='none' xmlns='https://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12.25 0H0.75C0.335786 0 0 0.335786 0 0.75V12.25C0 12.6642 0.335786 13 0.75 13H3V15.25L3.00685 15.3518C3.05651 15.7178 3.3703 16 3.75 16H15.25L15.3518 15.9932C15.7178 15.9435 16 15.6297 16 15.25V3.75L15.9932 3.64823C15.9435 3.28215 15.6297 3 15.25 3L15.1482 3.00685C14.7822 3.05651 14.5 3.3703 14.5 3.75L14.499 14.499H4.499L4.49975 13H12.25C12.6642 13 13 12.6642 13 12.25V0.75C13 0.335786 12.6642 0 12.25 0ZM11.499 1.5V11.5H1.499V1.5H11.499Z' fill='#fff'></path></svg></div></a>
+					  <a href='/wanted/member/myresume' data-toggle='tooltip' title='원티드 이력서로 지원 시 일반 이력서보다<br>서류 합격률이 2배 높아집니다.'><div class='ResumeList_ResumeList_addItem_icon__yfHFj'><svg style='position:relative; padding: 26px; color: #FFF;' viewBox='0 0 16 16' fill='none' xmlns='https://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12.25 0H0.75C0.335786 0 0 0.335786 0 0.75V12.25C0 12.6642 0.335786 13 0.75 13H3V15.25L3.00685 15.3518C3.05651 15.7178 3.3703 16 3.75 16H15.25L15.3518 15.9932C15.7178 15.9435 16 15.6297 16 15.25V3.75L15.9932 3.64823C15.9435 3.28215 15.6297 3 15.25 3L15.1482 3.00685C14.7822 3.05651 14.5 3.3703 14.5 3.75L14.499 14.499H4.499L4.49975 13H12.25C12.6642 13 13 12.6642 13 12.25V0.75C13 0.335786 12.6642 0 12.25 0ZM11.499 1.5V11.5H1.499V1.5H11.499Z' fill='#fff'></path></svg></div></a>
 				</div>
-				<p style='text-align: center; font-weight: bold;'>새 이력서 작성</p>
+				<p id="newResume"style='text-align: center; font-weight: bold;'>새 이력서 작성</p>
 			</div>	
 		</div>
 		

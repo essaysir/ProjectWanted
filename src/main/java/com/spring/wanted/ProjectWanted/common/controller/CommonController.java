@@ -82,7 +82,7 @@ public class CommonController {
 	@PostMapping(value="/company/register")
 	public String register_comp(CompanyVO cvo) {
 		System.out.println( " 확인용 cvo  : " + cvo);
-		
+		cvo.setPwd(passwordEncoder.encode(cvo.getPwd()));
 		// System.out.println(mvo.getMobile());
 		// System.out.println(mvo.getPwd());
 		service.register(cvo);

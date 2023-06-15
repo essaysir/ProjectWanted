@@ -732,8 +732,8 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 				<p>${pvo.mainduty }</p>
 				<h6 class="sub_title">자격요건</h6>
 				<p>${pvo.quality }</p>
-				<h6 class="sub_title">기술스택.툴</h6>
-				<button class="skill_button" style="margin-top:20px;">React</button>
+				<h6 class="sub_title" style="margin-bottom:20px;">기술스택.툴</h6>
+				<button class="skill_button" >React</button>
 				<button class="skill_button">Node.js</button>
 				<button class="skill_button">PHP</button>
 				<button class="skill_button">React Native</button>
@@ -754,9 +754,9 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 				 <div id="latlngResult"></div>
 				 
 				 <section class="comp_section">
-				 	<div class="div-logo" style="background-image: url(/images/profile_default.png)">
+				 	<div class="div-logo" style="background-image: url(/images/company_profile/${cvo.image})">
 				 	</div>
-					<div style="margin-right: 294px;">
+					<div style="margin-right: 405px;">
 						<h5>${cvo.name}</h5>
 						<h6>IT, 컨텐츠</h6>
 					</div>

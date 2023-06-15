@@ -81,8 +81,8 @@
 		<h2 id="info" style="font-size: 15pt;">
 		원티드 이력서로 지원 시 <br> 일반 이력서보다 서류 합격률이 2배 높아집니다.</h2>
 		<div style="margin: 40px auto; width: 350px">
-			<button class="resumeHome2_button1" type="button" style="background-color: #FFF; color: #3366FF; width: 150px !important;"onclick="javascript:window.location.href='/wanted/login'"><span>이력서 관리</span></button>
-			<button class="resumeHome2_button2" type="button" style="background-color: #3366FF; color: #FFF;" onclick="javascript:window.location.href='/wanted/login'"><span>새 이력서 작성</span></button>
+			<button class="resumeHome2_button1" type="button" style="background-color: #FFF; color: #3366FF; width: 150px !important;"onclick="javascript:window.location.href='/wanted/member/myResume'"><span>이력서 관리</span></button>
+			<button class="resumeHome2_button2" type="button" style="background-color: #3366FF; color: #FFF;" onclick="javascript:window.location.href='/wanted/member/myResume'"><span>새 이력서 작성</span></button>
 		</div>
 	</section>
 	

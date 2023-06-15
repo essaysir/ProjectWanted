@@ -99,7 +99,7 @@ public class MemberController {
 			JSONObject jsonObj = new JSONObject();
 			Authentication authenticate = SecurityContextHolder.getContext().getAuthentication();
 			// System.out.println(" 확인용 authentication " + authenticate);
-			// System.out.println(" 확인용 authenticationPrincipal " + authenticate.getPrincipal());
+			System.out.println(" 확인용 authenticationPrincipal " + authenticate.getPrincipal());
 			if ( authenticate.getPrincipal() != "anonymousUser") { // 로그인을 한 경우
 				  MemberVO mvo = (MemberVO)authenticate.getPrincipal();
 				  String name = mvo.getName();
