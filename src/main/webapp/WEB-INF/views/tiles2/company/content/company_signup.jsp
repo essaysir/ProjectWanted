@@ -291,6 +291,9 @@
 			$("button#access").on('click' , access(0));
 			$("button#fake_certification").on('click', access(1)); 
 			$("button#find_address").on('click' , addressDaum) ;
+			
+			// hiddenAddresses(); // 주소 합치기
+			
 		}); // END OF  $(DOCUMENT).READY(FUNCTION() 
 		
 				
@@ -391,7 +394,7 @@
 				return ; 
 			}
 			
-			
+			hiddenAddresses();
 			const registerFrm = document.login_input;
 			registerFrm.action="/wanted/company/register"; 
 			registerFrm.method ="post"; 
@@ -438,10 +441,23 @@
 	                // 커서를 상세주소 필드로 이동한다.
 	                document.getElementById("detailAddress").focus();
 	            }
+			
 	        }).open();	
 		
+			
 		} // END OF function addressDaum(){	 
-			 
+		
+		// 주소 합쳐주는 함수	
+		function hiddenAddresses() {
+				
+			var detailAddressValue = document.getElementById('detailAddress').value; 
+			var addressValue = document.getElementById("address").value;
+           	
+			var addresss = detailAddressValue + addressValue;
+			document.getElementById('addresss').value = addresss;
+           	
+		}// end of function hiddenAddresses()------------------------------------
+			
 </script>
 
 
@@ -533,6 +549,7 @@
 						 <div class="row">
 							<input type="text"  id="address" class="form-control  col-md-5 mx-3" name="address" placeholder="주소" readonly/><br/>
 				            <input type="text" id="detailAddress" class="form-control col-md-5 mx-3" name="detailAddress"  placeholder="상세주소" />
+							<input type="hidden" id="addresss" name="addresss" />
 				        </div> 		
 						<div id="is_agree_all_box" class="is_agree_box">
 							<div id="is_agree_all_mini" class="is_agree_all_mini"></div>
@@ -566,7 +583,7 @@
 							<a href="https://id.wanted.jobs/privacy/ko" style="color: #888888; line-height: 22px; text-align: right; padding-left: 271.3px;">자세히</a>
 						</div>
 						<div>
-							<button type="button" id="register"  style="background-color: #36f; border: 1px #e1e2e3 solid; cursor: pointer; color:#fff ; width: 100%; height: 50px; min-height: 50px; border-radius: 25px; font-size: 16px; margin-bottom: 10px; margin-top: 30px;">가입하기</button>
+							<button type="button" id="register"  style="background-color: #36f; border: 1px #e1e2e3 solid; cursor: pointer; color:#fff ; width: 100%; height: 50px; min-height: 50px; border-radius: 25px; font-size: 16px; margin-bottom: 10px; margin-top: 30px;" onclick="register()">가입하기</button>
 						</div>
 					</div>
 

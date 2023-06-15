@@ -37,9 +37,15 @@
 		</select>
 
 		<insert id="register_comp" parameterType="com.spring.wanted.ProjectWanted.company.model.CompanyVO">
-			insert into tbl_company ( COMPANY_ID, SERIAL_NO , FK_REGION_DETAIL_CODE ,  PWD , NAME , DETAILS , EMP_COUNT ,  IMAGE , ADDRESSS ,  COMPANY_CODE )
-			values ( #{company_id} , #{serial_no} , 1 , #{pwd} , #{name} ,  '하이하이' , #{emp_count} , 'default.png' , ' 서울시 강남구' , seq_company.nextval )
+			insert into tbl_company ( COMPANY_ID, SERIAL_NO , FK_REGION_DETAIL_CODE , PWD, NAME, DETAILS, EMP_COUNT,  IMAGE, ADDRESSS,  COMPANY_CODE)
+			values ( #{company_id} , #{serial_no} , #{fk_region_detail_code}, #{pwd} , #{name} , '회사 정보를 수정해주세요.', #{emp_count} , 'default.png', #{addresss}, seq_company.nextval)
 		</insert>
 
+		<select id="getRegionDetailCodeByNames" parameterType="com.spring.wanted.ProjectWanted.company.model.CompanyVO" resultType="int">
+	        SELECT REGION_DETAIL_CODE
+	        FROM TBL_REGION_DETAIL
+	        WHERE FK_REGION_CODE = (SELECT REGION_CODE FROM TBL_REGION WHERE REGION_NAME = #{region_name})
+	        AND REGION_DETAIL_NAME = #{region_detail_name}
+    	</select>
 
 </mapper>
