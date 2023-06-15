@@ -154,7 +154,7 @@
             <button class="plus" type="button" onclick="location.href='/wanted/company/recruit'"><span><i class="fa-regular fa-square-plus"></i>&nbsp;&nbsp;채용공고 등록</span></button>
         </div>
         <div style="display: flex; justify-content: center;">
-            <button class="goHome" type="button" onclick="location.href='/wanted/index'"><span><i class="fas fa-home"></i>&nbsp;&nbsp;원티드 홈</span></button>
+            <button class="goHome" type="button" onclick="location.href='/wanted'"><span><i class="fas fa-home"></i>&nbsp;&nbsp;원티드 홈</span></button>
         </div>
     </div>
 </div>
