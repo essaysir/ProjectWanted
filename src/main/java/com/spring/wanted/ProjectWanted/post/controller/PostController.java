@@ -106,50 +106,25 @@ public class PostController {
 		return jsonobj.toString();
 		
 	}
-	/*
-	@ResponseBody
-	@GetMapping(value = "/getPostListWithFilters", produces="text/plain;charset=UTF-8" )
-	public String getPostList(HttpServletRequest request,
-			@RequestParam(required=false, defaultValue="")		int job_code,
-			@RequestParam(required=false, defaultValue="") 		List<String> dutyCodes,
-			@RequestParam(required=false, defaultValue="") 		List<String> region_code,
-			@RequestParam(required=false, defaultValue="")  	List<String> region_detail_code,
-			@RequestParam(required=false, defaultValue="") 		List<String> career,
-			@RequestParam(required=false, defaultValue="")		List<String> tech_code) {
-		
-		System.out.println(job_code);
-		System.out.println(dutyCodes);
-		System.out.println(region_code);
-		System.out.println(career);
-		System.out.println(region_detail_code);
-		System.out.println(tech_code);
-		
-		
-		//List<Map<String, String>> PostList = service.getPostList(job_code, dutyCodes, region_code, region_detail_code, career, tech_code);
-
-
-		JSONObject jsonobj = new JSONObject();
-		
-		//jsonobj.put("PostList", PostList);
-		
-		return jsonobj.toString();
-		
-	}
-	*/
+	
+	
 	@ResponseBody
 	@PostMapping(value = "/getPostListWithFilters", produces="text/plain;charset=UTF-8" )
 	public String getPostListWithFilters(@RequestBody FilterData filterData ) {
 		List<String> job_code = filterData.getJob_code();
 	    List<String> duty_code = filterData.getDuty_code();
+	    List<String> region_detail_code = filterData.getRegion_detail_code();
+	    List<String> career = filterData.getCareer();
 	    List<String> tech_code = filterData.getTech_code();
 	    
-	    System.out.println("하하");
-	    System.out.println(job_code);
-	    
+
+	    System.out.println(job_code);	    
 		System.out.println(duty_code);
+		System.out.println(region_detail_code);
+		System.out.println(career);
 		System.out.println(tech_code);
 		
-		List<Map<String, String>> PostList = service.getPostListWithFilters(job_code, duty_code, tech_code);
+		List<Map<String, String>> PostList = service.getPostListWithFilters(job_code, duty_code, region_detail_code, career, tech_code);
 
 
 		JSONObject jsonobj = new JSONObject();

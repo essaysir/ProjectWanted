@@ -176,6 +176,26 @@
                 #{duty}
             </foreach>
         </if>
+        <if test="region_detail_code != null and region_detail_code.size() > 0">
+            AND region_detail_code IN
+            <foreach item="region_detail" collection="region_detail_code" open="(" separator="," close=")">
+                #{region_detail}
+            </foreach>
+        </if>
+        <if test="career != null and career.size() > 0">
+		    <foreach item="career" index="idx" collection="career" open="" separator="" close="">
+		       AND
+		        <choose>
+		            <when test="idx == 0">
+		                career >= #{career}
+		            </when>
+		            <otherwise>
+		                #{career} >= career
+		            </otherwise>
+		        </choose>
+		    </foreach>
+		</if>
+
         <if test="tech_code != null and tech_code.size() > 0">
             AND (
             <foreach item="tech" collection="tech_code" open="" separator="or" close="">
