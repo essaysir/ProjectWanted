@@ -50,5 +50,20 @@
 			select image_name , fk_company_id from tbl_detail_image
 			where fk_company_id = #{company_id}
 		</select>
+		
+		<select id="getResumeList" parameterType="String"  resultType="com.spring.wanted.ProjectWanted.member.model.ResumeVO">
+		    SELECT RESUME_CODE, FK_USERID, ISCOMPLETE,  NAME, MOBILE,
+		    CASE
+		        WHEN LENGTH(SUBJECT) > 6 THEN CONCAT(SUBSTR(SUBJECT, 1, 6), '...')
+		        ELSE SUBJECT
+		    END AS subject,
+		    to_char(COMPLETE_DATE, 'yyyy-mm-dd') AS COMPLETE_DATE
+		    FROM tbl_resume
+		    WHERE fk_userid = #{userid}
+		</select>
 
+		<insert id="apply" parameterType="HashMap">
+			insert into tbl_apply ( APPLY_CODE , FK_RESUME_CODE , FK_POST_CODE , APPLYDATE , STATUS , FK_COMPANY_ID )
+			 values( seq_apply.nextval , #{resume_code} , #{fk_post_code} , sysdate , 3,  #{fk_company_id} )
+		</insert>
 </mapper>

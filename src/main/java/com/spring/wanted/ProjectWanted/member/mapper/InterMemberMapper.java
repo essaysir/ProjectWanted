@@ -1,11 +1,13 @@
 package com.spring.wanted.ProjectWanted.member.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.member.model.MemberVO;
+import com.spring.wanted.ProjectWanted.member.model.ResumeVO;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
 
 @Mapper
@@ -24,5 +26,9 @@ public interface InterMemberMapper {
 	CompanyVO getCompanyVO(int post_code);
 
 	List<String> getImageList(String company_id);
+
+	List<ResumeVO> getResumeList(String userid);
+
+	int apply(Map<String, String> paraMap);
 	
 }

@@ -1,6 +1,7 @@
 package com.spring.wanted.ProjectWanted.member.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.post.model.PostVO;
@@ -20,4 +21,8 @@ public interface InterMemberDAO {
 	CompanyVO getCompanyVO(int post_code); // COMPANY_VO 가져오기
 
 	List<String> getImageList(String company_id);
+
+	List<ResumeVO> getResumeList(String userid);
+
+	int apply(Map<String, String> paraMap);
 }
