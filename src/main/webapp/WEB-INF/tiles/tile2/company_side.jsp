@@ -3,8 +3,42 @@
 
 
 <script type="text/javascript">
-
-
+	
+	$(document).ready(function(){
+		
+		getCompanyLogin();
+		
+	});
+	
+	function getCompanyLogin(){
+		
+		$.ajax({
+			url: "/wanted/company/getCompanyLogin",
+	        type: "get",
+	        async: false,
+	        dataType: "json",
+	        success: function(json) {
+	        	const companyinfo = json.companyinfo;
+	        	
+	        	let html = "";
+	        	if(companyinfo.length > 0){
+	        		$.each(companyinfo, function(index, item){
+	        			html +="<img id='small' src='/images/company_profile/"+item.image+"' width='50' alt='회사명' />"
+	        				+ "<div class='name'>"+item.name+"</div>";
+	        		});// end of $.each(json, function(index, item)
+	        		
+	        		console.log(html);		
+	        				
+	        		$("div#sideHeader").append(html);
+	        	}// end of if(json.length > 0)
+	        },
+	        error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+			
+		});
+		
+	}
 
 </script>
 
@@ -99,9 +133,8 @@
 
 <div class="sideBarWrapper">
     <div class="sideBar">
-    	<div style="border-bottom: solid 1px #ddd;">
-	        <img id="small" src="/images/company/smallLogo.png" width="50" alt="회사명" />
-	        <div class="name">회사명</div>
+    	<div id="sideHeader" style="border-bottom: solid 1px #ddd;">
+	        
         </div>
         
         <nav style="margin: 20px auto;">

@@ -376,6 +376,21 @@ public class CompanyController_2 {
 	    }
 	}
 	
+	@ResponseBody
+	@GetMapping(value="/getCompanyLogin" , produces = "text/plain;charset=UTF-8" )
+	public String getCompanyLogin() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CompanyVO mvo = (CompanyVO)authentication.getPrincipal();
+		String company_id = mvo.getCompany_id();
+					
+		List<Map<String,String>> companyinfo = service.getCompanyInfo(company_id);
+		
+		JSONObject jsonobj = new JSONObject();
+		
+		jsonobj.put("companyinfo", companyinfo);
+		
+		return jsonobj.toString();
+	}
 	
 	//===============================SJS시작==================================
 	@ResponseBody
