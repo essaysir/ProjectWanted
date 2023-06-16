@@ -276,6 +276,10 @@
   		align-items: center;
 	}
 	
+	.tcards img {
+		display: inline;
+	}
+	
 /*--------------------------회사 캐러셀 시작---------------------------*/	
 	.company_carousel1{
 		width:1060px;
@@ -523,7 +527,8 @@
 
 $(document).ready(function(){
 	$("#myButton").removeAttr("disabled"); // disabled 속성이 제거되지 않아서 따로 지정
-
+	
+	selectSalary();
 });	
 
 function employmentFunction() {
@@ -545,7 +550,43 @@ function gomyprofile() {
 function goregister() {
 	window.location.href = "/wanted/login";
 }
+/* 
+function selectSalary() {
 
+		$.ajax({
+			url: "/wanted/post/selectSalary",
+			type: "get",
+			dataType: "json",
+			success: function (json) {
+				 //console.log(JSON.stringify(json));
+				let html = ""
+				 
+				for (let i = 0; i < 4; i++) {
+					//console.log(json.PostList[i].SUBJECT);
+					// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
+					html += '<div class="cards">' +
+							'<div class="cards-head">' +
+							'<img src="/images/company_detail_image/'+json.PostList[i].image_name+'">'+
+							'</div>'+
+							'<div class="cards-body ">'+
+							'<img src="/images/company_profile/'+json.PostList[i].image+'">'+
+							'<p class="company-name">'+json.PostList[i].name+'</p><p class="company-job">'+json.PostList[i].region_name+'</p>'+
+							'</div></div>';
+							
+				}
+				
+				$("div.company_content").html(html);
+
+
+			},
+			error: function (request, status, error) {
+				alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+			}
+
+
+		});
+}
+ */
 </script>
 
 <div class="main_outline">
@@ -615,38 +656,40 @@ function goregister() {
 			<div class="company_content">
 				<div class="cards">
 					<div class="cards-head">
-						<img src="/images/main_image/card1.png">
+						<img style="width:100%;" src="/images/company_detail_image/20230614235201688913123913100.jpg">
 					</div>
 					<div class="cards-body ">
-						<img src="/images/main_image/기업마크.jpg">
-						<p class="company-name">천세산업</p><p class="company-job">제조</p>
+						<img src="/images/company_profile/20230614235023688815159773500.jpg">
+						<p class="company-name">우아한형제들</p><p class="company-job">서울</p>
+					</div>
+				</div>
+				
+				<div class="cards">
+					<div class="cards-head">
+						<img style="width:100%;" src="/images/company_detail_image/20230614235536689128993696200.jpg">
+					</div>
+					<div class="cards-body ">
+						<img src="/images/company_profile/20230614235517689109239424900.jpg">
+						<p class="company-name">도너스</p><p class="company-job">서울</p>
 					</div>
 				</div>
 				<div class="cards">
 					<div class="cards-head">
-						<img src="/images/main_image/card2.png">
+						<img style="width:100%;" src="/images/company_detail_image/20230614235824689296248117900.jpg">
 					</div>
 					<div class="cards-body ">
-						<img src="/images/main_image/기업마크.jpg">
-						<p class="company-name">천세산업</p><p class="company-job">제조</p>
+						<img src="/images/company_profile/20230614235711689223600936600.jpg">
+						<p class="company-name">플리토</p><p class="company-job">서울</p>
 					</div>
 				</div>
+				
 				<div class="cards">
 					<div class="cards-head">
-						<img src="/images/main_image/card3.png">
+						<img style="width:100%;" src="/images/company_detail_image/2023061518362391542066553400.jpg">
 					</div>
 					<div class="cards-body ">
-						<img src="/images/main_image/기업마크.jpg">
-						<p class="company-name">천세산업</p><p class="company-job">제조</p>
-					</div>
-				</div>
-				<div class="cards">
-					<div class="cards-head">
-						<img src="/images/main_image/card4.png">
-					</div>
-					<div class="cards-body ">
-						<img src="/images/main_image/기업마크.jpg">
-						<p class="company-name">천세산업</p><p class="company-job">제조</p>
+						<img src="/images/company_profile/20230615000933689965964374000.jpg">
+						<p class="company-name">크몽</p><p class="company-job">서울</p>
 					</div>
 				</div>
 			</div>
@@ -671,42 +714,47 @@ function goregister() {
 				</div>
 			</div>
 			<div class="company_content2">
+				
 				<div class="cards">
 					<div class="cards-head">
-						<img src="/images/main_image/card1.png">
+						<img style="width:100%;" src="/images/company_detail_image/20230614234821688693232054200.jpg">
 					</div>
 					<div class="cards-body ">
-						<img src="/images/main_image/기업마크.jpg">
-						<p class="company-name">천세산업</p><p class="company-job">제조</p>
+						<img  src="/images/company_profile/20230614234800688672453710700.jpg">
+						<p class="company-name">아드리엘</p><p class="company-job">서울</p>
 					</div>
 				</div>
+				
 				<div class="cards">
 					<div class="cards-head">
-						<img src="/images/main_image/card2.png">
+						<img style="width:100%;" src="/images/company_detail_image/20230614235201688913123913100.jpg">
 					</div>
 					<div class="cards-body ">
-						<img src="/images/main_image/기업마크.jpg">
-						<p class="company-name">천세산업</p><p class="company-job">제조</p>
+						<img src="/images/company_profile/20230614235023688815159773500.jpg">
+						<p class="company-name">우아한형제들</p><p class="company-job">서울</p>
 					</div>
 				</div>
+				
 				<div class="cards">
 					<div class="cards-head">
-						<img src="/images/main_image/card3.png">
+						<img style="width:100%;" src="/images/company_detail_image/20230615000211689523484143700.jpg">
 					</div>
 					<div class="cards-body ">
-						<img src="/images/main_image/기업마크.jpg">
-						<p class="company-name">천세산업</p><p class="company-job">제조</p>
+						<img src="/images/company_profile/20230615000142689494677089000.png">
+						<p class="company-name">헤이딜러</p><p class="company-job">서울</p>
 					</div>
 				</div>
+				
 				<div class="cards">
 					<div class="cards-head">
-						<img src="/images/main_image/card4.png">
+						<img style="width:100%;" src="/images/company_detail_image/2023061518482992268288264100.jpg">
 					</div>
 					<div class="cards-body ">
-						<img src="/images/main_image/기업마크.jpg">
-						<p class="company-name">천세산업</p><p class="company-job">제조</p>
+						<img src="/images/company_profile/20230615001714690426781774300.jpg">
+						<p class="company-name">웨이브</p><p class="company-job">서울</p>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 		<div class="tema_line"></div>
@@ -727,7 +775,10 @@ function goregister() {
 					</div>
 					<div class="tcards-body ">
 						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
-						<img src="/images/main_image/기업마크.jpg">
+						<img src="/images/company_profile/20230614235023688815159773500.jpg">
+						<img src="/images/company_profile/20230615001205690118033281800.jpg">
+						<img src="/images/company_profile/20230614235711689223600936600.jpg">
+						
 					</div>
 				</div>
 				<div class="tcards col-md-4">
@@ -735,8 +786,8 @@ function goregister() {
 						<img src="/images/main_image/tema2.png">
 					</div>
 					<div class="tcards-body ">
-						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
-						<img src="/images/main_image/기업마크.jpg">
+						<p class="company-name">인센티브</p><p class="company-job">노력한만큼 보상이 있는 기업을 소개합니다.</p>
+						<img src="/images/company_profile/20230615000142689494677089000.png">
 					</div>
 				</div>
 				<div class="tcards col-md-4">
@@ -744,8 +795,9 @@ function goregister() {
 						<img src="/images/main_image/tema3.png">
 					</div>
 					<div class="tcards-body ">
-						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
-						<img src="/images/main_image/기업마크.jpg">
+						<p class="company-name">주 4일 근무</p><p class="company-job">주말 3일! 주4일 근무하는 기업을 소개합니다.</p>
+						<img src="/images/company_profile/20230615000933689965964374000.jpg">
+						<img src="/images/company_profile/20230614235711689223600936600.jpg">
 					</div>
 				</div>
 				<div class="tcards col-md-4">
@@ -753,8 +805,9 @@ function goregister() {
 						<img src="/images/main_image/tema4.png">
 					</div>
 					<div class="tcards-body ">
-						<p class="company-name">안정적인 흑자기업</p><p class="company-job">안정적으로 흑자수입을 올리고 있는 기업을 소개합니다.</p>
-						<img src="/images/main_image/기업마크.jpg">
+						<p class="company-name">재택/원격근무가 자유로운 기업</p><p class="company-job">장소에 구애 받지 않는 기업을 소개합니다.</p>
+						<img src="/images/company_profile/20230615001714690426781774300.jpg">
+						<img src="/images/company_profile/20230615001521690313996472100.jpg">
 					</div>
 				</div>
 			</div>		
@@ -773,7 +826,6 @@ function goregister() {
 						<div class="bcard-title">[SINPLE] 슈즈 분야 SNS 및 컨텐츠 마케터</div>
 						<div class="bcard-company">크리스틴컴퍼니</div>
 						<div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-						<div class="reward">채용보상금 1,000,000원</div>
 					</div>
 				</div>
 				<div class="bcard col-md-4">
@@ -784,7 +836,6 @@ function goregister() {
 						<div class="bcard-title">[SINPLE] 슈즈 분야 SNS 및 컨텐츠 마케터</div>
 						<div class="bcard-company">크리스틴컴퍼니</div>
 						<div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-						<div class="reward">채용보상금 1,000,000원</div>
 					</div>
 				</div>
 				<div class="bcard col-md-4">
@@ -795,7 +846,6 @@ function goregister() {
 						<div class="bcard-title">[SINPLE] 슈즈 분야 SNS 및 컨텐츠 마케터</div>
 						<div class="bcard-company">크리스틴컴퍼니</div>
 						<div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-						<div class="reward">채용보상금 1,000,000원</div>
 					</div>
 				</div>
 				<div class="bcard col-md-4">
@@ -806,7 +856,6 @@ function goregister() {
 						<div class="bcard-title">[SINPLE] 슈즈 분야 SNS 및 컨텐츠 마케터</div>
 						<div class="bcard-company">크리스틴컴퍼니</div>
 						<div class="job-card-company-location">서울<span class="addressDot">.</span><span>한국</span></div>
-						<div class="reward">채용보상금 1,000,000원</div>
 					</div>
 				</div>
 			</div>
