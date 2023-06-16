@@ -31,21 +31,30 @@ public interface InterCompanyService_1 {
 	// ==== 지원자 이력서 데이터 가져오기 ==== //
 	int getResumeCode(String subject);
 	
-	ResumeVO getApplyResume(int resumeCode);
+	int getApplyCode(int resumeCode);
 	
-	List<CareerVO> getCareer(int resumeCode);
+	ResumeVO getApplyResume(int resumeCode, int applyCode);
 	
-	List<LanguageVO> getLanguage(int resumeCode);
+	List<CareerVO> getCareer(int resumeCode, int applyCode);
 	
-	List<RewardVO> getReward(int resumeCode);
+	List<LanguageVO> getLanguage(int resumeCode, int applyCode);
+	
+	List<RewardVO> getReward(int resumeCode, int applyCode);
 
-	List<SchoolVO> getSchool(int resumeCode);
+	List<SchoolVO> getSchool(int resumeCode, int applyCode);
 
-	List<PerformanceVO> getPerformance(int resumeCode);
+	List<PerformanceVO> getPerformance(int resumeCode, int applyCode);
 
-	List<MemberTechVO> getMemberTech(int resumeCode);
+	List<MemberTechVO> getMemberTech(int resumeCode, int applyCode);
 
-	ApplyVO getStatus(int resumeCode);
+	ApplyVO getStatus(int resumeCode, int applyCode);
+
+	List<Map<String, String>> careerList(String jobName);
+
+	List<Map<String, String>> postCntByjob();
+
+
+	
 
 
 

@@ -60,7 +60,7 @@ $(document).ready(function(){
 			
 			<td class="formList" style="width: 28%;">[&nbsp;${candidateList.post_subject}&nbsp;]</td>
 			<td class="formList" style="width: 10%;">${candidateList.name}</td>
-			<td class="formList" style="width: 27%;"><a href="resume?subject=${candidateList.resume_subject}">${candidateList.resume_subject}</a></td>
+			<td class="formList" style="width: 27%;"><a href="resume?apply_code=${candidateList.apply_code}&resume_code=${candidateList.resume_code}">${candidateList.resume_subject}</a></td>
 			<td class="formList" style="width: 10%;">${candidateList.applydate}</td>
 			<c:choose>
 				<c:when test="${candidateList.status eq '합격'}">

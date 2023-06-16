@@ -69,54 +69,98 @@ public class CompanyDAO_1 implements InterCompanyDAO_1 {
 		int resumeCode = mapper.getResumeCode(subject);
 		return resumeCode;
 	}
+	
 	@Override
-	public ResumeVO getApplyResume(int resumeCode) {
-		ResumeVO resumeContent = mapper.getApplyResume(resumeCode);
+	public int getApplyCode(int resumeCode) {
+		System.out.println("22222222222");
+		int applyCode=0;
+		try {
+			applyCode = mapper.getApplyCode(resumeCode);
+		}catch(NullPointerException e) {
+			
+		}
+		System.out.println("33333333");
+		return applyCode;
+	}
+
+	@Override
+	public ResumeVO getApplyResume(int resumeCode, int applyCode) {
+		ResumeVO resumeContent = mapper.getApplyResume(resumeCode, applyCode);
 		return resumeContent;
 	}
+	
 	@Override
-	public List<CareerVO> getCareer(int resumeCode) {
-		List<CareerVO> career = mapper.getCareer(resumeCode);
+	public List<CareerVO> getCareer(int resumeCode, int applyCode) {
+		List<CareerVO> career = mapper.getCareer(resumeCode , applyCode);
 		return career;
 	}
+	
 	@Override
-	public List<LanguageVO> getLanguage(int resumeCode) {
-		List<LanguageVO> language = mapper.getLanguage(resumeCode);
+	public List<LanguageVO> getLanguage(int resumeCode, int applyCode) {
+		List<LanguageVO> language = mapper.getLanguage(resumeCode , applyCode);
 		return language;
 	}
+	
 	@Override
-	public List<RewardVO> getReward(int resumeCode) {
-		List<RewardVO> reward = mapper.getReward(resumeCode);
+	public List<RewardVO> getReward(int resumeCode, int applyCode) {
+		List<RewardVO> reward = mapper.getReward(resumeCode , applyCode);
 		return reward;
 	}
 
 
 	@Override
-	public List<SchoolVO> getSchool(int resumeCode) {
-		List<SchoolVO> school = mapper.getSchool(resumeCode);
+	public List<SchoolVO> getSchool(int resumeCode, int applyCode) {
+		List<SchoolVO> school = mapper.getSchool(resumeCode , applyCode);
 		return school;
 	}
 
 
 	@Override
-	public List<PerformanceVO> getPerformance(int resumeCode) {
-		List<PerformanceVO> performance = mapper.getPerformance(resumeCode);
+	public List<PerformanceVO> getPerformance(int resumeCode, int applyCode) {
+		List<PerformanceVO> performance = mapper.getPerformance(resumeCode , applyCode);
 		return performance;
 	}
 
 
 	@Override
-	public List<MemberTechVO> getMemberTech(int resumeCode) {
-		List<MemberTechVO> memberTech = mapper.getMemberTech(resumeCode);
+	public List<MemberTechVO> getMemberTech(int resumeCode, int applyCode) {
+		List<MemberTechVO> memberTech = mapper.getMemberTech(resumeCode , applyCode);
 		return memberTech;
 	}
 
 
 	@Override
-	public ApplyVO getStatus(int resumeCode) {
-		ApplyVO status = mapper.getStatus(resumeCode);
+	public ApplyVO getStatus(int resumeCode, int applyCode) {
+		System.out.println( " 확인용 resumeCode : " + resumeCode);
+		System.out.println( " 확인용 applyCode : " + applyCode);
+		
+		ApplyVO status = mapper.getStatus(resumeCode, applyCode);
 		return status;
 	}
+
+
+	
+	// 직군별 진행중 공고
+	@Override
+	public List<Map<String, String>> postCntByjob() {
+		List<Map<String, String>> jobPercentageList = mapper.postCntByjob();
+		return jobPercentageList;
+	}
+		
+		
+	// 차트만들기
+	@Override
+	public List<Map<String, String>> careerList(String jobName) {
+		List<Map<String, String>> jobAndCareer = mapper.careerList(jobName);
+		return jobAndCareer;
+	}
+
+	
+
+
+	
+
+
 
 
 
