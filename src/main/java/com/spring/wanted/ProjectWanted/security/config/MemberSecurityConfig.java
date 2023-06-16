@@ -37,7 +37,7 @@ public class MemberSecurityConfig  {
 				public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 				  http.antMatcher("/wanted/*").authorizeRequests()
 				  .antMatchers("/wanted", "/wanted/register").permitAll()
-				   .antMatchers("/wanted/login", "/wanted/checkUserid" , "/wanted/logout" , "/wanted/getSkill" ).permitAll()
+				   .antMatchers("/wanted/login", "/wanted/checkUserid" , "/wanted/logout" , "/wanted/getSkill" , "/wanted/resume").permitAll()
 				  .anyRequest().authenticated();
 				  
 		            
