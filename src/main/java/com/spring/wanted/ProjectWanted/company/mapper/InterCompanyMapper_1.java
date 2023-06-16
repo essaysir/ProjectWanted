@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.spring.wanted.ProjectWanted.company.model.ApplyVO;
 import com.spring.wanted.ProjectWanted.member.model.CareerVO;
@@ -35,21 +36,33 @@ public interface InterCompanyMapper_1 {
 	// ==== 지원자 이력서 가져오기 ==== //
 	int getResumeCode(String subject);	// 이력서 코드
 	
-	ResumeVO getApplyResume(int resumeCode);	// 이력서 내용
+	int getApplyCode(int resumeCode);
 
-	List<CareerVO> getCareer(int resumeCode);
+	ResumeVO getApplyResume(@Param("resumeCode")int resumeCode ,@Param("applyCode")int applyCode);	// 이력서 내용
 
-	List<LanguageVO> getLanguage(int resumeCode);
+	List<CareerVO> getCareer(@Param("resumeCode")int resumeCode , @Param("applyCode")int applyCode);
 
-	List<RewardVO> getReward(int resumeCode);
+	List<LanguageVO> getLanguage(@Param("resumeCode")int resumeCode, @Param("applyCode")int applyCode);
 
-	List<SchoolVO> getSchool(int resumeCode);
+	List<RewardVO> getReward(@Param("resumeCode")int resumeCode ,@Param("applyCode")int applyCode);
 
-	List<PerformanceVO> getPerformance(int resumeCode);
+	List<SchoolVO> getSchool(@Param("resumeCode")int resumeCode, @Param("applyCode")int applyCode);
 
-	List<MemberTechVO> getMemberTech(int resumeCode);
+	List<PerformanceVO> getPerformance(@Param("resumeCode")int resumeCode, @Param("applyCode")int applyCode);
 
-	ApplyVO getStatus(int resumeCode);
+	List<MemberTechVO> getMemberTech(@Param("resumeCode")int resumeCode, @Param("applyCode")int applyCode);
+
+	ApplyVO getStatus(@Param("resumeCode")int resumeCode, @Param("applyCode")int applyCode);
+
+
+	// 차트
+	List<Map<String, String>> careerList(String jobName);
+
+	// 직군별 진행중인 공고
+	List<Map<String, String>> postCntByjob();
+
+
+	
 	
 	
 

@@ -11,6 +11,9 @@
 		<result property="applydate" 		column="applydate" 		javaType="String" />
 		<result property="status" 			column="status" 		javaType="String" />
 		<result property="fk_company_id" 	column="fk_company_id" 		javaType="String" />
+		<result property="apply_code" 	column="apply_code" 		javaType="String" />
+		<result property="resume_code" 	column="resume_code" 		javaType="String" />
+		
 		
 	</resultMap>
 	<select id="getcandidateList" resultType="HashMap" resultMap="company_candidateList_Map">
@@ -63,13 +66,13 @@
 		SELECT V.name AS name, V.resume_subject AS resume_subject, V.post_subject AS post_subject, V.applydate AS applydate,
 		       CASE WHEN V.status = '1' THEN '합격'
 		            WHEN V.status = '2' THEN '불합격' 
-					WHEN V.STATUS = '3' THEN '채용전' END AS status
+					WHEN V.STATUS = '3' THEN '채용전' END AS status , V.apply_code , V.resume_code
 		FROM (
 		    SELECT row_number() over(order by a.APPLYDATE desc) AS rno,
 		           m.NAME AS name,
-		           r.SUBJECT AS resume_subject,
+		           r.SUBJECT AS resume_subject , r.resume_code ,
 		           p.SUBJECT AS post_subject,
-		           a.APPLYDATE,
+		           a.APPLYDATE, a.apply_code ,
 		           a.STATUS ,
 		           p.fk_company_id 
 		    FROM TBL_MEMBER m
@@ -104,77 +107,115 @@
 		WHERE SUBJECT= #{subject}
 	</select>
 	
+	<!-- 지원 코드 가져오기  --> 
+	<select id="getApplyCode" parameterType="int" resultType="int">
+	    SELECT APPLY_CODE
+	    FROM TBL_APPLY
+        WHERE FK_RESUME_CODE = #{resumeCode}  
+	</select>
+	
 	<!-- 지원자 기본정보 가져오기 -->
-	<select id="getApplyResume" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.ResumeVO">
-		SELECT r.FK_USERID AS fk_userid, r.NAME AS name, r.SUBJECT AS subject, r.INTRODUCE AS introduce, 
-		       r.UPLOADLINK AS uploadlink, r.RESUME_CODE AS resume_code, p.subject AS post_subject, 
-		       SUBSTR(r.MOBILE, 1, 3) || '-' || SUBSTR(r.MOBILE, 4, 4) || '-' || SUBSTR(r.MOBILE, 8) AS mobile
-		FROM TBL_RESUME r JOIN TBL_APPLY a ON r.RESUME_CODE = a.FK_RESUME_CODE
-		                  JOIN TBL_POST p ON p.POST_CODE = a.FK_POST_CODE
-		WHERE r.RESUME_CODE = #{resume_code} AND a.APPLY_CODE = #{apply_code}
-	</select>
-		
- 	<!-- 지원자 이력서 Career -->
-	<select id="getCareer" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.CareerVO">
-		SELECT c.CAREER_CODE AS career_code, c.COMPANY AS company, c.DEPARTMENT AS department, 
-			   SUBSTR(c.START_DATE, 1, 4) || '.' || SUBSTR(c.START_DATE, 5) AS start_date, 
-			   SUBSTR(c.END_DATE, 1, 4) || '.' || SUBSTR(c.END_DATE, 5) AS end_date
-		FROM TBL_CAREER c JOIN TBL_APPLY a ON c.fk_RESUME_CODE = a.FK_RESUME_CODE
-		WHERE c.FK_RESUME_CODE = #{resume_code} AND a.APPLY_CODE = #{apply_code} 
-	</select>
-	
-	<!-- 지원자 이력서 Reward -->
-	<select id="getReward" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.RewardVO">
-	    SELECT r.REWARD_CODE AS reward_code, r.REWARD AS reward, r.CONTENT AS content,
-	    	   SUBSTR(r.REWARD_DATE, 1, 4) || '.' || SUBSTR(r.REWARD_DATE, 5) AS reward_date
-	    FROM TBL_REWARD r JOIN TBL_APPLY a ON r.FK_RESUME_CODE = a.FK_RESUME_CODE
-	    WHERE r.FK_RESUME_CODE = #{resume_code} AND a.APPLY_CODE = #{apply_code} 
-	</select>
-	
-	<!-- 지원자 이력서 Language -->
-	<select id="getLanguage" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.LanguageVO">
-		SELECT l.LANGUAGE_CODE AS language_code, l.FOR_LANG AS for_lang, l.CONTENT AS lang_content,
-			   SUBSTR(l.LANG_DATE, 1, 4) || '.' || SUBSTR(l.LANG_DATE, 5) AS lang_date
-		FROM TBL_LANGUAGE l JOIN TBL_APPLY a ON l.FK_RESUME_CODE = a.FK_RESUME_CODE
-		WHERE l.FK_RESUME_CODE = #{resume_code} AND a.APPLY_CODE = #{apply_code} 
-	</select>
-	
-	<!-- 지원자 이력서 School -->
-	<select id="getSchool" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.SchoolVO">
-	    SELECT s.SCHOOL_CODE AS school_code, s.SCHOOL AS school, s.MAJOR AS major, 
-			   SUBSTR(s.START_DATE, 1, 4) || '.' || SUBSTR(s.START_DATE, 5) AS start_date, 
-			   SUBSTR(s.END_DATE, 1, 4) || '.' || SUBSTR(s.END_DATE, 5) AS end_date
-	    FROM TBL_SCHOOL s JOIN TBL_APPLY a ON s.FK_RESUME_CODE = a.FK_RESUME_CODE
-	    WHERE s.FK_RESUME_CODE = #{resume_code}	AND a.APPLY_CODE = #{apply_code}     
-	</select>
+   <select id="getApplyResume" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.ResumeVO">
+      SELECT r.FK_USERID AS fk_userid, r.NAME AS name, r.SUBJECT AS subject, r.INTRODUCE AS introduce, 
+             r.UPLOADLINK AS uploadlink, r.RESUME_CODE AS resume_code, p.subject AS post_subject, 
+             SUBSTR(r.MOBILE, 1, 3) || '-' || SUBSTR(r.MOBILE, 4, 4) || '-' || SUBSTR(r.MOBILE, 8) AS mobile
+      FROM TBL_RESUME r JOIN TBL_APPLY a ON r.RESUME_CODE = a.FK_RESUME_CODE
+                        JOIN TBL_POST p ON p.POST_CODE = a.FK_POST_CODE
+      WHERE r.RESUME_CODE = #{resumeCode} AND a.APPLY_CODE = #{applyCode}
+   </select>
+      
+    <!-- 지원자 이력서 Career -->
+   <select id="getCareer" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.CareerVO">
+      SELECT c.CAREER_CODE AS career_code, c.COMPANY AS company, c.DEPARTMENT AS department, 
+            SUBSTR(c.START_DATE, 1, 4) || '.' || SUBSTR(c.START_DATE, 5) AS start_date, 
+            SUBSTR(c.END_DATE, 1, 4) || '.' || SUBSTR(c.END_DATE, 5) AS end_date
+      FROM TBL_CAREER c JOIN TBL_APPLY a ON c.fk_RESUME_CODE = a.FK_RESUME_CODE
+      WHERE c.FK_RESUME_CODE = #{resumeCode} AND a.APPLY_CODE = #{applyCode} 
+   </select>
+   
+   <!-- 지원자 이력서 Reward -->
+   <select id="getReward" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.RewardVO">
+       SELECT r.REWARD_CODE AS reward_code, r.REWARD AS reward, r.CONTENT AS content,
+             SUBSTR(r.REWARD_DATE, 1, 4) || '.' || SUBSTR(r.REWARD_DATE, 5) AS reward_date
+       FROM TBL_REWARD r JOIN TBL_APPLY a ON r.FK_RESUME_CODE = a.FK_RESUME_CODE
+       WHERE r.FK_RESUME_CODE = #{resumeCode} AND a.APPLY_CODE = #{applyCode} 
+   </select>
+   
+   <!-- 지원자 이력서 Language -->
+   <select id="getLanguage" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.LanguageVO">
+      SELECT l.LANGUAGE_CODE AS language_code, l.FOR_LANG AS for_lang, l.CONTENT AS lang_content,
+            SUBSTR(l.LANG_DATE, 1, 4) || '.' || SUBSTR(l.LANG_DATE, 5) AS lang_date
+      FROM TBL_LANGUAGE l JOIN TBL_APPLY a ON l.FK_RESUME_CODE = a.FK_RESUME_CODE
+      WHERE l.FK_RESUME_CODE = #{resumeCode} AND a.APPLY_CODE = #{applyCode} 
+   </select>
+   
+   <!-- 지원자 이력서 School -->
+   <select id="getSchool" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.SchoolVO">
+       SELECT s.SCHOOL_CODE AS school_code, s.SCHOOL AS school, s.MAJOR AS major, 
+            SUBSTR(s.START_DATE, 1, 4) || '.' || SUBSTR(s.START_DATE, 5) AS start_date, 
+            SUBSTR(s.END_DATE, 1, 4) || '.' || SUBSTR(s.END_DATE, 5) AS end_date
+       FROM TBL_SCHOOL s JOIN TBL_APPLY a ON s.FK_RESUME_CODE = a.FK_RESUME_CODE
+       WHERE s.FK_RESUME_CODE = #{resumeCode}   AND a.APPLY_CODE = #{applyCode}     
+   </select>
 
-	<!-- 지원자 이력서 Performance -->
-	<select id="getPerformance" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.PerformanceVO">
-	    SELECT r.PERFORM_CODE AS perform_code, r.FK_CAREER_CODE AS fk_career_code, r.FK_RESUME_CODE AS fk_resume_code,
-	    	   r.PERFORMANCE AS PERFORMANCE, r.perfrom_content AS perfrom_content,
-	    	   SUBSTR(r.START_DATE, 1, 4) || '.' || SUBSTR(r.START_DATE, 5) AS start_date, 
-			   SUBSTR(r.END_DATE, 1, 4) || '.' || SUBSTR(r.END_DATE, 5) AS end_date
-	    FROM TBL_PERFORMANCE r JOIN TBL_APPLY a ON r.FK_RESUME_CODE = a.FK_RESUME_CODE
-	    WHERE r.FK_RESUME_CODE = #{resume_code}	AND a.APPLY_CODE = #{apply_code}   
-	</select>
+   <!-- 지원자 이력서 Performance -->
+   <select id="getPerformance" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.PerformanceVO">
+       SELECT r.PERFORM_CODE AS perform_code, r.FK_CAREER_CODE AS fk_career_code, r.FK_RESUME_CODE AS fk_resume_code,
+             r.PERFORMANCE AS PERFORMANCE, r.perfrom_content AS perfrom_content,
+             SUBSTR(r.START_DATE, 1, 4) || '.' || SUBSTR(r.START_DATE, 5) AS start_date, 
+            SUBSTR(r.END_DATE, 1, 4) || '.' || SUBSTR(r.END_DATE, 5) AS end_date
+       FROM TBL_PERFORMANCE r JOIN TBL_APPLY a ON r.FK_RESUME_CODE = a.FK_RESUME_CODE
+       WHERE r.FK_RESUME_CODE = #{resumeCode}   AND a.APPLY_CODE = #{applyCode}   
+   </select>
 
-	<!-- 지원자 이력서 MemberTech -->
-	<select id="getMemberTech" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.MemberTechVO">
-	    SELECT m.MEMBER_TECH_CODE AS member_tech_code, t.TECH_CODE AS tech_code, 
-	    	   m.FK_USERID AS fk_userid, m.FK_RESUME_CODE AS fk_resume_code, t.TECH_NAME AS fk_tech_name
-		FROM TBL_MEMBER_TECH m JOIN TBL_TECH t ON m.FK_TECH_CODE = t.TECH_CODE
-							   JOIN TBL_APPLY a ON m.FK_RESUME_CODE = a.FK_RESUME_CODE
-		WHERE m.FK_RESUME_CODE = #{resume_code}	AND a.APPLY_CODE = #{apply_code}   
+   <!-- 지원자 이력서 MemberTech -->
+   <select id="getMemberTech" parameterType="int" resultType="com.spring.wanted.ProjectWanted.member.model.MemberTechVO">
+       SELECT m.MEMBER_TECH_CODE AS member_tech_code, t.TECH_CODE AS tech_code, 
+             m.FK_USERID AS fk_userid, m.FK_RESUME_CODE AS fk_resume_code, t.TECH_NAME AS fk_tech_name
+      FROM TBL_MEMBER_TECH m JOIN TBL_TECH t ON m.FK_TECH_CODE = t.TECH_CODE
+                        JOIN TBL_APPLY a ON m.FK_RESUME_CODE = a.FK_RESUME_CODE
+      WHERE m.FK_RESUME_CODE = #{resumeCode}   AND a.APPLY_CODE = #{applyCode}   
+   </select>
+   
+   <!-- 지원자 status 현황 알아오기 -->
+   <select id="getStatus" parameterType="int" resultType="com.spring.wanted.ProjectWanted.company.model.ApplyVO">
+      SELECT status , apply_code , fk_resume_code 
+      FROM TBL_APPLY
+      WHERE apply_code = #{applyCode} AND FK_RESUME_CODE = #{resumeCode}  
+   </select>
+   
+
+	
+	<!-- 직군별 진행중인 공고 비율 -->
+	<resultMap type="HashMap" id="postCntByjob_Map">
+		<result property="job_name" 	column="job_name" 		javaType="String" />
+		<result property="cnt" 				column="cnt" 				javaType="String" />
+		<result property="percentage" 		column="percentage" 		javaType="String" />
+	</resultMap>
+	<select id="postCntByjob" parameterType="String" resultMap="postCntByjob_Map">
+		select j.job_name AS job_name, count(*) AS cnt,
+			   round( count(*)/(select count(*) from tbl_post) *100, 2) AS percentage
+		from tbl_post p join tbl_duty d ON p.fk_DUTY_CODE = d.DUTY_CODE
+		                join tbl_job j ON j.job_code = d.fk_job_code
+		group by j.job_name
+		order by j.job_name
 	</select>
 	
-	<!-- 지원자 status 현황 알아오기 -->
-	<select id="getStatus" parameterType="int" resultType="com.spring.wanted.ProjectWanted.company.model.ApplyVO">
-		SELECT STATUS 
-		FROM TBL_APPLY
-		WHERE apply_code = #{apply_code} AND FK_RESUME_CODE = #{resume_code}  
+	
+	<!-- 직군별 연차별 연봉 구하기 -->
+	<resultMap type="HashMap" id="jobCareerSalary_Map">
+		<result property="job_name" 		column="job_name" 		javaType="String" />
+		<result property="career" 			column="career" 		javaType="String" />
+		<result property="salary" 			column="salary" 		javaType="String" />
+	</resultMap>
+	<select id="careerList" parameterType="String" resultMap="jobCareerSalary_Map">
+		SELECT j.job_name AS job_name, CASE WHEN p.career = 0 THEN '신입' ELSE p.career END AS career, AVG(p.SALARY) AS salary
+		FROM tbl_job j
+		JOIN tbl_duty d ON j.job_code = d.fk_job_code
+		JOIN tbl_post p ON d.duty_code = p.fk_duty_code
+		GROUP BY j.job_name, CASE WHEN p.career = 0 THEN '신입' ELSE p.career END
+		ORDER BY j.job_name ASC, career ASC
 	</select>
-	
-	
 	
 
 

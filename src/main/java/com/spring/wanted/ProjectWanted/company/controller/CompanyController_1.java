@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.spring.wanted.ProjectWanted.company.model.ApplyVO;
 import com.spring.wanted.ProjectWanted.company.model.CompanyVO;
 import com.spring.wanted.ProjectWanted.company.service.InterCompanyService_1;
@@ -172,7 +175,7 @@ public class CompanyController_1 {
 	}
 */
 	
-
+	/*
 	// 지원자 이력서 읽고 합불 결과주기
 	@GetMapping(value = "/resume")
 	public String viewResume(HttpServletRequest request, Model model,
@@ -180,18 +183,22 @@ public class CompanyController_1 {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
 		String company_id = cvo.getCompany_id();
-
-		int resumeCode = service.getResumeCode(subject);
-		int fk_resumeCode = resumeCode;
 		
-		ApplyVO apply = service.getStatus(resumeCode);
-		ResumeVO resume = service.getApplyResume(resumeCode);
-		List<CareerVO> career = service.getCareer(resumeCode);
-		List<RewardVO> reward = service.getReward(resumeCode);
-		List<LanguageVO> language = service.getLanguage(resumeCode);
-		List<SchoolVO> school = service.getSchool(resumeCode);
-		List<PerformanceVO> performance = service.getPerformance(resumeCode);
-		List<MemberTechVO> memberTech = service.getMemberTech(resumeCode);
+		int resumeCode = service.getResumeCode(subject);
+		System.out.println("resumeCode : " + resumeCode);
+		int fk_resumeCode = resumeCode;
+
+		int applyCode = service.getApplyCode(resumeCode);
+		System.out.println("applyCode : " + applyCode);
+		
+		ApplyVO apply = service.getStatus(resumeCode, applyCode);
+		ResumeVO resume = service.getApplyResume(resumeCode, applyCode);
+		List<CareerVO> career = service.getCareer(resumeCode, applyCode);
+		List<RewardVO> reward = service.getReward(resumeCode, applyCode);
+		List<LanguageVO> language = service.getLanguage(resumeCode, applyCode);
+		List<SchoolVO> school = service.getSchool(resumeCode, applyCode);
+		List<PerformanceVO> performance = service.getPerformance(resumeCode, applyCode);
+		List<MemberTechVO> memberTech = service.getMemberTech(resumeCode, applyCode);
 		
 		System.out.println("apply : " + apply);
 		System.out.println("resume : " + resume);
@@ -213,6 +220,48 @@ public class CompanyController_1 {
 		
 		return "company/candidateResume.tiles2";
 	}
+	*/
+	@GetMapping(value="/resume")
+	public String viewResume(HttpServletRequest request, Model model,
+			 @RequestParam("apply_code") String apply_code , @RequestParam("resume_code")String resume_code) {
+		int resumeCode = Integer.parseInt(resume_code);
+		int applyCode = Integer.parseInt(apply_code);
+		
+		ApplyVO apply = service.getStatus(resumeCode, applyCode);
+		ResumeVO resume = service.getApplyResume(resumeCode, applyCode);
+		List<CareerVO> career = service.getCareer(resumeCode, applyCode);
+		List<RewardVO> reward = service.getReward(resumeCode, applyCode);
+		List<LanguageVO> language = service.getLanguage(resumeCode, applyCode);
+		List<SchoolVO> school = service.getSchool(resumeCode, applyCode);
+		List<PerformanceVO> performance = service.getPerformance(resumeCode, applyCode);
+		List<MemberTechVO> memberTech = service.getMemberTech(resumeCode, applyCode);
+		
+		System.out.println("apply : " + apply.getStatus());
+		System.out.println("resume : " + resume);
+		System.out.println("career : " + career);
+		System.out.println("reward : " + reward);
+		System.out.println("language : " + language);
+		System.out.println("school : " + school);
+		System.out.println("performance : " + performance);
+		System.out.println("memberTech : " + memberTech);
+		
+		model.addAttribute("apply", apply);
+		model.addAttribute("resume", resume);
+		model.addAttribute("career", career);
+		model.addAttribute("reward", reward);
+		model.addAttribute("language", language);
+		model.addAttribute("school", school);
+		model.addAttribute("performance", performance);
+		model.addAttribute("memberTech", memberTech);
+		
+		return "company/candidateResume.tiles2";	
+		
+		
+		
+		
+		
+		
+	}
 
 
 	
@@ -225,7 +274,58 @@ public class CompanyController_1 {
 		
 		return "company/company_chart.tiles2";
 	}
+
 	
+	
+	// 직군별 진행중인 공고
+	@ResponseBody
+	@GetMapping(value = "/getPostCntChart", produces="text/plain;charset=UTF-8")
+	public String postCntByJob(HttpServletRequest request) {
+		List<Map<String, String>> jobPercentageList = service.postCntByjob();
+
+		JsonArray jsonArr = new JsonArray();
+		
+		if(jobPercentageList != null && jobPercentageList.size() > 0) {
+			for(Map<String, String> map : jobPercentageList) {
+	
+				JsonObject jsonObj = new JsonObject();
+				jsonObj.addProperty("job_name", map.get("job_name"));
+				jsonObj.addProperty("cnt", map.get("cnt"));
+				jsonObj.addProperty("percentage", map.get("percentage"));
+				
+				jsonArr.add(jsonObj);
+			}// end of for------------------
+		}
+		
+		return new Gson().toJson(jsonArr);
+		
+	}
+	
+	
+	// 직군별 공고별 평균연봉 차트 
+	@ResponseBody
+	@GetMapping(value = "/getSalaryChart", produces="text/plain;charset=UTF-8")
+	public String salaryChart(HttpServletRequest request) {
+		
+		String jobName = request.getParameter("jobName");
+		
+		List<Map<String, String>> jobAndCareer = service.careerList(jobName);
+		
+		JsonArray jsonArr = new JsonArray();
+
+		if(jobAndCareer != null && jobAndCareer.size() > 0) {
+			for(Map<String, String> map : jobAndCareer) {
+				JsonObject jsonObj = new JsonObject();
+				jsonObj.addProperty("job_name", map.get("job_name"));
+				jsonObj.addProperty("career", map.get("career"));
+				jsonObj.addProperty("salary", map.get("salary"));
+				
+				jsonArr.add(jsonObj);
+			}// end of for-----
+		}
+		
+		return new Gson().toJson(jsonArr); 
+	}
 
 	
 	

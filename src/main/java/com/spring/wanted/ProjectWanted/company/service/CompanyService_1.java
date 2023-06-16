@@ -69,61 +69,88 @@ public class CompanyService_1 implements InterCompanyService_1 {
 		return resumeCode;
 	}
 	
+
+	@Override
+	public int getApplyCode(int resumeCode) {
+		int applyCode = cdao.getApplyCode(resumeCode);
+		return applyCode;
+	}
+
 	
 	@Override
-	public ResumeVO getApplyResume(int resumeCode) {
-		ResumeVO resumeContent = cdao.getApplyResume(resumeCode);
+	public ResumeVO getApplyResume(int resumeCode, int applyCode) {
+		ResumeVO resumeContent = cdao.getApplyResume(resumeCode, applyCode);
 		return resumeContent;
 	}
 	
 	
 	@Override
-	public List<CareerVO> getCareer(int resumeCode) {
-		List<CareerVO> career = cdao.getCareer(resumeCode);
+	public List<CareerVO> getCareer(int resumeCode, int applyCode) {
+		List<CareerVO> career = cdao.getCareer(resumeCode, applyCode);
 		return career;
 	}
 	
 	
 	@Override
-	public List<LanguageVO> getLanguage(int resumeCode) {
-		List<LanguageVO> language = cdao.getLanguage(resumeCode);
+	public List<LanguageVO> getLanguage(int resumeCode, int applyCode) {
+		List<LanguageVO> language = cdao.getLanguage(resumeCode, applyCode);
 		return language;
 	}
 	
 	
 	@Override
-	public List<RewardVO> getReward(int resumeCode) {
-		List<RewardVO> reward = cdao.getReward(resumeCode);
+	public List<RewardVO> getReward(int resumeCode, int applyCode) {
+		List<RewardVO> reward = cdao.getReward(resumeCode, applyCode);
 		return reward;
 	}
 	
 	
 	@Override
-	public List<SchoolVO> getSchool(int resumeCode) {
-		List<SchoolVO> school = cdao.getSchool(resumeCode);
+	public List<SchoolVO> getSchool(int resumeCode, int applyCode) {
+		List<SchoolVO> school = cdao.getSchool(resumeCode, applyCode);
 		return school;
 	}
 
 
 	@Override
-	public List<PerformanceVO> getPerformance(int resumeCode) {
-		List<PerformanceVO> performance = cdao.getPerformance(resumeCode);
+	public List<PerformanceVO> getPerformance(int resumeCode, int applyCode) {
+		List<PerformanceVO> performance = cdao.getPerformance(resumeCode, applyCode);
 		return performance;
 	}
 
 
 	@Override
-	public List<MemberTechVO> getMemberTech(int resumeCode) {
-		List<MemberTechVO> memberTech = cdao.getMemberTech(resumeCode);
+	public List<MemberTechVO> getMemberTech(int resumeCode, int applyCode) {
+		List<MemberTechVO> memberTech = cdao.getMemberTech(resumeCode, applyCode);
 		return memberTech;
 	}
 
 
 	@Override
-	public ApplyVO getStatus(int resumeCode) {
-		ApplyVO status = cdao.getStatus(resumeCode);
+	public ApplyVO getStatus(int resumeCode, int applyCode) {
+		ApplyVO status = cdao.getStatus(resumeCode, applyCode);
 		return status;
 	}
+
+
+	// 직군별 공고 개수
+	@Override
+	public List<Map<String, String>> postCntByjob() {
+		List<Map<String, String>> jobPercentageList = cdao.postCntByjob();
+		return jobPercentageList;
+	}
+
+	// 직군별 연차별 연봉평균 구하기
+	@Override
+	public List<Map<String, String>> careerList(String jobName) {
+		List<Map<String, String>> jobAndCareer = cdao.careerList(jobName);
+		return jobAndCareer;
+	}
+
+
+
+
+
 
 
 
