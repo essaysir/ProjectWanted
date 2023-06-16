@@ -66,11 +66,20 @@ public class PostDAO implements InterPostDAO {
 	// 검색필터를 거친 공고리스트 불러오기
 	@Override
 	public List<Map<String, String>> getPostListWithFilters(List<String> job_code, List<String> duty_code,
-			List<String> region_detail_code, List<String> career, List<String> tech_code) {
+			List<String> region_detail_code, List<String> career, List<String> tech_code, List<String> tag_name) {
 		
-		List<Map<String, String>> PostList = mapper.getPostListWithFilters(job_code, duty_code, region_detail_code, career, tech_code);
+		List<Map<String, String>> PostList = mapper.getPostListWithFilters(job_code, duty_code, region_detail_code, career, tech_code, tag_name);
 		
 		return PostList;
 	}
+
+	/*
+	 * // 메인페이지 태그별 공고
+	 * 
+	 * @Override public List<Map<String, String>> selectSalary() { List<Map<String,
+	 * String>> PostList = mapper.selectSalary();
+	 * 
+	 * return PostList; }
+	 */
 	
 }

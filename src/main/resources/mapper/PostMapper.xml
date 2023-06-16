@@ -185,12 +185,18 @@
 		(select fk_post_code, LISTAGG(tech_code, ',') AS tech_code
 		from tbl_post_tech A join tbl_tech B
 		on A.fk_tech_code = B.tech_code
-		group by fk_post_code)
+		group by fk_post_code),
+		
+		tag_with AS
+		(select LISTAGG(tag_name, ',') AS tag_name, fk_company_id
+		from tbl_tag A join tbl_company_tag B
+		on A.tag_code = B.fk_tag_code
+		group by fk_company_id)
 		
 		select company_id, region_detail_code, name, company_code, region_code, region_name,
 		      region_detail_code, region_detail_name, post_code, duty_code,
 		      career, subject, info, image, createday, salary, mainduty, quality, deadline,
-		      viewcount, pay_status, job_code, tech_code, image_name
+		      viewcount, pay_status, job_code, tech_code, image_name, tag_name
 		from company_post_with A join region_with B
 		on A.fk_region_detail_code = B.region_detail_code
 		join duty_with C
@@ -199,6 +205,8 @@
 		on A.post_code = D.fk_post_code
 		left join detail_image_with E
 		on A.fk_company_id = E.fk_company_id
+		left join tag_with F
+		on A.fk_company_id = F.fk_company_id
 		where 1=1
 		AND TO_CHAR(createday, 'yy/mm/dd') &lt; TO_CHAR(sysdate+1, 'yy/mm/dd')
 		AND TO_CHAR(deadline, 'yy/mm/dd') >= TO_CHAR(sysdate, 'yy/mm/dd')
@@ -242,9 +250,105 @@
             </foreach>
             )
         </if>
+        <if test="tag_name != null and tag_name.size() > 0">
+            AND (
+            <foreach item="tag" collection="tag_name" open="" separator="or" close="">
+               tag_name like  '%'|| #{tag} ||'%'
+            </foreach>
+            )
+        </if>
         ORDER BY post_code desc
         
 	</select>
-
+	
+	<!-- 메인 페이지 태그별 공고
+	<resultMap type="HashMap" id="selectSalary_Map">
+		<result property="company_id" 				column="company_id" 			javaType="String" />
+		<result property="fk_region_detail_code" 	column="fk_region_detail_code"  javaType="String" />
+		<result property="name" 					column="name" 					javaType="String" />
+		<result property="company_code" 			column="company_code" 			javaType="String" />
+		<result property="fk_region_code" 			column="fk_region_code" 		javaType="String" />
+		<result property="region_name" 				column="region_name" 			javaType="String" />
+		<result property="region_detail_code" 		column="region_detail_code" 	javaType="String" />
+		<result property="region_detail_name" 		column="region_detail_name" 	javaType="String" />
+		<result property="post_code" 				column="post_code" 				javaType="String" />
+		<result property="fk_company_id" 			column="fk_company_id" 			javaType="String" />
+		<result property="fk_duty_code" 			column="fk_duty_code" 			javaType="String" />
+		<result property="career" 					column="career" 				javaType="String" />
+		<result property="subject" 					column="subject" 				javaType="String" />
+		<result property="info" 					column="info" 					javaType="String" />
+		<result property="image" 					column="image"					javaType="String" />
+		<result property="createday" 				column="createday" 				javaType="String" />
+		<result property="salary" 					column="salary" 				javaType="String" />
+		<result property="mainduty" 				column="mainduty" 				javaType="String" />
+		<result property="quality" 					column="quality" 				javaType="String" />
+		<result property="deadline" 				column="deadline" 				javaType="String" />
+		<result property="viewcount" 				column="viewcount" 				javaType="String" />
+		<result property="pay_status" 				column="pay_status" 			javaType="String" />
+		<result property="image_name" 				column="image_name" 			javaType="String" />
+		<result property="tag_name" 				column="tag_name" 				javaType="String" />
+	
+	</resultMap>
+	<select id="selectSalary" resultMap="selectSalary_Map"> 
+		WITH 
+		region_with AS
+		(select fk_region_code, region_code, region_name, region_detail_code, region_detail_name
+		from tbl_region A join tbl_region_detail B
+		on A.region_code = B.fk_region_code),
+		
+		company_post_with AS
+		(select   company_id, fk_region_detail_code, name, company_code, POST_CODE, FK_COMPANY_ID, FK_DUTY_CODE, CAREER, SUBJECT, INFO, C.IMAGE AS IMAGE, CREATEDAY, SALARY, MAINDUTY, QUALITY, DEADLINE, VIEWCOUNT, PAY_STATUS
+		from tbl_company C join tbl_post D
+		on C.company_id = D.fk_company_id
+		where PAY_STATUS = '1'
+		),
+		
+		detail_image_with AS
+		(select fk_company_id, substr(LISTAGG(image_name, ','), instr(LISTAGG(image_name, ','), ',', -1)+1) AS image_name
+		from tbl_company A join tbl_detail_image B
+		on A.company_id = B.fk_company_id
+		group by fk_company_id),
+		
+		duty_with AS
+		(select duty_code, job_code, duty_name
+		from tbl_duty A join tbl_job B
+		on A.fk_job_code = B.job_code),
+		
+		post_tech_with AS
+		(select fk_post_code, LISTAGG(tech_code, ',') AS tech_code
+		from tbl_post_tech A join tbl_tech B
+		on A.fk_tech_code = B.tech_code
+		group by fk_post_code),
+		
+		tag_with AS
+		(select LISTAGG(tag_name, ',') AS tag_name, fk_company_id
+		from tbl_tag A join tbl_company_tag B
+		on A.tag_code = B.fk_tag_code
+		group by fk_company_id)
+		
+		
+		select company_id, region_detail_code, name, company_code, region_code, region_name,
+		      region_detail_code, region_detail_name, post_code, duty_code,
+		      career, subject, info, image, createday, salary, mainduty, quality, deadline,
+		      viewcount, pay_status, job_code, tech_code, image_name, tag_name
+		from company_post_with A join region_with B
+		on A.fk_region_detail_code = B.region_detail_code
+		join duty_with C
+		on A.fk_duty_code = C.duty_code
+		left join post_tech_with D
+		on A.post_code = D.fk_post_code
+		left join detail_image_with E
+		on A.fk_company_id = E.fk_company_id
+		left join tag_with F
+		on A.fk_company_id = F.fk_company_id
+		where 1=1
+		AND TO_CHAR(createday, 'yy/mm/dd') &lt; TO_CHAR(sysdate+1, 'yy/mm/dd')
+		AND TO_CHAR(deadline, 'yy/mm/dd') >= TO_CHAR(sysdate, 'yy/mm/dd')
+		AND (tag_name like '%연봉업계평균이상%' or tag_name like '%연봉상위5%%' or tag_name like '%연봉상위10%%' )
+		ORDER BY post_code desc
+		
+		
+	</select>
+	-->
 
 </mapper>
