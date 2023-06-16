@@ -84,11 +84,14 @@ public class MemberController {
 				PostVO pvo = service.getPostVO(post_code);
 				CompanyVO cvo = service.getCompanyVO(post_code);
 				List<String> imageList = service.getImageList(cvo.getCompany_id());
+				List<String> techList = service.getTechList(post_code);
+				System.out.println(" 확인용 techList : " + techList);
 				// System.out.println(" 확인용 pvo : " + pvo );
 				request.setAttribute("pvo", pvo);
 				// System.out.println(" 확인용 cvo : " + cvo );
 				request.setAttribute("cvo", cvo);
 				request.setAttribute("imageList", imageList);
+				request.setAttribute("techList", techList);
 				return "post/detailPost.tiles1";
 		}
 		

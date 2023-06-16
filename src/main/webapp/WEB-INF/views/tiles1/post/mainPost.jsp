@@ -2547,7 +2547,7 @@ section#skillSearch {
 	}// end of function getJobList()
 	
 	function job_code_gofilter(job_code){
-		alert(job_code);
+		// alert(job_code);
 		let html = "";
 			html+='<input type="hidden" name="job_code" value="'+job_code+'"/>';
 			$("li#job_code_gofilter").html(html);
@@ -3315,11 +3315,11 @@ section#skillSearch {
 		    
 		    let tag_name = [];
 		    $(".TagListItem_selected__k3d9Q").find("input[name='tag_name']").each(function(){
-		    	alert($(this).val());
+		    	// alert($(this).val());
 		    	tag_name.push($(this).val());
 		    })
 
-		    alert(tag_name);
+		    // alert(tag_name);
 		    
 		    let data = {
 		    	job_code : job_code,

@@ -78,6 +78,13 @@ public class MemberService implements InterMemberService{
 	}
 
 
+	@Override
+	public List<String> getTechList(int post_code) {
+		List<String> techList = mdao.getTechList(post_code);
+		return techList ;
+	}
+
+
 	
 
 

@@ -76,5 +76,11 @@ public class MemberDAO implements InterMemberDAO {
 		return n;
 	}
 
+	@Override
+	public List<String> getTechList(int post_code) {
+		List<String> techList = mapper.getTechList(post_code);
+		return techList ;
+	}
+
 
 }

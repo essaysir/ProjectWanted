@@ -30,5 +30,7 @@ public interface InterMemberMapper {
 	List<ResumeVO> getResumeList(String userid);
 
 	int apply(Map<String, String> paraMap);
+
+	List<String> getTechList(int post_code);
 	
 }

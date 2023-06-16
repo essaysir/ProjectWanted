@@ -54,7 +54,7 @@
 		<select id="getResumeList" parameterType="String"  resultType="com.spring.wanted.ProjectWanted.member.model.ResumeVO">
 		    SELECT RESUME_CODE, FK_USERID, ISCOMPLETE,  NAME, MOBILE,
 		    CASE
-		        WHEN LENGTH(SUBJECT) > 6 THEN CONCAT(SUBSTR(SUBJECT, 1, 6), '...')
+		        WHEN LENGTH(SUBJECT) > 6 THEN CONCAT(SUBSTR(SUBJECT, 1, 5), '...')
 		        ELSE SUBJECT
 		    END AS subject,
 		    to_char(COMPLETE_DATE, 'yyyy-mm-dd') AS COMPLETE_DATE
@@ -66,4 +66,14 @@
 			insert into tbl_apply ( APPLY_CODE , FK_RESUME_CODE , FK_POST_CODE , APPLYDATE , STATUS , FK_COMPANY_ID )
 			 values( seq_apply.nextval , #{resume_code} , #{fk_post_code} , sysdate , 3,  #{fk_company_id} )
 		</insert>
+		
+		<select id="getTechList" parameterType="int" resultType="String">
+		select T.tech_name 
+		from 
+		( select post_tech_code , fk_tech_code , fk_post_code from
+		tbl_post_tech where fk_post_code = #{post_code} ) P
+		join tbl_tech T
+		ON P.fk_tech_code = T.tech_code
+		</select>
+		
 </mapper>

@@ -305,7 +305,7 @@
 		    font-weight: 600;
 		    text-align: left;
 			color: rgb(51, 51, 51) ;
-			font-size: 14px; 
+			font-size: 13px; 
 			margin-bottom : 0px ;
 		}
 		span.resume_matchup{
@@ -339,7 +339,7 @@
 		    background-color: #fff;
 		    font-size: 14px;
 		    font-weight: 600;
-		    line-height: 50px;
+		    line-height: 40px;
 		    letter-spacing: normal;
 		    color: #666;
 		}
@@ -379,198 +379,76 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  			$("button#back").on("click" , back );
  			$(document).on("click" , '#real_apply' , applyPost );
  			$(document).on('change', '.apply_checkbox', function() {
+					$('.apply_checkbox').not(this).prop('checked', false);
+					
  				  if ($(this).is(':checked')) {
  				    // 체크박스가 체크되었을 때 수행할 작업
  				    // console.log('체크박스가 체크되었습니다.');
  				    var parentDiv = $(this).closest('div.resume_container');
+					$('div.resume_container').not(parentDiv).removeClass("selected").addClass("unselected");
 					parentDiv.addClass("selected"); // 선택된 DIV 의 CSS 를 변경해주려는 경우
 					parentDiv.removeClass("unselected");
 					//console.log(parentDiv);
 					//console.log(parentDiv.html());
+					
 					var resume_code = parentDiv.find("input#resume_code").val();
 					$("input#selected_resume_code").val(resume_code);
+					
  				  } 
  				  else {
  				    // 체크박스가 해제되었을 때 수행할 작업
  				    // console.log('체크박스가 해제되었습니다.');
- 				   var parentDiv = $(this).closest('div.resume_container');
+ 				   	var parentDiv = $(this).closest('div.resume_container');
 					parentDiv.addClass("unselected");
 					parentDiv.removeClass("selected");
 					$("input#selected_resume_code").val(-999);
- 				  }
+ 					}
  				});
 
- 			func_geocoder('${cvo.addresss}');
- 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 			// 카카오맵 시작 
+				let lat ;
+				let lng ; 
+
+
+				func_geocoder('${cvo.addresss}', function() {
+					lat = $("input#lat").val();
+					lng = $("input#lng").val();
+					// 값을 사용하는 로직을 이곳에 작성하면 됩니다
+					// alert(lat) ;
+					// alert(lng) ;
+					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						mapOption = { 
+							center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+							level: 3 // 지도의 확대 레벨
+						};
+
+					var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+					// 마커가 표시될 위치입니다 
+					var markerPosition  = new kakao.maps.LatLng(lat, lng); 
+
+					// 마커를 생성합니다
+					var marker = new kakao.maps.Marker({
+						position: markerPosition
+					});
+
+					// 마커가 지도 위에 표시되도록 설정합니다
+					marker.setMap(map);
+
+
+
+			});// END OF FUNC_GEOCODER
+			
+
  			
- 			// 지도를 담을 영역의 DOM 레퍼런스
-		     var mapContainer = document.getElementById('map');
-		     
-		     // 지도를 생성할때 필요한 기본 옵션
-		     var options = {
-		           center: new kakao.maps.LatLng($("input#lat").val(), $("input#lng").val()), // 지도의 중심좌표. 반드시 존재해야함.
-		           <%--
-		           우리동네:37.54132509455122	126.86307478730826
-		           학원:37.556513150417395	126.91951995383943
-		               center 에 할당할 값은 kakao.maps.LatLng 클래스를 사용하여 생성한다.
-		               kakao.maps.LatLng 클래스의 2개 인자값은 첫번째 파라미터는 위도(latitude)이고, 두번째 파라미터는 경도(longitude)이다.
-		           --%>
-		           level: 4  // 지도의 레벨(확대, 축소 정도). 숫자가 클수록 축소된다. 4가 적당함.
-		     
-		     };
-		     
-		   // 지도 생성 및 생성된 지도객체 리턴
-		   var mapobj = new kakao.maps.Map(mapContainer, options);
-		     
-		   // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성함.    
-		   var mapTypeControl = new kakao.maps.MapTypeControl();
-		 
-		   // 지도 타입 컨트롤을 지도에 표시함.
-		   // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미함.   
-		   mapobj.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-		   
-		   // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성함.   
-		   var zoomControl = new kakao.maps.ZoomControl();
-
-		   // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 지도에 표시함.
-		   // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 RIGHT는 오른쪽을 의미함.    
-		   mapobj.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
 
-		   if (navigator.geolocation) {
-		      // HTML5의 geolocation으로 사용할 수 있는지 확인한다 
-		         
-		      // GeoLocation을 이용해서 웹페이지에 접속한 사용자의 현재 위치를 확인하여 그 위치(위도,경도)를 지도의 중앙에 오도록 한다. 
-		      navigator.geolocation.getCurrentPosition(function(position) {
-		         var latitude = position.coords.latitude;   // 현위치의 위도
-		         var longitude = position.coords.longitude; // 현위치의 경도
-		      //   console.log("현위치의 위도: "+latitude+", 현위치의 경도: "+longitude);
-		         
-		         // 마커가 표시될 위치를 geolocation으로 얻어온 현위치의 위.경도 좌표로 한다   
-		         var locPosition = new kakao.maps.LatLng(latitude, longitude);
-
-			       // 마커이미지를 기본이미지를 사용하지 않고 다른 이미지로 사용할 경우의 이미지 주소 
-		           // var imageSrc = 'http://localhost:9090/MyMVC/images/pointerGreen.png'; 
-				
-		           // 마커이미지의 크기 
-		          var imageSize = new kakao.maps.Size(34, 39);
-		           
-		          // 마커이미지의 옵션. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정한다. 
-		          var imageOption = {offset: new kakao.maps.Point(15, 39)};
-
-		          // 마커의 이미지정보를 가지고 있는 마커이미지를 생성한다. 
-		          var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-
-		          // == 마커 생성하기 == //
-		         var marker = new kakao.maps.Marker({ 
-		            map: mapobj, 
-		              position: locPosition, // locPosition 좌표에 마커를 생성 
-		              image: markerImage     // 마커이미지 설정 ==> 해당 줄 삭제시 => 기본 마커가 나오게 된다.
-		         }); 
-		          
-		         marker.setMap(mapobj); // 지도에 마커를 표시한다
-		         
-		         
-		         // === 인포윈도우(텍스트를 올릴 수 있는 말풍선 모양의 이미지) 생성하기 === //
-		         
-		         // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능함.
-		         var iwContent = "<div style='padding:5px; font-size:9pt;'>여기에 계신가요?<br/><a href='https://map.kakao.com/link/map/현위치(약간틀림),"+latitude+","+longitude+"' style='color:blue;' target='_blank'>큰지도</a> <a href='https://map.kakao.com/link/to/현위치(약간틀림),"+latitude+","+longitude+"' style='color:blue' target='_blank'>길찾기</a></div>";
-
-		         // 인포윈도우 표시 위치
-		          var iwPosition = locPosition;
-		         
-		          // removeable 속성을 true 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됨
-		          var iwRemoveable = true; 
-
-		          // == 인포윈도우를 생성하기 == 
-		         var infowindow = new kakao.maps.InfoWindow({
-		             position : iwPosition, 
-		             content : iwContent,
-		             removable : iwRemoveable
-		         });
-
-		         // == 마커 위에 인포윈도우를 표시하기 == //
-		         infowindow.open(mapobj, marker);
-
-		         // == 지도의 센터위치를 locPosition로 변경한다.(사이트에 접속한 클라이언트 컴퓨터의 현재의 위.경도로 변경한다.)
-		         mapobj.setCenter(locPosition);  
-		         // 클릭한 위치의 위도는 37.54132509455122 이고, 경도는 126.86307478730826 입니다
-		         
-		         
-		      });
-		   }   
-		   else {
-		      // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정한다.
-		      var locPosition = new kakao.maps.LatLng(37.556513150417395, 126.91951995383943);     
-		        
-		      // 위의 
-		      // 마커이미지를 기본이미지를 사용하지 않고 다른 이미지로 사용할 경우의 이미지 주소 
-		      // 부터
-		      // 마커 위에 인포윈도우를 표시하기 
-		      // 까지 동일함.
-		      
-		     // 지도의 센터위치를 위에서 정적으로 입력한 위.경도로 변경한다.
-		       mapobj.setCenter(locPosition);
-		      
-		   }// end of if~else------------------------------------------
-		   
-		   
-		   // ================== 지도에 클릭 이벤트를 등록하기 시작======================= //
-		   // 지도를 클릭하면 클릭한 위치에 마커를 표시하면서 위,경도를 보여주도록 한다.
-		   
-		   // == 마커 생성하기 == //
-		   // 1. 마커이미지 변경
-		   var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';       
-		           
-		   // 2. 마커이미지의 크기 
-		    var imageSize = new kakao.maps.Size(34, 39);   
-		            
-		    // 3. 마커이미지의 옵션. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정한다. 
-		    var imageOption = {offset: new kakao.maps.Point(15, 39)};   
-		      
-		    // 4. 이미지정보를 가지고 있는 마커이미지를 생성한다. 
-		    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-		          
-		    var movingMarker = new kakao.maps.Marker({ 
-		      map: mapobj, 
-		        image: markerImage  // 마커이미지 설정
-		   });
-		    
-		    // === 인포윈도우(텍스트를 올릴 수 있는 말풍선 모양의 이미지) 생성하기 === //
-		   var movingInfowindow = new kakao.maps.InfoWindow({
-		       removable : false
-		     //removable : true   // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됨
-		   });
-		   
-		    
-		   kakao.maps.event.addListener(mapobj, 'click', function(mouseEvent) {         
-		          
-		       // 클릭한 위도, 경도 정보를 가져옵니다 
-		       var latlng = mouseEvent.latLng;
-		       
-		       // 마커 위치를 클릭한 위치로 옮긴다.
-		       movingMarker.setPosition(latlng);
-		       
-		       // 인포윈도우의 내용물 변경하기 
-		       movingInfowindow.setContent("<div style='padding:5px; font-size:9pt;'>여기가 어디에요?<br/><a href='https://map.kakao.com/link/map/여기,"+latlng.getLat()+","+latlng.getLng()+"' style='color:blue;' target='_blank'>큰지도</a> <a href='https://map.kakao.com/link/to/여기,"+latlng.getLat()+","+latlng.getLng()+"' style='color:blue' target='_blank'>길찾기</a></div>");  
-		       
-		       // == 마커 위에 인포윈도우를 표시하기 == //
-		       movingInfowindow.open(mapobj, movingMarker);
-		       
-		       var htmlMessage = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, '; 
-		           htmlMessage += '경도는 ' + latlng.getLng() + ' 입니다';
-		          
-		       var resultDiv = document.getElementById("latlngResult"); 
-		       resultDiv.innerHTML = htmlMessage;
-		   });
-		   // ================== 지도에 클릭 이벤트를 등록하기 끝======================= //
+		  
  			
  		}); // END OF $(DOCUMENT).READY(FUNCTION()
 		
  		
  		
- 		function func_geocoder(address) {
+ 		function func_geocoder(address , callback) {
  		   // 주소-좌표 변환 객체를 생성합니다
  		   var geocoder = new kakao.maps.services.Geocoder();
 
@@ -579,7 +457,10 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  			   if (status === kakao.maps.services.Status.OK) {
  				    // 주소가 정상적으로 검색이 완료됐으면
  			    	$("input#lat").val(result[0].y); // result[0].y ==> 위도
+					// alert( result[0].y ) ;
  			    	$("input#lng").val(result[0].x); // result[0].x ==> 경도
+					// alert(result[0].x);
+					callback(); // 콜백 함수 호출
  			    } 
  			}); 
  		}// function func_geocoder(address) {
@@ -626,7 +507,7 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
  						html += '      <div class="unselected resume_container" style="display: flex;">';
  						html += '         <input type="checkbox" class="apply_checkbox"/>';
  						html += '         <div style="display: flex; flex-direction: column ; ">';
- 						html += '            <p class="resume_name" style="margin-top: 6px; ">'+rvo.subject+'<span class="resume_matchup">매치업</span> </p>';
+ 						html += '            <p class="resume_name" style="margin-top: 8px; ">'+rvo.subject+'<span class="resume_matchup">매치업</span> </p>';
  						html += '            <p class="resume_lang">'+rvo.complete_date+	' <span class="resume_status">작성완료</span></p>';
  						html += '           <input type="hidden"  id="resume_code" name="resume_code" value="'+rvo.resume_code+'"    />              '
  					 	html += '         </div>';
@@ -733,11 +614,10 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 				<h6 class="sub_title">자격요건</h6>
 				<p>${pvo.quality }</p>
 				<h6 class="sub_title" style="margin-bottom:20px;">기술스택.툴</h6>
-				<button class="skill_button" >React</button>
-				<button class="skill_button">Node.js</button>
-				<button class="skill_button">PHP</button>
-				<button class="skill_button">React Native</button>
-				
+				<c:forEach var="tech" items="${techList}">
+				<button class="skill_button" >${tech}</button>
+				</c:forEach>
+			
 				<hr style="margin:30px 0px;"/>
 				
 				<div style="marign-bottom: 15px;">
@@ -746,8 +626,8 @@ https://cdn.jsdelivr.net/npm/swiper@9.3.2/modules/scrollbar/scrollbar.min.css
 				<br/>
 				<div style="margin-bottom:15px;">
 				<span class="header-span">근무지역</span> <span class="body-span">${cvo.addresss} </span>
-						<input type="hidden" id="lat"  value=""/>
-						<input type="hidden" id="lng" value="" />
+						<input type="hidden" id="lat"  />
+						<input type="hidden" id="lng" />
 				</div>
 				
 				 <div id="map" style="width:100%; height:277px;"></div>
