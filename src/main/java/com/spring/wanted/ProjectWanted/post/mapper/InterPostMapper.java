@@ -27,6 +27,11 @@ public interface InterPostMapper {
 	// 검색필터를 거친 공고리스트 불러오기
 	List<Map<String, String>> getPostListWithFilters(@Param("job_code") List<String> job_code, @Param("duty_code") List<String> duty_code,
 													@Param("region_detail_code") List<String> region_detail_code,
-													@Param("career") List<String> career, @Param("tech_code") List<String> tech_code);
+													@Param("career") List<String> career, @Param("tech_code") List<String> tech_code,
+													 @Param("tag_name") List<String> tag_name);
+
+	/*
+	 * // 메인페이지 태그별 공고 List<Map<String, String>> selectSalary();
+	 */
 	
 }

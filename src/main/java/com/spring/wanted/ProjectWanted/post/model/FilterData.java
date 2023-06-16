@@ -12,4 +12,6 @@ public class FilterData {
     private List<String> region_detail_code;
     private List<String> career;
     private List<String> tech_code;
+    private List<String> tag_name;
+    
 }

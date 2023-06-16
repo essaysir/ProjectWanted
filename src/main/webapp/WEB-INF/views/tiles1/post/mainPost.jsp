@@ -2299,6 +2299,26 @@ section#skillSearch {
     	// 회사 태그 관련 함수
     	selectCompanytag();
     	
+    	// 회사태그 변경시 감지 함수
+    	var targetElement = document.querySelector(".TagListItem_TagListItem__3aCT9");
+
+	    // MutationObserver 인스턴스를 생성합니다.
+	    var observer = new MutationObserver(function(mutationsList) {
+	      // 클래스 변경이 감지되면 실행되는 콜백 함수입니다.
+	      for (var mutation of mutationsList) {
+	        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+	          // 클래스 변경에 대한 처리 로직을 여기에 작성합니다.
+	          // 예: 클래스 변경에 따른 동작 수행
+	          console.log("Class has changed:", mutation.target.classList);
+	          // 예: 클래스 변경 시 함수 실행
+	          selectgofilter();
+	        }
+	      }
+	    });
+	    
+	    observer.observe(targetElement, { attributes: true });
+    	
+    	
     	
     	// 슬릭 시작
     	$('.slick-track').slick({
@@ -2607,7 +2627,7 @@ section#skillSearch {
 		}
 		
 		duty_select_count++;
-		console.log(duty_select_count);
+		//console.log(duty_select_count);
 	}
 	
 	function cancelDuty(){
@@ -3206,10 +3226,13 @@ section#skillSearch {
 			$(".TagListItem_selected__k3d9Q").removeClass("TagListItem_selected__k3d9Q");
 			$(this).addClass("TagListItem_selected__k3d9Q");
 			
+			
 		})
 		
-	
-	} 
+	}
+	function selectgofilter() {
+		gofilter();
+	}
 	
 	
 	
@@ -3289,14 +3312,22 @@ section#skillSearch {
 		    $("input[name='tech_code']").each(function() {
 		        tech_code.push($(this).val());
 		    });
+		    
+		    let tag_name = [];
+		    $(".TagListItem_selected__k3d9Q").find("input[name='tag_name']").each(function(){
+		    	alert($(this).val());
+		    	tag_name.push($(this).val());
+		    })
 
+		    alert(tag_name);
 		    
 		    let data = {
 		    	job_code : job_code,
 		    	duty_code: duty_code,
 		    	region_detail_code: region_detail_code,
 		    	career: career,
-		        tech_code: tech_code
+		        tech_code: tech_code,
+		        tag_name: tag_name
 		        
 		    };
 
@@ -3308,36 +3339,39 @@ section#skillSearch {
 		        data: JSON.stringify(data),
 		        dataType: "json",
 		        contentType: "application/json",
-		        success: function(json) {
-		            //alert("하하하");
-						 html += " <ul id='job-list'> ";
-								
-								
-						for (let i = 0; i < json.PostList.length; i++) {
-							//console.log(json.PostList[i].SUBJECT);
-							// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
-							html += "<li>" +
-									"<div class='Card_className__u5rsb'><a href='/wanted/detail/"+json.PostList[i].post_code+"' class='' >" +
-									"<header style='background-image: url(/images/company_detail_image/"+json.PostList[i].image_name+")'></header>" +
-									"<div class='body'>"+
-									"<div class='job-card-position'>"+json.PostList[i].subject+"</div>"+
-									"<div class='job-card-company-name'>"+json.PostList[i].name+"</div>"+
-									"<div class='Tooltip_container__AvBvM'><button class='Tooltip_label__P9FMp' type='button'>"+
-									"<div class='ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP'><span>응답률 매우 높음</span></div>"+
-									"<div class='Tooltip_tooltipContent__6exdr'>지원 후 응답받을 확률이 95% 이상입니다.</div>"+
-									"</button></div>"+
-									"<div class='job-card-company-location'>"+json.PostList[i].region_name+"<span class='addressDot'>.</span><span>"+json.PostList[i].region_detail_name+"</span></div>"+
-									"</div></a></div></li>"
+		        success: function (json) {
+					 //console.log(JSON.stringify(json));
+					let html = ""
+					 html += " <ul id='job-list'> ";
 							
-									
-						}
-						html += "</ul>"
+					
+					for (let i = 0; i < json.PostList.length; i++) {
+						//console.log(json.PostList[i].SUBJECT);
+						// 나중에 이미지는 url로 원티드에서 그냥 가져와서 디비 넣던지 할것.
+						html += "<li>" +
+								"<div class='Card_className__u5rsb'><a href='/wanted/detail/"+json.PostList[i].post_code+"' class='' >" +
+								"<header style='background-image: url(/images/company_detail_image/"+json.PostList[i].image_name+")'></header>" +
+								"<div class='body'>"+
+								"<div class='job-card-position'>"+json.PostList[i].subject+"</div>"+
+								"<div class='job-card-company-name'>"+json.PostList[i].name+"</div>"+
+								"<div class='Tooltip_container__AvBvM'><button class='Tooltip_label__P9FMp' type='button'>"+
+								"<div class='ResponseLevelLabel_container__dJphx ResponseLevelLabel_veryHigh__3ArDP'><span>응답률 매우 높음</span></div>"+
+								"<div class='Tooltip_tooltipContent__6exdr'>지원 후 응답받을 확률이 95% 이상입니다.</div>"+
+								"</button></div>"+
+								"<div class='job-card-company-location'>"+json.PostList[i].region_name+"<span class='addressDot'>.</span><span>"+json.PostList[i].region_detail_name+"</span></div>"+
+								"</div></a></div></li>"
 						
-						$("div.List_List_container__JnQMS").html(html);
-		        },
-		        error: function(request, status, error) {
-		        	alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-		        }
+								
+					}
+					html += "</ul>"
+					
+					$("div.List_List_container__JnQMS").html(html);
+	
+	
+				},
+				error: function (request, status, error) {
+					alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+				}
 		    });
 		}
 		

@@ -116,6 +116,8 @@ public class PostController {
 	    List<String> region_detail_code = filterData.getRegion_detail_code();
 	    List<String> career = filterData.getCareer();
 	    List<String> tech_code = filterData.getTech_code();
+	    List<String> tag_name = filterData.getTech_code();
+	    
 	    
 
 	    System.out.println(job_code);	    
@@ -123,8 +125,10 @@ public class PostController {
 		System.out.println(region_detail_code);
 		System.out.println(career);
 		System.out.println(tech_code);
+		System.out.println(tag_name);
 		
-		List<Map<String, String>> PostList = service.getPostListWithFilters(job_code, duty_code, region_detail_code, career, tech_code);
+		
+		List<Map<String, String>> PostList = service.getPostListWithFilters(job_code, duty_code, region_detail_code, career, tech_code, tag_name);
 
 
 		JSONObject jsonobj = new JSONObject();
@@ -135,6 +139,23 @@ public class PostController {
 	
 	}
 	
+	/*
+	 * // 메인페이지 태그별 공고
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @GetMapping(value = "/selectSalary", produces="text/plain;charset=UTF-8" )
+	 * public String selectSalary() { List<Map<String, String>> PostList =
+	 * service.selectSalary();
+	 * 
+	 * JSONObject jsonobj = new JSONObject();
+	 * 
+	 * jsonobj.put("PostList", PostList);
+	 * 
+	 * return jsonobj.toString();
+	 * 
+	 * }
+	 */
 	
 	
 	
