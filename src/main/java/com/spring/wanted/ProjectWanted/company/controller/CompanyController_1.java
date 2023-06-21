@@ -73,8 +73,7 @@ public class CompanyController_1 {
 								@RequestParam(value="searchType", required = false) String searchType,
 								@RequestParam(value="searchWord", required = false) String searchWord
 								){
-		 System.out.println("searchType : " + searchType);
-		// System.out.println("searchWord : " + searchWord);
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
 		
@@ -106,7 +105,7 @@ public class CompanyController_1 {
         int sizePerPage = 7;       							   // 한 페이지당 보여줄 게시물 건수 
         int currentShowPageNo = Integer.parseInt(currentPage); 					// 현재 보여주는 페이지번호로서, 초기치로는 1페이지로 설정함.
         int totalPage = 0;         							   // 총 페이지수(웹브라우저상에서 보여줄 총 페이지 개수, 페이지바)
-        
+
         totalPage = (int) Math.ceil((double)totalCount/sizePerPage);
         	
 		if(currentShowPageNo < 1 || currentShowPageNo > totalPage) {
@@ -154,76 +153,17 @@ public class CompanyController_1 {
 	    
 	    mav.setViewName("tiles2/company/content/company_candidateList_detail");
 	    
-	    System.out.println(candidateList);
     
 		return mav;
 	}
 
-/*
-	@GetMapping(value = "/wanted/wordSearchShow")
-	@ResponseBody
-	public List<Map<String, String>> wordSearchShow(@RequestParam("searchType") String searchType,
-	                                                @RequestParam("searchWord") String searchWord) {
 
-	    Map<String, String> paraMap = new HashMap<>();
-	    paraMap.put("searchType", searchType);
-	    paraMap.put("searchWord", searchWord);
-
-	    List<Map<String, String>> wordSearchShow = service.wordSearchShow(paraMap);
-
-	    return wordSearchShow;
-	}
-*/
 	
-	/*
-	// 지원자 이력서 읽고 합불 결과주기
-	@GetMapping(value = "/resume")
-	public String viewResume(HttpServletRequest request, Model model,
-							 @RequestParam("subject") String subject){
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
-		String company_id = cvo.getCompany_id();
-		
-		int resumeCode = service.getResumeCode(subject);
-		System.out.println("resumeCode : " + resumeCode);
-		int fk_resumeCode = resumeCode;
-
-		int applyCode = service.getApplyCode(resumeCode);
-		System.out.println("applyCode : " + applyCode);
-		
-		ApplyVO apply = service.getStatus(resumeCode, applyCode);
-		ResumeVO resume = service.getApplyResume(resumeCode, applyCode);
-		List<CareerVO> career = service.getCareer(resumeCode, applyCode);
-		List<RewardVO> reward = service.getReward(resumeCode, applyCode);
-		List<LanguageVO> language = service.getLanguage(resumeCode, applyCode);
-		List<SchoolVO> school = service.getSchool(resumeCode, applyCode);
-		List<PerformanceVO> performance = service.getPerformance(resumeCode, applyCode);
-		List<MemberTechVO> memberTech = service.getMemberTech(resumeCode, applyCode);
-		
-		System.out.println("apply : " + apply);
-		System.out.println("resume : " + resume);
-		System.out.println("career : " + career);
-		System.out.println("reward : " + reward);
-		System.out.println("language : " + language);
-		System.out.println("school : " + school);
-		System.out.println("performance : " + performance);
-		System.out.println("memberTech : " + memberTech);
-		
-		model.addAttribute("apply", apply);
-		model.addAttribute("resume", resume);
-		model.addAttribute("career", career);
-		model.addAttribute("reward", reward);
-		model.addAttribute("language", language);
-		model.addAttribute("school", school);
-		model.addAttribute("performance", performance);
-		model.addAttribute("memberTech", memberTech);
-		
-		return "company/candidateResume.tiles2";
-	}
-	*/
+	// 지원자 이력서 불러오기
 	@GetMapping(value="/resume")
 	public String viewResume(HttpServletRequest request, Model model,
 			 @RequestParam("apply_code") String apply_code , @RequestParam("resume_code")String resume_code) {
+		
 		int resumeCode = Integer.parseInt(resume_code);
 		int applyCode = Integer.parseInt(apply_code);
 		
@@ -235,16 +175,7 @@ public class CompanyController_1 {
 		List<SchoolVO> school = service.getSchool(resumeCode, applyCode);
 		List<PerformanceVO> performance = service.getPerformance(resumeCode, applyCode);
 		List<MemberTechVO> memberTech = service.getMemberTech(resumeCode, applyCode);
-		
-		System.out.println("apply : " + apply.getStatus());
-		System.out.println("resume : " + resume);
-		System.out.println("career : " + career);
-		System.out.println("reward : " + reward);
-		System.out.println("language : " + language);
-		System.out.println("school : " + school);
-		System.out.println("performance : " + performance);
-		System.out.println("memberTech : " + memberTech);
-		
+
 		model.addAttribute("apply", apply);
 		model.addAttribute("resume", resume);
 		model.addAttribute("career", career);
@@ -253,31 +184,48 @@ public class CompanyController_1 {
 		model.addAttribute("school", school);
 		model.addAttribute("performance", performance);
 		model.addAttribute("memberTech", memberTech);
-		
+		model.addAttribute("applyCode",applyCode);
 		return "company/candidateResume.tiles2";	
-		
-		
-		
-		
-		
+
 		
 	}
 
+	
+	// 이력서 합불 변경하기
+	@ResponseBody
+	@GetMapping(value = "/updateStatus", produces="text/plain;charset=UTF-8")
+	public ModelAndView doAction( @RequestParam("status") int status,
+								  @RequestParam("applyCode") int applyCode) {
+		ModelAndView mav = new ModelAndView();
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("status", status);
+		map.put("applyCode", applyCode);
+		 
+		System.out.println("Controller status : " + status);
+		System.out.println("Controller applyCode : " + applyCode);
+		
+		int pass = service.update_pass(map);
+		System.out.println("doAction pass :" + pass);
+		
+		mav.addObject("status", status);
+		mav.addObject("applyCode", applyCode);
+		mav.addObject("pass", pass);
+		mav.setViewName("company/candidateResume.tiles2");
+		return mav;
+	}
 
+	
 	
 	// 회사 지원통계(차트) 페이지
 	@GetMapping(value = "/chart")
 	public String company_chart(){
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		CompanyVO cvo = (CompanyVO)authentication.getPrincipal();
-		String company_id = cvo.getCompany_id();
 		
 		return "company/company_chart.tiles2";
 	}
 
 	
 	
-	// 직군별 진행중인 공고
+	// 직군별 진행중인 공고 차트
 	@ResponseBody
 	@GetMapping(value = "/getPostCntChart", produces="text/plain;charset=UTF-8")
 	public String postCntByJob(HttpServletRequest request) {
@@ -302,31 +250,7 @@ public class CompanyController_1 {
 	}
 	
 	
-	// 직군별 공고별 평균연봉 차트 
-	@ResponseBody
-	@GetMapping(value = "/getSalaryChart", produces="text/plain;charset=UTF-8")
-	public String salaryChart(HttpServletRequest request) {
-		
-		String jobName = request.getParameter("jobName");
-		
-		List<Map<String, String>> jobAndCareer = service.careerList(jobName);
-		
-		JsonArray jsonArr = new JsonArray();
-
-		if(jobAndCareer != null && jobAndCareer.size() > 0) {
-			for(Map<String, String> map : jobAndCareer) {
-				JsonObject jsonObj = new JsonObject();
-				jsonObj.addProperty("job_name", map.get("job_name"));
-				jsonObj.addProperty("career", map.get("career"));
-				jsonObj.addProperty("salary", map.get("salary"));
-				
-				jsonArr.add(jsonObj);
-			}// end of for-----
-		}
-		
-		return new Gson().toJson(jsonArr); 
-	}
-
+	
 	
 	
 	

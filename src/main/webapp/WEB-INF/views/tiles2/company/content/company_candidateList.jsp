@@ -245,8 +245,8 @@
         
         
         // 검색시 검색조건 및 검색어 유지시키기
-            $("select#searchType").val("${requestScope.searchType}");
-            $("input#searchWord").val("${requestScope.searchWord}");
+        $("select#searchType").val("${requestScope.searchType}");
+        $("input#searchWord").val("${requestScope.searchWord}");
 
      });// end of $(document).ready(function(){})-------------------------------
 
@@ -258,7 +258,7 @@
 
 <body>
 	
-   <button type="button" class="btn btn-success btn-sm" id="btnExcel">Excel파일로저장</button>
+   
    
    <div class="listForm">
    <h3>전체 지원자 목록</h3>

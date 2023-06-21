@@ -41,6 +41,7 @@ public class CompanyService_1 implements InterCompanyService_1 {
 	// 지원자List 페이징 위한 게시글 전체개수
 	@Override
 	public int getTotalCount(Map<String, String> paraMap) {
+		System.out.println("paraMap : " + paraMap);
 		int n = cdao.getTotalCount(paraMap);
 		return n;
 	}
@@ -133,6 +134,14 @@ public class CompanyService_1 implements InterCompanyService_1 {
 	}
 
 
+	// 합불 변경하기
+	@Override
+	public int update_pass(Map<String,Integer> map) {
+		int update_status = cdao.update_pass(map);
+		return update_status;
+	}
+
+
 	// 직군별 공고 개수
 	@Override
 	public List<Map<String, String>> postCntByjob() {
@@ -140,12 +149,9 @@ public class CompanyService_1 implements InterCompanyService_1 {
 		return jobPercentageList;
 	}
 
-	// 직군별 연차별 연봉평균 구하기
-	@Override
-	public List<Map<String, String>> careerList(String jobName) {
-		List<Map<String, String>> jobAndCareer = cdao.careerList(jobName);
-		return jobAndCareer;
-	}
+
+
+
 
 
 

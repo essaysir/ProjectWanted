@@ -41,7 +41,7 @@
 		text-align: center;
 	}
 	
-	
+	 
 	.highcharts-figure,
 	.highcharts-data-table table {
 	    min-width: 320px;
@@ -103,12 +103,6 @@
 <script src="/Highcharts-10.3.1/code/modules/export-data.js"></script>
 <script src="/Highcharts-10.3.1/code/modules/accessibility.js"></script>
 
-<!-- Basic line Chart -->
-<script src="/Highcharts-10.3.1/code/modules/series-label.js"></script>
-
-<!-- column-drilldown Chart -->
-<script src="/Highcharts-10.3.1/code/modules/data.js"></script>
-<script src="/Highcharts-10.3.1/code/modules/drilldown.js"></script>
  
 <script type="text/javascript">
 
@@ -123,7 +117,6 @@
       <select name="searchType" id="searchType" style="height: 30px;">
          <option value="">항목을 선택하세요</option>
          <option value="job_post">직군별 진행중인 공고 비율</option>
-         <option value="salary">직군별 경력별 평균연봉</option>
       </select>
    </form>
    
@@ -266,8 +259,8 @@
 		                  
 		                  $.each(json1, function(index, item){
 		                	  jobNameArr.push({ name: item.job_name,
-		                                           y: item.salary,
-		                                           cnt: item.cnt,
+		                                           y: item.career,
+		                                      salary: item.salary,
 		                                   drilldown: item.job_name});
 		                  }); // end of $.each(json,function(index,item){})----
 		                        
