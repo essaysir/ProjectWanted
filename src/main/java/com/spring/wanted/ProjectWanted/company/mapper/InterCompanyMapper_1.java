@@ -54,12 +54,13 @@ public interface InterCompanyMapper_1 {
 
 	ApplyVO getStatus(@Param("resumeCode")int resumeCode, @Param("applyCode")int applyCode);
 
-
-	// 차트
-	List<Map<String, String>> careerList(String jobName);
+	// 합불 변경하기
+	int update_pass(Map<String,Integer> map);
 
 	// 직군별 진행중인 공고
 	List<Map<String, String>> postCntByjob();
+
+	
 
 
 	

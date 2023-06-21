@@ -141,22 +141,80 @@
 	    margin-top: 20px;
 	}
 
+	.resultPass {
+		width: 300px;
+		border: solid 1px red;
+		font-weight: bold;
+		font-size: 16pt;
+		line-height: 60px;
+		border: solid 1px #67A0FF;
+		background-color: #E0F1FE;  
+		color: #67A0FF;
+		border-radius: 10px;
+		text-align: center;
+	}
+	
+	.resultFail {
+		width: 300px;
+		border: solid 1px red;
+		font-weight: bold;
+		font-size: 16pt;
+		line-height: 60px;
+		border: solid 1px #ddd;
+		background-color: #ddd;  
+		color: balck;
+		border-radius: 10px;
+		text-align: center;
+	}
+
 	
 </style>
 
 <script type="text/javascript">
 
-		$(document).ready(function(){
-			
-			
-		    
-		}); // END OF $(DOCUMENT).READY(FUNCTION()---------------------------
+	function updatePass(applyCode) {
+		
+	  alert("정말 합격 처리 하시겠습니까?");
+		
+	  $.ajax({
+	    url: "updateStatus",
+	    type: "GET",
+	    data: { status: 1,
+	    		applyCode : applyCode },
+	    success: function(response) {
+	        alert("합격 처리 되었습니다.");
+	      
+	    },
+	    error: function(request, status, error) {
+	    	alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+	      	console.log("합격 상태 업데이트 실패");
+	    }
+	  });
+	}
+	
+	
 
+	function updateFail(applyCode) {
 		
+		alert("정말 불합격 처리 하시겠습니까?");
 		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  $.ajax({
+	    url: "updateStatus",
+	    type: "GET",
+	    data: { status: 2 ,
+	    		applyCode : applyCode },
+	    success: function(response) {
+	    	
+	        console.log("불합격 처리 되었습니다.");
+	      
+	    },
+	    error: function(request, status, error) {
+	    	alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+	      	console.log("불합격 상태 업데이트 실패");
+	    }
+	  });
+	}
 
-		
 </script>
 
 <form class="resumeFrm">
@@ -281,7 +339,7 @@
 
 			
 			<div class="resume-header" style="margin-top:60px;">
-				링크
+				링크 
 			</div>
 			<div id="link" class="content">
 				<i class="fa-solid fa-desktop"></i><a style="font-size: 15pt; text-decoration: none;" href="${resume.uploadLink}">&nbsp;&nbsp;${resume.uploadLink}</a>
@@ -301,9 +359,20 @@
 				</div>
 		
 				<div style="margin-right: 4%;">
-				<button class="status_button1" type="button" onclick="updateStatus_1()"><span>합 격</span></button>
-				<button class="status_button2" type="button" onclick="updateStatus_2()"><span>불 합 격</span></button>
+				    <c:choose>
+				        <c:when test="${apply.status eq 3}">
+				            <button class="status_button1" type="button" onclick="updatePass('${applyCode}')"><span>합 격</span></button>
+				            <button class="status_button2" type="button" onclick="updateFail('${applyCode}')"><span>불 합 격</span></button>
+				        </c:when>
+				        <c:when test="${apply.status eq 1}">
+				            <div class="resultPass">합격 처리된 이력서입니다.</div>
+				        </c:when>
+				        <c:when test="${apply.status eq 2}">
+				            <div class="resultFail">불합격 처리된 이력서입니다.</div>
+				        </c:when>
+				    </c:choose>
 				</div>
+
 	
 				
 								

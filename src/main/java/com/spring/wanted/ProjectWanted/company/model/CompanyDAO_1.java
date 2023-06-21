@@ -1,5 +1,6 @@
 package com.spring.wanted.ProjectWanted.company.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -131,13 +132,17 @@ public class CompanyDAO_1 implements InterCompanyDAO_1 {
 
 	@Override
 	public ApplyVO getStatus(int resumeCode, int applyCode) {
-		System.out.println( " 확인용 resumeCode : " + resumeCode);
-		System.out.println( " 확인용 applyCode : " + applyCode);
-		
 		ApplyVO status = mapper.getStatus(resumeCode, applyCode);
 		return status;
 	}
 
+	
+	// 합불 변경하기
+	@Override
+	public int update_pass(Map<String,Integer> map) {
+		int update_status = mapper.update_pass(map);
+		return update_status;
+	}
 
 	
 	// 직군별 진행중 공고
@@ -146,14 +151,9 @@ public class CompanyDAO_1 implements InterCompanyDAO_1 {
 		List<Map<String, String>> jobPercentageList = mapper.postCntByjob();
 		return jobPercentageList;
 	}
-		
-		
-	// 차트만들기
-	@Override
-	public List<Map<String, String>> careerList(String jobName) {
-		List<Map<String, String>> jobAndCareer = mapper.careerList(jobName);
-		return jobAndCareer;
-	}
+
+
+
 
 	
 
