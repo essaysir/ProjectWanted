@@ -174,48 +174,48 @@
 
 	function updatePass(applyCode) {
 		
-	  alert("정말 합격 처리 하시겠습니까?");
+	  if (confirm("정말 합격 처리 하시겠습니까?")) {
 		
-	  $.ajax({
-	    url: "updateStatus",
-	    type: "GET",
-	    data: { status: 1,
-	    		applyCode : applyCode },
-	    success: function(response) {
-	        alert("합격 처리 되었습니다.");
-	      
-	    },
-	    error: function(request, status, error) {
-	    	alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-	      	console.log("합격 상태 업데이트 실패");
-	    }
-	  });
+		  $.ajax({
+		    url: "updateStatus",
+		    type: "GET",
+		    data: { status: 1,
+		    		applyCode: applyCode },
+		    success: function(response) {
+		        alert("합격 처리 되었습니다.");
+		    },
+		    error: function(request, status, error) {
+		    	alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+		      	console.log("합격 상태 업데이트 실패");
+		    }
+		  });
+	  }
 	}
 	
 	
 
 	function updateFail(applyCode) {
 		
-		alert("정말 불합격 처리 하시겠습니까?");
-		
-	  $.ajax({
-	    url: "updateStatus",
-	    type: "GET",
-	    data: { status: 2 ,
-	    		applyCode : applyCode },
-	    success: function(response) {
-	    	
-	        console.log("불합격 처리 되었습니다.");
-	      
-	    },
-	    error: function(request, status, error) {
-	    	alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
-	      	console.log("불합격 상태 업데이트 실패");
-	    }
-	  });
+		if (confirm("정말 불합격 처리 하시겠습니까?")) {
+			
+		  $.ajax({
+		    url: "updateStatus",
+		    type: "GET",
+		    data: { status: 2,
+		    		applyCode: applyCode },
+		    success: function(response) {
+		        console.log("불합격 처리 되었습니다.");
+		    },
+		    error: function(request, status, error) {
+		    	alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);
+		      	console.log("불합격 상태 업데이트 실패");
+		    }
+		  });
+		}
 	}
 
 </script>
+
 
 <form class="resumeFrm">
 		
