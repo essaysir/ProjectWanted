@@ -144,7 +144,7 @@ public class MemberController3 {
 			return "member/memberExit.tiles1";
 		}
 		
-		// 프로필사진 변경
+		// 회원탈퇴
 		@ResponseBody
 		@PostMapping(value = "/memberExit", produces = "text/plain;charset=UTF-8")		
 		public String memberExit(@RequestParam("userid") String userid, HttpServletRequest request, HttpServletResponse response) {
