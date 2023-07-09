@@ -421,7 +421,7 @@
 	function pwdCheck(e){
 		
 		const target_val = $(e.target).val();
-		var userid = $("input#userid").val();
+		var company_id = $("input#company_id").val();
 		
 		if(target_val.length == 0){
 			$('p#error_pwd1').hide();
@@ -430,7 +430,7 @@
 		else{
 			$.ajax({
 				url: "pwdCheck",
-				data: {"inputPwd": $(e.target).val(), "userid": userid},
+				data: {"inputPwd": $(e.target).val(), "company_id": company_id},
 				type: "get",
 				success: function(result) {
 					
@@ -466,10 +466,10 @@
 	
 	function exitMember(){
 		
-		var userid = $("input#company_id").val();
+		var company_id = $("input#company_id").val();
 		
 		$.ajax({
-			url:"memberExit",
+			url:"companyExit",
 			data:{"company_id": company_id},
 			type:"post",
 			success: function(result) {

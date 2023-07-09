@@ -659,8 +659,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="scnum4">
-				</section>
 			</c:forEach>
 		</div>
 	</div>

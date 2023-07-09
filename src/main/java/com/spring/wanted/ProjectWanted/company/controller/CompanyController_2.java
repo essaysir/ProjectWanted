@@ -342,7 +342,7 @@ public class CompanyController_2 {
 		return "company/companyExit.tiles2";
 	}
 	
-	// 프로필사진 변경
+	// 회원탈퇴
 	@ResponseBody
 	@PostMapping(value = "/companyExit", produces = "text/plain;charset=UTF-8")		
 	public String companyExit(@RequestParam("company_id") String company_id, HttpServletRequest request, HttpServletResponse response) {

@@ -428,9 +428,7 @@
 			
 		}
 		
-		
-		
-	}
+	}// end of function pwdCheck(e)
 	
 	function pwdChangeCheck(e){
 		
@@ -641,6 +639,20 @@
 	    
 	}// end of function profile_imageUpdate
 	
+	function checkFileInputs() {
+		  var fileInputs = document.getElementsByName("attach2");
+		  var uploadButton = document.getElementById("companyDetailImageUpload");
+
+		  for (var i = 0; i < fileInputs.length; i++) {
+		    if (fileInputs[i].value === "") {
+		      uploadButton.disabled = true;
+		      return;
+		    }
+		  }
+			
+		  uploadButton.disabled = false;
+	}// end of function checkFileInputs()
+	
 	function companyDetailImageUpload(){
 		
 		const frm = document.companyfrm;
@@ -668,21 +680,7 @@
 	        }
 	    });
 		
-	}
-	
-	function checkFileInputs() {
-		  var fileInputs = document.getElementsByName("attach2");
-		  var uploadButton = document.getElementById("companyDetailImageUpload");
-
-		  for (var i = 0; i < fileInputs.length; i++) {
-		    if (fileInputs[i].value === "") {
-		      uploadButton.disabled = true;
-		      return;
-		    }
-		  }
- 			
-		  uploadButton.disabled = false;
-		}
+	}// end of function companyDetailImageUpload()
 	
 </script>
 
@@ -715,7 +713,7 @@
 						<li class="memin_li" data-toggle="modal" data-target="#nickModal">
 							<p class="p_detail">회사상세</p><p class="p_item">${map.details}</p><span><i class="fa-solid fa-chevron-right" style="color: #888;"></i></span>
 						</li>
-						<li class="memin_li" data-toggle="modal" data-target="#phoneModal">
+						<li class="memin_li">
 							<p class="p_detail">사업자번호</p><p class="p_item">${map.serial_no}</p><span><i class="fa-solid fa-chevron-right" style="color: #888;"></i></span>
 						</li>
 					</ul>
@@ -821,9 +819,6 @@
 		        		<div class="phoneFrame">
 		        			<input type="text" placeholder="(예시) 01013245768" name="mobile" data-testid="Input_mobile" class="phoneInput" value="${modalMap.serial_no}" readonly />
 		        			<button type="button" data-testid="Button" class="changePhone"><span class="changePhonetext">번호 변경</span></button>
-		        		</div>
-		        		<div class="phoneFrame">
-		        			<input type="text" placeholder="인증번호를 입력해주세요." name="authCode" data-testid="Input_authCode" readonly class="phoneInput" value="">
 		        		</div>
 		        	</div>
 		        </form>

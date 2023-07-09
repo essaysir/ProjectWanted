@@ -442,13 +442,8 @@ public class CompanyService_2 implements InterCompanyService_2 {
 			} catch ( Exception e ) {
 				e.printStackTrace();
 			}	
-			
-			
         								 
         }
-		
-		
-		
 		return n;
 	}
 	
